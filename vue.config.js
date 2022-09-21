@@ -6,12 +6,6 @@ module.exports = {
     plugins: [
       new MiniProgramTailwindWebpackPlugin({
         designWidth: 375,
-        utilitiesSettings: {
-          customAttributes: {
-            '*': 'class',
-            'van-*': 'custom-class',
-          },
-        },
       }),
     ],
   },

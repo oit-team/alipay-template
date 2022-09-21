@@ -5,23 +5,31 @@
       <text class="title text-red-500">
         {{ title }}
       </text>
+      <button @click="test()">
+        测试
+      </button>
     </view>
   </view>
 </template>
 
 <script>
+import { login } from '@/api/account'
+
 export default {
   data() {
     return {
       title: 'Hello',
     }
   },
-  onLoad() {
-    this.test()
-  },
   methods: {
     test() {
-      return Promise.reject(new Error('123'))
+      login({
+        username: 'viewuser1',
+        password: 'viewuser123',
+        cid: 1,
+      }).then((res) => {
+        console.log(res)
+      })
     },
   },
 }

@@ -66,6 +66,7 @@ specifiers:
   vue-template-compiler: ^2.6.11
   vuex: ^3.2.0
   windicss: ^3.5.6
+  xml: ^1.0.1
 
 dependencies:
   '@dcloudio/uni-app-plus': 2.0.1-35320220729001
@@ -94,6 +95,7 @@ dependencies:
   regenerator-runtime: 0.12.1
   vue: 2.7.10
   vuex: 3.6.2_vue@2.7.10
+  xml: 1.0.1
 
 devDependencies:
   '@babel/runtime': 7.17.9
@@ -13980,6 +13982,10 @@ packages:
     resolution: {integrity: sha512-ICP2e+jsHvAj2E2lIHxa5tjXRlKDJo4IdvPvCXbXQGdzSfmSpNVyIKMvoZHjDY9DP0zV17iI85o90vRFXNccRw==}
     engines: {node: '>=12'}
     dev: true
+
+  /xml/1.0.1:
+    resolution: {integrity: sha512-huCv9IH9Tcf95zuYCsQraZtWnJvBtLVE0QHMOs8bWyZAFZNDcYjsPq1nEx8jKA9y+Beo9v+7OBPRisQTjinQMw==}
+    dev: false
 
   /xmlchars/2.2.0:
     resolution: {integrity: sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==}
