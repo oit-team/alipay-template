@@ -7,6 +7,7 @@ specifiers:
   '@babel/runtime': ~7.17.9
   '@commitlint/cli': ^17.0.3
   '@commitlint/config-conventional': ^17.0.3
+  '@dcasia/mini-program-tailwind-webpack-plugin': ^1.5.5
   '@dcloudio/types': ^3.0.4
   '@dcloudio/uni-app-plus': 2.0.1-35320220729001
   '@dcloudio/uni-automator': 2.0.1-35320220729001
@@ -37,8 +38,9 @@ specifiers:
   '@dcloudio/vue-cli-plugin-uni-optimize': 2.0.1-35320220729001
   '@dcloudio/webpack-uni-mp-loader': 2.0.1-35320220729001
   '@dcloudio/webpack-uni-pages-loader': 2.0.1-35320220729001
-  '@oit/eslint-config-uni-app': 0.3.5-beta.0
-  '@oit/mini-program-tailwind-webpack-plugin': ^1.5.5
+  '@oit/eslint-config-basic': file:./lib/@oit/eslint-config-basic
+  '@oit/eslint-config-uni-app': file:./lib/@oit/eslint-config-uni-app
+  '@oit/eslint-config-vue': file:./lib/@oit/eslint-config-vue
   '@vue/babel-preset-app': ^5.0.8
   '@vue/cli-plugin-babel': ~4.5.19
   '@vue/cli-plugin-eslint': ^5.0.8
@@ -101,6 +103,7 @@ devDependencies:
   '@babel/runtime': 7.17.9
   '@commitlint/cli': 17.1.2
   '@commitlint/config-conventional': 17.1.0
+  '@dcasia/mini-program-tailwind-webpack-plugin': 1.5.6
   '@dcloudio/types': 3.0.15
   '@dcloudio/uni-automator': 2.0.1-35320220729001
   '@dcloudio/uni-cli-i18n': 2.0.1-35320220729001
@@ -112,8 +115,9 @@ devDependencies:
   '@dcloudio/vue-cli-plugin-uni-optimize': 2.0.1-35320220729001
   '@dcloudio/webpack-uni-mp-loader': 2.0.1-35320220729001
   '@dcloudio/webpack-uni-pages-loader': 2.0.1-35320220729001
-  '@oit/eslint-config-uni-app': 0.3.5-beta.0_eslint@8.23.1
-  '@oit/mini-program-tailwind-webpack-plugin': 1.5.5
+  '@oit/eslint-config-basic': file:lib/@oit/eslint-config-basic_eslint@8.23.1
+  '@oit/eslint-config-uni-app': file:lib/@oit/eslint-config-uni-app_eslint@8.23.1
+  '@oit/eslint-config-vue': file:lib/@oit/eslint-config-vue_eslint@8.23.1
   '@vue/babel-preset-app': 5.0.8_core-js@3.25.2+vue@2.7.10
   '@vue/cli-plugin-babel': 4.5.19_3epf32x5imwxi5u5jxzl6rux4y
   '@vue/cli-plugin-eslint': 5.0.8_6j7qbs6ynmcidp7gydesvpppty
@@ -1472,6 +1476,18 @@ packages:
       '@jridgewell/trace-mapping': 0.3.9
     dev: true
 
+  /@dcasia/mini-program-tailwind-webpack-plugin/1.5.6:
+    resolution: {integrity: sha512-7txLvEyE4O1UJ1WEg2YpnVmi8LB+HpaKG7hy+oNm0YpZTBHrIrvBPvv1Ict6mYjABc+NweT+9Hw+Q/u/bjlnwg==}
+    dependencies:
+      '@babel/core': 7.19.1
+      '@vivaxy/wxml': 2.1.0
+      postcss: 8.4.16
+      webpack-sources: 1.4.3
+      windicss-webpack-plugin: 1.7.6
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
   /@dcloudio/types/2.6.12:
     resolution: {integrity: sha512-mrCMwcINy1IFjU9VUqLeWBkj404yWs5paLDttBcA+eqUjanuUQbBcTVPqlrGgkyzLXDcV2oDDZRSNxNpXi4kMQ==}
     dev: false
@@ -2305,71 +2321,6 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
-    dev: true
-
-  /@oit/eslint-config-basic/0.3.5-beta.0_eslint@8.23.1:
-    resolution: {integrity: sha512-qFMf77g2CLwIcina6ry/gg4fb+0Vqi5lhIkshqD/6YNGcRZntHbD2D9q9EtsIW3FQQKpaj5QhPzcYQukh9iTyQ==}
-    peerDependencies:
-      eslint: '>=7.4.0'
-    dependencies:
-      eslint: 8.23.1
-      eslint-config-standard: 17.0.0_wuezfanrt3xvxs3i76t4sy2zci
-      eslint-plugin-eslint-comments: 3.2.0_eslint@8.23.1
-      eslint-plugin-html: 6.2.0
-      eslint-plugin-import: 2.25.2_eslint@8.23.1
-      eslint-plugin-jsonc: 2.4.0_eslint@8.23.1
-      eslint-plugin-markdown: 2.2.1_eslint@8.23.1
-      eslint-plugin-n: 15.0.0_eslint@8.23.1
-      eslint-plugin-promise: 6.0.0_eslint@8.23.1
-      eslint-plugin-unicorn: 42.0.0_eslint@8.23.1
-      jsonc-eslint-parser: 2.1.0
-    transitivePeerDependencies:
-      - '@typescript-eslint/parser'
-      - eslint-import-resolver-typescript
-      - eslint-import-resolver-webpack
-      - supports-color
-    dev: true
-
-  /@oit/eslint-config-uni-app/0.3.5-beta.0_eslint@8.23.1:
-    resolution: {integrity: sha512-vvzTi24o/h4D6cuulCuAEW60LtuH1Bpzt86x/3k0UsspDm4sUFJgwKHtWjjs+ved4jHB21DK7YJ82R7xu6zSoQ==}
-    peerDependencies:
-      eslint: '>=7.4.0'
-    dependencies:
-      '@oit/eslint-config-vue': 0.3.5-beta.0_eslint@8.23.1
-      eslint: 8.23.1
-    transitivePeerDependencies:
-      - '@typescript-eslint/parser'
-      - eslint-import-resolver-typescript
-      - eslint-import-resolver-webpack
-      - supports-color
-    dev: true
-
-  /@oit/eslint-config-vue/0.3.5-beta.0_eslint@8.23.1:
-    resolution: {integrity: sha512-mrcGg2/o6lea4xRDtvx+DfGgiqmM0GNnMZC9yAWDU6DJ60mchotbPaxO72tn9oIEq3iZAR5Leh8QtJozy7LfLA==}
-    peerDependencies:
-      eslint: '>=7.4.0'
-    dependencies:
-      '@oit/eslint-config-basic': 0.3.5-beta.0_eslint@8.23.1
-      eslint: 8.23.1
-      eslint-plugin-vue: 9.5.1_eslint@8.23.1
-    transitivePeerDependencies:
-      - '@typescript-eslint/parser'
-      - eslint-import-resolver-typescript
-      - eslint-import-resolver-webpack
-      - supports-color
-    dev: true
-
-  /@oit/mini-program-tailwind-webpack-plugin/1.5.5:
-    resolution: {integrity: sha512-oa0TEvtEe1wlM+Z35MgFFAU8aPvULSqi0iSaNIea29b2+B2YpKyYLUWLTfCGDE6+ekv0RtrhJsJ5MSb3I3polA==}
-    dependencies:
-      '@babel/core': 7.19.1
-      '@vivaxy/wxml': 2.1.0
-      micromatch: 4.0.5
-      postcss: 8.4.16
-      webpack-sources: 1.4.3
-      windicss-webpack-plugin: 1.7.6
-    transitivePeerDependencies:
-      - supports-color
     dev: true
 
   /@sideway/address/4.1.4:
@@ -14138,4 +14089,65 @@ packages:
       is-ci: 1.2.1
       normalize-path: 1.0.0
       strip-indent: 2.0.0
+    dev: true
+
+  file:lib/@oit/eslint-config-basic_eslint@8.23.1:
+    resolution: {directory: lib/@oit/eslint-config-basic, type: directory}
+    id: file:lib/@oit/eslint-config-basic
+    name: '@oit/eslint-config-basic'
+    version: 0.3.6
+    peerDependencies:
+      eslint: '>=8.0.0'
+    dependencies:
+      eslint: 8.23.1
+      eslint-config-standard: 17.0.0_wuezfanrt3xvxs3i76t4sy2zci
+      eslint-plugin-eslint-comments: 3.2.0_eslint@8.23.1
+      eslint-plugin-html: 6.2.0
+      eslint-plugin-import: 2.25.2_eslint@8.23.1
+      eslint-plugin-jsonc: 2.4.0_eslint@8.23.1
+      eslint-plugin-markdown: 2.2.1_eslint@8.23.1
+      eslint-plugin-n: 15.0.0_eslint@8.23.1
+      eslint-plugin-promise: 6.0.0_eslint@8.23.1
+      eslint-plugin-unicorn: 42.0.0_eslint@8.23.1
+      jsonc-eslint-parser: 2.1.0
+    transitivePeerDependencies:
+      - '@typescript-eslint/parser'
+      - eslint-import-resolver-typescript
+      - eslint-import-resolver-webpack
+      - supports-color
+    dev: true
+
+  file:lib/@oit/eslint-config-uni-app_eslint@8.23.1:
+    resolution: {directory: lib/@oit/eslint-config-uni-app, type: directory}
+    id: file:lib/@oit/eslint-config-uni-app
+    name: '@oit/eslint-config-uni-app'
+    version: 0.3.6
+    peerDependencies:
+      eslint: '>=8.0.0'
+    dependencies:
+      '@oit/eslint-config-vue': file:lib/@oit/eslint-config-vue_eslint@8.23.1
+      eslint: 8.23.1
+    transitivePeerDependencies:
+      - '@typescript-eslint/parser'
+      - eslint-import-resolver-typescript
+      - eslint-import-resolver-webpack
+      - supports-color
+    dev: true
+
+  file:lib/@oit/eslint-config-vue_eslint@8.23.1:
+    resolution: {directory: lib/@oit/eslint-config-vue, type: directory}
+    id: file:lib/@oit/eslint-config-vue
+    name: '@oit/eslint-config-vue'
+    version: 0.3.6
+    peerDependencies:
+      eslint: '>=8.0.0'
+    dependencies:
+      '@oit/eslint-config-basic': file:lib/@oit/eslint-config-basic_eslint@8.23.1
+      eslint: 8.23.1
+      eslint-plugin-vue: 9.5.1_eslint@8.23.1
+    transitivePeerDependencies:
+      - '@typescript-eslint/parser'
+      - eslint-import-resolver-typescript
+      - eslint-import-resolver-webpack
+      - supports-color
     dev: true
