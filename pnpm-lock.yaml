@@ -1676,6 +1676,11 @@ packages:
 
   /@dcloudio/uni-stat/2.0.1-35320220729001:
     resolution: {integrity: sha512-ROc42z/rOLnWoigohd0EGO54M/3d/zJxea/qB7dtD2pf7EqQyaRfqbj4CZBD4lRUtAlhMo1vDC3ZG5NkBJE6kw==}
+    dev: false
+
+  /@dcloudio/uni-stat/2.0.1-36320220917001:
+    resolution: {integrity: sha512-eayeCmPI/6aq13rirZ8o/AFux3z5whYtFd+cAO80RaFRGeTWIKfW1MfzJRZFb8T8VWj2Cs7bonO2Jy8aSrkOYw==}
+    dev: true
 
   /@dcloudio/uni-template-compiler/2.0.1-35320220729001:
     resolution: {integrity: sha512-Z8ED0aEtGL5HxUQJeIaH7Ya9f4ZO9BUZPPBB+jPmjcWuB+TmyCLmOaeTJpwCsyjR4/uQkRlFrDCiBuozuVBJ1A==}
@@ -1704,7 +1709,7 @@ packages:
     resolution: {integrity: sha512-cgxAMQkUuhMPEe+SSh2n4Hd4z9sMwdSTO/gSSgp7+xFcK1I55uAMwFpHEJzX6jBXWb0dD0YS/SsBjRtZj4awpg==}
     hasBin: true
     dependencies:
-      '@dcloudio/uni-stat': 2.0.1-35320220729001
+      '@dcloudio/uni-stat': 2.0.1-36320220917001
       buffer-json: 2.0.0
       clone-deep: 4.0.1
       copy-webpack-plugin: 5.1.2
@@ -2490,7 +2495,7 @@ packages:
     dev: true
 
   /@types/express-serve-static-core/4.17.31:
-    resolution: {integrity: sha512-gstzbTWro2/nFed1WXtf+TtrpwxH7Ggs4RLYTLbeVgIkUQOI3WG/JKjgeOU1zXDvezllupjrf8OPIdvTbIaVOQ==}
+    resolution: {integrity: sha512-gstzbTWro2/nFed1WXtf+TtrpwxH7Ggs4RLYTLbeVgIkUQOI3WG/JKjgeOU1zXDvezllupjrf8OPIdvTbIaVOQ==, tarball: '@types/express-serve-static-core/-/express-serve-static-core-4.17.31.tgz'}
     deprecated: '[WARNING] Use 4.17.30 instead of 4.17.31, reason: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/62240/files'
     dependencies:
       '@types/node': 18.7.18
