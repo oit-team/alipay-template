@@ -13,7 +13,6 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 export default (mode: string) => {
   const env = loadEnv(mode, process.cwd())
-  console.log(env)
 
   return defineConfig({
     resolve: {
