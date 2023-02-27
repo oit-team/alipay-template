@@ -37,6 +37,7 @@ specifiers:
   unplugin-auto-import: ^0.11.5
   unplugin-vue-components: ^0.22.12
   vite: ^4.1.4
+  vite-plugin-eslint: ^1.8.1
   vite-plugin-pages: ^0.27.1
   vite-plugin-vue-layouts: ^0.7.0
   vitest: ^0.25.8
@@ -85,6 +86,7 @@ devDependencies:
   unplugin-auto-import: 0.11.5_@vueuse+core@9.13.0
   unplugin-vue-components: 0.22.12_vue@3.2.47
   vite: 4.1.4_wlyq37gek244gc22rfb2kn6efu
+  vite-plugin-eslint: 1.8.1_eslint@8.35.0+vite@4.1.4
   vite-plugin-pages: 0.27.1_vite@4.1.4
   vite-plugin-vue-layouts: 0.7.0_s7i5cn7xswa4rctkzerr3e4clm
   vitest: 0.25.8_jsdom@20.0.3+sass@1.58.3
@@ -1239,6 +1241,14 @@ packages:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
     dev: true
 
+  /@rollup/pluginutils/4.2.1:
+    resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
+    engines: {node: '>= 8.0.0'}
+    dependencies:
+      estree-walker: 2.0.2
+      picomatch: 2.3.1
+    dev: true
+
   /@rollup/pluginutils/5.0.2:
     resolution: {integrity: sha512-pTd9rIsP92h+B6wWwFbW8RkZv4hiR/xKsqre4SIuAOaOEQRxi0lqLke9k2/7WegC85GgUs9pjmOjCUi3In4vwA==}
     engines: {node: '>=14.0.0'}
@@ -1296,6 +1306,13 @@ packages:
     resolution: {integrity: sha512-9AonUzyTjXXhEOa0DnqpzZi6VHlqKMswga9EXjpXnnqxwLtdvPPtlO8evrI5D9S6asFRCQ6v+wpiUKbw+vKqyg==}
     dependencies:
       '@types/ms': 0.7.31
+    dev: true
+
+  /@types/eslint/8.21.1:
+    resolution: {integrity: sha512-rc9K8ZpVjNcLs8Fp0dkozd5Pt2Apk1glO4Vgz8ix1u6yFByxfqo5Yavpy65o+93TAe24jr7v+eSBtFLvOQtCRQ==}
+    dependencies:
+      '@types/estree': 1.0.0
+      '@types/json-schema': 7.0.11
     dev: true
 
   /@types/estree/1.0.0:
@@ -5600,6 +5617,14 @@ packages:
       glob: 7.2.3
     dev: true
 
+  /rollup/2.79.1:
+    resolution: {integrity: sha512-uKxbd0IhMZOhjAiD5oAFp7BqvkA4Dv47qpOCtaNvng4HBwdbWtdOh8f5nZNuk2rp51PMGk3bzfWu5oayNEuYnw==}
+    engines: {node: '>=10.0.0'}
+    hasBin: true
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: true
+
   /rollup/3.17.3:
     resolution: {integrity: sha512-p5LaCXiiOL/wrOkj8djsIDFmyU9ysUxcyW+EKRLHb6TKldJzXpImjcRSR+vgo09DBdofGcOoLOsRyxxG2n5/qQ==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
@@ -6391,6 +6416,19 @@ packages:
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
     dependencies:
       builtins: 5.0.1
+    dev: true
+
+  /vite-plugin-eslint/1.8.1_eslint@8.35.0+vite@4.1.4:
+    resolution: {integrity: sha512-PqdMf3Y2fLO9FsNPmMX+//2BF5SF8nEWspZdgl4kSt7UvHDRHVVfHvxsD7ULYzZrJDGRxR81Nq7TOFgwMnUang==}
+    peerDependencies:
+      eslint: '>=7'
+      vite: '>=2'
+    dependencies:
+      '@rollup/pluginutils': 4.2.1
+      '@types/eslint': 8.21.1
+      eslint: 8.35.0
+      rollup: 2.79.1
+      vite: 4.1.4_wlyq37gek244gc22rfb2kn6efu
     dev: true
 
   /vite-plugin-pages/0.27.1_vite@4.1.4:

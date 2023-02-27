@@ -9,6 +9,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Unocss from 'unocss/vite'
 import Layouts from 'vite-plugin-vue-layouts'
 import VueJsx from '@vitejs/plugin-vue-jsx'
+import Eslint from 'vite-plugin-eslint'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 export default (mode: string) => {
@@ -25,17 +26,13 @@ export default (mode: string) => {
       Vue({
         reactivityTransform: true,
       }),
-
       VueJsx(),
-
       // https://github.com/hannoeru/vite-plugin-pages
       Pages({
         exclude: ['**/components/*.vue'],
       }),
-
       // https://github.com/JohnCampionJr/vite-plugin-vue-layouts
       Layouts(),
-
       // https://github.com/antfu/unplugin-auto-import
       AutoImport({
         imports: [
@@ -55,7 +52,6 @@ export default (mode: string) => {
         ],
         vueTemplate: true,
       }),
-
       // https://github.com/antfu/vite-plugin-components
       Components({
         dts: true,
@@ -66,10 +62,10 @@ export default (mode: string) => {
         ],
         include: [/\.vue$/, /\.vue\?vue/, /\.tsx$/],
       }),
-
       // https://github.com/antfu/unocss
       // see unocss.config.ts for config
       Unocss(),
+      Eslint(),
     ],
 
     // https://github.com/vitest-dev/vitest
