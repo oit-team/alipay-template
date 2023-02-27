@@ -1,17 +1,51 @@
 <script lang="ts" setup>
 import { ArrowLeftBold, ArrowRightBold } from '@element-plus/icons-vue'
 
-const menu = [
+interface MenuItem {
+  title: string
+  icon?: string
+  path?: string
+  children?: MenuItem[]
+}
+
+const menu: MenuItem[] = [
   {
-    title: '帖子',
+    title: '系统设置',
+    icon: 'i-ant-design:setting-outlined',
     children: [
       {
-        title: '帖子列表',
-        path: '/posts/list',
+        title: '角色管理',
+        path: '/',
       },
       {
-        title: '标签列表',
-        path: '/tags/list',
+        title: '综合管理',
+        path: '/',
+      },
+      {
+        title: '区域管理',
+        path: '/',
+      },
+    ],
+  },
+  {
+    title: '租赁管理',
+    icon: 'i-ri:money-cny-circle-line',
+    children: [
+      {
+        title: '司机管理',
+        path: '/',
+      },
+      {
+        title: '车辆管理',
+        path: '/',
+      },
+      {
+        title: '租车管理',
+        path: '/',
+      },
+      {
+        title: '退租管理',
+        path: '/',
       },
     ],
   },
@@ -25,7 +59,9 @@ const menu = [
         <ElMenu class="border-none" router>
           <ElSubMenu v-for="(item, index) of menu" :key="index" :index="`${index}`">
             <template #title>
-              {{ item.title }}
+              <div class="flex items-center gap-2">
+                <div :class="item.icon" class="text-lg" />{{ item.title }}
+              </div>
             </template>
             <ElMenuItem
               v-for="(child, childIndex) of item.children"
