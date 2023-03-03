@@ -1,0 +1,182 @@
+{
+  "type": "object",
+  "properties": {
+    "8rnror97rb9": {
+      "type": "void",
+      "x-component": "FormGrid",
+      "x-validator": [],
+      "x-component-props": {},
+      "x-designable-id": "8rnror97rb9",
+      "x-index": 0,
+      "properties": {
+        "zfx549o0hoi": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-validator": [],
+          "x-component-props": {},
+          "x-designable-id": "zfx549o0hoi",
+          "x-index": 0,
+          "properties": {
+            "driverName": {
+              "type": "string",
+              "title": " 姓名",
+              "required": true,
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "x-designable-id": "2mrzgdleahj",
+              "x-index": 0
+            },
+            "identityCard": {
+              "type": "string",
+              "title": "身份证号",
+              "required": true,
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": ["idcard"],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "x-designable-id": "sdm0kx0i1hm",
+              "x-index": 1
+            },
+            "driverType": {
+              "title": "类型",
+              "x-decorator": "FormItem",
+              "x-component": "Select",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "x-designable-id": "6wykk5oss5x",
+              "x-index": 2
+            },
+            "address": {
+              "type": "string",
+              "title": "家庭住址",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "x-designable-id": "li0dlf1kw8k",
+              "x-index": 3
+            },
+            "driverPhone": {
+              "type": "string",
+              "title": "联系电话",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "x-designable-id": "88yacw5qsr8",
+              "x-index": 4
+            },
+            "driverOperate": {
+              "title": "所属运营商",
+              "x-decorator": "FormItem",
+              "x-component": "Select",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "x-designable-id": "pcsteg5eaj8",
+              "x-index": 5
+            },
+            "city": {
+              "title": "所属城市",
+              "x-decorator": "FormItem",
+              "x-component": "Select",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "x-designable-id": "fw2u5llevvq",
+              "x-index": 6
+            },
+            "driverFleet": {
+              "type": "string",
+              "title": "所属车队",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "x-designable-id": "ho2vwg47x4p",
+              "x-index": 7
+            },
+            "exclusiveService": {
+              "title": "专属私服",
+              "x-decorator": "FormItem",
+              "x-component": "Select",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "x-designable-id": "3bwrbjgcf8f",
+              "x-index": 8
+            },
+            "salesLeader": {
+              "title": "销售负责人",
+              "x-decorator": "FormItem",
+              "x-component": "Select",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "x-designable-id": "xqnfckyyj9e",
+              "x-index": 9
+            }
+          }
+        },
+        "srva9v158r8": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-validator": [],
+          "x-component-props": {},
+          "x-designable-id": "srva9v158r8",
+          "x-index": 1,
+          "properties": {
+            "identityImg": {
+              "type": "Array<object>",
+              "title": "身份证图片",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload"
+              },
+              "x-validator": [],
+              "x-decorator-props": {},
+              "x-designable-id": "28d126huiv4",
+              "x-index": 0
+            },
+            "driveCardImg": {
+              "type": "Array<object>",
+              "title": "驾驶证",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload"
+              },
+              "x-validator": [],
+              "x-decorator-props": {},
+              "x-designable-id": "q1yptj3ksxi",
+              "x-index": 1
+            },
+            "leaseContract": {
+              "type": "Array<object>",
+              "title": "租赁合同",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload"
+              },
+              "x-validator": [],
+              "x-decorator-props": {},
+              "x-designable-id": "8zq4pjdjcxb",
+              "x-index": 2
+            }
+          }
+        }
+      }
+    }
+  },
+  "x-designable-id": "kz22atjmtgk"
+}
