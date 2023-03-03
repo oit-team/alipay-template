@@ -4,6 +4,16 @@ meta:
 </route>
 
 <script setup lang="ts">
+const query = ref()
+
+async function onDelete(row: any) {
+  await ElMessageBox.confirm('此操作将永久删除该角色, 是否继续?', '提示', {
+    type: 'warning',
+  })
+  axios.post('/system/role/delRoleById', { roleId: row.roleId })
+  await query.value.query()
+  ElMessage.success('操作成功')
+}
 </script>
 
 <template>
@@ -23,11 +33,11 @@ meta:
         </QueryToolbar>
         <QueryTable>
           <template #actions>
-            <QueryActionColumn label="操作" width="150px">
-              <ElButton type="primary" size="small">
+            <QueryActionColumn v-slot="{ row }" label="操作" width="150px">
+              <ElButton type="primary">
                 编辑
               </ElButton>
-              <ElButton type="danger" size="small">
+              <ElButton type="danger" @click="onDelete(row)">
                 删除
               </ElButton>
             </QueryActionColumn>

@@ -17,12 +17,20 @@ const config: ConfigProviderInstance['$props'] = {
 </script>
 
 <template>
-  <ElTableColumn label="操作" v-bind="$attrs">
-    <ElConfigProvider v-bind="config">
-      <div class="query-action-column">
-        <slot />
-      </div>
-    </ElConfigProvider>
+  <ElTableColumn
+    label="操作"
+    v-bind="{
+      ...$attrs,
+      ...$props,
+    }"
+  >
+    <template #default="data">
+      <ElConfigProvider v-bind="config">
+        <div class="query-action-column">
+          <slot v-bind="data" />
+        </div>
+      </ElConfigProvider>
+    </template>
   </ElTableColumn>
 </template>
 
