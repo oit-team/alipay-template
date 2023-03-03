@@ -1,4 +1,4 @@
-import { registerValidateLocale, setValidateLanguage } from '@formily/core'
+import { registerValidateLocale, registerValidateRules, setValidateLanguage } from '@formily/core'
 
 setValidateLanguage('zh-CN')
 
@@ -8,3 +8,5 @@ registerValidateLocale({
     required: '请填写此项',
   },
 })
+
+registerValidateRules({})

@@ -1,5 +1,6 @@
 import {
   defineConfig,
+  presetAttributify,
   presetIcons,
   presetUno,
   presetWebFonts,
@@ -20,6 +21,10 @@ export default defineConfig({
         serif: 'PingFang SC',
         mono: 'DM Mono',
       },
+    }),
+    presetAttributify({
+      prefix: 'u-',
+      prefixedOnly: true,
     }),
   ],
   transformers: [

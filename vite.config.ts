@@ -12,6 +12,19 @@ import VueJsx from '@vitejs/plugin-vue-jsx'
 import Eslint from 'vite-plugin-eslint'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
+const registryComponents = [
+  'Form',
+  'FormLayout',
+  'Submit',
+]
+
+function FormilyElementPlusResolver() {
+  return (name: string) => {
+    if (registryComponents.includes(name))
+      return { name, from: '@formily/element-plus' }
+  }
+}
+
 export default (mode: string) => {
   const env = loadEnv(mode, process.cwd())
 
@@ -29,7 +42,8 @@ export default (mode: string) => {
       VueJsx(),
       // https://github.com/hannoeru/vite-plugin-pages
       Pages({
-        exclude: ['**/components/*.vue'],
+        exclude: ['**/components/*.*'],
+        routeBlockLang: 'yaml',
       }),
       // https://github.com/JohnCampionJr/vite-plugin-vue-layouts
       Layouts(),
@@ -40,6 +54,19 @@ export default (mode: string) => {
           'vue/macros',
           'vue-router',
           '@vueuse/core',
+          {
+            '@formily/core': [
+              'createForm',
+            ],
+          },
+          {
+            '@vueuse/integrations/useAxios': ['useAxios'],
+          },
+          {
+            axios: [
+              ['default', 'axios'],
+            ],
+          },
         ],
         resolvers: [
           ElementPlusResolver({
@@ -59,7 +86,17 @@ export default (mode: string) => {
           ElementPlusResolver({
             importStyle: false,
           }),
+          FormilyElementPlusResolver(),
         ],
+        types: [{
+          from: '@uxuip/element-plus-query',
+          names: [
+            'QueryProvide',
+            'QueryForm',
+            'QueryTable',
+            'QueryPagination',
+          ],
+        }],
         include: [/\.vue$/, /\.vue\?vue/, /\.tsx$/],
       }),
       // https://github.com/antfu/unocss

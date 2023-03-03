@@ -1,6 +1,6 @@
 <route lang="yaml">
-  meta:
-    layout: 'null'
+meta:
+  layout: 'null'
 </route>
 
 <script setup lang="tsx">
@@ -9,7 +9,7 @@ import { connect, createSchemaField } from '@formily/vue'
 import { Form, FormButtonGroup, FormItem, Input, Password, Submit } from '@formily/element-plus'
 import { ElImage, ElInput } from 'element-plus'
 import { useAxios } from '@vueuse/integrations/useAxios'
-import { post } from '@/api'
+import axios from 'axios'
 import { setToken } from '@/utils/auth'
 import { encrypt } from '@/utils/crypto'
 
@@ -85,11 +85,11 @@ const schema = {
 }
 
 const onSubmit = async (form: any) => {
-  const res = await post('/system/login/userLogin', {
+  const { data } = await axios.post('/system/login/userLogin', {
     ...form,
     passWord: encrypt(form.passWord),
   })
-  setToken(res.body.accessToken)
+  setToken(data.body.accessToken)
   router.push('/')
 }
 </script>
