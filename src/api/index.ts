@@ -1,20 +1,43 @@
 import Axios from 'axios'
-import type { ApiErrorOptions } from './ApiError'
+import { ElMessage } from 'element-plus'
 import ApiError from './ApiError'
+import type { ApiErrorOptions } from './ApiError'
 import { getToken } from '@/utils/auth'
+import router from '@/router'
 
 function createApiError(options: ApiErrorOptions) {
   return new ApiError(options).reject()
 }
 
-const axios = Axios.create({
-  // 请求超时时间
-  timeout: 60000,
-  baseURL: '/api',
-})
+Axios.defaults.baseURL = '/api'
+Axios.defaults.headers.post['Content-Type'] = 'application/json'
+Axios.defaults.transformRequest = [
+  (data, headers) => {
+    const userData: any = {
+      userId: 21, // temp
+    }
+
+    return typeof data === 'object'
+      ? JSON.stringify({
+        head: {
+          aid: userData.userId,
+          ver: '1.0',
+          ln: 'cn',
+          mod: 'app',
+          de: '2019-10-16',
+          sync: 1,
+          cmd: headers.cmd,
+          uuid: userData.orgId,
+          chcode: 'ef19843298ae8f2134f',
+        },
+        con: data,
+      })
+      : data
+  },
+]
 
 // 添加请求拦截器
-axios.interceptors.request.use((config) => {
+Axios.interceptors.request.use((config) => {
   config.headers.token = getToken()
   return config
 }, (error) => {
@@ -22,13 +45,15 @@ axios.interceptors.request.use((config) => {
 })
 
 // 添加响应拦截器
-axios.interceptors.response.use((response) => {
-  if (response.data.head?.status !== 0) {
+Axios.interceptors.response.use((response) => {
+  const status = response.data?.head?.status
+  if (typeof status === 'number' && status !== 0) {
     return createApiError({
       url: response?.config.url,
       response,
       message: response.data.head.msg,
       code: response.data.head.status,
+      status: response?.status,
     })
   }
   return response
@@ -36,27 +61,37 @@ axios.interceptors.response.use((response) => {
   return createApiError({
     error,
     url: error?.config?.url,
-    message: error?.errMsg,
+    message: error?.message,
+    status: error.response?.status,
   })
 })
 
-export function post(url: string, params?: any, config: any = {}) {
-  const userData: any = {}
+const SILENCE_TIME = 1000
+let lastMessage = ''
 
-  const formattedParams = {
-    head: {
-      aid: userData.userId,
-      ver: '1.0',
-      ln: 'cn',
-      mod: 'app',
-      de: '2019-10-16',
-      sync: 1,
-      cmd: config.cmd,
-      uuid: userData.orgId,
-      chcode: 'ef19843298ae8f2134f',
-    },
-    con: params,
+function handleApiError(err: ApiError) {
+  const msg = err.message || '服务器出错，请稍后重试'
+  // 相同错误在指定时间内只弹出一次
+  if (lastMessage === msg) {
+    setTimeout(() => lastMessage = '', SILENCE_TIME)
+    return
   }
 
-  return axios.post(url, formattedParams).then(res => res.data)
+  switch (err.status) {
+    case 403:{
+      router.push('/login')
+    }
+  }
+
+  lastMessage = msg
+  // 处理接口错误
+  ElMessage.error(msg)
 }
+
+window.addEventListener('unhandledrejection', (e) => {
+  const reason = e.reason
+  if (reason instanceof ApiError) {
+    e.preventDefault()
+    handleApiError(reason)
+  }
+})
