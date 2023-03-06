@@ -3,9 +3,10 @@
   "private": true,
   "packageManager": "pnpm@7.12.0",
   "scripts": {
+    "dev": "vite",
+    "dev:force": "vite --force",
+    "dev:staging": "vite --mode staging",
     "build": "vite build",
-    "dev": "vite --port 4444 --host",
-    "dev:staging": "vite --port 4444 --host --mode staging",
     "lint": "eslint . --fix",
     "typecheck": "vue-tsc --noEmit",
     "preview": "vite preview",

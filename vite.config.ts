@@ -29,6 +29,17 @@ export default (mode: string) => {
   const env = loadEnv(mode, process.cwd())
 
   return defineConfig({
+    server: {
+      port: 4444,
+      host: true,
+      proxy: {
+        '/api': {
+          target: env.VITE_APP_API,
+          changeOrigin: true,
+          rewrite: path => path.replace(/^\/api/, ''),
+        },
+      },
+    },
     resolve: {
       alias: {
         '@/': `${path.resolve(__dirname, 'src')}/`,
@@ -108,16 +119,6 @@ export default (mode: string) => {
     // https://github.com/vitest-dev/vitest
     test: {
       environment: 'jsdom',
-    },
-
-    server: {
-      proxy: {
-        '/api': {
-          target: env.VITE_APP_API,
-          changeOrigin: true,
-          rewrite: path => path.replace(/^\/api/, ''),
-        },
-      },
     },
   })
 }
