@@ -59,8 +59,8 @@ function logout() {
 </script>
 
 <template>
-  <ElContainer class="h-full">
-    <ElHeader class="flex items-center justify-between border-b dark:border-dark gap-3">
+  <ElContainer class="h-full overflow-hidden">
+    <ElHeader class="flex items-center justify-between border-b gap-3">
       <div class="flex items-center gap-3">
         <ElAvatar src="" :size="40" />
         <div class="font-bold text-lg">
@@ -68,18 +68,15 @@ function logout() {
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <button @click="toggleDark()">
-          <div class="dark:i-carbon-moon i-carbon-sun" />
-        </button>
         <ElButton link @click="logout()">
           退出登录
         </ElButton>
       </div>
     </ElHeader>
 
-    <ElContainer>
+    <ElContainer class="overflow-hidden">
       <ElAside width="200px">
-        <ElScrollbar class="border-r dark:border-dark">
+        <ElScrollbar class="border-r">
           <ElMenu class="border-none" router>
             <ElSubMenu v-for="(item, index) of menu" :key="index" :index="`${index}`">
               <template #title>
@@ -99,30 +96,21 @@ function logout() {
         </ElScrollbar>
       </ElAside>
 
-      <ElMain class="p-0">
-        <ElScrollbar view-class="h-full p-2">
-          <RouterView v-slot="{ Component, route }">
-            <KeepAlive>
-              <Component :is="Component" v-if="route.meta.cache" :key="route.path" class="router-view" />
-            </KeepAlive>
-            <Component :is="Component" v-if="!route.meta.cache" class="router-view" />
-          </RouterView>
-        </ElScrollbar>
+      <ElMain class="p-2 bg-gray bg-opacity-10">
+        <div class="rounded-lg overflow-hidden flex flex-col h-full">
+          <div id="page-header" />
+          <div class="bg-white flex-1 overflow-hidden">
+            <ElScrollbar>
+              <RouterView v-slot="{ Component, route }">
+                <KeepAlive>
+                  <Component :is="Component" v-if="route.meta.cache" :key="route.path" class="router-view" />
+                </KeepAlive>
+                <Component :is="Component" v-if="!route.meta.cache" class="router-view" />
+              </RouterView>
+            </ElScrollbar>
+          </div>
+        </div>
       </ElMain>
     </ElContainer>
   </ElContainer>
 </template>
-
-<style lang="scss">
-.el-main {
-  background-color: whitesmoke;
-}
-
-.router-view {
-  background-color: white;
-  min-height: 100%;
-  border-radius: 8px;
-  overflow: auto;
-  padding: 8px;
-}
-</style>
