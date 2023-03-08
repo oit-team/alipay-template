@@ -1,6 +1,7 @@
 <route lang="yaml">
 meta:
   layout: 'null'
+  noAuth: true
 </route>
 
 <script setup lang="tsx">

@@ -1,6 +1,8 @@
 import routes from 'virtual:generated-pages'
 import { setupLayouts } from 'virtual:generated-layouts'
 import { createRouter, createWebHistory } from 'vue-router'
+import { clearToken, isLogin } from '@/utils/auth'
+import { useUserStore } from '@/store/user'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,6 +10,23 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
+  if (!to.meta.noAuth) {
+    const { getUserProfile } = useUserStore()
+    try {
+      if (!isLogin()) {
+        next('/login')
+        ElMessage.error('请先登录')
+        return
+      }
+      await getUserProfile()
+    }
+    catch (err) {
+      clearToken()
+      next('/login')
+      return Promise.reject(err)
+    }
+  }
+
   next()
 })
 
