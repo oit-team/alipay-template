@@ -1,20 +1,17 @@
 {
   "type": "object",
   "properties": {
-    "8rnror97rb9": {
+    "d55sgl9qph3": {
       "type": "void",
-      "x-component": "FormGrid",
-      "x-validator": [],
-      "x-component-props": {},
-      "x-designable-id": "8rnror97rb9",
+      "x-component": "FormCollapse",
       "x-index": 0,
       "properties": {
-        "zfx549o0hoi": {
+        "c430728dg5h": {
           "type": "void",
-          "x-component": "FormGrid.GridColumn",
-          "x-validator": [],
-          "x-component-props": {},
-          "x-designable-id": "zfx549o0hoi",
+          "x-component": "FormCollapse.Item",
+          "x-component-props": {
+            "title": "司机信息"
+          },
           "x-index": 0,
           "properties": {
             "driverName": {
@@ -23,11 +20,8 @@
               "required": true,
               "x-decorator": "FormItem",
               "x-component": "Input",
-              "x-validator": [],
-              "x-component-props": {},
-              "x-decorator-props": {},
-              "x-designable-id": "2mrzgdleahj",
-              "x-index": 0
+              "x-index": 0,
+              "name": "driverName"
             },
             "identityCard": {
               "type": "string",
@@ -35,148 +29,258 @@
               "required": true,
               "x-decorator": "FormItem",
               "x-component": "Input",
-              "x-validator": ["idcard"],
-              "x-component-props": {},
-              "x-decorator-props": {},
-              "x-designable-id": "sdm0kx0i1hm",
-              "x-index": 1
-            },
-            "driverType": {
-              "title": "类型",
-              "x-decorator": "FormItem",
-              "x-component": "Select",
-              "x-validator": [],
-              "x-component-props": {},
-              "x-decorator-props": {},
-              "x-designable-id": "6wykk5oss5x",
-              "x-index": 2
+              "x-validator": [
+                "idcard"
+              ],
+              "x-index": 1,
+              "name": "identityCard"
             },
             "address": {
               "type": "string",
               "title": "家庭住址",
               "x-decorator": "FormItem",
               "x-component": "Input",
-              "x-validator": [],
-              "x-component-props": {},
-              "x-decorator-props": {},
-              "x-designable-id": "li0dlf1kw8k",
-              "x-index": 3
+              "x-index": 2,
+              "name": "address"
             },
             "driverPhone": {
               "type": "string",
               "title": "联系电话",
               "x-decorator": "FormItem",
               "x-component": "Input",
-              "x-validator": [],
-              "x-component-props": {},
-              "x-decorator-props": {},
-              "x-designable-id": "88yacw5qsr8",
-              "x-index": 4
+              "x-index": 3,
+              "name": "driverPhone"
             },
             "driverOperate": {
               "title": "所属运营商",
               "x-decorator": "FormItem",
-              "x-component": "Select",
-              "x-validator": [],
-              "x-component-props": {},
-              "x-decorator-props": {},
-              "x-designable-id": "pcsteg5eaj8",
-              "x-index": 5
-            },
-            "city": {
-              "title": "所属城市",
-              "x-decorator": "FormItem",
-              "x-component": "Select",
-              "x-validator": [],
-              "x-component-props": {},
-              "x-decorator-props": {},
-              "x-designable-id": "fw2u5llevvq",
-              "x-index": 6
+              "x-component": "Input",
+              "x-index": 4,
+              "name": "driverOperate"
             },
             "driverFleet": {
               "type": "string",
               "title": "所属车队",
               "x-decorator": "FormItem",
               "x-component": "Input",
-              "x-validator": [],
-              "x-component-props": {},
-              "x-decorator-props": {},
-              "x-designable-id": "ho2vwg47x4p",
-              "x-index": 7
+              "x-index": 6,
+              "name": "driverFleet"
             },
             "exclusiveService": {
               "title": "专属私服",
+              "required": true,
               "x-decorator": "FormItem",
-              "x-component": "Select",
-              "x-validator": [],
-              "x-component-props": {},
-              "x-decorator-props": {},
-              "x-designable-id": "3bwrbjgcf8f",
-              "x-index": 8
+              "x-component": "Input",
+              "x-index": 7,
+              "name": "exclusiveService"
             },
             "salesLeader": {
               "title": "销售负责人",
               "x-decorator": "FormItem",
-              "x-component": "Select",
-              "x-validator": [],
-              "x-component-props": {},
-              "x-decorator-props": {},
-              "x-designable-id": "xqnfckyyj9e",
-              "x-index": 9
+              "x-component": "Input",
+              "x-index": 8,
+              "name": "salesLeader"
             }
           }
         },
-        "srva9v158r8": {
-          "type": "void",
-          "x-component": "FormGrid.GridColumn",
-          "x-validator": [],
-          "x-component-props": {},
-          "x-designable-id": "srva9v158r8",
+        "driverIdentity": {
+          "type": "object",
+          "x-component": "FormCollapse.Item",
+          "x-component-props": {
+            "title": "身份证信息"
+          },
           "x-index": 1,
           "properties": {
-            "identityImg": {
-              "type": "Array<object>",
-              "title": "身份证图片",
+            "[startTime,endTime]": {
+              "type": "string[]",
+              "title": "有效期",
               "x-decorator": "FormItem",
-              "x-component": "Upload",
+              "x-component": "DatePicker",
               "x-component-props": {
-                "textContent": "Upload"
+                "type": "daterange"
               },
-              "x-validator": [],
-              "x-decorator-props": {},
-              "x-designable-id": "28d126huiv4",
               "x-index": 0
             },
-            "driveCardImg": {
-              "type": "Array<object>",
-              "title": "驾驶证",
+            "issuingInstitution": {
+              "type": "string",
+              "title": "发证机构",
               "x-decorator": "FormItem",
-              "x-component": "Upload",
-              "x-component-props": {
-                "textContent": "Upload"
-              },
-              "x-validator": [],
-              "x-decorator-props": {},
-              "x-designable-id": "q1yptj3ksxi",
+              "x-component": "Input",
               "x-index": 1
             },
-            "leaseContract": {
+            "identityStraight": {
               "type": "Array<object>",
-              "title": "租赁合同",
+              "title": "身份证正面",
               "x-decorator": "FormItem",
               "x-component": "Upload",
               "x-component-props": {
                 "textContent": "Upload"
               },
-              "x-validator": [],
-              "x-decorator-props": {},
-              "x-designable-id": "8zq4pjdjcxb",
               "x-index": 2
+            },
+            "identityReverse": {
+              "type": "Array<object>",
+              "title": "身份证反面",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload"
+              },
+              "x-index": 3
+            },
+            "identityImg": {
+              "type": "Array<object>",
+              "title": "手持身份证照",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload"
+              },
+              "x-index": 4
+            }
+          }
+        },
+        "driveLicense": {
+          "type": "object",
+          "x-component": "FormCollapse.Item",
+          "x-component-props": {
+            "title": "驾驶证信息"
+          },
+          "x-index": 2,
+          "properties": {
+            "driveLicenseCode": {
+              "type": "string",
+              "title": "驾驶证编号",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-index": 0
+            },
+            "permitDriveVehicle": {
+              "type": "string",
+              "title": "准驾车型",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-index": 1
+            },
+            "[startTime,endTime]": {
+              "type": "string[]",
+              "title": "有效期",
+              "x-decorator": "FormItem",
+              "x-component": "DatePicker",
+              "x-component-props": {
+                "type": "daterange"
+              },
+              "x-index": 2
+            },
+            "drawTime": {
+              "type": "string",
+              "title": "初次领证日期",
+              "x-decorator": "FormItem",
+              "x-component": "DatePicker",
+              "x-index": 3
+            },
+            "filesCode": {
+              "type": "string",
+              "title": "档案编号",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-index": 4
+            },
+            "driveLicenseHost": {
+              "type": "Array<object>",
+              "title": "驾驶证主页",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload"
+              },
+              "x-index": 5
+            },
+            "driveLicenseAssistant": {
+              "type": "Array<object>",
+              "title": "驾驶证副页",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload"
+              },
+              "x-index": 6
+            }
+          }
+        },
+        "driverQualifica": {
+          "type": "object",
+          "x-component": "FormCollapse.Item",
+          "x-component-props": {
+            "title": "网约资格证"
+          },
+          "x-index": 3,
+          "properties": {
+            "isOnlineCar": {
+              "type": "string",
+              "title": "政府人证情况",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-index": 0
+            },
+            "qualificaCode": {
+              "type": "string",
+              "title": "资格证号",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-index": 1
+            },
+            "issuingAuthority": {
+              "type": "string",
+              "title": "发证机构",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-index": 2
+            },
+            "issuingTime": {
+              "type": "string",
+              "title": "发证日期",
+              "x-decorator": "FormItem",
+              "x-component": "DatePicker",
+              "x-index": 3
+            },
+            "theFirstTime": {
+              "type": "string",
+              "title": "初次领证日期",
+              "x-decorator": "FormItem",
+              "x-component": "DatePicker",
+              "x-index": 4
+            },
+            "[effectiveStartTime,effectiveEndTime]": {
+              "type": "string[]",
+              "title": "有效期",
+              "x-decorator": "FormItem",
+              "x-component": "DatePicker",
+              "x-component-props": {
+                "type": "daterange"
+              },
+              "x-index": 5
+            },
+            "reportingTime": {
+              "type": "string[]",
+              "title": "报备日期",
+              "x-decorator": "FormItem",
+              "x-component": "DatePicker",
+              "x-index": 6
+            },
+            "certificateImg": {
+              "type": "Array<object>",
+              "title": "证件照片",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload"
+              },
+              "x-index": 7
             }
           }
         }
       }
     }
-  },
-  "x-designable-id": "kz22atjmtgk"
+  }
 }

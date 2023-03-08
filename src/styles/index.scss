@@ -22,3 +22,43 @@ body,
 .formily-element-plus-form-default form {
   display: contents;
 }
+
+.el-scrollbar__wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.el-scrollbar__view {
+  flex: 1;
+}
+
+.el-card {
+  padding: 16px;
+}
+
+.el-card__body {
+  padding: 0;
+}
+
+.query-form {
+  padding: 0;
+}
+
+.el-tabs--top {
+  display: flex;
+  flex-direction: column;
+}
+
+.el-tabs__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.el-tab-pane {
+  flex: 1;
+}
+
+.el-tabs__header {
+  margin: 0;
+}

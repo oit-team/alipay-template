@@ -18,7 +18,7 @@ export default defineConfig({
     presetWebFonts({
       fonts: {
         sans: 'DM Sans',
-        serif: 'PingFang SC',
+        serif: ['PingFang SC', 'Microsoft YaHei'],
         mono: 'DM Mono',
       },
     }),
