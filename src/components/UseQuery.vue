@@ -20,26 +20,23 @@ const total = ref(0)
 const data = ref([])
 
 const {
-  data: columns,
-  isLoading: tableLoading,
-} = useJsonData(props.column)
-
-const {
   data: schema,
   isLoading: formLoading,
 } = useJsonData(props.form)
+
+const {
+  data: columns,
+  isLoading: tableLoading,
+} = useJsonData(props.column)
 
 async function onQuery(options: QueryOptions) {
   if (!props.url)
     return ElMessage.warning('onQuery 未配置 url 参数')
 
   const { formData } = options
-  const { data: res } = await useAxios(props.url, {
-    method: 'POST',
-    data: formData,
-  })
-  data.value = res.value?.body[props.keyMap.data]
-  total.value = res.value?.body[props.keyMap.total]
+  const { data: res } = await axios.post(props.url, formData)
+  data.value = res?.body[props.keyMap.data]
+  total.value = res?.body[props.keyMap.total]
 }
 </script>
 

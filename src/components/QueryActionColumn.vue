@@ -2,11 +2,14 @@
 import { ElTableColumn } from 'element-plus'
 import type { ConfigProviderInstance } from 'element-plus'
 
-defineProps<{
-  label?: string
-  width?: string
-  fixed?: boolean | 'left' | 'right'
-}>()
+defineProps({
+  label: {
+    type: String,
+    default: '操作',
+  },
+  width: [String, Number],
+  fixed: [Boolean, String] as PropType<boolean | 'left' | 'right'>,
+})
 
 const config: ConfigProviderInstance['$props'] = {
   size: 'small',
@@ -18,7 +21,6 @@ const config: ConfigProviderInstance['$props'] = {
 
 <template>
   <ElTableColumn
-    label="操作"
     v-bind="{
       ...$attrs,
       ...$props,

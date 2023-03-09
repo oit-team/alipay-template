@@ -22,7 +22,7 @@ const schema = {
           'x-component': 'FormGrid.GridColumn',
           'x-index': 0,
           'properties': {
-            ps6ktb7d17e: {
+            car: {
               'type': 'string',
               'title': '车牌号',
               'x-decorator': 'FormItem',
@@ -92,7 +92,7 @@ const schema = {
         '8yncuhbvicc': {
           'type': 'void',
           'x-component': 'FormGrid.GridColumn',
-          'x-index': 4,
+          'x-index': 5,
           'properties': {
             identityCard: {
               'type': 'string[]',
@@ -200,7 +200,13 @@ const columns = mergeColumns(_columns, {
 <template>
   <div class="h-full p-2">
     <UseQuery v-slot="attrs" url="/driverServer/driver/getDriverList">
-      <QueryProvide v-bind="attrs" ref="queryRef" auto-query="active" :columns="columns" :schema="schema">
+      <QueryProvide
+        v-bind="attrs"
+        ref="queryRef"
+        auto-query="active"
+        :schema="schema"
+        :columns="columns"
+      >
         <QueryForm />
         <QueryToolbar>
           <ElButton type="primary" @click="$router.push('./driver/new')">
@@ -209,7 +215,7 @@ const columns = mergeColumns(_columns, {
         </QueryToolbar>
         <QueryTable>
           <template #actions>
-            <QueryActionColumn v-slot="{ row }" label="操作" width="180px" fixed="right">
+            <QueryActionColumn v-slot="{ row }" width="180px" fixed="right">
               <ElButton type="info" @click="$router.push(`./driver/info/${row.driverId}`)">
                 详情
               </ElButton>

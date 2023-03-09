@@ -15,6 +15,10 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 const registryComponents = [
   'Form',
   'FormLayout',
+  'FormButtonGroup',
+  'FormItem',
+  'Input',
+  'Password',
   'Submit',
 ]
 

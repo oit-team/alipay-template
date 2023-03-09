@@ -6,14 +6,8 @@ interface MapItem {
 }
 
 defineProps({
-  data: {
-    type: Object,
-    required: true,
-  },
-  map: {
-    type: Array as PropType<MapItem[]>,
-    required: true,
-  },
+  data: Object,
+  map: Array as PropType<MapItem[]>,
   defaultText: String,
 })
 </script>
