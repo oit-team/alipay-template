@@ -4,6 +4,7 @@ meta:
 </route>
 
 <script setup lang="ts">
+import { useUserStore } from '@/store/user'
 import { mergeColumns } from '@/utils/helper'
 
 const schema = {
@@ -195,6 +196,32 @@ const columns = mergeColumns(_columns, {
     showOverflowTooltip: true,
   },
 })
+
+const { files, open } = useFileDialog()
+
+watch(files, async (value) => {
+  if (!value || !value.length)
+    return
+
+  const { profile } = useUserStore()
+
+  axios.post('/driverServer/excel/addimporDriverInfo', {
+    file: value[0],
+    userId: profile?.userId,
+  }, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+    .then(() => {
+      ElMessage.success('导入成功')
+    })
+    .catch((err) => {
+      ElMessageBox.alert(err.message, '警告', {
+        type: 'warning',
+      })
+    })
+})
 </script>
 
 <template>
@@ -211,6 +238,9 @@ const columns = mergeColumns(_columns, {
         <QueryToolbar>
           <ElButton type="primary" @click="$router.push('./driver/new')">
             新增
+          </ElButton>
+          <ElButton type="info" @click="open({ multiple: false })">
+            导入
           </ElButton>
         </QueryToolbar>
         <QueryTable>
