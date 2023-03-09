@@ -1,9 +1,11 @@
 import Axios from 'axios'
 import { ElMessage } from 'element-plus'
 import ApiError from './ApiError'
+import type { AxiosRequestTransformer } from 'axios'
 import type { ApiErrorOptions } from './ApiError'
 import { getToken } from '@/utils/auth'
 import router from '@/router'
+import { useUserStore } from '@/store/user'
 
 function createApiError(options: ApiErrorOptions) {
   return new ApiError(options).reject()
@@ -11,30 +13,30 @@ function createApiError(options: ApiErrorOptions) {
 
 Axios.defaults.baseURL = '/api'
 Axios.defaults.headers.post['Content-Type'] = 'application/json'
-Axios.defaults.transformRequest = [
-  (data, headers) => {
-    const userData: any = {
-      userId: 21, // temp
-    }
 
-    return typeof data === 'object'
-      ? JSON.stringify({
-        head: {
-          aid: userData.userId,
-          ver: '1.0',
-          ln: 'cn',
-          mod: 'app',
-          de: '2019-10-16',
-          sync: 1,
-          cmd: headers.cmd,
-          uuid: userData.orgId,
-          chcode: 'ef19843298ae8f2134f',
-        },
-        con: data,
-      })
-      : data
-  },
-]
+const transformRequest: AxiosRequestTransformer = (data, headers) => {
+  const { profile } = useUserStore()
+
+  return typeof data === 'object' && headers['Content-Type'] === 'application/json'
+    ? JSON.stringify({
+      head: {
+        aid: profile?.userId,
+        ver: '1.0',
+        ln: 'cn',
+        mod: 'app',
+        de: '2019-10-16',
+        sync: 1,
+        cmd: headers.cmd,
+        uuid: profile?.orgId,
+        chcode: 'ef19843298ae8f2134f',
+      },
+      con: data,
+    })
+    : data
+}
+
+if (Array.isArray(Axios.defaults.transformRequest))
+  Axios.defaults.transformRequest.unshift(transformRequest)
 
 // 添加请求拦截器
 Axios.interceptors.request.use((config) => {
