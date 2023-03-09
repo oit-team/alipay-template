@@ -62,3 +62,7 @@ body,
 .el-tabs__header {
   margin: 0;
 }
+
+.el-tabs--border-card > .el-tabs__content {
+  padding: 0;
+}

@@ -4,6 +4,8 @@ meta:
 </route>
 
 <script setup lang="ts">
+import { mergeColumns } from '@/utils/helper'
+
 const schema = {
   type: 'object',
   properties: {
@@ -106,7 +108,7 @@ const schema = {
   },
 }
 
-const columns = [
+const _columns = [
   {
     prop: 'driverName',
     label: '名称',
@@ -114,14 +116,10 @@ const columns = [
   {
     prop: 'identityCard',
     label: '身份证号',
-    width: 200,
-    showOverflowTooltip: true,
   },
   {
     prop: 'driverPhone',
     label: '联系电话',
-    width: 150,
-    showOverflowTooltip: true,
   },
   {
     prop: 'sex',
@@ -154,8 +152,6 @@ const columns = [
   {
     prop: 'driverOperate',
     label: '所属运营商',
-    width: 200,
-    showOverflowTooltip: true,
   },
   {
     prop: 'driverFleet',
@@ -164,7 +160,6 @@ const columns = [
   {
     prop: 'createTime',
     label: '创建时间',
-    width: 120,
   },
 ]
 
@@ -178,6 +173,28 @@ async function onDelete(row: any) {
   await queryRef.value?.query()
   ElMessage.success('操作成功')
 }
+
+const columns = mergeColumns(_columns, {
+  createTime: {
+    width: 120,
+  },
+  driverOperate: {
+    width: 200,
+    showOverflowTooltip: true,
+  },
+  driverPhone: {
+    width: 150,
+    showOverflowTooltip: true,
+  },
+  identityCard: {
+    width: 200,
+    showOverflowTooltip: true,
+  },
+  driverFleet: {
+    width: 150,
+    showOverflowTooltip: true,
+  },
+})
 </script>
 
 <template>
