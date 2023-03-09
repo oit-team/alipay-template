@@ -3,7 +3,15 @@ import { defineStore } from 'pinia'
 import { setToken } from '@/utils/auth'
 
 export const useUserStore = defineStore('user', () => {
-  const profile = ref<any>(null)
+  const profile = ref<{
+    userId: number
+    userName: string
+    orgId: number
+    nickName: string
+    userRole: number
+    phoneNum: number
+    sex: string
+  }>()
 
   const updateUserProfile = async () => {
     const { data } = await axios.post('/system/login/getUserToken')
@@ -17,6 +25,7 @@ export const useUserStore = defineStore('user', () => {
   }
 
   return {
+    profile,
     updateUserProfile,
     getUserProfile,
   }
