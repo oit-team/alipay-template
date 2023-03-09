@@ -23,7 +23,7 @@ const menu: MenuItem[] = [
       },
       {
         title: '区域管理',
-        path: '/',
+        path: '/system/area',
       },
     ],
   },
