@@ -5,12 +5,9 @@ meta:
 </route>
 
 <script setup lang="tsx">
-import { createForm } from '@formily/core'
 import { connect, createSchemaField } from '@formily/vue'
-import { Form, FormButtonGroup, FormItem, Input, Password, Submit } from '@formily/element-plus'
 import { ElImage, ElInput } from 'element-plus'
-import { useAxios } from '@vueuse/integrations/useAxios'
-import axios from 'axios'
+import { FormItem, Input, Password } from '@formily/element-plus'
 import { setToken } from '@/utils/auth'
 import { encrypt } from '@/utils/crypto'
 
@@ -22,7 +19,7 @@ const CheckCode = connect(
       const { data, execute } = useAxios('/system/login/checkCodeImg', {
         responseType: 'blob',
       })
-      const img = computed(() => data.value ? window.URL.createObjectURL(data.value) : '')
+      const img = useObjectUrl(data)
 
       return () => (
         <div class="flex">
