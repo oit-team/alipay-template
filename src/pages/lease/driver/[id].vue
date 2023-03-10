@@ -30,7 +30,7 @@ async function submit(form: any) {
   router.push('/lease/driver')
 }
 
-function onSubmitFailed(err: any) {
+function submitFailed(err: any) {
   ElMessage.error(`还有${err.length}项内容未填写`)
 }
 </script>
@@ -47,7 +47,7 @@ function onSubmitFailed(err: any) {
         <UseSchemaField :schema="schema" />
       </FormLayout>
       <div class="mt-auto flex justify-center py-2">
-        <Submit size="large" @submit="submit" @submit-failed="onSubmitFailed">
+        <Submit size="large" @submit="submit" @submit-failed="submitFailed">
           保存
         </Submit>
       </div>
