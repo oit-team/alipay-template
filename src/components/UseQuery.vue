@@ -1,13 +1,19 @@
 <script setup lang="ts">
 import { ElMessage } from 'element-plus'
+import type { ISchema } from '@formily/vue'
 import type { PropType } from 'vue'
-import type { QueryOptions } from '@uxuip/element-plus-query'
+import type { QueryOptions, TableColumn } from '@uxuip/element-plus-query'
+import { mergeColumns } from '@/utils/helper'
 
 const props = defineProps({
   form: String,
   column: String,
   url: String,
   data: Object,
+  schema: Object as PropType<ISchema>,
+  schemaKey: String,
+  columns: Array as PropType<TableColumn[]>,
+  columnsKey: String,
   keyMap: {
     type: Object as PropType<Record<string, string>>,
     default: () => ({
@@ -15,20 +21,21 @@ const props = defineProps({
       data: 'resultList',
     }),
   },
+  columnsConfig: Object as PropType<Record<string, any>>,
 })
 
 const total = ref(0)
 const data = ref([])
 
 const {
-  data: schema,
+  data: schemaForQuery,
   isLoading: formLoading,
-} = useJsonData(props.form)
+} = useJsonData(props.form ?? props.schemaKey)
 
 const {
-  data: columns,
+  data: columnsForQuery,
   isLoading: tableLoading,
-} = useJsonData(props.column)
+} = useJsonData(props.column ?? props.columnsKey)
 
 async function onQuery(options: QueryOptions) {
   if (!props.url)
@@ -42,15 +49,21 @@ async function onQuery(options: QueryOptions) {
   data.value = res?.body[props.keyMap.data]
   total.value = res?.body[props.keyMap.total]
 }
+
+const columnsMerged = computed(() =>
+  props.columnsConfig
+    ? mergeColumns(columnsForQuery.value, props.columnsConfig)
+    : columnsForQuery.value,
+)
 </script>
 
 <template>
   <slot
     v-bind="{
       ...$attrs,
-      columns,
+      columns: columns ?? columnsMerged,
       tableLoading,
-      schema,
+      schema: schema ?? schemaForQuery,
       formLoading,
       total,
       onQuery,
