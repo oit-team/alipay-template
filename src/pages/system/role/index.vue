@@ -9,7 +9,7 @@ const queryRef = ref()
 
 async function onDelete(row: any) {
   await ElMessageBox.confirm(
-    t('tip.delete'),
+    t('confirm.delete'),
     t('tip.info'),
     {
       type: 'warning',
