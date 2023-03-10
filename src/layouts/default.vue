@@ -8,6 +8,15 @@ interface MenuItem {
   children?: MenuItem[]
 }
 
+const treeList = ref([])
+
+async function getTreeList() {
+  const { data } = await axios.post('/system/menu/getTreeMenuList', {
+    userId: '0',
+  })
+  treeList.value = data.body.resultList
+}
+getTreeList()
 const menu: MenuItem[] = [
   {
     title: '系统设置',
@@ -49,6 +58,14 @@ const menu: MenuItem[] = [
       },
     ],
   },
+  {
+    title: '流水管理',
+    icon: 'i-ri:money-cny-circle-line',
+    children: [{
+      title: '运营流水',
+      path: '/statement',
+    }],
+  },
 ]
 
 function logout() {
@@ -56,6 +73,7 @@ function logout() {
   sessionStorage.clear()
   router.push('/login')
 }
+// function
 </script>
 
 <template>
@@ -77,11 +95,16 @@ function logout() {
     <ElContainer class="overflow-hidden">
       <ElAside width="200px">
         <ElScrollbar class="border-r">
-          <ElMenu class="border-none" router>
-            <ElSubMenu v-for="(item, index) of menu" :key="index" :index="`${index}`">
+          <ElMenu class="border-none" router unique-opened>
+            <ElSubMenu
+              v-for="(item, index) of menu"
+              :key="index"
+              :index="`${index}`"
+            >
               <template #title>
                 <div class="flex items-center gap-2">
-                  <div :class="item.icon" class="text-lg" />{{ item.title }}
+                  <div :class="item.icon" class="text-lg" />
+                  {{ item.title }}
                 </div>
               </template>
               <ElMenuItem
@@ -103,9 +126,18 @@ function logout() {
             <ElScrollbar>
               <RouterView v-slot="{ Component, route }">
                 <KeepAlive>
-                  <Component :is="Component" v-if="route.meta.cache" :key="route.path" class="router-view" />
+                  <Component
+                    :is="Component"
+                    v-if="route.meta.cache"
+                    :key="route.path"
+                    class="router-view"
+                  />
                 </KeepAlive>
-                <Component :is="Component" v-if="!route.meta.cache" class="router-view" />
+                <Component
+                  :is="Component"
+                  v-if="!route.meta.cache"
+                  class="router-view"
+                />
               </RouterView>
             </ElScrollbar>
           </div>

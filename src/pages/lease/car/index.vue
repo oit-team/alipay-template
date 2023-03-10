@@ -4,6 +4,7 @@ meta:
 </route>
 
 <script setup lang="ts">
+import { useUserStore } from '@/store/user'
 const schema = {
   type: 'object',
   properties: {
@@ -117,22 +118,81 @@ const columns = [
     label: '所属城市',
   },
 ]
+
+const { files, open } = useFileDialog()
+
+const importType = ref(0)
+
+function importYun() {
+  open({ multiple: false })
+  importType.value = 0
+}
+function importCar() {
+  open({ multiple: false })
+  importType.value = 1
+}
+function importWei() {
+  open({ multiple: false })
+  importType.value = 2
+}
+const url = ref('')
+watch(files, async (value) => {
+  if (!value || !value.length)
+    return
+
+  const { profile } = useUserStore()
+
+  switch (importType.value) {
+    case 0:
+      url.value = '/vehicle/vehicle/addT3OperationalData'
+      break
+    case 1:
+      url.value = '/vehicle/vehicle/addImportT3ReplenishVehicle'
+      break
+    case 2:
+      url.value = '/vehicle/vehicle/addImportIllegal'
+      break
+    default:
+      url.value = ''
+      break
+  }
+
+  axios.post(url.value, {
+    file: value[0],
+    userId: profile?.userId,
+  }, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+    .then(() => {
+      ElMessage.success('导入成功')
+    })
+    .catch((err) => {
+      ElMessageBox.alert(err.message, '警告', {
+        type: 'warning',
+      })
+    })
+})
 </script>
 
 <template>
   <div class="h-full p-2">
     <UseQuery v-slot="attrs" url="/vehicle/vehicle/getVehicleList">
-      <QueryProvide
-        v-bind="attrs"
-        ref="query"
-        auto-query="active"
-        :columns="columns"
-        :schema="schema"
-      >
+      <QueryProvide v-bind="attrs" ref="query" auto-query="active" :columns="columns" :schema="schema">
         <QueryForm />
         <QueryToolbar>
           <ElButton type="primary">
             {{ $t('button.new') }}
+          </ElButton>
+          <ElButton type="info" @click="importYun">
+            导入运营流水
+          </ElButton>
+          <ElButton type="info" @click="importCar">
+            导入车辆信息
+          </ElButton>
+          <ElButton type="info" @click="importWei">
+            导入违章信息
           </ElButton>
         </QueryToolbar>
         <QueryTable>

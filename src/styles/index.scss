@@ -1,5 +1,6 @@
 @use "element-plus/theme-chalk/src/index.scss" as *;
 @use "element-plus/theme-chalk/src/dark/css-vars.scss" as *;
+@import "./formily.scss";
 
 html,
 body,
@@ -30,14 +31,6 @@ body,
 
 .el-scrollbar__view {
   flex: 1;
-}
-
-.el-card {
-  padding: 16px;
-}
-
-.el-card__body {
-  padding: 0;
 }
 
 .query-form {
