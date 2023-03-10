@@ -1,0 +1,132 @@
+{
+  "type": "object",
+  "properties": {
+    "t3DriverId": {
+      "type": "string",
+      "title": "司机ID",
+      "required": true,
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-index": 0
+    },
+    "studyRecord": {
+      "type": "string",
+      "title": "学历",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-index": 1
+    },
+    "entryTime": {
+      "type": "string",
+      "title": "入职日期",
+      "x-decorator": "FormItem",
+      "x-component": "DatePicker",
+      "x-index": 2
+    },
+    "isPatrol": {
+      "type": "string",
+      "title": "是否巡游",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-index": 3
+    },
+    "driverGrade": {
+      "type": "string",
+      "title": "司机等级",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-index": 4
+    },
+    "urgentUserName": {
+      "type": "string",
+      "title": "紧急联系人姓名",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-index": 5
+    },
+    "urgentUserPhone": {
+      "type": "string",
+      "title": "紧急联系人电话",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-index": 6
+    },
+    "urgentUserAdd": {
+      "type": "string",
+      "title": "紧急联系人住址",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-index": 7
+    },
+    "politicalOutlook": {
+      "type": "string",
+      "title": "政治面貌",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-index": 8
+    },
+    "bloodGroup": {
+      "type": "string",
+      "title": "血型",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-index": 9
+    },
+    "operator": {
+      "type": "string",
+      "title": "所属运营商",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-index": 10
+    },
+    "city": {
+      "type": "string",
+      "title": "所属区域",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-index": 11
+    },
+    "serviceType": {
+      "type": "string",
+      "title": "服务类型",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-index": 12
+    },
+    "driverSalaryType": {
+      "type": "string",
+      "title": "司机工资类别",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-index": 13
+    },
+    "soleDuty": {
+      "type": "string",
+      "title": "是否专职",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-index": 14
+    },
+    "maritalStatus": {
+      "type": "string",
+      "title": "婚姻状态",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-index": 15
+    },
+    "householdRegistraHierarchy": {
+      "type": "string",
+      "title": "户口等级机关",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-index": 16
+    },
+    "vaccination": {
+      "type": "string",
+      "title": "疫苗接种情况",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-index": 17
+    }
+  }
+}

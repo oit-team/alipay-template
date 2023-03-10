@@ -1,0 +1,43 @@
+.el-scrollbar__wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.el-scrollbar__view {
+  flex: 1;
+}
+
+.el-tabs--top {
+  display: flex;
+  flex-direction: column;
+}
+
+.el-tabs__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.el-tab-pane {
+  flex: 1;
+}
+
+.el-tabs__header {
+  margin: 0;
+}
+
+.el-tabs--border-card > .el-tabs__content {
+  padding: 0;
+}
+
+.el-collapse-item__header {
+  padding-left: 12px;
+}
+
+.el-collapse-item__content {
+  padding-bottom: 0;
+}
+
+.el-drawer__body {
+  padding: 0;
+}

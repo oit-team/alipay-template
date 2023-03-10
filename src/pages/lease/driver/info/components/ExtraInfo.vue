@@ -1,9 +1,14 @@
 <script setup lang="ts">
+import schema from './schema/extra.json'
+import { notSavedTips } from '@/utils/actions'
+
 const route = useRoute()
+const { t } = useI18n()
 const type = ref()
+const showDrawer = ref(false)
 
 const extraMap = [
-  { prop: 'driverId', label: '司机id' },
+  { prop: 't3DriverId', label: '司机id' },
   { prop: 'studyRecord', label: '学历' },
   { prop: 'entryTime', label: '入职日期' },
   { prop: 'isPatrol', label: '是否巡游' },
@@ -21,8 +26,11 @@ const extraMap = [
   { prop: 'maritalStatus', label: '婚姻状态' },
   { prop: 'householdRegistraHierarchy', label: '户口等级机关' },
   { prop: 'vaccination', label: '疫苗接种情况' },
-  { prop: 'replenishType', label: '补充类型' },
 ]
+
+const form = createForm({
+  validateFirst: true,
+})
 
 const { data: typeList } = useAxios('/driverServer/replenish/getReplenishTypeList', {
   method: 'POST',
@@ -31,20 +39,49 @@ const { data: typeList } = useAxios('/driverServer/replenish/getReplenishTypeLis
   },
 })
 
-const { data: desc, execute } = useAxios('/driverServer/replenish/getDriverReplenish', {
+const { data: desc, execute, isLoading } = useAxios('/driverServer/replenish/getDriverReplenish', {
   method: 'POST',
 }, { immediate: false })
+const hasData = computed(() => !!desc.value?.body)
 
-watch(type, () => execute({
-  data: {
-    driverId: route.params.id,
-    replenishType: type.value,
-  },
-}))
+watch(type, reload)
+
+function reload() {
+  execute({
+    data: {
+      driverId: route.params.id,
+      replenishType: type.value,
+    },
+  })
+}
+
+function openDrawer() {
+  showDrawer.value = true
+  if (hasData.value) {
+    form.reset()
+    form.setInitialValues(desc.value.body)
+  }
+}
+
+async function submit(form: any) {
+  await axios.post(
+    hasData.value
+      ? '/driverServer/replenish/updateDriverReplenish'
+      : '/driverServer/replenish/addDriverReplenish',
+    {
+      ...form,
+      driverId: route.params.id,
+      replenishType: type.value,
+    },
+  )
+  showDrawer.value = false
+  ElMessage.success(t('save.success'))
+  reload()
+}
 </script>
 
 <template>
-  <div class="p-2">
+  <div class="p-2" v-bind="$attrs">
     <div class="flex">
       <ElSelect v-model="type" placeholder="选择补充类型" size="large">
         <ElOption
@@ -54,10 +91,38 @@ watch(type, () => execute({
           :value="item.replenishTypeValue"
         />
       </ElSelect>
-      <ElButton class="ml-auto" size="large" type="primary">
-        新增
+      <ElButton
+        v-if="type"
+        class="ml-auto"
+        size="large"
+        type="primary"
+        :loading="isLoading"
+        @click="openDrawer()"
+      >
+        {{ hasData ? t('button.edit') : t('button.new') }}
       </ElButton>
     </div>
-    <Descriptions class="mt-2" :data="desc?.body" :map="extraMap" border default-text="无" />
+    <Descriptions
+      v-if="hasData"
+      class="mt-2"
+      :data="desc?.body"
+      :map="extraMap"
+      border
+      default-text="无"
+    />
+    <ElEmpty v-else />
   </div>
+
+  <ElDrawer v-model="showDrawer" title="补充信息" :before-close="(done) => notSavedTips(form.modified, done)">
+    <ElScrollbar>
+      <FormProvider :form="form">
+        <FormLayout label-col="6" class="px-4 pb-4 flex flex-col">
+          <UseSchemaField :schema="schema" />
+          <Submit @submit="submit">
+            {{ t('button.save') }}
+          </Submit>
+        </FormLayout>
+      </FormProvider>
+    </ElScrollbar>
+  </ElDrawer>
 </template>
