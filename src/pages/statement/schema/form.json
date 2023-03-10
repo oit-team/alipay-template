@@ -1,0 +1,473 @@
+{
+  "type": "object",
+  "properties": {
+    "8fd83dz6z3y": {
+      "type": "void",
+      "x-component": "FormGrid",
+      "x-validator": [],
+      "x-component-props": {
+        "maxColumns": 1,
+        "rowGap": 12
+      },
+      "x-designable-id": "8fd83dz6z3y",
+      "properties": {
+        "iw5crp2uvk9": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-validator": [],
+          "x-component-props": {},
+          "x-designable-id": "iw5crp2uvk9",
+          "properties": {
+            "ni235g7gxzb": {
+              "type": "void",
+              "x-component": "Card",
+              "x-component-props": {
+                "header": "统计信息",
+                "shadow": false
+              },
+              "x-designable-id": "ni235g7gxzb",
+              "x-index": 0,
+              "properties": {
+                "gmphuwvnvvt": {
+                  "type": "void",
+                  "x-component": "FormGrid",
+                  "x-validator": [],
+                  "x-component-props": {
+                    "maxColumns": 3,
+                    "style": {
+                      "borderBottomStyle": "none"
+                    }
+                  },
+                  "x-designable-id": "gmphuwvnvvt",
+                  "x-index": 0,
+                  "x-display": "visible",
+                  "properties": {
+                    "operatorCode": {
+                      "type": "string",
+                      "title": "运营商编码",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "operatorCode",
+                      "x-designable-id": "ts0wcdbj74s",
+                      "x-index": 0,
+                      "x-pattern": "readOnly"
+                    },
+                    "operatorName": {
+                      "type": "string",
+                      "title": "运营商名称",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "operatorName",
+                      "x-designable-id": "1w11huhvq9q",
+                      "x-index": 1,
+                      "x-pattern": "readOnly"
+                    },
+                    "statisticalDate": {
+                      "type": "string",
+                      "title": "统计日期",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "statisticalDate",
+                      "x-designable-id": "ea29vlv2t5n",
+                      "x-index": 2,
+                      "x-pattern": "readOnly"
+                    },
+                    "t3DriverId": {
+                      "type": "string",
+                      "title": "司机id",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "t3DriverId",
+                      "x-designable-id": "0p01lntilw0",
+                      "x-index": 3,
+                      "x-pattern": "readOnly"
+                    },
+                    "driverName": {
+                      "type": "string",
+                      "title": "司机姓名",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "driverName",
+                      "x-designable-id": "hjqhzljzny6",
+                      "x-index": 4,
+                      "x-pattern": "readOnly"
+                    },
+                    "managerName": {
+                      "type": "string",
+                      "title": "司管名称",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "managerName",
+                      "x-designable-id": "bidaipaj1zf",
+                      "x-index": 5,
+                      "x-pattern": "readOnly"
+                    },
+                    "fleetLeaderName": {
+                      "type": "string",
+                      "title": "车队队长名称",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "fleetLeaderName",
+                      "x-designable-id": "j47wm47y3p5",
+                      "x-index": 6,
+                      "x-pattern": "readOnly"
+                    },
+                    "fleetName": {
+                      "type": "string",
+                      "title": "车队名称",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "fleetName",
+                      "x-designable-id": "pow780d5ud8",
+                      "x-index": 7,
+                      "x-pattern": "readOnly"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "x-index": 0
+        },
+        "ll905guf9fi": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "ll905guf9fi",
+          "properties": {
+            "cuavxn5eqy6": {
+              "type": "void",
+              "x-component": "Card",
+              "x-component-props": {
+                "header": "统计数据",
+                "shadow": false
+              },
+              "x-designable-id": "cuavxn5eqy6",
+              "x-index": 0,
+              "properties": {
+                "7o73g6w4g7p": {
+                  "type": "void",
+                  "x-component": "FormGrid",
+                  "x-validator": [],
+                  "x-component-props": {
+                    "maxColumns": 4,
+                    "minColumns": 3
+                  },
+                  "x-designable-id": "7o73g6w4g7p",
+                  "x-index": 0,
+                  "properties": {
+                    "jkpr8o7hd31": {
+                      "type": "void",
+                      "x-component": "FormGrid.GridColumn",
+                      "x-validator": [],
+                      "x-component-props": {},
+                      "x-designable-id": "jkpr8o7hd31",
+                      "x-index": 0,
+                      "properties": {
+                        "onlineDuration": {
+                          "type": "string",
+                          "title": "上线时长",
+                          "x-decorator": "FormItem",
+                          "x-component": "Input",
+                          "x-validator": [],
+                          "x-component-props": {},
+                          "x-decorator-props": {
+                            "labelAlign": "right"
+                          },
+                          "name": "onlineDuration",
+                          "x-designable-id": "gtcqfqbmlvl",
+                          "x-index": 0,
+                          "x-pattern": "readOnly"
+                        }
+                      }
+                    },
+                    "pickUpGuestsMileage": {
+                      "type": "string",
+                      "title": "接乘时长",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "pickUpGuestsMileage",
+                      "x-designable-id": "8q3uuya4tqo",
+                      "x-index": 1,
+                      "x-pattern": "readOnly"
+                    },
+                    "serviceDuration": {
+                      "type": "string",
+                      "title": "服务时长",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "serviceDuration",
+                      "x-designable-id": "6lpouku5vz2",
+                      "x-index": 2,
+                      "x-pattern": "readOnly"
+                    },
+                    "serviceMileage": {
+                      "type": "string",
+                      "title": "服务里程",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "serviceMileage",
+                      "x-designable-id": "ifhu9cjrvu9",
+                      "x-index": 3,
+                      "x-pattern": "readOnly"
+                    },
+                    "pickUpGuestsTime": {
+                      "type": "string",
+                      "title": "接驾里程",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "pickUpGuestsTime",
+                      "x-designable-id": "igvk0yzi79f",
+                      "x-index": 4,
+                      "x-pattern": "readOnly"
+                    },
+                    "peakHours": {
+                      "type": "string",
+                      "title": "高峰时长",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "peakHours",
+                      "x-designable-id": "j9ne9kut4bn",
+                      "x-index": 5,
+                      "x-pattern": "readOnly"
+                    },
+                    "d858aczyuug": {
+                      "type": "void",
+                      "x-component": "FormGrid.GridColumn",
+                      "x-designable-id": "d858aczyuug",
+                      "x-index": 6,
+                      "properties": {
+                        "billingDuration": {
+                          "type": "string",
+                          "title": "计费时长",
+                          "x-decorator": "FormItem",
+                          "x-component": "Input",
+                          "x-validator": [],
+                          "x-component-props": {},
+                          "x-decorator-props": {},
+                          "name": "billingDuration",
+                          "x-designable-id": "92lr4525lho",
+                          "x-index": 0,
+                          "x-pattern": "readOnly"
+                        }
+                      }
+                    },
+                    "timeOfCruise": {
+                      "type": "string",
+                      "title": "巡游时长",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "timeOfCruise",
+                      "x-designable-id": "nvre88u8jcx",
+                      "x-index": 7,
+                      "x-pattern": "readOnly"
+                    },
+                    "billingMileage": {
+                      "type": "string",
+                      "title": "计费里程",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "billingMileage",
+                      "x-designable-id": "2r6w5fuk497",
+                      "x-index": 8,
+                      "x-pattern": "readOnly"
+                    },
+                    "cruiseMileage": {
+                      "type": "string",
+                      "title": "巡游里程",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "cruiseMileage",
+                      "x-designable-id": "061iqmwz3z0",
+                      "x-index": 9,
+                      "x-pattern": "readOnly"
+                    },
+                    "totalMileage": {
+                      "type": "string",
+                      "title": "总里程",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "totalMileage",
+                      "x-designable-id": "pf9vxm0ihcv",
+                      "x-index": 10,
+                      "x-pattern": "readOnly"
+                    },
+                    "ordersCompletedNum": {
+                      "type": "string",
+                      "title": "完成订单数",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "ordersCompletedNum",
+                      "x-designable-id": "6w7kttxy9mj",
+                      "x-index": 11,
+                      "x-pattern": "readOnly"
+                    },
+                    "realTimeOrder": {
+                      "type": "string",
+                      "title": "实时单完成订单数",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "realTimeOrder",
+                      "x-designable-id": "zqzue3v4nej",
+                      "x-index": 12,
+                      "x-pattern": "readOnly"
+                    },
+                    "reservationOrder": {
+                      "type": "string",
+                      "title": "预约单完成订单数",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "reservationOrder",
+                      "x-designable-id": "eign3pjqwgk",
+                      "x-index": 13,
+                      "x-pattern": "readOnly"
+                    },
+                    "violationsNumber": {
+                      "type": "string",
+                      "title": "违章数",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "violationsNumber",
+                      "x-designable-id": "m7d8c0bny4x",
+                      "x-index": 14,
+                      "x-pattern": "readOnly"
+                    },
+                    "badEvaluationOrders": {
+                      "type": "string",
+                      "title": "被差评订单数",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "badEvaluationOrders",
+                      "x-designable-id": "qbh16xxrqho",
+                      "x-index": 15,
+                      "x-pattern": "readOnly"
+                    },
+                    "complaintOrderNumber": {
+                      "type": "string",
+                      "title": "被投诉订单数",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "complaintOrderNumber",
+                      "x-designable-id": "srd369p4443",
+                      "x-index": 16,
+                      "x-pattern": "readOnly"
+                    },
+                    "totalOrderPayAmount": {
+                      "type": "string",
+                      "title": "订单总实付(元)",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "totalOrderPayAmount",
+                      "x-designable-id": "xt8qvw1rhtu",
+                      "x-index": 17,
+                      "x-pattern": "readOnly"
+                    },
+                    "totalPaidOrders": {
+                      "type": "string",
+                      "title": "总支付订单数",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "totalPaidOrders",
+                      "x-designable-id": "oh4p90gj2cg",
+                      "x-index": 18,
+                      "x-pattern": "readOnly"
+                    },
+                    "tph": {
+                      "type": "string",
+                      "title": "TPH",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "tph",
+                      "x-designable-id": "1iy6s6elh3x",
+                      "x-index": 19,
+                      "x-pattern": "readOnly"
+                    },
+                    "deadheadRateMileage": {
+                      "type": "string",
+                      "title": "空驶率(里程)",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "deadheadRateMileage",
+                      "x-designable-id": "gfcycphfgit",
+                      "x-index": 20,
+                      "x-pattern": "readOnly"
+                    },
+                    "deadheadRateDuration": {
+                      "type": "string",
+                      "title": "空驶率(时长)",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "x-validator": [],
+                      "x-component-props": {
+                        "style": {
+                          "width": "auto"
+                        }
+                      },
+                      "x-decorator-props": {},
+                      "name": "deadheadRateDuration",
+                      "x-designable-id": "aijupf6cifp",
+                      "x-index": 21,
+                      "x-pattern": "readOnly"
+                    },
+                    "badEvaluaRate": {
+                      "type": "string",
+                      "title": "差评率",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "badEvaluaRate",
+                      "x-designable-id": "3070urswbgh",
+                      "x-index": 22,
+                      "x-pattern": "readOnly"
+                    },
+                    "fph": {
+                      "type": "string",
+                      "title": "FPH",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "fph",
+                      "x-designable-id": "yr33rmei4ur",
+                      "x-index": 23,
+                      "x-pattern": "readOnly"
+                    },
+                    "acceptedOrderNumber": {
+                      "type": "string",
+                      "title": "接起订单量",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "acceptedOrderNumber",
+                      "x-designable-id": "pswguzwobga",
+                      "x-index": 24,
+                      "x-pattern": "readOnly"
+                    },
+                    "paidInDiscountAmount": {
+                      "type": "string",
+                      "title": "实付优惠券金额(元)",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "paidInDiscountAmount",
+                      "x-designable-id": "nv3ho66z57n",
+                      "x-index": 25,
+                      "x-pattern": "readOnly"
+                    },
+                    "journeyFlow": {
+                      "type": "string",
+                      "title": "行程流水(元)",
+                      "x-decorator": "FormItem",
+                      "x-component": "Input",
+                      "name": "journeyFlow",
+                      "x-designable-id": "p7isfgo5c1i",
+                      "x-index": 26,
+                      "x-pattern": "readOnly"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "x-index": 1
+        }
+      },
+      "x-index": 0
+    }
+  },
+  "x-designable-id": "l0tk3kwci42"
+}
