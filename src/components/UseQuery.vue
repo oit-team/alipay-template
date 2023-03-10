@@ -7,6 +7,7 @@ const props = defineProps({
   form: String,
   column: String,
   url: String,
+  data: Object,
   keyMap: {
     type: Object as PropType<Record<string, string>>,
     default: () => ({
@@ -34,7 +35,10 @@ async function onQuery(options: QueryOptions) {
     return ElMessage.warning('onQuery 未配置 url 参数')
 
   const { formData } = options
-  const { data: res } = await axios.post(props.url, formData)
+  const { data: res } = await axios.post(props.url, {
+    ...formData,
+    ...props.data,
+  })
   data.value = res?.body[props.keyMap.data]
   total.value = res?.body[props.keyMap.total]
 }
