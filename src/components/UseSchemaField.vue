@@ -18,6 +18,7 @@ import {
   Transfer,
   Upload,
 } from '@formily/element-plus'
+import { ElCard } from 'element-plus'
 import type { ISchema, SchemaVueComponents } from '@formily/vue'
 
 const props = defineProps<{
@@ -44,6 +45,7 @@ const { SchemaField } = createSchemaField({
     Transfer,
     Upload,
     FormCollapse,
+    Card: ElCard,
     ...props.components,
   },
   scope: props.scope,
