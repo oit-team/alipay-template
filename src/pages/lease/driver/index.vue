@@ -7,6 +7,8 @@ meta:
 import { useUserStore } from '@/store/user'
 import { mergeColumns } from '@/utils/helper'
 
+const { t } = useI18n()
+
 const schema = {
   type: 'object',
   properties: {
@@ -167,12 +169,12 @@ const _columns = [
 const queryRef = ref()
 
 async function onDelete(row: any) {
-  await ElMessageBox.confirm('要删除该司机吗?', '提示', {
+  await ElMessageBox.confirm(t('confirm.delete'), t('tip.info'), {
     type: 'warning',
   })
   await axios.post('/driverServer/driver/deleteDriverInfo', { driverId: row.driverId })
   await queryRef.value?.query()
-  ElMessage.success('操作成功')
+  ElMessage.success(t('handle.success'))
 }
 
 const columns = mergeColumns(_columns, {
@@ -214,7 +216,7 @@ watch(files, async (value) => {
     },
   })
     .then(() => {
-      ElMessage.success('导入成功')
+      ElMessage.success(t('import.success'))
     })
     .catch((err) => {
       ElMessageBox.alert(err.message, '警告', {
@@ -237,23 +239,23 @@ watch(files, async (value) => {
         <QueryForm />
         <QueryToolbar>
           <ElButton type="primary" @click="$router.push('./driver/new')">
-            新增
+            {{ $t('button.new') }}
           </ElButton>
           <ElButton type="info" @click="open({ multiple: false })">
-            导入
+            {{ $t('button.import') }}
           </ElButton>
         </QueryToolbar>
         <QueryTable>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" width="180px" fixed="right">
               <ElButton type="info" @click="$router.push(`./driver/info/${row.driverId}`)">
-                详情
+                {{ $t('button.info') }}
               </ElButton>
               <ElButton type="primary" @click="$router.push(`./driver/${row.driverId}`)">
-                编辑
+                {{ $t('button.edit') }}
               </ElButton>
               <ElButton type="danger" @click="onDelete(row)">
-                删除
+                {{ $t('button.delete') }}
               </ElButton>
             </QueryActionColumn>
           </template>

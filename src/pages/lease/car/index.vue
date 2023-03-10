@@ -132,20 +132,20 @@ const columns = [
         <QueryForm />
         <QueryToolbar>
           <ElButton type="primary">
-            新增
+            {{ $t('button.new') }}
           </ElButton>
         </QueryToolbar>
         <QueryTable>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" label="操作" width="180px">
               <ElButton type="info" size="small" @click="$router.push(`./info/${row.roleId}`)">
-                详情
+                {{ $t('button.info') }}
               </ElButton>
               <ElButton type="primary" size="small">
-                编辑
+                {{ $t('button.edit') }}
               </ElButton>
               <ElButton type="danger" size="small">
-                删除
+                {{ $t('button.delete') }}
               </ElButton>
             </QueryActionColumn>
           </template>

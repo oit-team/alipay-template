@@ -4,15 +4,20 @@ meta:
 </route>
 
 <script setup lang="ts">
+const { t } = useI18n()
 const queryRef = ref()
 
 async function onDelete(row: any) {
-  await ElMessageBox.confirm('此操作将永久删除该角色, 是否继续?', '提示', {
-    type: 'warning',
-  })
+  await ElMessageBox.confirm(
+    t('tip.delete'),
+    t('tip.info'),
+    {
+      type: 'warning',
+    },
+  )
   await axios.post('/system/role/delRoleById', { roleId: row.roleId })
   await queryRef.value.query()
-  ElMessage.success('操作成功')
+  ElMessage.success(t('handle.success'))
 }
 </script>
 
@@ -28,17 +33,17 @@ async function onDelete(row: any) {
         <QueryForm />
         <QueryToolbar>
           <ElButton type="primary">
-            新增
+            {{ $t('button.new') }}
           </ElButton>
         </QueryToolbar>
         <QueryTable>
           <template #actions>
-            <QueryActionColumn v-slot="{ row }" label="操作" width="150px">
+            <QueryActionColumn v-slot="{ row }" width="150px">
               <ElButton type="primary">
-                编辑
+                {{ $t('button.edit') }}
               </ElButton>
               <ElButton type="danger" @click="onDelete(row)">
-                删除
+                {{ $t('button.delete') }}
               </ElButton>
             </QueryActionColumn>
           </template>

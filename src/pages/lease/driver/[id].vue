@@ -5,6 +5,7 @@ import { initForm } from '@/utils/actions'
 
 const route = useRoute()
 const router = useRouter()
+const { t } = useI18n()
 const isNew = route.params.id === 'new'
 
 const form = createForm({
@@ -26,7 +27,7 @@ async function submit(form: any) {
       : '/driverServer/driver/updateDriverInfo',
     form,
   )
-  ElMessage.success('保存成功')
+  ElMessage.success(t('save.success'))
   router.push('/lease/driver')
 }
 
@@ -48,7 +49,7 @@ function submitFailed(err: any) {
       </FormLayout>
       <div class="mt-auto flex justify-center py-2">
         <Submit size="large" @submit="submit" @submit-failed="submitFailed">
-          保存
+          {{ $t('button.submit') }}
         </Submit>
       </div>
     </div>

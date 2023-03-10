@@ -1,0 +1,42 @@
+{
+  "tip": {
+    "info": "提示",
+    "warning": "警告",
+    "error": "错误",
+    "success": "成功"
+  },
+  "save": {
+    "success": "保存成功",
+    "fail": "保存失败"
+  },
+  "import": {
+    "success": "导入成功",
+    "fail": "导入失败"
+  },
+  "handle": {
+    "success": "操作成功",
+    "fail": "操作失败"
+  },
+  "confirm": {
+    "delete": "确定要删除吗？",
+    "cancel": "确定要取消吗？",
+    "reset": "确定要重置吗？",
+    "submit": "确定要提交吗？"
+  },
+  "button": {
+    "save": "保存",
+    "info": "详情",
+    "cancel": "取消",
+    "delete": "删除",
+    "edit": "编辑",
+    "add": "添加",
+    "new": "新增",
+    "import": "导入",
+    "export": "导出",
+    "search": "搜索",
+    "reset": "重置",
+    "close": "关闭",
+    "ok": "确定",
+    "submit": "提交"
+  }
+}

@@ -119,17 +119,17 @@ const columns = [
         <QueryForm />
         <QueryToolbar>
           <ElButton type="primary">
-            新增
+            {{ $t('button.new') }}
           </ElButton>
         </QueryToolbar>
         <QueryTable>
           <template #actions>
             <QueryActionColumn label="操作" width="150px">
               <ElButton type="primary">
-                编辑
+                {{ $t('button.edit') }}
               </ElButton>
               <ElButton type="danger">
-                删除
+                {{ $t('button.delete') }}
               </ElButton>
             </QueryActionColumn>
           </template>

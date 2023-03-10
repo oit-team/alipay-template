@@ -10,22 +10,30 @@ import Unocss from 'unocss/vite'
 import Layouts from 'vite-plugin-vue-layouts'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import Eslint from 'vite-plugin-eslint'
+import VueI18n from '@intlify/unplugin-vue-i18n/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
-const registryComponents = [
-  'Form',
-  'FormLayout',
-  'FormButtonGroup',
-  'FormItem',
-  'Input',
-  'Password',
-  'Submit',
-]
+const ComponentsImports = {
+  '@formily/element-plus': [
+    'Form',
+    'FormLayout',
+    'FormButtonGroup',
+    'FormItem',
+    'Input',
+    'Password',
+    'Submit',
+  ],
+  '@formily/vue': [
+    'FormProvider',
+  ],
+}
 
-function FormilyElementPlusResolver() {
+function ComponentsResolver() {
   return (name: string) => {
-    if (registryComponents.includes(name))
-      return { name, from: '@formily/element-plus' }
+    for (const [from, imports] of Object.entries(ComponentsImports)) {
+      if (imports.includes(name))
+        return { name, from }
+    }
   }
 }
 
@@ -66,8 +74,8 @@ export default (mode: string) => {
       AutoImport({
         imports: [
           'vue',
-          'vue/macros',
           'vue-router',
+          'vue-i18n',
           '@vueuse/core',
           {
             '@formily/core': [
@@ -82,6 +90,7 @@ export default (mode: string) => {
               ['default', 'axios'],
             ],
           },
+          ComponentsImports,
         ],
         resolvers: [
           ElementPlusResolver({
@@ -101,7 +110,7 @@ export default (mode: string) => {
           ElementPlusResolver({
             importStyle: false,
           }),
-          FormilyElementPlusResolver(),
+          ComponentsResolver(),
         ],
         types: [{
           from: '@uxuip/element-plus-query',
@@ -113,6 +122,14 @@ export default (mode: string) => {
           ],
         }],
         include: [/\.vue$/, /\.vue\?vue/, /\.tsx$/],
+      }),
+      // https://github.com/intlify/bundle-tools/tree/main/packages/unplugin-vue-i18n
+      VueI18n({
+        runtimeOnly: true,
+        compositionOnly: true,
+        fullInstall: true,
+        defaultSFCLang: 'yml',
+        include: [path.resolve(__dirname, 'locales/**')],
       }),
       // https://github.com/antfu/unocss
       // see unocss.config.ts for config
