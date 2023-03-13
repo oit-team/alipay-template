@@ -5,6 +5,8 @@ meta:
 
 <script setup lang="ts">
 import { useUserStore } from '@/store/user'
+import { mergeColumns } from '@/utils/helper'
+
 const schema = {
   type: 'object',
   properties: {
@@ -18,7 +20,7 @@ const schema = {
           'x-component': 'FormGrid.GridColumn',
           'x-index': 0,
           'properties': {
-            ps6ktb7d17e: {
+            licensePlateNumber: {
               'type': 'string',
               'title': '车牌号',
               'x-decorator': 'FormItem',
@@ -32,9 +34,8 @@ const schema = {
           'x-component': 'FormGrid.GridColumn',
           'x-index': 1,
           'properties': {
-            driverName: {
-              'type': 'string',
-              'title': '司机',
+            vehicleFrameNumber: {
+              'title': '车架号',
               'x-decorator': 'FormItem',
               'x-component': 'Input',
               'x-index': 0,
@@ -46,10 +47,11 @@ const schema = {
           'x-component': 'FormGrid.GridColumn',
           'x-index': 2,
           'properties': {
-            sm1z64noil3: {
-              'title': '车辆状态',
+            vehicleBrand: {
+              'type': 'string',
+              'title': '车辆品牌',
               'x-decorator': 'FormItem',
-              'x-component': 'Select',
+              'x-component': 'Input',
               'x-index': 0,
             },
           },
@@ -59,9 +61,9 @@ const schema = {
           'x-component': 'FormGrid.GridColumn',
           'x-index': 3,
           'properties': {
-            czi66i1c9gu: {
+            createTime: {
               'type': 'string[]',
-              'title': '入库时间',
+              'title': '创建时间',
               'x-decorator': 'FormItem',
               'x-component': 'DatePicker',
               'x-component-props': {
@@ -76,48 +78,65 @@ const schema = {
   },
 }
 
-const columns = [
+const queryRef = ref()
+
+async function onDelete(row: any) {
+  await ElMessageBox.confirm('要删除该车辆吗?', '提示', {
+    type: 'warning',
+  })
+  await axios.post('/vehicle/vehicle/deleteVehicle', { vehicleId: row.vehicleId })
+  await queryRef.value?.query()
+  ElMessage.success('操作成功')
+}
+
+const _columns = [
   {
-    prop: 'deiverCode',
-    label: '编号',
+    prop: 'licensePlateNumber',
+    label: '车牌号',
   },
   {
-    prop: 'driverName',
-    label: '名称',
+    prop: 'vehicleFrameNumber',
+    label: '车架号',
   },
   {
-    prop: 'sex',
-    label: '性别',
+    prop: 'vehicleBrand',
+    label: '车辆品牌',
   },
   {
-    prop: 'age',
-    label: '年龄',
+    prop: 'bodyColor',
+    label: '车身颜色',
   },
   {
-    prop: '',
-    label: '已有车辆',
+    prop: 'stateMsg',
+    label: '状态值',
   },
   {
-    prop: '',
-    label: '车型',
-  },
-  {
-    prop: '',
+    prop: 'vehicleState',
     label: '车辆状态',
   },
   {
-    prop: '',
-    label: '所属运营商',
-  },
-  {
     prop: 'createTime',
-    label: '入库时间',
+    label: '创建时间',
   },
   {
-    prop: 'orgId',
-    label: '所属城市',
+    prop: 'updateTime',
+    label: '更新时间',
   },
 ]
+const columns = mergeColumns(_columns, {
+  vehicleBrand: {
+    width: 240,
+    showOverflowTooltip: true,
+  },
+  vehicleFrameNumber: {
+    width: 240,
+    showOverflowTooltip: true,
+  },
+  bodyColor: {
+    width: 200,
+    showOverflowTooltip: true,
+  },
+})
 
 const { files, open } = useFileDialog()
 
@@ -178,11 +197,17 @@ watch(files, async (value) => {
 
 <template>
   <div class="h-full p-2">
-    <UseQuery v-slot="attrs" url="/vehicle/vehicle/getVehicleList">
-      <QueryProvide v-bind="attrs" ref="query" auto-query="active" :columns="columns" :schema="schema">
+    <UseQuery v-slot="attrs" url="/vehicle/vehicle/getVehicleList" :key-map="{ data: 'vehicleList', total: 'count' }">
+      <QueryProvide
+        v-bind="attrs"
+        ref="queryRef"
+        auto-query="active"
+        :columns="columns"
+        :schema="schema"
+      >
         <QueryForm />
         <QueryToolbar>
-          <ElButton type="primary">
+          <ElButton type="primary" @click="$router.push(`./car/new`)">
             {{ $t('button.new') }}
           </ElButton>
           <ElButton type="info" @click="importYun">
@@ -198,13 +223,13 @@ watch(files, async (value) => {
         <QueryTable>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" label="操作" width="180px">
-              <ElButton type="info" size="small" @click="$router.push(`./info/${row.roleId}`)">
+              <ElButton type="info" size="small" @click="$router.push(`./car/info/${row.vehicleId}`)">
                 {{ $t('button.info') }}
               </ElButton>
-              <ElButton type="primary" size="small">
+              <ElButton type="primary" size="small" @click="$router.push(`./car/${row.vehicleId}`)">
                 {{ $t('button.edit') }}
               </ElButton>
-              <ElButton type="danger" size="small">
+              <ElButton type="danger" size="small" @click="onDelete(row)">
                 {{ $t('button.delete') }}
               </ElButton>
             </QueryActionColumn>
