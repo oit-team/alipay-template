@@ -1,23 +1,37 @@
 <script setup lang="ts">
-interface MapItem {
+interface OptionItem {
   prop: string
   label: string
+  span?: number
   default?: string
+  [key: string]: any
 }
 
 defineProps({
   data: Object,
-  map: Array as PropType<MapItem[]>,
+  options: Array as PropType<OptionItem[]>,
+  column: [Number, String],
+  labelWidth: [Number, String],
   defaultText: String,
 })
 </script>
 
 <template>
-  <ElDescriptions v-if="data" v-bind="$attrs">
-    <ElDescriptionsItem v-for="item of map" :key="item.prop" v-bind="item">
+  <ElDescriptions
+    v-if="data"
+    v-bind="$attrs"
+    :style="{ '--el-descriptions-label-width': labelWidth }"
+  >
+    <ElDescriptionsItem v-for="item of options" :key="item.prop" v-bind="item">
       <slot :name="item.prop" v-bind="{ value: data[item.prop] }">
         {{ data[item.prop] ?? item?.default ?? defaultText }}
       </slot>
     </ElDescriptionsItem>
   </ElDescriptions>
 </template>
+
+<style>
+.el-descriptions__label {
+  width: var(--el-descriptions-label-width);
+}
+</style>

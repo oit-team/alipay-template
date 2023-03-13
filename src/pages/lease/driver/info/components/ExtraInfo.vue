@@ -106,7 +106,7 @@ async function submit(form: any) {
       v-if="hasData"
       class="mt-2"
       :data="desc?.body"
-      :map="extraMap"
+      :options="extraMap"
       border
       default-text="无"
     />
