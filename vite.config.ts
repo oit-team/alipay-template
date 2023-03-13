@@ -11,6 +11,8 @@ import Layouts from 'vite-plugin-vue-layouts'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import Eslint from 'vite-plugin-eslint'
 import VueI18n from '@intlify/unplugin-vue-i18n/vite'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 const ComponentsImports = {
@@ -81,12 +83,8 @@ export default (mode: string) => {
             '@formily/core': [
               'createForm',
             ],
-          },
-          {
             '@vueuse/integrations/useAxios': ['useAxios'],
-          },
-          {
-            axios: [
+            'axios': [
               ['default', 'axios'],
             ],
           },
@@ -110,6 +108,7 @@ export default (mode: string) => {
           ElementPlusResolver({
             importStyle: false,
           }),
+          IconsResolver(),
           ComponentsResolver(),
         ],
         types: [{
@@ -134,6 +133,11 @@ export default (mode: string) => {
       // https://github.com/antfu/unocss
       // see unocss.config.ts for config
       Unocss(),
+      // https://github.com/antfu/unplugin-icons
+      Icons({
+        autoInstall: true,
+        compiler: 'vue3',
+      }),
       Eslint(),
     ],
 

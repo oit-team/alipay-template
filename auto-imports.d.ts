@@ -5,6 +5,8 @@
 export {}
 declare global {
   const EffectScope: typeof import('vue')['EffectScope']
+  const ElMessage: typeof import('element-plus/es')['ElMessage']
+  const ElMessageBox: typeof import('element-plus/es')['ElMessageBox']
   const Form: typeof import('@formily/element-plus')['Form']
   const FormButtonGroup: typeof import('@formily/element-plus')['FormButtonGroup']
   const FormItem: typeof import('@formily/element-plus')['FormItem']
@@ -295,6 +297,14 @@ declare module 'vue' {
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly ElMessage: UnwrapRef<typeof import('element-plus/es')['ElMessage']>
     readonly ElMessageBox: UnwrapRef<typeof import('element-plus/es')['ElMessageBox']>
+    readonly Form: UnwrapRef<typeof import('@formily/element-plus')['Form']>
+    readonly FormButtonGroup: UnwrapRef<typeof import('@formily/element-plus')['FormButtonGroup']>
+    readonly FormItem: UnwrapRef<typeof import('@formily/element-plus')['FormItem']>
+    readonly FormLayout: UnwrapRef<typeof import('@formily/element-plus')['FormLayout']>
+    readonly FormProvider: UnwrapRef<typeof import('@formily/vue')['FormProvider']>
+    readonly Input: UnwrapRef<typeof import('@formily/element-plus')['Input']>
+    readonly Password: UnwrapRef<typeof import('@formily/element-plus')['Password']>
+    readonly Submit: UnwrapRef<typeof import('@formily/element-plus')['Submit']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
     readonly axios: UnwrapRef<typeof import('axios')['default']>
