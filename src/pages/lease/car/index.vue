@@ -222,7 +222,7 @@ watch(files, async (value) => {
         </QueryToolbar>
         <QueryTable>
           <template #actions>
-            <QueryActionColumn v-slot="{ row }" label="操作" width="180px">
+            <QueryActionColumn v-slot="{ row }" label="操作" width="180px" fixed="right">
               <ElButton type="info" size="small" @click="$router.push(`./car/info/${row.vehicleId}`)">
                 {{ $t('button.info') }}
               </ElButton>
