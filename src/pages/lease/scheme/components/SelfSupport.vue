@@ -77,7 +77,6 @@ const schema = {
 const queryRef = ref()
 
 async function onDelete(row: any) {
-  console.log(row)
   await ElMessageBox.confirm('要删除该方案吗?', '提示', {
     type: 'warning',
   })
