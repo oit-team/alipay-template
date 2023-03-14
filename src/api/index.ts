@@ -12,6 +12,7 @@ function createApiError(options: ApiErrorOptions) {
 }
 
 Axios.defaults.baseURL = '/api'
+axios.defaults.method = 'post'
 Axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 const transformRequest: AxiosRequestTransformer = (data, headers) => {

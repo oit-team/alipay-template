@@ -58,6 +58,13 @@
               "x-index": 4,
               "name": "driverOperate"
             },
+            "city": {
+              "title": "所属城市",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-index": 5,
+              "name": "city"
+            },
             "driverFleet": {
               "type": "string",
               "title": "所属车队",

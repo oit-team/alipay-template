@@ -90,6 +90,9 @@ watch(files, async (value) => {
           <ElButton type="info" @click="open({ multiple: false })">
             {{ $t('button.import') }}
           </ElButton>
+          <ElButton type="info" @click="$router.push('/process/car-rental')">
+            {{ $t('button.apply') }}
+          </ElButton>
         </QueryToolbar>
         <QueryTable>
           <template #actions>
