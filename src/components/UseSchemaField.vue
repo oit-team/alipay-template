@@ -30,14 +30,31 @@ const props = defineProps<{
 
 function useAsyncDataSource(service: (field: Field) => any) {
   return async (field: Field) => {
-    field.loading = true
     try {
+      field.loading = true
       const data = await service(field)
       field.dataSource = data
     }
     finally {
       field.loading = false
     }
+  }
+}
+
+function useSelectAsyncDataSource(service: (data: { field: Field; keyword: string }) => any) {
+  return (field: Field) => {
+    field.setComponentProps({
+      remoteMethod: async (keyword: string) => {
+        try {
+          field.loading = true
+          const data = await service({ field, keyword })
+          field.dataSource = data
+        }
+        finally {
+          field.loading = false
+        }
+      },
+    })
   }
 }
 
@@ -64,6 +81,7 @@ const { SchemaField } = createSchemaField({
   },
   scope: {
     useAsyncDataSource,
+    useSelectAsyncDataSource,
     ...props.scope,
   },
 })

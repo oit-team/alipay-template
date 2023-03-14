@@ -1,12 +1,15 @@
 <route lang="yaml">
 meta:
   cache: true
-</route>
+  </route>
 
 <script setup lang="ts">
+import { downloadFile } from '@oit/utils'
 import { useUserStore } from '@/store/user'
 import { mergeColumns } from '@/utils/helper'
 
+const { t } = useI18n()
+// 搜索框json
 const schema = {
   type: 'object',
   properties: {
@@ -22,7 +25,7 @@ const schema = {
           'properties': {
             licensePlateNumber: {
               'type': 'string',
-              'title': '车牌号',
+              'title': '方案编号',
               'x-decorator': 'FormItem',
               'x-component': 'Input',
               'x-index': 0,
@@ -35,7 +38,7 @@ const schema = {
           'x-index': 1,
           'properties': {
             vehicleFrameNumber: {
-              'title': '车架号',
+              'title': '方案名称',
               'x-decorator': 'FormItem',
               'x-component': 'Input',
               'x-index': 0,
@@ -49,7 +52,7 @@ const schema = {
           'properties': {
             vehicleBrand: {
               'type': 'string',
-              'title': '车辆品牌',
+              'title': '租赁城市',
               'x-decorator': 'FormItem',
               'x-component': 'Input',
               'x-index': 0,
@@ -62,13 +65,10 @@ const schema = {
           'x-index': 3,
           'properties': {
             createTime: {
-              'type': 'string[]',
-              'title': '创建时间',
+              'type': 'string',
+              'title': '状态',
               'x-decorator': 'FormItem',
-              'x-component': 'DatePicker',
-              'x-component-props': {
-                type: 'daterange',
-              },
+              'x-component': 'Input',
               'x-index': 0,
             },
           },
@@ -81,102 +81,108 @@ const schema = {
 const queryRef = ref()
 
 async function onDelete(row: any) {
-  await ElMessageBox.confirm('要删除该车辆吗?', '提示', {
+  await ElMessageBox.confirm('要删除该方案吗?', '提示', {
     type: 'warning',
   })
-  await axios.post('/vehicle/vehicle/deleteVehicle', { vehicleId: row.vehicleId })
+  await axios.post('/order/scheme/delSchemeInfo', { caseId: row.caseId })
   await queryRef.value?.query()
   ElMessage.success('操作成功')
 }
 
+async function onPutaway(row: any) {
+  // 0 下架 1 上架
+  const casedescript = row.caseState === 1 ? '下架' : '上架'
+  await ElMessageBox.confirm(`要${casedescript}该方案吗?`, '提示', {
+    type: 'warning',
+  })
+  await axios.post('/order/scheme/updateSchemeStatus', {
+    caseId: row.id,
+    caseState: row.caseState === 1 ? 0 : 1,
+  })
+  await queryRef.value?.query()
+  ElMessage.success('操作成功')
+}
+
+// 表格的json
 const _columns = [
   {
-    prop: 'licensePlateNumber',
-    label: '车牌号',
+    prop: 'caseCode',
+    label: '方案编号',
   },
   {
-    prop: 'vehicleFrameNumber',
-    label: '车架号',
+    prop: 'caseName',
+    label: '方案名称',
   },
   {
-    prop: 'vehicleBrand',
-    label: '车辆品牌',
+    prop: 'caseType',
+    label: '方案类型',
   },
   {
-    prop: 'bodyColor',
-    label: '车身颜色',
+    prop: 'brandCarModel',
+    label: '品牌车系车型',
   },
   {
-    prop: 'stateMsg',
-    label: '状态值',
+    prop: 'leasingCity',
+    label: '租赁城市',
   },
   {
-    prop: 'vehicleState',
-    label: '车辆状态',
+    prop: 'leaseTerm',
+    label: '租期（月）',
   },
   {
-    prop: 'createTime',
-    label: '创建时间',
+    prop: 'rent',
+    label: '租金（元）',
   },
   {
-    prop: 'updateTime',
-    label: '更新时间',
+    prop: 'cashPledge',
+    label: '押金（元）',
+  },
+  {
+    prop: 'expirationDate',
+    label: '失效日期',
+  },
+  {
+    prop: 'caseState',
+    label: '状态',
+  },
+  {
+    prop: 'updateId',
+    label: '操作人',
   },
 ]
 const columns = mergeColumns(_columns, {
-  vehicleBrand: {
-    width: 240,
+  caseCode: {
+    width: 150,
     showOverflowTooltip: true,
   },
-  vehicleFrameNumber: {
-    width: 240,
+  caseName: {
+    width: 150,
     showOverflowTooltip: true,
   },
-  bodyColor: {
+  brandCarModel: {
     width: 200,
     showOverflowTooltip: true,
   },
 })
 
+const exportDialogVisible = ref(false)
+
+// 下载模板
+async function downloadModel() {
+  const { data } = await axios.get('/order/scheme/getImportTemplate', { responseType: 'arraybuffer' })
+  downloadFile(data, 'T3方案导入模板.xls')
+}
+
+// 导入方案
 const { files, open } = useFileDialog()
 
-const importType = ref(0)
-
-function importYun() {
-  open({ multiple: false })
-  importType.value = 0
-}
-function importCar() {
-  open({ multiple: false })
-  importType.value = 1
-}
-function importWei() {
-  open({ multiple: false })
-  importType.value = 2
-}
-const url = ref('')
 watch(files, async (value) => {
   if (!value || !value.length)
     return
 
   const { profile } = useUserStore()
 
-  switch (importType.value) {
-    case 0:
-      url.value = '/vehicle/vehicle/addT3OperationalData'
-      break
-    case 1:
-      url.value = '/vehicle/vehicle/addImportT3ReplenishVehicle'
-      break
-    case 2:
-      url.value = '/vehicle/vehicle/addImportIllegal'
-      break
-    default:
-      url.value = ''
-      break
-  }
-
-  axios.post(url.value, {
+  axios.post('/order/scheme/importSchemeInfo', {
     file: value[0],
     userId: profile?.userId,
   }, {
@@ -185,7 +191,8 @@ watch(files, async (value) => {
     },
   })
     .then(() => {
-      ElMessage.success('导入成功')
+      ElMessage.success(t('import.success'))
+      exportDialogVisible.value = false
     })
     .catch((err) => {
       ElMessageBox.alert(err.message, '警告', {
@@ -197,7 +204,14 @@ watch(files, async (value) => {
 
 <template>
   <div class="h-full p-2">
-    <UseQuery v-slot="attrs" url="/vehicle/vehicle/getVehicleList" :key-map="{ data: 'vehicleList', total: 'count' }">
+    <UseQuery
+      v-slot="attrs"
+      url="/order/scheme/getSchemeList"
+      :data="{
+        caseType: 1,
+      }"
+      :key-map="{ data: 'schemeList', total: 'totalCount' }"
+    >
       <QueryProvide
         v-bind="attrs"
         ref="queryRef"
@@ -207,30 +221,21 @@ watch(files, async (value) => {
       >
         <QueryForm />
         <QueryToolbar>
-          <ElButton type="primary" @click="$router.push(`./car/new`)">
-            {{ $t('button.new') }}
-          </ElButton>
-          <ElButton type="info" @click="importYun">
-            导入运营流水
-          </ElButton>
-          <ElButton type="info" @click="importCar">
-            导入车辆信息
-          </ElButton>
-          <ElButton type="info" @click="importWei">
-            导入违章信息
+          <ElButton type="primary" @click="exportDialogVisible = true">
+            T3方案导入
           </ElButton>
         </QueryToolbar>
         <QueryTable>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" label="操作" width="180px" fixed="right">
-              <ElButton type="info" size="small" @click="$router.push(`./car/info/${row.vehicleId}`)">
-                {{ $t('button.info') }}
-              </ElButton>
-              <ElButton type="primary" size="small" @click="$router.push(`./car/${row.vehicleId}`)">
+              <ElButton type="primary" size="small" :disabled="row.caseState === 1" @click="$router.push(`./scheme/${row.id}`)">
                 {{ $t('button.edit') }}
               </ElButton>
               <ElButton type="danger" size="small" @click="onDelete(row)">
                 {{ $t('button.delete') }}
+              </ElButton>
+              <ElButton type="warning" size="small" @click="onPutaway(row)">
+                {{ row.caseState === 1 ? '下架' : '上架' }}
               </ElButton>
             </QueryActionColumn>
           </template>
@@ -239,4 +244,20 @@ watch(files, async (value) => {
       </QueryProvide>
     </UseQuery>
   </div>
+  <ElDialog
+    v-model="exportDialogVisible"
+    title="导入T3方案"
+    width="25%"
+  >
+    <ElButton type="primary" @click="open({ multiple: false })">
+      导入T3方案
+    </ElButton>
+    <div class="my-4 text-xs">
+      <span class="text-red-500">*</span>导入方案后请选择下载模板
+    </div>
+    <ElButton type="success" size="small" @click="downloadModel()">
+      下载模板
+    </ElButton>
+  </ElDialog>
 </template>
+

@@ -1,0 +1,218 @@
+{
+  "type": "object",
+  "properties": {
+    "assetCompany": {
+      "type": "string",
+      "title": "资产公司",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-validator": [],
+      "x-component-props": {
+        "maxLength": 50
+      },
+      "x-decorator-props": {
+        "layout": "horizontal"
+      },
+      "name": "assetCompany",
+      "x-designable-id": "e3pkf0etyol",
+      "x-index": 0,
+      "required": true
+    },
+    "caseName": {
+      "type": "string",
+      "title": "方案名称",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-validator": [],
+      "x-component-props": {
+        "maxLength": 50
+      },
+      "x-decorator-props": {},
+      "name": "caseName",
+      "x-designable-id": "6i6pagv7bfc",
+      "x-index": 1,
+      "required": true
+    },
+    "caseType": {
+      "title": "方案类型",
+      "x-decorator": "FormItem",
+      "x-component": "Select",
+      "x-validator": [],
+      "x-component-props": {
+        "placeholder": "请选择方案类型"
+      },
+      "x-decorator-props": {},
+      "enum": [
+        {
+          "children": [],
+          "label": "自营",
+          "value": 0
+        },
+        {
+          "children": [],
+          "label": "T3",
+          "value": 1
+        }
+      ],
+      "x-designable-id": "l4xbtsr2vu2",
+      "x-index": 2,
+      "required": true,
+      "name": "caseType",
+      "default": ""
+    },
+    "brandCarModel": {
+      "type": "string",
+      "title": "品牌车系车型",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-validator": [],
+      "x-component-props": {
+        "maxLength": 50
+      },
+      "x-decorator-props": {},
+      "name": "brandCarModel",
+      "x-designable-id": "gb3xjkddzli",
+      "x-index": 3,
+      "required": true
+    },
+    "leasingCity": {
+      "type": "string",
+      "title": "租赁城市",
+      "x-decorator": "FormItem",
+      "x-component": "Select",
+      "x-validator": [],
+      "x-component-props": {
+        "filterable": true,
+        "remote": true,
+        "reserve-keyword": true,
+        "remote-show-suffix": true
+      },
+      "x-decorator-props": {},
+      "name": "leasingCity",
+      "x-designable-id": "2nlwc2j6a8t",
+      "x-reactions": "{{useSelectAsyncDataSource(loadData)}}",
+      "x-index": 4,
+      "required": true
+    },
+    "rent": {
+      "type": "string",
+      "title": "租金",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-validator": "number",
+      "x-component-props": {},
+      "x-decorator-props": {},
+      "name": "rent",
+      "x-designable-id": "1bhthaijp8z",
+      "x-index": 5,
+      "required": true
+    },
+    "cashPledge": {
+      "type": "string",
+      "title": "押金",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-validator": "number",
+      "x-component-props": {},
+      "x-decorator-props": {},
+      "required": true,
+      "name": "cashPledge",
+      "x-designable-id": "sqbqreqe5s3",
+      "x-index": 6
+    },
+    "leaseTerm": {
+      "type": "string",
+      "title": "租期（月）",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-validator": [],
+      "x-component-props": {},
+      "x-decorator-props": {},
+      "name": "leaseTerm",
+      "required": true,
+      "x-designable-id": "wheij0ufoc7",
+      "x-index": 7
+    },
+    "vehicleAge": {
+      "type": "string",
+      "title": "车龄（年）",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-validator": "number",
+      "x-component-props": {},
+      "x-decorator-props": {},
+      "name": "vehicleAge",
+      "x-designable-id": "9hf0sdzk8y6",
+      "x-index": 8,
+      "required": true
+    },
+    "mileage": {
+      "type": "string",
+      "title": "里程（km）",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-validator": "number",
+      "x-component-props": {},
+      "x-decorator-props": {},
+      "name": "mileage",
+      "x-designable-id": "m6oy6qgtlnz",
+      "x-index": 9,
+      "required": true
+    },
+    "expirationDate": {
+      "type": "string",
+      "title": "方案截止时间",
+      "x-decorator": "FormItem",
+      "x-component": "DatePicker",
+      "x-validator": "date",
+      "x-component-props": {
+        "placeholder": "选择方案截止时间"
+      },
+      "x-decorator-props": {},
+      "name": "expirationDate",
+      "x-designable-id": "obn3q704om6",
+      "x-index": 10,
+      "required": true
+    },
+    "agencyDeductionTemplateUrl": {
+      "type": "Array<object>",
+      "title": "代扣模板地址",
+      "x-decorator": "FormItem",
+      "x-component": "Upload",
+      "x-component-props": {
+        "textContent": "Upload"
+      },
+      "x-validator": [],
+      "x-decorator-props": {},
+      "name": "agencyDeductionTemplateUrl",
+      "x-designable-id": "b0o5zb9n8ny",
+      "x-index": 11
+    },
+    "contractTemplateUrl": {
+      "type": "Array<object>",
+      "title": "合同模板地址",
+      "x-decorator": "FormItem",
+      "x-component": "Upload",
+      "x-component-props": {
+        "textContent": "Upload"
+      },
+      "x-validator": [],
+      "x-decorator-props": {},
+      "name": "contractTemplateUrl",
+      "x-designable-id": "toyuh0vvtfw",
+      "x-index": 12
+    },
+    "yd0xu0rt3pq": {
+      "type": "string",
+      "title": "租赁包含内容",
+      "x-decorator": "FormItem",
+      "x-component": "Input.TextArea",
+      "x-validator": [],
+      "x-component-props": {},
+      "x-decorator-props": {},
+      "x-designable-id": "yd0xu0rt3pq",
+      "x-index": 13
+    }
+  },
+  "x-designable-id": "609ucp7429v"
+}

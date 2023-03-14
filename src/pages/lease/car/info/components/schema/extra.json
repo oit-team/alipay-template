@@ -1,0 +1,578 @@
+{
+  "type": "object",
+  "properties": {
+    "zc2phfz5fbp": {
+      "type": "void",
+      "x-component": "FormGrid",
+      "x-validator": [],
+      "x-component-props": {
+        "maxColumns": 2
+      },
+      "x-designable-id": "zc2phfz5fbp",
+      "x-index": 0,
+      "properties": {
+        "5vdw6mt22j9": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-validator": [],
+          "x-component-props": {},
+          "x-designable-id": "5vdw6mt22j9",
+          "x-index": 0,
+          "properties": {
+            "purchaseInvoiceNumber": {
+              "type": "string",
+              "title": "购买发票编号",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "purchaseInvoiceNumber",
+              "x-designable-id": "srvauvsyopl",
+              "x-index": 0
+            }
+          }
+        },
+        "ppp9d991gub": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-validator": [],
+          "x-component-props": {},
+          "x-designable-id": "ppp9d991gub",
+          "x-index": 1,
+          "properties": {
+            "purchaseInvoiceDate": {
+              "type": "string",
+              "title": "购买发票日期",
+              "x-decorator": "FormItem",
+              "x-component": "DatePicker",
+              "x-validator": "date",
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "purchaseInvoiceDate",
+              "x-designable-id": "wjy89cjxgoh",
+              "x-index": 0
+            }
+          }
+        },
+        "8vg1m4sjl9i": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "8vg1m4sjl9i",
+          "x-index": 2,
+          "properties": {
+            "transporteCardNumber": {
+              "type": "string",
+              "title": "运输证编号",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "transporteCardNumber",
+              "x-designable-id": "9ojjyz63osi",
+              "x-index": 0
+            }
+          }
+        },
+        "certificateNumber": {
+          "type": "string",
+          "title": "合格证号",
+          "x-decorator": "FormItem",
+          "x-component": "Input",
+          "x-validator": [],
+          "x-component-props": {},
+          "x-decorator-props": {},
+          "name": "certificateNumber",
+          "x-designable-id": "hqbeadianub",
+          "x-index": 3
+        },
+        "n4l0d4n40mb": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "n4l0d4n40mb",
+          "x-index": 4,
+          "properties": {
+            "assetCompany": {
+              "type": "string",
+              "title": "资产公司",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "assetCompany",
+              "x-designable-id": "exz19xj7i3g",
+              "x-index": 0
+            }
+          }
+        },
+        "qm113e5euy2": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "qm113e5euy2",
+          "x-index": 5,
+          "properties": {
+            "warrantyMileage": {
+              "type": "string",
+              "title": "质保公里数",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "warrantyMileage",
+              "x-designable-id": "gc9hx3upmvz",
+              "x-index": 0
+            }
+          }
+        },
+        "waqzvi9eo06": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "waqzvi9eo06",
+          "x-index": 6,
+          "properties": {
+            "operator": {
+              "type": "string",
+              "title": "运营商",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "operator",
+              "x-designable-id": "ba0bm9y34fd",
+              "x-index": 0
+            }
+          }
+        },
+        "9cwpqy9brh4": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-validator": [],
+          "x-component-props": {},
+          "x-designable-id": "9cwpqy9brh4",
+          "x-index": 7,
+          "properties": {
+            "warrantyExpirationDate": {
+              "type": "string",
+              "title": "质保到期时间",
+              "x-decorator": "FormItem",
+              "x-component": "DatePicker",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "warrantyExpirationDate",
+              "x-designable-id": "3vdskecvhex",
+              "x-index": 0
+            }
+          }
+        },
+        "q1zfgxs8ysw": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "q1zfgxs8ysw",
+          "x-index": 8,
+          "properties": {
+            "vehicleCreditGrantor": {
+              "type": "string",
+              "title": "车辆授信方",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "vehicleCreditGrantor",
+              "x-designable-id": "0a4z2fidox8",
+              "x-index": 0
+            }
+          }
+        },
+        "x366vnnlqlo": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-validator": [],
+          "x-component-props": {},
+          "x-designable-id": "x366vnnlqlo",
+          "x-index": 9,
+          "properties": {
+            "maintainMileageIntervals": {
+              "type": "string",
+              "title": "保养公里数间隔",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "maintainMileageIntervals",
+              "x-designable-id": "cbm8i32kbrn",
+              "x-index": 0
+            }
+          }
+        },
+        "4pi2wh9m1xi": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "4pi2wh9m1xi",
+          "x-index": 10,
+          "properties": {
+            "vehicleHolder": {
+              "type": "string",
+              "title": "车辆持有方",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "vehicleHolder",
+              "x-designable-id": "hqdo5llgsmt",
+              "x-index": 0
+            }
+          }
+        },
+        "wc0rqnx1zuv": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "wc0rqnx1zuv",
+          "x-index": 11,
+          "properties": {
+            "productLine": {
+              "type": "string",
+              "title": "产品线",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "productLine",
+              "x-designable-id": "8yoxlflv7wq",
+              "x-index": 0
+            }
+          }
+        },
+        "deziz6kbrat": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "deziz6kbrat",
+          "x-index": 12,
+          "properties": {
+            "vehicleSupplier": {
+              "type": "string",
+              "title": "车辆供应商",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "vehicleSupplier",
+              "x-designable-id": "epw8b73ocm1",
+              "x-index": 0
+            }
+          }
+        },
+        "s07yhxupte6": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "s07yhxupte6",
+          "x-index": 13,
+          "properties": {
+            "vehicleClass": {
+              "type": "string",
+              "title": "车型等级",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "vehicleClass",
+              "x-designable-id": "g2ndalk6qz9",
+              "x-index": 0
+            }
+          }
+        },
+        "supplyMethod": {
+          "type": "string",
+          "title": "供应方式",
+          "x-decorator": "FormItem",
+          "x-component": "Input",
+          "x-validator": [],
+          "x-component-props": {},
+          "x-decorator-props": {},
+          "name": "supplyMethod",
+          "x-designable-id": "1ql7fo4bg9j",
+          "x-index": 14
+        },
+        "vbomqllrl35": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "vbomqllrl35",
+          "x-index": 15,
+          "properties": {
+            "setSource": {
+              "type": "string",
+              "title": "设定来源",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "setSource",
+              "x-designable-id": "cub8d9d0vv7",
+              "x-index": 0
+            }
+          }
+        },
+        "q6z274iis3z": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "q6z274iis3z",
+          "x-index": 16,
+          "properties": {
+            "engineCode": {
+              "type": "string",
+              "title": "发动机/电机编号",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "engineCode",
+              "x-designable-id": "e27di8y0ckx",
+              "x-index": 0
+            }
+          }
+        },
+        "f05p07oda7u": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-validator": [],
+          "x-component-props": {},
+          "x-designable-id": "f05p07oda7u",
+          "x-index": 17,
+          "properties": {
+            "operationalTime": {
+              "type": "string",
+              "title": "投入运营时间",
+              "x-decorator": "FormItem",
+              "x-component": "DatePicker",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "operationalTime",
+              "x-designable-id": "wqbe5ngr1ut",
+              "x-index": 0
+            }
+          }
+        },
+        "khunjvfsq24": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "khunjvfsq24",
+          "x-index": 18,
+          "properties": {
+            "modelCode": {
+              "type": "string",
+              "title": "车型代码",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "modelCode",
+              "x-designable-id": "x9wcwvfqlbn",
+              "x-index": 0
+            }
+          }
+        },
+        "l5uu0rsqg0a": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-validator": [],
+          "x-component-props": {},
+          "x-designable-id": "l5uu0rsqg0a",
+          "x-index": 19,
+          "properties": {
+            "assetType": {
+              "type": "string",
+              "title": "资产类型",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "assetType",
+              "x-designable-id": "8ddjrt4rdgs",
+              "x-index": 0
+            }
+          }
+        },
+        "dtibptmsqqt": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "dtibptmsqqt",
+          "x-index": 20,
+          "properties": {
+            "vehiclePrice": {
+              "type": "string",
+              "title": "车辆价格",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "vehiclePrice",
+              "x-designable-id": "st5ac4c1082",
+              "x-index": 0
+            }
+          }
+        },
+        "d7rgetr6nbj": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-validator": [],
+          "x-component-props": {},
+          "x-designable-id": "d7rgetr6nbj",
+          "x-index": 21,
+          "properties": {
+            "invoiceImgs": {
+              "type": "Array<object>",
+              "title": "发票照片",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload"
+              },
+              "x-validator": [],
+              "x-decorator-props": {},
+              "name": "invoiceImgs",
+              "x-designable-id": "9snj5y13ib3",
+              "x-index": 0
+            }
+          }
+        },
+        "jlhqk4o40ee": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "jlhqk4o40ee",
+          "x-index": 22,
+          "properties": {
+            "keyNumber": {
+              "type": "string",
+              "title": "钥匙号",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "keyNumber",
+              "x-designable-id": "4hxq8xtmoq6",
+              "x-index": 0
+            }
+          }
+        },
+        "f91eh6uncow": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-validator": [],
+          "x-component-props": {},
+          "x-designable-id": "f91eh6uncow",
+          "x-index": 23,
+          "properties": {
+            "certificateImg": {
+              "type": "Array<object>",
+              "title": "合格证照片",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload"
+              },
+              "x-validator": [],
+              "x-decorator-props": {},
+              "name": "certificateImg",
+              "x-designable-id": "jeb7izw06u4",
+              "x-index": 0
+            }
+          }
+        },
+        "7itbmi6e9i8": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "7itbmi6e9i8",
+          "x-index": 24,
+          "properties": {
+            "city": {
+              "type": "string",
+              "title": "所属城市",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "city",
+              "x-designable-id": "tpj9yvk449a",
+              "x-index": 0
+            }
+          }
+        },
+        "nppe4uv7dk5": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-validator": [],
+          "x-component-props": {},
+          "x-designable-id": "nppe4uv7dk5",
+          "x-index": 25
+        },
+        "et69jk2xerb": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "et69jk2xerb",
+          "x-index": 26,
+          "properties": {
+            "warehouse": {
+              "type": "string",
+              "title": "库房",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "warehouse",
+              "x-designable-id": "546x4ysv29m",
+              "x-index": 0
+            }
+          }
+        },
+        "dgjqwxhdqy5": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-validator": [],
+          "x-component-props": {},
+          "x-designable-id": "dgjqwxhdqy5",
+          "x-index": 27
+        },
+        "o6i29el2aek": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "o6i29el2aek",
+          "x-index": 28,
+          "properties": {
+            "reservoirArea": {
+              "type": "string",
+              "title": "库区",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "reservoirArea",
+              "x-designable-id": "b5a7r3ya5xm",
+              "x-index": 0
+            }
+          }
+        }
+      }
+    }
+  },
+  "x-designable-id": "609ucp7429v"
+}

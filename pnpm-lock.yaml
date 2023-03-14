@@ -9,6 +9,7 @@ specifiers:
   '@iconify/json': ^2.2.29
   '@intlify/unplugin-vue-i18n': ^0.9.1
   '@oit/eslint-config-vue-ts': ^0.4.7
+  '@oit/utils': ^0.1.0
   '@types/crypto-js': ^4.1.1
   '@types/node': ^18.14.2
   '@unocss/reset': ^0.50.3
@@ -56,6 +57,7 @@ dependencies:
   '@formily/core': 2.2.20
   '@formily/element-plus': 1.0.0-beta.8_fbiusmgbpedyibgqwr2yj4u2hy
   '@formily/vue': 2.2.20_fbiusmgbpedyibgqwr2yj4u2hy
+  '@oit/utils': 0.1.0
   '@uxuip/element-plus-query': 0.0.1_fimje5fbp73yiv4amscsas6eee
   '@vue/composition-api': 1.7.1_vue@3.2.47
   '@vueuse/core': 9.13.0_nl35ja3bquglpolb4ogn4n6pq4
@@ -1489,6 +1491,10 @@ packages:
       - supports-color
       - typescript
     dev: true
+
+  /@oit/utils/0.1.0:
+    resolution: {integrity: sha512-5zelnQW7cMrBWiv/b+WG94b285hV8yFZwrgFUlK4Z8Ysnyq28jrHpsVR+LysxiHxzTC1aLdseJNIEP+Iz+ELzQ==}
+    dev: false
 
   /@polka/url/1.0.0-next.21:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
