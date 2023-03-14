@@ -41,8 +41,8 @@ function submitFailed(err: any) {
     <div class="flex flex-col h-full">
       <PageHeader :title="isNew ? '添加司机' : '编辑司机'" />
       <FormLayout
-        u-px-2
         label-col="4"
+        u-px-2
         wrapper-col="10"
       >
         <UseSchemaField :schema="schema" />

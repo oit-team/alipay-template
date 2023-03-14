@@ -172,16 +172,16 @@ const { data } = useAxios('/driverServer/driver/getDriverMap', {
 <template>
   <div class="flex flex-col gap-3 p-2">
     <ElCollapse class="border-x" model-value="base">
-      <ElCollapseItem title="基本信息" name="base">
-        <Descriptions :data="data?.body" :options="infoMap" border default-text="无" />
+      <ElCollapseItem name="base" title="基本信息">
+        <Descriptions border :data="data?.body" default-text="无" :options="infoMap" />
       </ElCollapseItem>
       <ElCollapseItem title="身份证信息">
         <Descriptions
           v-if="data?.body?.driverIdentity"
-          :data="data?.body?.driverIdentity"
-          :options="driverIdentityMap"
           border
+          :data="data?.body?.driverIdentity"
           default-text="无"
+          :options="driverIdentityMap"
         >
           <template #identityImg="{ value }">
             <ElImage :src="value" />
@@ -198,20 +198,20 @@ const { data } = useAxios('/driverServer/driver/getDriverMap', {
       <ElCollapseItem title="驾驶证信息">
         <Descriptions
           v-if="data?.body?.driverQualifica"
-          :data="data?.body?.driverQualifica"
-          :options="driverQualificaMap"
           border
+          :data="data?.body?.driverQualifica"
           default-text="无"
+          :options="driverQualificaMap"
         />
         <ElEmpty v-else />
       </ElCollapseItem>
       <ElCollapseItem title="网约车证信息">
         <Descriptions
           v-if="data?.body?.driveLicense"
-          :data="data?.body?.driveLicense"
-          :options="driveLicenseMap"
           border
+          :data="data?.body?.driveLicense"
           default-text="无"
+          :options="driveLicenseMap"
         >
           <template #driveLicenseHost="{ value }">
             <ElImage :src="value" />

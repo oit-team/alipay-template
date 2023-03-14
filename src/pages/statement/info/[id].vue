@@ -27,7 +27,7 @@ initForm({
   <FormProvider :form="form">
     <div class="flex flex-col h-full">
       <PageHeader title="流水详情" />
-      <FormLayout u-px-2 label-col="11" wrapper-col="10" class="h-full w-full">
+      <FormLayout class="h-full w-full" label-col="11" u-px-2 wrapper-col="10">
         <UseSchemaField :schema="schema" />
       </FormLayout>
     </div>

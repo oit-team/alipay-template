@@ -126,18 +126,18 @@ const { data } = useAxios('/vehicle/vehicle/getVehicleDetailed', {
       <ElTabPane label="基本信息">
         <div class="flex flex-col gap-3">
           <ElCollapse model-value="base">
-            <ElCollapseItem title="基本信息" name="base">
-              <Descriptions :data="data?.body?.vehicleDetailed" :map="carIdentityMap" border default-text="无" />
+            <ElCollapseItem name="base" title="基本信息">
+              <Descriptions border :data="data?.body?.vehicleDetailed" default-text="无" :map="carIdentityMap" />
             </ElCollapseItem>
             <ElCollapseItem title="运输证信息">
-              <Descriptions :data="data?.body?.vehicleDetailed?.transporteCard" :map="transportationMap" border default-text="无">
+              <Descriptions border :data="data?.body?.vehicleDetailed?.transporteCard" default-text="无" :map="transportationMap">
                 <template #transporteCardImg="{ value }">
                   <ElImage :src="value" />
                 </template>
               </Descriptions>
             </ElCollapseItem>
             <ElCollapseItem title="行驶证信息">
-              <Descriptions :data="data?.body?.vehicleDetailed?.driveLicense" :map="driveLicenseMap" border default-text="无">
+              <Descriptions border :data="data?.body?.vehicleDetailed?.driveLicense" default-text="无" :map="driveLicenseMap">
                 <template #driveLicenceOriginal="{ value }">
                   <ElImage :src="value" />
                 </template>

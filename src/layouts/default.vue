@@ -84,7 +84,7 @@ function logout() {
   <ElContainer class="h-full overflow-hidden">
     <ElHeader class="flex items-center justify-between border-b gap-3">
       <div class="flex items-center gap-3">
-        <ElAvatar src="" :size="40" />
+        <ElAvatar :size="40" src="" />
         <div class="font-bold text-lg">
           汽车租赁管理系统
         </div>
@@ -107,7 +107,7 @@ function logout() {
             >
               <template #title>
                 <div class="flex items-center gap-2">
-                  <div :class="item.icon" class="text-lg" />
+                  <div class="text-lg" :class="item.icon" />
                   {{ item.title }}
                 </div>
               </template>
@@ -132,8 +132,8 @@ function logout() {
                 <KeepAlive>
                   <Component
                     :is="Component"
-                    v-if="route.meta.cache"
                     :key="route.path"
+                    v-if="route.meta.cache"
                     class="router-view"
                   />
                 </KeepAlive>

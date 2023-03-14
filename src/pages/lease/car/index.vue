@@ -197,7 +197,7 @@ watch(files, async (value) => {
 
 <template>
   <div class="h-full p-2">
-    <UseQuery v-slot="attrs" url="/vehicle/vehicle/getVehicleList" :key-map="{ data: 'vehicleList', total: 'count' }">
+    <UseQuery v-slot="attrs" :key-map="{ data: 'vehicleList', total: 'count' }" url="/vehicle/vehicle/getVehicleList">
       <QueryProvide
         v-bind="attrs"
         ref="queryRef"
@@ -222,14 +222,14 @@ watch(files, async (value) => {
         </QueryToolbar>
         <QueryTable>
           <template #actions>
-            <QueryActionColumn v-slot="{ row }" label="操作" width="180px" fixed="right">
-              <ElButton type="info" size="small" @click="$router.push(`./car/info/${row.vehicleId}`)">
+            <QueryActionColumn v-slot="{ row }" fixed="right" label="操作" width="180px">
+              <ElButton size="small" type="info" @click="$router.push(`./car/info/${row.vehicleId}`)">
                 {{ $t('button.info') }}
               </ElButton>
-              <ElButton type="primary" size="small" @click="$router.push(`./car/${row.vehicleId}`)">
+              <ElButton size="small" type="primary" @click="$router.push(`./car/${row.vehicleId}`)">
                 {{ $t('button.edit') }}
               </ElButton>
-              <ElButton type="danger" size="small" @click="onDelete(row)">
+              <ElButton size="small" type="danger" @click="onDelete(row)">
                 {{ $t('button.delete') }}
               </ElButton>
             </QueryActionColumn>

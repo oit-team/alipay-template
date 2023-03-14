@@ -25,9 +25,9 @@ async function onDelete(row: any) {
   <div class="h-full p-2">
     <UseQuery
       v-slot="query"
-      url="/system/role/getRoleList"
       column="1677137737909"
       form="1677659603116"
+      url="/system/role/getRoleList"
     >
       <QueryProvide v-bind="query" ref="queryRef" auto-query="active">
         <QueryForm />

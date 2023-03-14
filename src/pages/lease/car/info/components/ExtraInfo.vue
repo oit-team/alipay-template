@@ -108,9 +108,9 @@ async function submit(form: any) {
       <ElButton
         v-if="type"
         class="ml-auto"
+        :loading="isLoading"
         size="large"
         type="primary"
-        :loading="isLoading"
         @click="openDrawer()"
       >
         {{ hasData ? t('button.edit') : t('button.new') }}
@@ -118,19 +118,19 @@ async function submit(form: any) {
     </div>
     <Descriptions
       v-if="hasData"
+      border
       class="mt-2"
       :data="desc?.body.resultList[0]"
-      :map="extraMap"
-      border
       default-text="无"
+      :map="extraMap"
     />
     <ElEmpty v-else />
   </div>
 
-  <ElDrawer v-model="showDrawer" size="65%" title="补充信息" :before-close="(done) => notSavedTips(form.modified, done)">
+  <ElDrawer v-model="showDrawer" :before-close="(done) => notSavedTips(form.modified, done)" size="65%" title="补充信息">
     <ElScrollbar>
       <FormProvider :form="form">
-        <FormLayout label-col="6" class="px-4 pb-4 flex flex-col">
+        <FormLayout class="px-4 pb-4 flex flex-col" label-col="6">
           <UseSchemaField :schema="schema" />
           <Submit class="w-1/6 self-center" @submit="submit">
             {{ t('button.save') }}

@@ -72,10 +72,10 @@ watch(files, async (value) => {
   <div class="h-full p-2">
     <UseQuery
       v-slot="attrs"
-      url="/driverServer/driver/getDriverList"
       :columns-config="columnConfig"
       columns-key="1678439396062"
       schema-key="1678439739103"
+      url="/driverServer/driver/getDriverList"
     >
       <QueryProvide
         v-bind="attrs"
@@ -90,13 +90,13 @@ watch(files, async (value) => {
           <ElButton type="info" @click="open({ multiple: false })">
             {{ $t('button.import') }}
           </ElButton>
-          <ElButton type="info" @click="$router.push('/process/car-rental')">
-            {{ $t('button.apply') }}
+          <ElButton :auto-insert-space="false" type="info" @click="$router.push('/process/car-rental')">
+            {{ $t('button.apply') }}租车
           </ElButton>
         </QueryToolbar>
         <QueryTable>
           <template #actions>
-            <QueryActionColumn v-slot="{ row }" width="180px" fixed="right">
+            <QueryActionColumn v-slot="{ row }" fixed="right" width="180px">
               <ElButton type="info" @click="$router.push(`./driver/info/${row.driverId}`)">
                 {{ $t('button.info') }}
               </ElButton>

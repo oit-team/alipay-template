@@ -240,18 +240,18 @@ const columns = mergeColumns(_columns, {
   <div class="h-full p-2">
     <UseQuery
       v-slot="attrs"
-      url="/vehicle/vehicle/getViolationInfo"
-      :key-map="{ total: 'totalCount' }"
       :data="{
         vehicleId: $route.params.id,
       }"
+      :key-map="{ total: 'totalCount' }"
+      url="/vehicle/vehicle/getViolationInfo"
     >
       <QueryProvide
         v-bind="attrs"
         ref="queryRef"
         auto-query="active"
-        :schema="schema"
         :columns="columns"
+        :schema="schema"
       >
         <QueryForm />
         <QueryTable />

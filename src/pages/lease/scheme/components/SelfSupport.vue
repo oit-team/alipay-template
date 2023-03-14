@@ -164,11 +164,11 @@ const columns = mergeColumns(_columns, {
   <div class="h-full p-2">
     <UseQuery
       v-slot="attrs"
-      url="/order/scheme/getSchemeList"
       :data="{
         caseType: 0,
       }"
       :key-map="{ data: 'schemeList', total: 'totalCount' }"
+      url="/order/scheme/getSchemeList"
     >
       <QueryProvide
         v-bind="attrs"
@@ -185,14 +185,14 @@ const columns = mergeColumns(_columns, {
         </QueryToolbar>
         <QueryTable>
           <template #actions>
-            <QueryActionColumn v-slot="{ row }" label="操作" width="180px" fixed="right">
-              <ElButton type="primary" size="small" :disabled="row.caseState === 1" @click="$router.push(`./scheme/${row.id}`)">
+            <QueryActionColumn v-slot="{ row }" fixed="right" label="操作" width="180px">
+              <ElButton :disabled="row.caseState === 1" size="small" type="primary" @click="$router.push(`./scheme/${row.id}`)">
                 {{ $t('button.edit') }}
               </ElButton>
-              <ElButton type="danger" size="small" @click="onDelete(row)">
+              <ElButton size="small" type="danger" @click="onDelete(row)">
                 {{ $t('button.delete') }}
               </ElButton>
-              <ElButton type="warning" size="small" @click="onPutaway(row)">
+              <ElButton size="small" type="warning" @click="onPutaway(row)">
                 {{ row.caseState === 1 ? '下架' : '上架' }}
               </ElButton>
             </QueryActionColumn>

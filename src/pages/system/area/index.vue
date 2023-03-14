@@ -104,10 +104,10 @@ const columns = [
   <div class="h-full p-2">
     <UseQuery
       v-slot="query"
-      url="/system/org/getTreeOrgList"
       :key-map="{
         data: 'result',
       }"
+      url="/system/org/getTreeOrgList"
     >
       <QueryProvide
         v-bind="query"

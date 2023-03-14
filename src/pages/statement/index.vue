@@ -122,7 +122,7 @@ const columns = [
         <QueryTable>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" label="操作" width="100px">
-              <ElButton type="info" size="small" @click="$router.push(`./statement/info/${row.operatorId}`)">
+              <ElButton size="small" type="info" @click="$router.push(`./statement/info/${row.operatorId}`)">
                 详情
               </ElButton>
             </QueryActionColumn>

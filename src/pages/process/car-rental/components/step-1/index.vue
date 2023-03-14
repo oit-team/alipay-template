@@ -17,7 +17,7 @@ const {
 </script>
 
 <template>
-  <div u-h-full u-flex="~ col">
+  <div u-flex="~ col" u-h-full>
     <PageHeader title="租车申请">
       <template #extra>
         <ElButton type="primary">
@@ -26,7 +26,7 @@ const {
       </template>
     </PageHeader>
 
-    <ElSteps :space="200" :active="1" simple class="sticky top-0 z-10">
+    <ElSteps :active="1" class="sticky top-0 z-10" simple :space="200">
       <ElStep title="申请租车" />
       <ElStep title="付款" />
       <ElStep title="财务" />
@@ -39,14 +39,14 @@ const {
           <span>司机：</span>
           <ElSelect
             v-model="state.driverId"
-            filterable
-            remote
-            reserve-keyword
-            remote-show-suffix
-            placeholder="请选择"
             default-first-option
-            :remote-method="(data: any) => getDriverList({ data: { driverName: data, pageNum: 1, pageSize: 10 } })"
+            filterable
             :loading="driverLoading"
+            placeholder="请选择"
+            remote
+            :remote-method="(data: any) => getDriverList({ data: { driverName: data, pageNum: 1, pageSize: 10 } })"
+            remote-show-suffix
+            reserve-keyword
           >
             <ElOption
               v-for="item in driverList"
@@ -58,8 +58,8 @@ const {
         </div>
         <Descriptions
           border
-          label-width="150px"
           :data="driverList?.find((item: any) => item.driverId === state.driverId)"
+          label-width="150px"
           :options="[
             { label: '司机', prop: 'driverName' },
             { label: '手机号', prop: 'driverName' },
@@ -74,12 +74,12 @@ const {
           <span>车牌/车架号：</span>
           <ElSelect
             v-model="state.driverId"
-            filterable
-            remote
-            reserve-keyword
-            remote-show-suffix
-            placeholder="请选择"
             default-first-option
+            filterable
+            placeholder="请选择"
+            remote
+            remote-show-suffix
+            reserve-keyword
           >
             <ElOption
               v-for="item in driverList"
@@ -91,8 +91,8 @@ const {
         </div>
         <Descriptions
           border
-          label-width="150px"
           :data="[]"
+          label-width="150px"
           :options="[
             { label: '车牌号', prop: '' },
             { label: '车架号', prop: '' },
@@ -119,12 +119,12 @@ const {
           <span>司机：</span>
           <ElSelect
             v-model="state.driverId"
-            filterable
-            remote
-            reserve-keyword
-            remote-show-suffix
-            placeholder="车牌/车架号"
             default-first-option
+            filterable
+            placeholder="车牌/车架号"
+            remote
+            remote-show-suffix
+            reserve-keyword
           >
             <ElOption
               v-for="item in driverList"
@@ -136,8 +136,8 @@ const {
         </div>
         <Descriptions
           border
-          label-width="150px"
           :data="[]"
+          label-width="150px"
           :options="[
             { label: '车牌号', prop: '' },
             { label: '车架号', prop: '' },
@@ -155,12 +155,12 @@ const {
           <span>活动名称：</span>
           <ElSelect
             v-model="state.driverId"
-            filterable
-            remote
-            reserve-keyword
-            remote-show-suffix
-            placeholder="请选择"
             default-first-option
+            filterable
+            placeholder="请选择"
+            remote
+            remote-show-suffix
+            reserve-keyword
           >
             <ElOption
               v-for="item in driverList"
@@ -172,9 +172,9 @@ const {
         </div>
         <Descriptions
           border
-          label-width="150px"
-          :data="[]"
           column="3"
+          :data="[]"
+          label-width="150px"
           :options="[
             { label: '活动名称', prop: '' },
             { label: '开始时间', prop: '' },
@@ -185,12 +185,12 @@ const {
         >
           <template #reward>
             <QueryTable
-              :data="driverList"
               :columns="[
                 { label: '奖励类型', prop: '' },
                 { label: '数量', prop: '' },
                 { label: '兑现方式', prop: '' },
               ]"
+              :data="driverList"
             />
           </template>
         </Descriptions>
@@ -201,12 +201,12 @@ const {
           <span>优惠信息：</span>
           <ElSelect
             v-model="state.driverId"
-            filterable
-            remote
-            reserve-keyword
-            remote-show-suffix
-            placeholder="请选择"
             default-first-option
+            filterable
+            placeholder="请选择"
+            remote
+            remote-show-suffix
+            reserve-keyword
           >
             <ElOption
               v-for="item in driverList"
@@ -218,9 +218,9 @@ const {
         </div>
         <Descriptions
           border
-          label-width="150px"
           column="4"
           :data="[]"
+          label-width="150px"
           :options="[
             { label: '租期（月）', prop: '' },
             { label: '原月租（元）', prop: '' },
@@ -239,13 +239,13 @@ const {
           <span>账单信息</span>
         </div>
         <QueryTable
-          :data="driverList"
           :columns="[
             { label: '期数', prop: '' },
             { label: '账期', prop: '' },
             { label: '月租', prop: '' },
             { label: '备注', prop: '' },
           ]"
+          :data="driverList"
         />
       </ElCard>
     </ElScrollbar>

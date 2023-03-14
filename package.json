@@ -87,7 +87,24 @@
         {
           "registeredComponentsOnly": false
         }
-      ]
+      ],
+      "vue/attributes-order": ["error", {
+        "order": [
+          "DEFINITION",
+          "LIST_RENDERING",
+          "UNIQUE",
+          "CONDITIONALS",
+          "RENDER_MODIFIERS",
+          "GLOBAL",
+          "SLOT",
+          "TWO_WAY_BINDING",
+          "OTHER_DIRECTIVES",
+          "OTHER_ATTR",
+          "EVENTS",
+          "CONTENT"
+        ],
+        "alphabetical": true
+      }]
     }
   }
 }
