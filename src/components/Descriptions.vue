@@ -3,14 +3,13 @@ interface OptionItem {
   prop: string
   label: string
   span?: number
-  default?: string
+  default?: any
   [key: string]: any
 }
 
 defineProps({
   data: Object,
   options: Array as PropType<OptionItem[]>,
-  column: [Number, String],
   labelWidth: [Number, String],
   defaultText: String,
 })

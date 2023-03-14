@@ -1,13 +1,28 @@
 <script setup lang="ts">
 import Step1 from './components/step-1/index.vue'
+import Step2 from './components/step-2/index.vue'
 
-const state = reactive({
-  step: 1,
-})
+const step = ref(0)
 
-const view = computed(() => [Step1][state.step - 1])
+const view = computed(() => [Step1, Step2][step.value])
 </script>
 
 <template>
-  <Component :is="view" />
+  <div u-flex="~ col" u-h-full>
+    <ElSteps
+      :active="step"
+      class="sticky top-0 z-10"
+      finish-status="success"
+      simple
+      :space="200"
+    >
+      <ElStep title="申请租车" />
+      <ElStep title="财务" />
+      <ElStep title="完成" />
+    </ElSteps>
+
+    <ElScrollbar>
+      <Component :is="view" />
+    </ElScrollbar>
+  </div>
 </template>
