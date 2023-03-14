@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { FormProvider } from '@formily/vue'
 import schema from './schema/form.json'
+import type { AsyncDataSourceSelectService } from '@/reactions'
 import { handleSubmitFailed, initForm } from '@/utils/actions'
 
 const route = useRoute()
@@ -37,7 +38,7 @@ async function submit(form: any) {
 }
 
 // 租赁城市选择框
-async function loadData({ keyword }: { keyword: string }) {
+const loadData: AsyncDataSourceSelectService = async ({ keyword }) => {
   const { data } = await axios.post('/order/scheme/getCitiesName', { keyWord: keyword })
   return data.body.citiesName
 }
