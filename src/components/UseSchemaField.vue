@@ -19,6 +19,7 @@ import {
   Upload,
 } from '@formily/element-plus'
 import { ElCard } from 'element-plus'
+import type { Field } from '@formily/core'
 import type { ISchema, SchemaVueComponents } from '@formily/vue'
 
 const props = defineProps<{
@@ -26,6 +27,19 @@ const props = defineProps<{
   scope?: any
   schema: ISchema
 }>()
+
+function useAsyncDataSource(service: (field: Field) => any) {
+  return async (field: Field) => {
+    field.loading = true
+    try {
+      const data = await service(field)
+      field.dataSource = data
+    }
+    finally {
+      field.loading = false
+    }
+  }
+}
 
 const { SchemaField } = createSchemaField({
   components: {
@@ -48,7 +62,10 @@ const { SchemaField } = createSchemaField({
     Card: ElCard,
     ...props.components,
   },
-  scope: props.scope,
+  scope: {
+    useAsyncDataSource,
+    ...props.scope,
+  },
 })
 </script>
 
