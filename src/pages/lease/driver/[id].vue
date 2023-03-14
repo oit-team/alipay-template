@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { FormProvider } from '@formily/vue'
 import schema from './schema/form.json'
-import { initForm } from '@/utils/actions'
+import { handleSubmitFailed, initForm } from '@/utils/actions'
+import { getCityList } from '@/reactions'
 
 const route = useRoute()
 const router = useRouter()
@@ -16,7 +17,7 @@ const form = createForm({
   form,
   url: '/driverServer/driver/getDriverMap',
   data: {
-    driverId: route.params.id,
+    driverId: isNew ? null : route.params.id,
   },
 })
 
@@ -30,10 +31,6 @@ async function submit(form: any) {
   ElMessage.success(t('save.success'))
   router.push('/lease/driver')
 }
-
-function submitFailed(err: any) {
-  ElMessage.error(`还有${err.length}项内容未填写`)
-}
 </script>
 
 <template>
@@ -45,10 +42,10 @@ function submitFailed(err: any) {
         u-px-2
         wrapper-col="10"
       >
-        <UseSchemaField :schema="schema" />
+        <UseSchemaField :schema="schema" :scope="{ getCityList }" />
       </FormLayout>
       <div class="mt-auto flex justify-center py-2">
-        <Submit size="large" @submit="submit" @submit-failed="submitFailed">
+        <Submit size="large" @submit="submit" @submit-failed="handleSubmitFailed">
           {{ $t('button.submit') }}
         </Submit>
       </div>

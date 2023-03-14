@@ -11,9 +11,15 @@ export interface AsyncDataSourceSelectService {
   }): Promise<FieldDataSource[]>
 }
 
+/**
+ * 获取城市列表
+ */
 export const getCityList: AsyncDataSourceSelectService = async ({ keyword }) => {
-  await axios.post('/sysdat/cities/getCityList', {
-    city: keyword,
+  if (!keyword)
+    return []
+
+  const { data } = await axios.post('/order/scheme/getCitiesName', {
+    keyWord: keyword,
   })
-  return []
+  return data.body.citiesName
 }
