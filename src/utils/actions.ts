@@ -1,5 +1,6 @@
 import type { Form } from '@formily/core'
 import { i18n } from '@/plugins/i18n'
+import ApiError from '@/api/ApiError'
 
 interface Option<F extends object = any> {
   url: string
@@ -30,4 +31,11 @@ export async function notSavedTips(modified: boolean, done: () => any) {
     { type: 'warning' },
   )
   done()
+}
+
+export function handleSubmitFailed(err: any) {
+  if (err instanceof ApiError)
+    return Promise.reject(err)
+  else
+    ElMessage.error(`还有${err.length}项内容未填写`)
 }
