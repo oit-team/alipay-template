@@ -33,9 +33,35 @@ export async function notSavedTips(modified: boolean, done: () => any) {
   done()
 }
 
-export function handleSubmitFailed(err: any) {
-  if (err instanceof ApiError)
+interface ValidateError {
+  address: string
+  code: string
+  messages: string[]
+  path: string
+  triggerType: string
+  type: string
+}
+
+export function handleSubmitFailed(
+  err: ApiError | ValidateError[],
+  option?: {
+    mode?: 'count' | 'single' | 'all'
+  },
+) {
+  if (err instanceof ApiError) {
     return Promise.reject(err)
-  else
-    ElMessage.error(`还有${err.length}项内容未填写`)
+  }
+  else if (Array.isArray(err)) {
+    switch (option?.mode) {
+      case 'single':
+        ElMessage.error(err[0].messages[0])
+        break
+      case 'all':
+        err.forEach(e => ElMessage.error(e.messages[0]))
+        break
+      case 'count':
+      default:
+        ElMessage.error(`还有${err.length}项内容未填写`)
+    }
+  }
 }
