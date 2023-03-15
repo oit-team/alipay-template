@@ -76,13 +76,3 @@
     </ElCard>
   </div>
 </template>
-
-<style scoped>
-.el-card {
-  --el-card-padding: 0;
-}
-
-:deep(.el-card__header) {
-  --el-card-padding: 12px;
-}
-</style>

@@ -33,3 +33,9 @@ initForm({
     </div>
   </FormProvider>
 </template>
+
+<style scoped>
+:deep(.el-card__body) {
+  --el-card-padding: 12px;
+}
+</style>

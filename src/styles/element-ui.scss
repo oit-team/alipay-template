@@ -41,3 +41,11 @@
 .el-drawer__body {
   padding: 0;
 }
+
+.el-card {
+  --el-card-padding: 12px;
+
+  .el-card__body {
+    --el-card-padding: 0;
+  }
+}
