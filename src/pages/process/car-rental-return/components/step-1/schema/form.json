@@ -1,0 +1,92 @@
+{
+  "type": "object",
+  "properties": {
+    "2way9ffvyt0": {
+      "type": "void",
+      "x-component": "FormGrid",
+      "properties": {
+        "nuknq4k4d9d": {
+          "type": "void",
+          "x-component": "FormGrid.Item",
+          "properties": {
+            "pgiun9xec2m": {
+              "type": "string | number",
+              "title": "退车类型",
+              "x-decorator": "FormItem",
+              "x-component": "Radio.Group",
+              "enum": [
+                {
+                  "label": "强制收车",
+                  "value": 0
+                },
+                {
+                  "label": "期满退车",
+                  "value": 1
+                },
+                {
+                  "label": "违约收车",
+                  "value": "2"
+                }
+              ],
+              "x-index": 0
+            },
+            "7d7st1wjt41": {
+              "type": "string",
+              "title": "申请退车日期",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-index": 1
+            },
+            "7ypa70xgknq": {
+              "type": "string",
+              "title": "退款银行账号",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-index": 2
+            },
+            "70kpq07q97b": {
+              "type": "string",
+              "title": "开户行",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-index": 3
+            },
+            "4u4j8hm10b7": {
+              "type": "string",
+              "title": "开户支行",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-index": 4
+            },
+            "0qclkkjjj6j": {
+              "type": "string",
+              "title": "开户支行地址",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-index": 5
+            }
+          },
+          "x-index": 0
+        },
+        "0wkr8mtl3gh": {
+          "type": "void",
+          "x-component": "FormGrid.Item",
+          "properties": {
+            "7iuluereaba": {
+              "type": "Array<object>",
+              "title": "其他附件",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload"
+              },
+              "x-index": 0
+            }
+          },
+          "x-index": 1
+        }
+      },
+      "x-index": 0
+    }
+  }
+}
