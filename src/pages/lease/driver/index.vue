@@ -93,6 +93,9 @@ watch(files, async (value) => {
           <ElButton :auto-insert-space="false" type="info" @click="$router.push('/process/car-rental')">
             {{ $t('button.apply') }}租车
           </ElButton>
+          <ElButton :auto-insert-space="false" type="info" @click="$router.push('/process/car-rental-return')">
+            {{ $t('button.apply') }}退车
+          </ElButton>
         </QueryToolbar>
         <QueryTable>
           <template #actions>

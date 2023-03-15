@@ -32,8 +32,8 @@ const log = console.log
 </script>
 
 <template>
-  <FormProvider :form="form">
-    <div class="flex flex-col gap-2 p-2">
+  <div class="flex flex-col gap-2 p-2">
+    <FormProvider :form="form">
       <PageHeader title="申请退车">
         <template #extra>
           <Submit type="primary" @submit="log">
@@ -83,7 +83,7 @@ const log = console.log
       </ElCard>
 
       <ElCard header="退车信息">
-        <div class="pt-5">
+        <div class="pt-4">
           <FormLayout
             label-col="5"
           >
@@ -91,6 +91,6 @@ const log = console.log
           </FormLayout>
         </div>
       </ElCard>
-    </div>
-  </FormProvider>
+    </FormProvider>
+  </div>
 </template>

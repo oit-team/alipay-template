@@ -83,7 +83,7 @@ watch(() => state.activityId, () => {
 
 <template>
   <div class="flex flex-col gap-2 p-2">
-    <PageHeader title="租车申请">
+    <PageHeader title="申请租车">
       <template #extra>
         <ElButton type="primary">
           提交

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { createSchemaField } from '@formily/vue'
 import {
+  ArrayTable,
   Cascader,
   Checkbox,
   DatePicker,
@@ -47,6 +48,7 @@ const { SchemaField } = createSchemaField({
     Upload,
     FormCollapse,
     Card: ElCard,
+    ArrayTable,
     ...props.components,
   },
   scope: {

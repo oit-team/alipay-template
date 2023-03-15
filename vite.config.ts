@@ -22,11 +22,19 @@ const ComponentsImports = {
     'FormButtonGroup',
     'FormItem',
     'Input',
+    'InputNumber',
     'Password',
     'Submit',
+    'Switch',
+    'ArrayTable',
+    'Space',
+    'Upload',
   ],
   '@formily/vue': [
     'FormProvider',
+    'Field',
+    'ArrayField',
+    'VoidField',
   ],
 }
 
