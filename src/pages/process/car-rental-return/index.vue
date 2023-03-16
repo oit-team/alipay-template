@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import Step1 from './components/step-1/index.vue'
 import Step2 from './components/step-2/index.vue'
+import Step3 from './components/step-3/index.vue'
 
-const step = ref(1)
+const step = ref(2)
 
-const view = computed(() => [Step1, Step2][step.value])
+const view = computed(() => [Step1, Step2, Step3][step.value])
 </script>
 
 <template>

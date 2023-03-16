@@ -27,10 +27,10 @@ const switchProps = {
 
       <ElTabs class="flex-1 rounded-b-lg" type="border-card">
         <ElTabPane label="信息补充">
-          <div class="flex gap-6">
-            <div class="flex-1 flex flex-col gap-2 p-2">
+          <FormLayout class="flex gap-2 p-2" feedback-layout="none" label-col="2">
+            <div class="flex-1 flex flex-col gap-2">
               <ElCard>
-                <FormLayout feedback-layout="none" label-col="4">
+                <FormLayout feedback-layout="none" label-col="3">
                   <Field
                     v-for="field of [
                       { label: '车钥匙', key: 'key' },
@@ -50,23 +50,42 @@ const switchProps = {
                 </FormLayout>
               </ElCard>
               <ElCard>
-                <FormLayout feedback-layout="none" label-col="2">
-                  <Field
-                    :component="[InputNumber, { min: 0 }]"
-                    :decorator="[FormItem]"
-                    name="key1"
-                    title="违约金"
-                  />
-                </FormLayout>
+                <Field
+                  :component="[InputNumber, { min: 0 }]"
+                  :decorator="[FormItem]"
+                  name="key1"
+                  title="违约金"
+                />
               </ElCard>
               <ElCard>
                 <UseSchemaField :schema="table" />
               </ElCard>
             </div>
-            <div class="flex-1">
-              <Field :component="[Upload]" />
+            <div class="flex-1 flex flex-col gap-2">
+              <ElCard header="车辆情况">
+                <Field
+                  :component="[Upload]"
+                  :decorator="[FormItem]"
+                  name="upload"
+                  title="车尾部"
+                />
+                <Field
+                  :component="[Upload]"
+                  :decorator="[FormItem]"
+                  name="upload"
+                  title="车前脸"
+                />
+              </ElCard>
+              <ElCard header="其他附件">
+                <Field
+                  :component="[Upload]"
+                  :decorator="[FormItem]"
+                  name="upload"
+                  title="车尾部"
+                />
+              </ElCard>
             </div>
-          </div>
+          </FormLayout>
         </ElTabPane>
       </ElTabs>
     </FormProvider>
