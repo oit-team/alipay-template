@@ -153,9 +153,27 @@ const columns = mergeColumns(_columns, {
     width: 150,
     showOverflowTooltip: true,
   },
+  caseType: {
+    width: 150,
+  },
+  leasingCity: {
+    width: 150,
+  },
+  rent: {
+    width: 150,
+  },
+  cashPledge: {
+    width: 150,
+  },
+  leaseTerm: {
+    width: 150,
+  },
   brandCarModel: {
     width: 200,
     showOverflowTooltip: true,
+  },
+  expirationDate: {
+    width: 150,
   },
 })
 </script>

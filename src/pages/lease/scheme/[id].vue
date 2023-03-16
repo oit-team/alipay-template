@@ -34,7 +34,7 @@ async function submit(form: any) {
     },
   )
   ElMessage.success('保存成功')
-  router.push('/lease/scheme')
+  router.go(-1)
 }
 
 // 租赁城市选择框

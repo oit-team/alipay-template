@@ -1,7 +1,7 @@
 <route lang="yaml">
 meta:
   cache: true
-  </route>
+</route>
 
 <script setup lang="ts">
 import SelfSupport from './components/SelfSupport.vue'
@@ -13,11 +13,11 @@ const activeName = ref('first')
 <template>
   <div class="h-full p-2">
     <ElTabs v-model="activeName" class="demo-tabs h-full" type="card">
-      <ElTabPane label="T3" name="first">
-        <Tthree />
-      </ElTabPane>
       <ElTabPane label="自营" name="second">
         <SelfSupport />
+      </ElTabPane>
+      <ElTabPane label="T3" lazy name="second">
+        <Tthree />
       </ElTabPane>
     </ElTabs>
   </div>
