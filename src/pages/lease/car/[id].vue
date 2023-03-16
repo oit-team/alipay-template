@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { FormProvider } from '@formily/vue'
 import schema from './schema/form.json'
-import { initForm } from '@/utils/actions'
+import { handleSubmitFailed, initForm } from '@/utils/actions'
 
 const route = useRoute()
 const router = useRouter()
@@ -33,10 +33,6 @@ async function submit(form: any) {
   ElMessage.success('保存成功')
   router.push('/lease/car')
 }
-
-function onSubmitFailed(err: any) {
-  ElMessage.error(`还有${err.length}项内容未填写`)
-}
 </script>
 
 <template>
@@ -51,7 +47,7 @@ function onSubmitFailed(err: any) {
         <UseSchemaField :schema="schema" />
       </FormLayout>
       <div class="mt-auto flex justify-center py-2">
-        <Submit size="large" @submit="submit" @submit-failed="onSubmitFailed">
+        <Submit size="large" @submit="submit" @submit-failed="handleSubmitFailed">
           保存
         </Submit>
       </div>
