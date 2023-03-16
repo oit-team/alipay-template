@@ -34,6 +34,7 @@ const { SchemaField } = createSchemaField({
     FormItem,
     Input,
     Password,
+    PreviewText,
     Cascader,
     Checkbox,
     DatePicker,

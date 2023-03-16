@@ -29,6 +29,7 @@ const ComponentsImports = {
     'ArrayTable',
     'Space',
     'Upload',
+    'PreviewText',
   ],
   '@formily/vue': [
     'FormProvider',
