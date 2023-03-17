@@ -70,6 +70,17 @@ const menu: MenuItem[] = [
       path: '/statement',
     }],
   },
+  {
+    title: '活动管理',
+    icon: 'i-ri:money-cny-circle-line',
+    children: [{
+      title: '活动列表',
+      path: '/activity/list',
+    }, {
+      title: '活动规则',
+      path: '/activity/rules',
+    }],
+  },
 ]
 
 function logout() {
@@ -77,7 +88,6 @@ function logout() {
   sessionStorage.clear()
   router.push('/login')
 }
-// function
 </script>
 
 <template>

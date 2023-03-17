@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "properties": {
+    "rulesName": {
+      "type": "string",
+      "title": "规则名称",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-validator": [],
+      "x-component-props": {},
+      "x-decorator-props": {},
+      "x-designable-id": "i8os6fbmgq9",
+      "x-pattern": "disabled",
+      "x-index": 0
+    },
+    "rulesUnit": {
+      "type": "Array<string | number>",
+      "title": "单位",
+      "x-decorator": "FormItem",
+      "x-component": "Checkbox.Group",
+      "x-validator": [],
+      "x-decorator-props": {},
+      "x-designable-id": "62g69m0x1k2",
+      "x-reactions": ["{{useAsyncDataSource(getUnit)}}"],
+      "x-pattern": "disabled",
+      "x-index": 1
+    },
+    "cashingMethod": {
+      "type": "Array<string | number>",
+      "title": "兑现方式",
+      "x-decorator": "FormItem",
+      "x-component": "Checkbox.Group",
+      "x-validator": [],
+      "x-decorator-props": {},
+      "x-designable-id": "sdseairncz8",
+      "x-pattern": "disabled",
+      "x-reactions": ["{{useAsyncDataSource(getMethod)}}"],
+      "x-index": 2
+    }
+  },
+  "x-designable-id": "p0xp85r8dfl"
+}

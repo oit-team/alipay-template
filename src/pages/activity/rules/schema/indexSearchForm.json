@@ -1,0 +1,45 @@
+{
+  "type": "object",
+  "properties": {
+    "xzzo5vwr3ge": {
+      "type": "void",
+      "x-component": "FormGrid",
+      "x-validator": [],
+      "x-component-props": {
+        "maxColumns": 4,
+        "minColumns": 4
+      },
+      "x-designable-id": "xzzo5vwr3ge",
+      "properties": {
+        "rulesName": {
+          "type": "string",
+          "title": "活动规则名称",
+          "x-decorator": "FormItem",
+          "x-component": "Input",
+          "x-validator": [],
+          "x-component-props": {},
+          "x-decorator-props": {},
+          "name": "rulesName",
+          "x-designable-id": "51rqtyb947n",
+          "x-index": 0
+        },
+        "[startcreateTime,endcreateTime]": {
+          "type": "string",
+          "title": "创建时间",
+          "x-decorator": "FormItem",
+          "x-component": "DatePicker",
+          "x-validator": [],
+          "x-component-props": {
+            "type": "daterange"
+          },
+          "x-decorator-props": {},
+          "x-designable-id": "gwqth79ovg7",
+          "x-index": 1,
+          "name": "[startcreateTime,endcreateTime]"
+        }
+      },
+      "x-index": 0
+    }
+  },
+  "x-designable-id": "k9uuet4w6ey"
+}
