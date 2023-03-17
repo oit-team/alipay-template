@@ -61,12 +61,14 @@ Axios.interceptors.response.use((response) => {
   }
   return response
 }, async (error) => {
-  return createApiError({
-    error,
-    url: error?.config?.url,
-    message: error?.message,
-    status: error.response?.status,
-  })
+  return Axios.isCancel(error)
+    ? Promise.reject(error)
+    : createApiError({
+      error,
+      url: error?.config?.url,
+      message: error?.message,
+      status: error.response?.status,
+    })
 })
 
 const SILENCE_TIME = 1000
