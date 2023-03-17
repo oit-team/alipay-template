@@ -53,6 +53,10 @@ const menu: MenuItem[] = [
         path: '/lease/scheme',
       },
       {
+        title: '订单管理',
+        path: '/lease/order',
+      },
+      {
         title: '租车管理',
         path: '/',
       },
