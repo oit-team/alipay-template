@@ -55,6 +55,10 @@ const columnsMerged = computed(() =>
     ? mergeColumns(columnsForQuery.value, props.columnsConfig)
     : columnsForQuery.value,
 )
+
+defineExpose({
+  onQuery,
+})
 </script>
 
 <template>
