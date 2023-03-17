@@ -141,7 +141,6 @@ const columns = mergeColumns(_columns, {
 const { files, open } = useFileDialog()
 
 const importType = ref(0)
-
 function importYun() {
   open({ multiple: false })
   importType.value = 0
@@ -155,6 +154,10 @@ function importWei() {
   importType.value = 2
 }
 const url = ref('')
+
+const errDrawer = ref(false)
+const errObj = ref()
+
 watch(files, async (value) => {
   if (!value || !value.length)
     return
@@ -166,7 +169,7 @@ watch(files, async (value) => {
       url.value = '/vehicle/vehicle/addT3OperationalData'
       break
     case 1:
-      url.value = '/vehicle/vehicle/addImportT3ReplenishVehicle'
+      url.value = '/vehicle/vehicle/addImportReplenishVehicle'
       break
     case 2:
       url.value = '/vehicle/vehicle/addImportIllegal'
@@ -184,8 +187,12 @@ watch(files, async (value) => {
       'Content-Type': 'multipart/form-data',
     },
   })
-    .then(() => {
+    .then((res) => {
       ElMessage.success('导入成功')
+      if (res.data.body.errorStr.length > 0) {
+        errDrawer.value = true
+        errObj.value = res.data.body
+      }
     })
     .catch((err) => {
       ElMessageBox.alert(err.message, '警告', {
@@ -238,5 +245,26 @@ watch(files, async (value) => {
         <QueryPagination />
       </QueryProvide>
     </UseQuery>
+    <ElDrawer v-model="errDrawer" direction="rtl">
+      <div class="demo-drawer__content p-3">
+        <h3 v-if="errObj.addCount">
+          {{ errObj.addCount }}
+        </h3>
+        <h3 v-if="errObj.failureCount">
+          {{ errObj.failureCount }}
+        </h3>
+        <h3 v-if="errObj.upDateCount">
+          {{ errObj.upDateCount }}
+        </h3>
+        <h3 class="mb-2">
+          失败数据如下:
+        </h3>
+        <div class="errDataBox" style="text-align:left;">
+          <div v-for="(item, index) in errObj.errorStr" :key="index" class="mb-2">
+            {{ item }}
+          </div>
+        </div>
+      </div>
+    </ElDrawer>
   </div>
 </template>
