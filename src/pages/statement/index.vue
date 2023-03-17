@@ -5,64 +5,63 @@ meta:
 
 <script setup lang="ts">
 const schema = {
-  type: 'object',
-  properties: {
-    '7t2oddolmd3': {
+  'type': 'object',
+  'properties': {
+    xzzo5vwr3ge: {
       'type': 'void',
       'x-component': 'FormGrid',
-      'x-index': 0,
+      'x-validator': [],
+      'x-component-props': {
+        maxColumns: 4,
+        minColumns: 4,
+      },
+      'x-designable-id': 'xzzo5vwr3ge',
       'properties': {
-        'xt9ff93t76p': {
-          'type': 'void',
-          'x-component': 'FormGrid.GridColumn',
+        t3DriverId: {
+          'type': 'string',
+          'title': '司机id',
+          'x-decorator': 'FormItem',
+          'x-component': 'Input',
+          'x-validator': [],
+          'x-component-props': {},
+          'x-decorator-props': {},
+          'name': 't3DriverId',
+          'x-designable-id': '51rqtyb947n',
           'x-index': 0,
-          'properties': {
-            t3DriverId: {
-              'type': 'string',
-              'title': '司机id',
-              'x-decorator': 'FormItem',
-              'x-component': 'Input',
-              'x-index': 0,
-            },
-          },
         },
-        '8yncuhbvicl': {
-          'type': 'void',
-          'x-component': 'FormGrid.GridColumn',
+        statisticalDate: {
+          'type': 'string[]',
+          'title': '统计日期',
+          'x-decorator': 'FormItem',
+          'x-component': 'DatePicker',
+          'x-validator': [],
+          'x-component-props': {
+            type: 'daterange',
+          },
+          'x-decorator-props': {},
+          'name': 'statisticalDate',
+          'x-designable-id': '21vo4n34ft9',
           'x-index': 1,
-          'properties': {
-            statisticalDate: {
-              'type': 'string[]',
-              'title': '统计日期',
-              'x-decorator': 'FormItem',
-              'x-component': 'DatePicker',
-              'x-component-props': {
-                type: 'daterange',
-              },
-              'x-index': 0,
-            },
-          },
         },
-        '8yncusdfcicl': {
-          'type': 'void',
-          'x-component': 'FormGrid.GridColumn',
-          'x-index': 2,
-          'properties': {
-            createTime: {
-              'type': 'string[]',
-              'title': '入库日期',
-              'x-decorator': 'FormItem',
-              'x-component': 'DatePicker',
-              'x-component-props': {
-                type: 'daterange',
-              },
-              'x-index': 0,
-            },
+        createTime: {
+          'type': 'string[]',
+          'title': '入库日期',
+          'x-decorator': 'FormItem',
+          'x-component': 'DatePicker',
+          'x-validator': [],
+          'x-component-props': {
+            type: 'daterange',
           },
+          'x-decorator-props': {},
+          'name': 'createTime',
+          'x-designable-id': '8zwqovbinio',
+          'x-index': 2,
         },
       },
+      'x-index': 0,
     },
   },
+  'x-designable-id': 'k9uuet4w6ey',
 }
 
 const columns = [
@@ -114,11 +113,6 @@ const columns = [
     <UseQuery v-slot="attrs" url="/vehicle/vehicle/getT3OperationalDataList">
       <QueryProvide v-bind="attrs" ref="query" auto-query="active" :columns="columns" :schema="schema">
         <QueryForm />
-        <!-- <QueryToolbar>
-          <ElButton type="primary">
-            新增
-          </ElButton>
-        </QueryToolbar> -->
         <QueryTable>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" label="操作" width="100px">
