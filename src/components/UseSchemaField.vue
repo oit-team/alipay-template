@@ -17,11 +17,11 @@ import {
   Switch,
   TimePicker,
   Transfer,
-  Upload,
 } from '@formily/element-plus'
 import { ElCard } from 'element-plus'
 import type { ISchema, SchemaVueComponents } from '@formily/vue'
 import { useAsyncDataSource, useSelectAsyncDataSource } from '@/reactions'
+import FUpload from '@/components/FUpload'
 
 const props = defineProps<{
   components?: SchemaVueComponents
@@ -46,7 +46,7 @@ const { SchemaField } = createSchemaField({
     Switch,
     TimePicker,
     Transfer,
-    Upload,
+    Upload: FUpload,
     FormCollapse,
     Card: ElCard,
     ArrayTable,
