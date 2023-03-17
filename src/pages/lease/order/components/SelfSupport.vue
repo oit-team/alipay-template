@@ -145,6 +145,8 @@ const schema = {
   'x-designable-id': '609ucp7429v',
 }
 
+const { t } = useI18n()
+
 const queryRef = ref()
 
 // 订单作废
@@ -157,7 +159,7 @@ async function onCancellation(row: any) {
     orderStatue: 3,
   })
   await queryRef.value?.query()
-  ElMessage.success('操作成功')
+  ElMessage.success(t('handle.success'))
 }
 
 const relevanceDrawer = ref(false)
@@ -416,7 +418,7 @@ const columnsConfig = {
           关联
         </ElButton>
         <ElButton type="info" @click="cancelRelevanceOrder()">
-          取消
+          {{ $t('button.cancel') }}
         </ElButton>
       </div>
     </div>

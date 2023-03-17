@@ -6,6 +6,8 @@ meta:
 <script setup lang="ts">
 import { useUserStore } from '@/store/user'
 
+const { t } = useI18n()
+
 const schema = {
   type: 'object',
   properties: {
@@ -85,7 +87,7 @@ async function onDelete(row: any) {
   })
   await axios.post('/vehicle/vehicle/deleteVehicle', { vehicleId: row.vehicleId })
   await queryRef.value?.query()
-  ElMessage.success('操作成功')
+  ElMessage.success(t('handle.success'))
 }
 
 const columns = [
@@ -196,7 +198,7 @@ watch(files, async (value) => {
     },
   })
     .then(() => {
-      ElMessage.success('导入成功')
+      ElMessage.success(t('import.success'))
     })
     .catch((err) => {
       ElMessageBox.alert(err.message, '警告', {
@@ -227,13 +229,13 @@ watch(files, async (value) => {
             {{ $t('button.new') }}
           </ElButton>
           <ElButton type="info" @click="importYun">
-            导入运营流水
+            {{ $t('button.import') }}运营流水
           </ElButton>
           <ElButton type="info" @click="importCar">
-            导入车辆信息
+            {{ $t('button.import') }}车辆信息
           </ElButton>
           <ElButton type="info" @click="importWei">
-            导入违章信息
+            {{ $t('button.import') }}违章信息
           </ElButton>
         </QueryToolbar>
         <QueryTable>

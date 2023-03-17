@@ -214,7 +214,7 @@ watch(files, async (value) => {
         <QueryForm :scope="{ getCityList, useSelectAsyncDataSource }" />
         <QueryToolbar>
           <ElButton type="primary" @click="open({ multiple: false })">
-            导入T3租赁订单
+            {{ $t('button.import') }}T3租赁订单
           </ElButton>
         </QueryToolbar>
         <QueryTable>

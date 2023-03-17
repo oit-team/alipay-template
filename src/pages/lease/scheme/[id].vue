@@ -4,6 +4,8 @@ import schema from './schema/form.json'
 import type { AsyncDataSourceSelectService } from '@/reactions'
 import { handleSubmitFailed, initForm } from '@/utils/actions'
 
+const { t } = useI18n()
+
 const route = useRoute()
 const router = useRouter()
 const isNew = route.params.id === 'new'
@@ -33,7 +35,7 @@ async function submit(form: any) {
       caseId: isNew ? undefined : route.params.id,
     },
   )
-  ElMessage.success('保存成功')
+  ElMessage.success(t('save.success'))
   router.go(-1)
 }
 
@@ -56,7 +58,7 @@ const loadData: AsyncDataSourceSelectService = async ({ keyword }) => {
       </FormLayout>
       <div class="mt-auto flex justify-center py-2">
         <Submit size="large" @submit="submit" @submit-failed="handleSubmitFailed">
-          保存
+          {{ $t('button.save') }}
         </Submit>
       </div>
     </div>

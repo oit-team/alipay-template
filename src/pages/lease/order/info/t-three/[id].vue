@@ -4,6 +4,8 @@ import { FormProvider } from '@formily/vue'
 import schema from './schema/form.json'
 import { handleSubmitFailed } from '@/utils/actions'
 
+const { t } = useI18n()
+
 const route = useRoute()
 const router = useRouter()
 
@@ -144,7 +146,7 @@ async function submit(form: any) {
       t3LeaseOrderId: route.params.id,
     },
   )
-  ElMessage.success('保存成功')
+  ElMessage.success(t('save.success'))
   router.go(-1)
 }
 </script>
@@ -183,7 +185,7 @@ async function submit(form: any) {
       </FormLayout>
       <div class="mt-auto flex justify-center p-2">
         <Submit size="large" @submit="submit" @submit-failed="handleSubmitFailed">
-          保存
+          {{ $t('button.save') }}
         </Submit>
       </div>
     </div>
