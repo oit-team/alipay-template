@@ -5,7 +5,6 @@ meta:
 
 <script setup lang="ts">
 import { useUserStore } from '@/store/user'
-import { mergeColumns } from '@/utils/helper'
 
 const schema = {
   type: 'object',
@@ -89,7 +88,7 @@ async function onDelete(row: any) {
   ElMessage.success('操作成功')
 }
 
-const _columns = [
+const columns = [
   {
     prop: 'licensePlateNumber',
     label: '车牌号',
@@ -123,20 +122,32 @@ const _columns = [
     label: '更新时间',
   },
 ]
-const columns = mergeColumns(_columns, {
+const columnsConfig = {
+  licensePlateNumber: {
+    width: 150,
+    showOverflowTooltip: true,
+  },
   vehicleBrand: {
-    width: 240,
-    showOverflowTooltip: true,
-  },
-  vehicleFrameNumber: {
-    width: 240,
-    showOverflowTooltip: true,
-  },
-  bodyColor: {
     width: 200,
     showOverflowTooltip: true,
   },
-})
+  vehicleFrameNumber: {
+    width: 200,
+    showOverflowTooltip: true,
+  },
+  bodyColor: {
+    width: 100,
+    showOverflowTooltip: true,
+  },
+  createTime: {
+    width: 200,
+    showOverflowTooltip: true,
+  },
+  updateTime: {
+    width: 200,
+    showOverflowTooltip: true,
+  },
+}
 
 const { files, open } = useFileDialog()
 
@@ -197,13 +208,18 @@ watch(files, async (value) => {
 
 <template>
   <div class="h-full p-2">
-    <UseQuery v-slot="attrs" :key-map="{ data: 'vehicleList', total: 'count' }" url="/vehicle/vehicle/getVehicleList">
+    <UseQuery
+      v-slot="attrs"
+      :columns="columns"
+      :columns-config="columnsConfig"
+      :key-map="{ data: 'vehicleList', total: 'count' }"
+      :schema="schema"
+      url="/vehicle/vehicle/getVehicleList"
+    >
       <QueryProvide
         v-bind="attrs"
         ref="queryRef"
         auto-query="active"
-        :columns="columns"
-        :schema="schema"
       >
         <QueryForm />
         <QueryToolbar>

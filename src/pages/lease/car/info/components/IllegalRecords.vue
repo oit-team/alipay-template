@@ -4,11 +4,6 @@ meta:
   </route>
 
 <script setup lang="ts">
-import { mergeColumns } from '@/utils/helper'
-
-// const { t } = useI18n()
-// const route = useRoute()
-
 const schema = {
   'type': 'object',
   'properties': {
@@ -139,119 +134,122 @@ const schema = {
   'x-designable-id': '609ucp7429v',
 }
 
-const _columns = [
+const columns = [
   {
-    prop: 'driverName',
+    prop: 'projectName',
     label: '项目',
   },
   {
-    prop: 'identityCard',
+    prop: 'companyName',
     label: 'DP',
     span: 2,
   },
   {
-    prop: 'driverPhone',
+    prop: 'plateNumber',
     label: '车牌',
   },
   {
-    prop: 'sex',
+    prop: 'violationTime',
     label: '违法时间',
   },
   {
-    prop: 'age',
+    prop: 'violationAddress',
     label: '违法地点',
   },
   {
-    prop: 'licensePlateNumber',
+    prop: 'illegalBehavior',
     label: '违法行为',
     span: 2,
   },
   {
-    prop: 'vehicleModel',
+    prop: 'violationRecordNumber',
     label: '违法记录号',
   },
   {
-    prop: 'vehicleStatue',
+    prop: 'codeOfViolation',
     label: '违法行为代码',
   },
   {
-    prop: 'city',
+    prop: 'violationScore',
     label: '违法记分',
   },
   {
-    prop: 'exclusiveService',
+    prop: 'forfeit',
     label: '罚款金额',
   },
   {
-    prop: 'driverOperate',
+    prop: 'gatherOrgan',
     label: '采集机关',
   },
   {
-    prop: 'driverFleet',
+    prop: 'disposeState',
     label: '处理状态',
   },
   {
-    prop: 'createTime',
+    prop: 'disposeTime',
     label: '处理时间',
   },
   {
-    prop: 'createTime',
+    prop: 'queryTime',
     label: '查询时间',
   },
 ]
 
 const queryRef = ref()
 
-const columns = mergeColumns(_columns, {
-  importTime: {
-    width: 120,
-  },
-  queryTime: {
-    width: 120,
-  },
-  violationTime: {
-    width: 120,
-  },
-  companyName: {
-    width: 200,
-    showOverflowTooltip: true,
-  },
-  violationAddress: {
-    width: 150,
-    showOverflowTooltip: true,
-  },
-  plateNumber: {
-    width: 200,
+const columnsConfig = {
+  projectName: {
+    width: 100,
     showOverflowTooltip: true,
   },
   codeOfViolation: {
-    width: 150,
+    width: 120,
     showOverflowTooltip: true,
   },
-})
-
-// useAxios('/vehicle/vehicle/getViolationInfo', {
-//   method: 'POST',
-//   data: { vehicleId: route.params.id },
-// })
+  illegalBehavior: {
+    width: 100,
+    showOverflowTooltip: true,
+  },
+  violationAddress: {
+    width: 100,
+    showOverflowTooltip: true,
+  },
+  gatherOrgan: {
+    width: 100,
+    showOverflowTooltip: true,
+  },
+  violationRecordNumber: {
+    width: 100,
+    showOverflowTooltip: true,
+  },
+  disposeTime: {
+    width: 100,
+    showOverflowTooltip: true,
+  },
+  queryTime: {
+    width: 100,
+    showOverflowTooltip: true,
+  },
+}
 </script>
 
 <template>
   <div class="h-full p-2">
     <UseQuery
       v-slot="attrs"
+      :columns="columns"
+      :columns-config="columnsConfig"
       :data="{
         vehicleId: $route.params.id,
       }"
       :key-map="{ total: 'totalCount' }"
+      :schema="schema"
       url="/vehicle/vehicle/getViolationInfo"
     >
       <QueryProvide
         v-bind="attrs"
         ref="queryRef"
         auto-query="active"
-        :columns="columns"
-        :schema="schema"
       >
         <QueryForm />
         <QueryTable />
