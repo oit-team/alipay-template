@@ -28,7 +28,6 @@ const ComponentsImports = {
     'Switch',
     'ArrayTable',
     'Space',
-    'Upload',
     'PreviewText',
   ],
   '@formily/vue': [
