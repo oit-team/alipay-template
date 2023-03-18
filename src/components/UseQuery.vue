@@ -50,18 +50,19 @@ async function onQuery(options: QueryOptions) {
   total.value = res?.body[props.keyMap.total]
 }
 
-const columnsMerged = computed(() =>
-  props.columnsConfig
-    ? mergeColumns(columnsForQuery.value, props.columnsConfig)
-    : columnsForQuery.value,
-)
+const columnsMerged = computed(() => {
+  const columns = props.columns ?? columnsForQuery.value
+  return props.columnsConfig
+    ? mergeColumns(columns, props.columnsConfig)
+    : columns
+})
 </script>
 
 <template>
   <slot
     v-bind="{
       ...$attrs,
-      columns: columns ?? columnsMerged,
+      columns: columnsMerged,
       tableLoading,
       schema: schema ?? schemaForQuery,
       formLoading,

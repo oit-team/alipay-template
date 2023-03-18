@@ -1,0 +1,64 @@
+{
+  "type": "object",
+  "properties": {
+    "tjl29tn6hs9": {
+      "type": "void",
+      "x-component": "FormGrid",
+      "x-validator": [],
+      "x-component-props": {
+        "maxColumns": 2
+      },
+      "x-designable-id": "tjl29tn6hs9",
+      "properties": {
+        "n1zwvt9xy8i": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "n1zwvt9xy8i",
+          "properties": {
+            "leaseContractName": {
+              "type": "Array<object>",
+              "title": "租赁合同名称",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload"
+              },
+              "x-validator": [],
+              "x-decorator-props": {},
+              "name": "leaseContractName",
+              "x-designable-id": "qudv26sbf2u",
+              "x-index": 0
+            }
+          },
+          "x-index": 0
+        },
+        "f2hsifcnl40": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-validator": [],
+          "x-component-props": {},
+          "x-designable-id": "f2hsifcnl40",
+          "properties": {
+            "agreementName": {
+              "type": "Array<object>",
+              "title": "代扣协议名称",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload"
+              },
+              "x-validator": [],
+              "x-decorator-props": {},
+              "name": "agreementName",
+              "x-designable-id": "0afkflmdork",
+              "x-index": 0
+            }
+          },
+          "x-index": 1
+        }
+      },
+      "x-index": 0
+    }
+  },
+  "x-designable-id": "609ucp7429v"
+}

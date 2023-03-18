@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { FormProvider } from '@formily/vue'
 import schema from './schema/form.json'
-import { initForm } from '@/utils/actions'
+import { handleSubmitFailed, initForm } from '@/utils/actions'
+
+const { t } = useI18n()
 
 const route = useRoute()
 const router = useRouter()
@@ -30,12 +32,8 @@ async function submit(form: any) {
       vehicleId: isNew ? undefined : route.params.id,
     },
   )
-  ElMessage.success('保存成功')
+  ElMessage.success(t('save.success'))
   router.push('/lease/car')
-}
-
-function onSubmitFailed(err: any) {
-  ElMessage.error(`还有${err.length}项内容未填写`)
 }
 </script>
 
@@ -51,8 +49,8 @@ function onSubmitFailed(err: any) {
         <UseSchemaField :schema="schema" />
       </FormLayout>
       <div class="mt-auto flex justify-center py-2">
-        <Submit size="large" @submit="submit" @submit-failed="onSubmitFailed">
-          保存
+        <Submit size="large" @submit="submit" @submit-failed="handleSubmitFailed">
+          {{ $t('button.save') }}
         </Submit>
       </div>
     </div>

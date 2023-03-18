@@ -253,7 +253,7 @@ watch(files, async (value) => {
       导入T3方案
     </ElButton>
     <div class="my-4 text-xs">
-      <span class="text-red-500">*</span>导入方案后请选择下载模板
+      <span class="text-red-500">*</span>点击下方可以下载导入模板
     </div>
     <ElButton size="small" type="success" @click="downloadModel()">
       下载模板
