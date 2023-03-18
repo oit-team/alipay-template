@@ -5,7 +5,8 @@ meta:
 
 <script setup lang="ts">
 import { useUserStore } from '@/store/user'
-import { mergeColumns } from '@/utils/helper'
+
+const { t } = useI18n()
 
 const schema = {
   type: 'object',
@@ -86,10 +87,10 @@ async function onDelete(row: any) {
   })
   await axios.post('/vehicle/vehicle/deleteVehicle', { vehicleId: row.vehicleId })
   await queryRef.value?.query()
-  ElMessage.success('操作成功')
+  ElMessage.success(t('handle.success'))
 }
 
-const _columns = [
+const columns = [
   {
     prop: 'licensePlateNumber',
     label: '车牌号',
@@ -123,20 +124,32 @@ const _columns = [
     label: '更新时间',
   },
 ]
-const columns = mergeColumns(_columns, {
+const columnsConfig = {
+  licensePlateNumber: {
+    width: 150,
+    showOverflowTooltip: true,
+  },
   vehicleBrand: {
-    width: 240,
-    showOverflowTooltip: true,
-  },
-  vehicleFrameNumber: {
-    width: 240,
-    showOverflowTooltip: true,
-  },
-  bodyColor: {
     width: 200,
     showOverflowTooltip: true,
   },
-})
+  vehicleFrameNumber: {
+    width: 200,
+    showOverflowTooltip: true,
+  },
+  bodyColor: {
+    width: 100,
+    showOverflowTooltip: true,
+  },
+  createTime: {
+    width: 200,
+    showOverflowTooltip: true,
+  },
+  updateTime: {
+    width: 200,
+    showOverflowTooltip: true,
+  },
+}
 
 const { files, open } = useFileDialog()
 
@@ -188,7 +201,7 @@ watch(files, async (value) => {
     },
   })
     .then((res) => {
-      ElMessage.success('导入成功')
+      ElMessage.success(t('import.success'))
       if (res.data.body.errorStr.length > 0) {
         errDrawer.value = true
         errObj.value = res.data.body
@@ -204,13 +217,18 @@ watch(files, async (value) => {
 
 <template>
   <div class="h-full p-2">
-    <UseQuery v-slot="attrs" :key-map="{ data: 'vehicleList', total: 'count' }" url="/vehicle/vehicle/getVehicleList">
+    <UseQuery
+      v-slot="attrs"
+      :columns="columns"
+      :columns-config="columnsConfig"
+      :key-map="{ data: 'vehicleList', total: 'count' }"
+      :schema="schema"
+      url="/vehicle/vehicle/getVehicleList"
+    >
       <QueryProvide
         v-bind="attrs"
         ref="queryRef"
         auto-query="active"
-        :columns="columns"
-        :schema="schema"
       >
         <QueryForm />
         <QueryToolbar>
@@ -218,13 +236,13 @@ watch(files, async (value) => {
             {{ $t('button.new') }}
           </ElButton>
           <ElButton type="info" @click="importYun">
-            导入运营流水
+            {{ $t('button.import') }}运营流水
           </ElButton>
           <ElButton type="info" @click="importCar">
-            导入车辆信息
+            {{ $t('button.import') }}车辆信息
           </ElButton>
           <ElButton type="info" @click="importWei">
-            导入违章信息
+            {{ $t('button.import') }}违章信息
           </ElButton>
         </QueryToolbar>
         <QueryTable>

@@ -13,7 +13,7 @@ const activeName = ref('first')
 <template>
   <div class="h-full p-2">
     <ElTabs v-model="activeName" class="demo-tabs h-full" type="card">
-      <ElTabPane label="自营" name="second">
+      <ElTabPane label="自营" lazy name="first">
         <SelfSupport />
       </ElTabPane>
       <ElTabPane label="T3" lazy name="second">

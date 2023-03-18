@@ -19,44 +19,14 @@ import {
   Upload,
 } from '@formily/element-plus'
 import { ElCard } from 'element-plus'
-import type { Field } from '@formily/core'
 import type { ISchema, SchemaVueComponents } from '@formily/vue'
+import { useAsyncDataSource, useSelectAsyncDataSource } from '@/reactions'
 
 const props = defineProps<{
   components?: SchemaVueComponents
   scope?: any
   schema: ISchema
 }>()
-
-function useAsyncDataSource(service: (field: Field) => any) {
-  return async (field: Field) => {
-    try {
-      field.loading = true
-      const data = await service(field)
-      field.dataSource = data
-    }
-    finally {
-      field.loading = false
-    }
-  }
-}
-
-function useSelectAsyncDataSource(service: (data: { field: Field; keyword: string }) => any) {
-  return (field: Field) => {
-    field.setComponentProps({
-      remoteMethod: async (keyword: string) => {
-        try {
-          field.loading = true
-          const data = await service({ field, keyword })
-          field.dataSource = data
-        }
-        finally {
-          field.loading = false
-        }
-      },
-    })
-  }
-}
 
 const { SchemaField } = createSchemaField({
   components: {

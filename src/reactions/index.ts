@@ -11,6 +11,36 @@ export interface AsyncDataSourceSelectService {
   }): Promise<FieldDataSource[]>
 }
 
+export function useAsyncDataSource(service: AsyncDataSourceService) {
+  return async (field: Field) => {
+    try {
+      field.loading = true
+      const data = await service({ field })
+      field.dataSource = data
+    }
+    finally {
+      field.loading = false
+    }
+  }
+}
+
+export function useSelectAsyncDataSource(service: AsyncDataSourceSelectService) {
+  return (field: Field) => {
+    field.setComponentProps({
+      remoteMethod: async (keyword: string) => {
+        try {
+          field.loading = true
+          const data = await service({ field, keyword })
+          field.dataSource = data
+        }
+        finally {
+          field.loading = false
+        }
+      },
+    })
+  }
+}
+
 /**
  * 获取城市列表
  */
