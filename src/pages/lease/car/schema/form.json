@@ -1,220 +1,327 @@
 {
   "type": "object",
   "properties": {
-    "k77lp5omj6j": {
+    "d55sgl9qph3": {
       "type": "void",
-      "x-component": "FormGrid",
-      "x-validator": [],
-      "x-component-props": {
-        "maxColumns": 3
-      },
-      "x-designable-id": "k77lp5omj6j",
+      "x-component": "FormCollapse",
       "x-index": 0,
       "properties": {
-        "d561vvvx5xl": {
+        "c430728dg5h": {
           "type": "void",
-          "x-component": "FormGrid.GridColumn",
-          "x-designable-id": "d561vvvx5xl",
+          "x-component": "FormCollapse.Item",
+          "x-component-props": {
+            "title": "基本信息"
+          },
           "x-index": 0,
           "properties": {
-            "2p33rjcyo8x": {
+            "licensePlateNumber": {
               "type": "string",
-              "title": "资产公司",
+              "title": " 车牌号",
+              "required": true,
               "x-decorator": "FormItem",
               "x-component": "Input",
-              "x-validator": [],
-              "x-component-props": {},
-              "x-decorator-props": {},
-              "x-designable-id": "2p33rjcyo8x",
-              "x-index": 0
+              "x-index": 0,
+              "name": "licensePlateNumber"
+            },
+            "vehicleFrameNumber": {
+              "type": "string",
+              "title": "车架号",
+              "required": true,
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-index": 1,
+              "name": "vehicleFrameNumber"
+            },
+            "vehicleBrand": {
+              "type": "string",
+              "title": "车辆品牌",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-index": 2,
+              "name": "vehicleBrand"
+            },
+            "brandSeries": {
+              "type": "string",
+              "title": "品牌系列",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-index": 3,
+              "name": "brandSeries"
+            },
+            "serialModelNo": {
+              "title": "系列型号",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-index": 4,
+              "name": "serialModelNo"
+            },
+            "bodyColor": {
+              "type": "string",
+              "title": "车身颜色",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-index": 6,
+              "name": "bodyColor"
+            },
+            "vehicleType": {
+              "title": "车辆类型",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-index": 7,
+              "name": "vehicleType"
+            },
+            "belongPlatform": {
+              "title": "所属平台",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-index": 8,
+              "name": "belongPlatform"
             }
           }
         },
-        "ss5qtl2l6v3": {
-          "type": "void",
-          "x-component": "FormGrid.GridColumn",
-          "x-designable-id": "ss5qtl2l6v3",
+        "imgList": {
+          "type": "object",
+          "x-component": "FormCollapse.Item",
+          "x-component-props": {
+            "title": "细节信息"
+          },
           "x-index": 1,
           "properties": {
-            "d5a3tlzyk56": {
-              "type": "string",
-              "title": "方案名称",
+            "carFrontImg": {
+              "type": "Array<object>",
+              "title": "车辆正面图片",
               "x-decorator": "FormItem",
-              "x-component": "Input",
-              "x-validator": [],
-              "x-component-props": {},
-              "x-decorator-props": {},
-              "x-designable-id": "d5a3tlzyk56",
-              "x-index": 0
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload"
+              },
+              "x-index": 1
+            },
+            "carRearImg": {
+              "type": "Array<object>",
+              "title": "车辆尾部图片",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload"
+              },
+              "x-index": 2
+            },
+            "carLeftImg": {
+              "type": "Array<object>",
+              "title": "车辆左侧图片",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload"
+              },
+              "x-index": 3
+            },
+            "carRightImg": {
+              "type": "Array<object>",
+              "title": "车辆右侧图片",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload"
+              },
+              "x-index": 4
+            },
+            "carOtherImg": {
+              "type": "Array<object>",
+              "title": "车辆其他图片",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload"
+              },
+              "x-index": 5
             }
           }
         },
-        "6nwv0tun51y": {
-          "type": "void",
-          "x-component": "FormGrid.GridColumn",
-          "x-designable-id": "6nwv0tun51y",
+        "transporteCard": {
+          "type": "object",
+          "x-component": "FormCollapse.Item",
+          "x-component-props": {
+            "title": "运输证信息"
+          },
           "x-index": 2,
           "properties": {
-            "yvcv27sk0zx": {
+            "transporteCardNumber": {
               "type": "string",
-              "title": "品牌车系车型",
+              "title": "运输证编号",
               "x-decorator": "FormItem",
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
               "x-decorator-props": {},
-              "x-designable-id": "yvcv27sk0zx",
+              "name": "transporteCardNumber",
+              "x-designable-id": "jljemgsj7i5",
               "x-index": 0
-            }
-          }
-        },
-        "8w48iutqu4h": {
-          "type": "void",
-          "x-component": "FormGrid.GridColumn",
-          "x-designable-id": "8w48iutqu4h",
-          "x-index": 3,
-          "properties": {
-            "pn5w5ugf0p2": {
+            },
+            "certificateHandlingMoney": {
               "type": "string",
-              "title": "租赁城市",
+              "title": "办证金额",
               "x-decorator": "FormItem",
               "x-component": "Input",
-              "x-validator": [],
+              "x-validator": "number",
               "x-component-props": {},
               "x-decorator-props": {},
-              "x-designable-id": "pn5w5ugf0p2",
-              "x-index": 0
-            }
-          }
-        },
-        "ydusfov6e7l": {
-          "type": "void",
-          "x-component": "FormGrid.GridColumn",
-          "x-designable-id": "ydusfov6e7l",
-          "x-index": 4,
-          "x-validator": [],
-          "x-component-props": {},
-          "properties": {
-            "3v7xl6lsgzy": {
-              "type": "number",
-              "title": "租期（月）",
-              "x-decorator": "FormItem",
-              "x-component": "NumberPicker",
-              "x-validator": [],
-              "x-component-props": {},
-              "x-decorator-props": {},
-              "x-designable-id": "3v7xl6lsgzy",
-              "x-index": 0
-            }
-          }
-        },
-        "63e116efml2": {
-          "type": "void",
-          "x-component": "FormGrid.GridColumn",
-          "x-designable-id": "63e116efml2",
-          "x-index": 5,
-          "properties": {
-            "pgcy4jlbyer": {
+              "name": "certificateHandlingMoney",
+              "x-designable-id": "57ckiv0zrwu",
+              "x-index": 1
+            },
+            "cardCommencementDate": {
               "type": "string",
-              "title": "月租（元）",
-              "x-decorator": "FormItem",
-              "x-component": "Input",
-              "x-validator": [],
-              "x-component-props": {},
-              "x-decorator-props": {},
-              "x-designable-id": "pgcy4jlbyer",
-              "x-index": 0
-            }
-          }
-        },
-        "ca2tfk9v7c2": {
-          "type": "void",
-          "x-component": "FormGrid.GridColumn",
-          "x-designable-id": "ca2tfk9v7c2",
-          "x-index": 6,
-          "x-validator": [],
-          "x-component-props": {},
-          "properties": {
-            "3e4jx9mp4c8": {
-              "type": "string",
-              "title": "里程（km）",
-              "x-decorator": "FormItem",
-              "x-component": "Input",
-              "x-validator": [],
-              "x-component-props": {},
-              "x-decorator-props": {},
-              "x-designable-id": "3e4jx9mp4c8",
-              "x-index": 0
-            }
-          }
-        },
-        "m7vm9jb069a": {
-          "type": "void",
-          "x-component": "FormGrid.GridColumn",
-          "x-designable-id": "m7vm9jb069a",
-          "x-index": 7,
-          "properties": {
-            "2aa8nrdy7n7": {
-              "type": "string",
-              "title": "车龄（年）",
-              "x-decorator": "FormItem",
-              "x-component": "Input",
-              "x-validator": [],
-              "x-component-props": {},
-              "x-decorator-props": {},
-              "x-designable-id": "2aa8nrdy7n7",
-              "x-index": 0
-            }
-          }
-        },
-        "tulrurtzd3r": {
-          "type": "void",
-          "x-component": "FormGrid.GridColumn",
-          "x-validator": [],
-          "x-component-props": {},
-          "x-designable-id": "tulrurtzd3r",
-          "x-index": 8,
-          "properties": {
-            "mda9i1vlhuz": {
-              "type": "string",
-              "title": "失效日期",
+              "title": "运输证生效日期",
               "x-decorator": "FormItem",
               "x-component": "DatePicker",
-              "x-validator": [],
+              "x-validator": "date",
               "x-component-props": {},
               "x-decorator-props": {},
-              "x-designable-id": "mda9i1vlhuz",
-              "x-index": 0
+              "name": "cardCommencementDate",
+              "x-designable-id": "b963trzzaif",
+              "x-index": 2
+            },
+            "cardMaturityDate": {
+              "type": "string",
+              "title": "运输证到期日期",
+              "x-decorator": "FormItem",
+              "x-component": "DatePicker",
+              "x-validator": "date",
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "cardMaturityDate",
+              "x-designable-id": "obv9maqjizy",
+              "x-index": 3
+            },
+            "transporteCardImg": {
+              "type": "Array<object>",
+              "title": "运输证照片",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload"
+              },
+              "x-validator": [],
+              "x-decorator-props": {},
+              "name": "transporteCardImg",
+              "x-designable-id": "cdeyb0sej9b",
+              "x-index": 4
             }
           }
         },
-        "bvagvvn5uor": {
-          "type": "void",
-          "x-component": "FormGrid.GridColumn",
-          "x-validator": [],
+        "driveLicense": {
+          "type": "object",
+          "x-component": "FormCollapse.Item",
           "x-component-props": {
-            "gridSpan": 3
+            "title": "行驶证信息"
           },
-          "x-designable-id": "bvagvvn5uor",
+          "x-index": 3,
           "properties": {
-            "1o26dmgdzjc": {
+            "licenseNumber": {
               "type": "string",
-              "title": "租赁包含内容",
+              "title": "行驶证编号",
               "x-decorator": "FormItem",
-              "x-component": "Input.TextArea",
+              "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {
-                "fullness": false
-              },
-              "x-designable-id": "1o26dmgdzjc",
+              "x-decorator-props": {},
+              "name": "licenseNumber",
+              "x-designable-id": "9m8xgiqddav",
               "x-index": 0
+            },
+            "fileNumber": {
+              "type": "string",
+              "title": "档案编号",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "fileNumber",
+              "x-designable-id": "rngrg8jtq5j",
+              "x-index": 1
+            },
+            "owner": {
+              "type": "string",
+              "title": "归属人",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "owner",
+              "x-designable-id": "pfb3ln27e9e",
+              "x-index": 2
+            },
+            "registrationDate": {
+              "type": "string",
+              "title": "注册日期",
+              "x-decorator": "FormItem",
+              "x-component": "DatePicker",
+              "x-validator": "date",
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "registrationDate",
+              "x-designable-id": "ih0i71gl31u",
+              "x-index": 3
+            },
+            "openingDate": {
+              "type": "string",
+              "title": "发证日期",
+              "x-decorator": "FormItem",
+              "x-component": "DatePicker",
+              "x-validator": "date",
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "openingDate",
+              "x-designable-id": "ugaqb8wcmky",
+              "x-index": 4
+            },
+            "checkValidUntil": {
+              "type": "string",
+              "title": "校验有效期至",
+              "x-decorator": "FormItem",
+              "x-component": "DatePicker",
+              "x-validator": "date",
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "checkValidUntil",
+              "x-designable-id": "8g5ik9zvozn",
+              "x-index": 5
+            },
+            "driveLicenceOriginal": {
+              "type": "Array<object>",
+              "title": "驾驶证正本",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload"
+              },
+              "x-validator": [],
+              "x-decorator-props": {},
+              "name": "driveLicenceOriginal",
+              "x-designable-id": "41695lfbaxv",
+              "x-index": 6
+            },
+            "driveLicenceEctype": {
+              "type": "Array<object>",
+              "title": "驾驶证副本",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload"
+              },
+              "x-validator": [],
+              "x-decorator-props": {},
+              "name": "driveLicenceEctype",
+              "x-designable-id": "0ntkprlo046",
+              "x-index": 7
             }
-          },
-          "x-index": 9
+          }
         }
       }
     }
-  },
-  "x-designable-id": "609ucp7429v"
+  }
 }
