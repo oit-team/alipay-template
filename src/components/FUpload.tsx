@@ -22,8 +22,7 @@ const UploadWrapper = defineComponent({
     },
   },
   emits: ['change'],
-  setup(props, { attrs, slots, emit }) {
-    console.log(attrs)
+  setup(props, { attrs, emit }) {
     const fieldRef = useField<Field>()
     const setFeedBack = (error?: Error) => {
       const message = props.errorAdaptor(error)
@@ -39,6 +38,7 @@ const UploadWrapper = defineComponent({
 
     const data = {
       ...attrs,
+      fileList: props.fileList,
       onChange(file: UploadFile, fileList: UploadFile[]) {
         (attrs.onChange as Fn)?.(file, fileList)
         setFeedBack()
@@ -58,8 +58,7 @@ const UploadWrapper = defineComponent({
     }
 
     return () => (
-      <Upload {...data}>
-      </Upload>
+      <Upload {...data} />
     )
   },
 })
