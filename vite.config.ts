@@ -24,7 +24,6 @@ const ComponentsImports = {
     'Input',
     'InputNumber',
     'Password',
-    'Submit',
     'Switch',
     'ArrayTable',
     'Space',
