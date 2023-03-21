@@ -1,7 +1,7 @@
 import Axios from 'axios'
 import { ElMessage } from 'element-plus'
 import ApiError from './ApiError'
-import type { AxiosRequestTransformer } from 'axios'
+import type { AxiosRequestTransformer, AxiosResponseTransformer } from 'axios'
 import type { ApiErrorOptions } from './ApiError'
 import { getToken } from '@/utils/auth'
 import router from '@/router'
@@ -15,7 +15,10 @@ Axios.defaults.baseURL = '/api'
 axios.defaults.method = 'post'
 Axios.defaults.headers.post['Content-Type'] = 'application/json'
 
-const transformRequest: AxiosRequestTransformer = (data, headers) => {
+export const defaultTransformRequest = (Axios.defaults.transformRequest as AxiosRequestTransformer[])[0]
+export const defaultTransformResponse = (Axios.defaults.transformResponse as AxiosResponseTransformer[])[0]
+
+export const transformRequest: AxiosRequestTransformer = (data, headers) => {
   const { profile } = useUserStore()
 
   return typeof data === 'object' && headers['Content-Type'] === 'application/json'
@@ -36,8 +39,21 @@ const transformRequest: AxiosRequestTransformer = (data, headers) => {
     : data
 }
 
+export const transformResponse: AxiosResponseTransformer = (data, headers) => {
+  return (
+    headers['content-type'] === 'application/json'
+    && data instanceof Object
+    && data.body
+      ? data.body
+      : data
+  )
+}
+
 if (Array.isArray(Axios.defaults.transformRequest))
   Axios.defaults.transformRequest.unshift(transformRequest)
+
+if (Array.isArray(Axios.defaults.transformResponse))
+  Axios.defaults.transformResponse.push(transformResponse)
 
 // 添加请求拦截器
 Axios.interceptors.request.use((config) => {
