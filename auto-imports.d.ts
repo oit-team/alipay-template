@@ -22,7 +22,6 @@ declare global {
   const Space: typeof import('@formily/element-plus')['Space']
   const Submit: typeof import('@formily/element-plus')['Submit']
   const Switch: typeof import('@formily/element-plus')['Switch']
-  const Upload: typeof import('@formily/element-plus')['Upload']
   const VoidField: typeof import('@formily/vue')['VoidField']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
@@ -321,7 +320,6 @@ declare module 'vue' {
     readonly Space: UnwrapRef<typeof import('@formily/element-plus')['Space']>
     readonly Submit: UnwrapRef<typeof import('@formily/element-plus')['Submit']>
     readonly Switch: UnwrapRef<typeof import('@formily/element-plus')['Switch']>
-    readonly Upload: UnwrapRef<typeof import('@formily/element-plus')['Upload']>
     readonly VoidField: UnwrapRef<typeof import('@formily/vue')['VoidField']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>

@@ -92,7 +92,6 @@ const schema = {
 const queryRef = ref()
 
 async function goDetail(row: any) {
-  console.log(row)
   // router.push(`${row.nextTaskPageUrl}?workCode=${row.workCode}&flowCode=${row.flowCode}&taskCode=${row.taskCode}`)
   router.push({
     path: row.nextTaskPageUrl,
