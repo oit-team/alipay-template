@@ -87,7 +87,7 @@ const onSubmit = async (form: any) => {
     ...form,
     passWord: encrypt(form.passWord),
   })
-  setToken(data.body.accessToken)
+  setToken(data.accessToken)
   router.push('/')
 }
 </script>

@@ -42,7 +42,7 @@ async function submit(form: any) {
 // 租赁城市选择框
 const loadData: AsyncDataSourceSelectService = async ({ keyword }) => {
   const { data } = await axios.post('/order/scheme/getCitiesName', { keyWord: keyword })
-  return data.body.citiesName
+  return data.citiesName
 }
 </script>
 

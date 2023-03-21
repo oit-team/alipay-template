@@ -17,7 +17,7 @@ async function getData() {
   const res = await axios.post('/order/activity/getActivityMap', {
     activityId: route.params.id,
   })
-  Dataform.value = res.data.body
+  Dataform.value = res.data
 }
 </script>
 

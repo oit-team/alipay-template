@@ -15,8 +15,8 @@ export const useUserStore = defineStore('user', () => {
 
   const updateUserProfile = async () => {
     const { data } = await axios.post('/system/login/getUserToken')
-    profile.value = data.body
-    setToken(data.body.accessToken)
+    profile.value = data
+    setToken(data.accessToken)
   }
 
   const getUserProfile = async () => {

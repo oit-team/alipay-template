@@ -15,7 +15,7 @@ interface Option<F extends object = any> {
  */
 export async function initForm(option: Option) {
   const { data } = await axios.post(option.url, option.data)
-  option.form.setInitialValues(option.transform?.(data.body) ?? data.body)
+  option.form.setInitialValues(option.transform?.(data) ?? data)
 }
 
 /**

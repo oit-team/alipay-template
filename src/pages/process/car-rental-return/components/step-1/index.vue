@@ -22,7 +22,7 @@ const {
   execute: getVehicleList,
 } = useAxios(
   '/vehicle/vehicle/getVehicleList',
-  { transformResponse: transformResponse(data => data.body.vehicleList) },
+  { transformResponse: transformResponse(data => data.vehicleList) },
   { immediate: false },
 )
 

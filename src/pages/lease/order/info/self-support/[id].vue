@@ -103,33 +103,33 @@ const { data } = useAxios('/order/leaseOrder/getLeaseOrderInfo', {
     <PageHeader title="订单详情" />
     <div class="flex flex-col gap-4 p-2">
       <Descriptions
-        v-if="data?.body?.driverInfo"
+        v-if="data?.driverInfo"
         border
-        :data="data?.body?.driverInfo"
+        :data="data?.driverInfo"
         default-text="无"
         :options="driverInfoMap"
         title="司机信息"
       />
       <Descriptions
-        v-if="data?.body?.vehicleInfo"
+        v-if="data?.vehicleInfo"
         border
         column="4"
-        :data="data?.body?.vehicleInfo"
+        :data="data?.vehicleInfo"
         default-text="无"
         :options="carInfoMap"
         title="车辆信息"
       />
       <Descriptions
-        v-if="data?.body?.orderInfo"
+        v-if="data?.orderInfo"
         border
         column="4"
-        :data="data?.body?.orderInfo"
+        :data="data?.orderInfo"
         default-text="无"
         :options="leaseInfoMap"
         title="租赁信息"
       >
         <template #contractName="{ value }">
-          <ElLink :href="data?.body?.orderInfo?.contractUrl" type="primary">
+          <ElLink :href="data?.orderInfo?.contractUrl" type="primary">
             {{ value }}
           </ElLink>
         </template>
@@ -141,7 +141,7 @@ const { data } = useAxios('/order/leaseOrder/getLeaseOrderInfo', {
         </div>
         <ElTable
           border
-          :data="data?.body?.billingInfo"
+          :data="data?.billingInfo"
           empty-text="暂无信息"
           stripe
           style="width: 100%"

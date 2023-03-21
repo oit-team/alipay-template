@@ -173,13 +173,13 @@ const { data } = useAxios('/driverServer/driver/getDriverMap', {
   <div class="flex flex-col gap-3 p-2">
     <ElCollapse class="border-x" model-value="base">
       <ElCollapseItem name="base" title="基本信息">
-        <Descriptions border :data="data?.body" default-text="无" :options="infoMap" />
+        <Descriptions border :data="data" default-text="无" :options="infoMap" />
       </ElCollapseItem>
       <ElCollapseItem title="身份证信息">
         <Descriptions
-          v-if="data?.body?.driverIdentity"
+          v-if="data?.driverIdentity"
           border
-          :data="data?.body?.driverIdentity"
+          :data="data?.driverIdentity"
           default-text="无"
           :options="driverIdentityMap"
         >
@@ -197,9 +197,9 @@ const { data } = useAxios('/driverServer/driver/getDriverMap', {
       </ElCollapseItem>
       <ElCollapseItem title="驾驶证信息">
         <Descriptions
-          v-if="data?.body?.driverQualifica"
+          v-if="data?.driverQualifica"
           border
-          :data="data?.body?.driverQualifica"
+          :data="data?.driverQualifica"
           default-text="无"
           :options="driverQualificaMap"
         />
@@ -207,9 +207,9 @@ const { data } = useAxios('/driverServer/driver/getDriverMap', {
       </ElCollapseItem>
       <ElCollapseItem title="网约车证信息">
         <Descriptions
-          v-if="data?.body?.driveLicense"
+          v-if="data?.driveLicense"
           border
-          :data="data?.body?.driveLicense"
+          :data="data?.driveLicense"
           default-text="无"
           :options="driveLicenseMap"
         >

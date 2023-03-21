@@ -175,7 +175,7 @@ function useOrderInfo() {
     execute,
   } = useAxios(
     '/order/leaseOrder/getT3LeaseOrder',
-    { transformResponse: transformResponse(data => data.body) },
+    { transformResponse: transformResponse(data => data) },
     { immediate: false },
   )
 

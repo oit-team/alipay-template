@@ -25,7 +25,7 @@ const {
   execute: getDriverList,
 } = useAxios(
   '/driverServer/driver/getDriverList',
-  { transformResponse: transformResponse(data => data.body.resultList) },
+  { transformResponse: transformResponse(data => data.resultList) },
   { immediate: false },
 )
 
@@ -35,7 +35,7 @@ const {
   execute: getVehicleList,
 } = useAxios(
   '/vehicle/vehicle/getVehicleList',
-  { transformResponse: transformResponse(data => data.body.vehicleList) },
+  { transformResponse: transformResponse(data => data.vehicleList) },
   { immediate: false },
 )
 
@@ -45,7 +45,7 @@ const {
   execute: getSchemeList,
 } = useAxios(
   '/order/scheme/getSchemeList',
-  { transformResponse: transformResponse(data => data.body.schemeList) },
+  { transformResponse: transformResponse(data => data.schemeList) },
   { immediate: false },
 )
 
@@ -55,7 +55,7 @@ const {
   execute: getActivityList,
 } = useAxios(
   '/order/activity/getActivityList',
-  { transformResponse: transformResponse(data => data.body.resultList) },
+  { transformResponse: transformResponse(data => data.resultList) },
   { immediate: false },
 )
 
@@ -64,7 +64,7 @@ const {
   execute: getActivityMap,
 } = useAxios(
   '/order/activity/getActivityMap',
-  { transformResponse: transformResponse(data => data.body.activityDetails) },
+  { transformResponse: transformResponse(data => data.activityDetails) },
   { immediate: false },
 )
 

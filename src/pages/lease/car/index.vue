@@ -202,9 +202,9 @@ watch(files, async (value) => {
   })
     .then((res) => {
       ElMessage.success(t('import.success'))
-      if (res.data.body.errorStr.length > 0) {
+      if (res.data.errorStr.length > 0) {
         errDrawer.value = true
-        errObj.value = res.data.body
+        errObj.value = res.data
       }
     })
     .catch((err) => {
