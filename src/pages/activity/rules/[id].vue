@@ -21,7 +21,6 @@ const form = createForm({
 })
 
 async function submit(form: any) {
-  console.log(form)
   await axios.post(
     isNew
       ? '/order/activityRules/addActivityRules'
@@ -40,7 +39,7 @@ function submitFailed(err: any) {
 
 async function getUnit() {
   const { data } = await axios.post('/order/activity/getDictitemList', { dictCode: 'RULES_UNIT' })
-  return data.body.resultList.map((item: { nameKey: string }) => ({
+  return data.resultList.map((item: { nameKey: string }) => ({
     label: item.nameKey,
     value: item.nameKey,
   }))
@@ -48,7 +47,7 @@ async function getUnit() {
 
 async function getMethod() {
   const { data } = await axios.post('/order/activity/getDictitemList', { dictCode: 'CASHING_METHOD' })
-  return data.body.resultList.map((item: { nameKey: string }) => ({
+  return data.resultList.map((item: { nameKey: string }) => ({
     label: item.nameKey,
     value: item.nameKey,
   }))

@@ -124,7 +124,6 @@ async function uploadChunk(options: UploadRequestOptions) {
       })
 
       progressTotal += progressLoaded
-      console.log(res)
       if (progressTotal >= rawFile.size)
         options.onSuccess(res)
     }

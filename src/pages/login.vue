@@ -87,22 +87,24 @@ const onSubmit = async (form: any) => {
     ...form,
     passWord: encrypt(form.passWord),
   })
-  setToken(data.body.accessToken)
+  setToken(data.accessToken)
   router.push('/')
 }
 </script>
 
 <template>
   <div class="grid place-content-center h-full">
-    <ElCard class="w-400px">
-      <Form :form="form" label-col="5">
-        <SchemaField :schema="schema" />
-        <FormButtonGroup align-form-item>
-          <Submit @submit="onSubmit">
-            登录
-          </Submit>
-        </FormButtonGroup>
-      </Form>
+    <ElCard class="w-400px p-6">
+      <FormProvider :form="form">
+        <FormLayout label-col="5">
+          <SchemaField :schema="schema" />
+          <FormButtonGroup align-form-item>
+            <Submit @submit="onSubmit">
+              登录
+            </Submit>
+          </FormButtonGroup>
+        </FormLayout>
+      </FormProvider>
     </ElCard>
   </div>
 </template>

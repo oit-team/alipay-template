@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { handleSubmitFailed } from '@/utils/actions'
-import { transformResponse } from '@/utils/helper'
+import { transformResponsePush } from '@/utils/helper'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -29,7 +29,7 @@ const {
   execute: getDriverList,
 } = useAxios(
   '/driverServer/driver/getDriverList',
-  { transformResponse: transformResponse(data => data.body.resultList) },
+  { transformResponse: transformResponsePush(data => data.resultList) },
   { immediate: false },
 )
 const driverItem = computed(() => driverList.value?.find((item: any) => item.driverId === state.driverId))
@@ -40,7 +40,7 @@ const {
   execute: getVehicleList,
 } = useAxios(
   '/vehicle/vehicle/getVehicleList',
-  { transformResponse: transformResponse(data => data.body.vehicleList) },
+  { transformResponse: transformResponsePush(data => data.vehicleList) },
   { immediate: false },
 )
 const vehicleItem = computed(() => vehicleList.value?.find((item: any) => item.vehicleId === state.vehicleId))
@@ -51,7 +51,7 @@ const {
   execute: getSchemeList,
 } = useAxios(
   '/order/scheme/getSchemeList',
-  { transformResponse: transformResponse(data => data.body.schemeList) },
+  { transformResponse: transformResponsePush(data => data.schemeList) },
   { immediate: false },
 )
 const schemeItem = computed(() => schemeList.value?.find((item: any) => item.id === state.schemeId))
@@ -62,7 +62,7 @@ const {
   execute: getActivityList,
 } = useAxios(
   '/order/activity/getActivityList',
-  { transformResponse: transformResponse(data => data.body.resultList) },
+  { transformResponse: transformResponsePush(data => data.resultList) },
   { immediate: false },
 )
 const activityItem = computed(() => activityList.value?.find((item: any) => item.activityId === state.activityId))
@@ -72,7 +72,7 @@ const {
   execute: getActivityMap,
 } = useAxios(
   '/order/activity/getActivityMap',
-  { transformResponse: transformResponse(data => data.body.activityDetails) },
+  { transformResponse: transformResponsePush(data => data.activityDetails) },
   { immediate: false },
 )
 
@@ -94,7 +94,7 @@ const {
   execute: getOrderPreferential,
 } = useAxios(
   '/order/leaseOrder/getOrderPreferential',
-  { transformResponse: transformResponse(data => data.body) },
+  { transformResponse: transformResponsePush(data => data.body) },
   { immediate: false },
 )
 

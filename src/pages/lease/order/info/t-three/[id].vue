@@ -156,20 +156,20 @@ async function submit(form: any) {
     <div class="flex flex-col px-4 py-2">
       <PageHeader title="订单详情" />
       <Descriptions
-        v-if="data?.body?.resultMap"
+        v-if="data?.resultMap"
         border
         :column="4"
-        :data="data?.body?.resultMap"
+        :data="data?.resultMap"
         default-text="无"
         :options="infoMap"
       >
         <template #leaseContractName="{ value }">
-          <ElLink :href="data?.body?.resultMap?.leaseContractUrl" type="primary">
+          <ElLink :href="data?.resultMap?.leaseContractUrl" type="primary">
             {{ value }}
           </ElLink>
         </template>
         <template #agreementName="{ value }">
-          <ElLink :href="data?.body?.resultMap?.agreementUrl" type="primary">
+          <ElLink :href="data?.resultMap?.agreementUrl" type="primary">
             {{ value }}
           </ElLink>
         </template>

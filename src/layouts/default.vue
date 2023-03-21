@@ -14,7 +14,7 @@ async function getTreeList() {
   const { data } = await axios.post('/system/menu/getTreeMenuList', {
     userId: '0',
   })
-  treeList.value = data.body.resultList
+  treeList.value = data.resultList
 }
 getTreeList()
 const menu: MenuItem[] = [

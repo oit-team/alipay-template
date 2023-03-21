@@ -17,10 +17,10 @@ declare global {
   const FormProvider: typeof import('@formily/vue')['FormProvider']
   const Input: typeof import('@formily/element-plus')['Input']
   const InputNumber: typeof import('@formily/element-plus')['InputNumber']
+  const ObjectField: typeof import('@formily/vue')['ObjectField']
   const Password: typeof import('@formily/element-plus')['Password']
   const PreviewText: typeof import('@formily/element-plus')['PreviewText']
   const Space: typeof import('@formily/element-plus')['Space']
-  const Submit: typeof import('@formily/element-plus')['Submit']
   const Switch: typeof import('@formily/element-plus')['Switch']
   const VoidField: typeof import('@formily/vue')['VoidField']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
@@ -315,10 +315,10 @@ declare module 'vue' {
     readonly FormProvider: UnwrapRef<typeof import('@formily/vue')['FormProvider']>
     readonly Input: UnwrapRef<typeof import('@formily/element-plus')['Input']>
     readonly InputNumber: UnwrapRef<typeof import('@formily/element-plus')['InputNumber']>
+    readonly ObjectField: UnwrapRef<typeof import('@formily/vue')['ObjectField']>
     readonly Password: UnwrapRef<typeof import('@formily/element-plus')['Password']>
     readonly PreviewText: UnwrapRef<typeof import('@formily/element-plus')['PreviewText']>
     readonly Space: UnwrapRef<typeof import('@formily/element-plus')['Space']>
-    readonly Submit: UnwrapRef<typeof import('@formily/element-plus')['Submit']>
     readonly Switch: UnwrapRef<typeof import('@formily/element-plus')['Switch']>
     readonly VoidField: UnwrapRef<typeof import('@formily/vue')['VoidField']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>

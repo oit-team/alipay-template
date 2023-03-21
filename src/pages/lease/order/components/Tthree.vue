@@ -186,7 +186,7 @@ watch(files, async (value) => {
     },
   })
     .then(({ data }) => {
-      ElMessage.success(`${t('import.success')},${data.body.upDateCount},${data.body?.addCount},${data.body?.failureCount}`)
+      ElMessage.success(`${t('import.success')},${data.upDateCount},${data.addCount},${data.failureCount}`)
     })
     .catch((err) => {
       ElMessageBox.alert(err.message, '警告', {

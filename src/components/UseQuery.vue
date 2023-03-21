@@ -46,8 +46,8 @@ async function onQuery(options: QueryOptions) {
     ...formData,
     ...props.data,
   })
-  data.value = res?.body[props.keyMap.data]
-  total.value = res?.body[props.keyMap.total]
+  data.value = res?.[props.keyMap.data]
+  total.value = res?.[props.keyMap.total]
 }
 
 const columnsMerged = computed(() => {

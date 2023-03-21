@@ -42,7 +42,7 @@ const { data: typeList } = useAxios('/driverServer/replenish/getReplenishTypeLis
 const { data: desc, execute, isLoading } = useAxios('/driverServer/replenish/getDriverReplenish', {
   method: 'POST',
 }, { immediate: false })
-const hasData = computed(() => !!desc.value?.body)
+const hasData = computed(() => !!desc.value)
 
 watch(type, reload)
 
@@ -59,7 +59,7 @@ function openDrawer() {
   showDrawer.value = true
   if (hasData.value) {
     form.reset()
-    form.setInitialValues(desc.value.body)
+    form.setInitialValues(desc.value)
   }
 }
 
@@ -85,7 +85,7 @@ async function submit(form: any) {
     <div class="flex">
       <ElSelect v-model="type" placeholder="选择补充类型" size="large">
         <ElOption
-          v-for="item in typeList?.body.resultList"
+          v-for="item in typeList?.resultList"
           :key="item.replenishTypeValue"
           :label="item.replenishTypeName"
           :value="item.replenishTypeValue"
@@ -106,7 +106,7 @@ async function submit(form: any) {
       v-if="hasData"
       border
       class="mt-2"
-      :data="desc?.body"
+      :data="desc"
       default-text="无"
       :options="extraMap"
     />

@@ -51,5 +51,5 @@ export const getCityList: AsyncDataSourceSelectService = async ({ keyword }) => 
   const { data } = await axios.post('/order/scheme/getCitiesName', {
     keyWord: keyword,
   })
-  return data.body.citiesName
+  return data.citiesName
 }

@@ -103,7 +103,7 @@ async function getData() {
   const res = await axios.post('/order/activity/getActivityMap', {
     activityId: route.params.id,
   })
-  activityInfoForm.value = res.data.body
+  activityInfoForm.value = res.data
 }
 
 function open(e: any) {
@@ -129,7 +129,7 @@ async function getRules() {
     pageNum: 1,
     pageSize: 9999,
   })
-  rulesList.value = res.data.body.resultList
+  rulesList.value = res.data.resultList
   selectRules.value = rulesList.value[0]
 }
 

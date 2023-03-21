@@ -2,21 +2,32 @@
 import { UploadAjaxError } from 'element-plus/es/components/upload/src/ajax'
 import { AxiosError } from 'axios'
 import { ElIcon } from 'element-plus'
-import { Delete, Plus, ZoomIn } from '@element-plus/icons-vue'
+import { Check, Delete, Document, Plus } from '@element-plus/icons-vue'
+import mime from 'mime'
 import { abort, upload } from './upload'
+import { transformRequest } from './default'
 import type { AxiosRequestTransformer, AxiosResponseTransformer } from 'axios'
 import type { UploadProps as ElUploadProps, UploadFile, UploadFiles, UploadInstance, UploadRawFile, UploadRequestOptions } from 'element-plus'
 
 interface UploadProps extends Partial<ElUploadProps> {
+  fileList?: ElUploadProps['fileList']
+  action?: ElUploadProps['action']
+  listType?: ElUploadProps['listType']
+  limit?: ElUploadProps['limit']
   chunkSize?: number
   transformRequest?: AxiosRequestTransformer
   transformResponse?: AxiosResponseTransformer
 }
 
-const props = defineProps<UploadProps>()
+const props = withDefaults(defineProps<UploadProps>(), {
+  listType: 'picture-card',
+  action: '/system/file/uploadFile',
+  chunkSize: 1024 * 5,
+  limit: 9,
+})
+const emit = defineEmits(['update:fileList'])
 const uploadRef = ref<UploadInstance>()
-const dialogImageUrl = ref('')
-const dialogVisible = ref(false)
+const fileList = useVModel(props, 'fileList', emit)
 
 function httpRequest(options: UploadRequestOptions) {
   return upload({
@@ -48,7 +59,7 @@ function httpRequest(options: UploadRequestOptions) {
     },
     onSuccess: options.onSuccess,
     chunkSize: props.chunkSize,
-    transformRequest: props.transformRequest,
+    transformRequest: props.transformRequest ?? transformRequest,
     transformResponse: props.transformResponse,
   })
 }
@@ -58,10 +69,21 @@ function onRemove(uploadFile: UploadFile, uploadFiles: UploadFiles) {
   return props.onRemove?.(uploadFile, uploadFiles)
 }
 
-function handlePictureCardPreview(file: UploadFile) {
-  dialogImageUrl.value = file.url!
-  dialogVisible.value = true
+function getFileType(file: UploadFile) {
+  return file.type
+  || file.raw?.type
+  || (file.raw?.name && mime.getType(file.raw.name))
+  || (file.url && mime.getType(file.url))
 }
+
+function matchType(file: UploadFile, type: string) {
+  const fileType = getFileType(file)
+  return fileType && fileType.startsWith(type)
+}
+
+// TODO: 预览
+// function handlePictureCardPreview(file: UploadFile) {
+// }
 
 const keys = ['handleRemove', 'handleStart', 'clearFiles', 'submit'] as const
 
@@ -86,33 +108,61 @@ defineExpose({
     v-bind="$attrs"
     ref="uploadRef"
     v-model:file-list="fileList"
+    :action="action"
     class="vc-upload"
     :http-request="httpRequest"
+    :list-type="listType"
     :on-remove="onRemove"
   >
-    <slot v-if="$attrs['list-type'] === 'picture-card'">
-      <ElIcon><Plus /></ElIcon>
+    <slot>
+      <template v-if="listType === 'picture-card'">
+        <ElIcon>
+          <Plus />
+        </ElIcon>
+      </template>
     </slot>
-
     <template #file="{ file }">
-      <div>
-        <img alt="" class="el-upload-list__item-thumbnail" :src="file.url">
+      <slot v-bind="{ file }" name="file" />
+
+      <template v-if="listType === 'picture-card'">
+        <template v-if="matchType(file, 'image')">
+          <img alt="" class="el-upload-list__item-thumbnail" :src="file.url">
+        </template>
+        <template v-else>
+          <ElIcon size="50">
+            <Document />
+          </ElIcon>
+          <div class="el-upload-list__item-file-name">
+            {{ file.name }}
+          </div>
+        </template>
+        <div v-if="file.status === 'success'" class="el-upload-list__item-status-label">
+          <ElIcon class="el-icon--upload-success el-icon--check">
+            <Check />
+          </ElIcon>
+        </div>
+        <ElProgress
+          v-if="file.status === 'uploading'"
+          :percentage="Number(file.percentage)"
+          :show-text="false"
+          :stroke-width="6"
+          style="top: 92%;"
+        />
         <span class="el-upload-list__item-actions">
+          <!-- <span
+              class="el-upload-list__item-preview"
+              @click="handlePictureCardPreview(file)"
+            >
+              <ElIcon><ZoomIn /></ElIcon>
+            </span> -->
           <span
-            class="el-upload-list__item-preview"
-            @click="handlePictureCardPreview(file)"
-          >
-            <ElIcon><ZoomIn /></ElIcon>
-          </span>
-          <span
-            v-if="!disabled"
             class="el-upload-list__item-delete"
             @click="handleRemove(file)"
           >
             <ElIcon><Delete /></ElIcon>
           </span>
         </span>
-      </div>
+      </template>
     </template>
   </ElUpload>
 </template>
@@ -125,7 +175,15 @@ defineExpose({
     gap: 10px;
 
     .el-upload-list__item {
+      display: inline-grid;
+      justify-items: center;
+      place-content: center;
+      gap: 10px;
       margin: 0;
+    }
+
+    .el-upload-list__item-file-name {
+      width: 90%;
     }
   }
 }

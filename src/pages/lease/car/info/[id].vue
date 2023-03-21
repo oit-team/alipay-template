@@ -127,11 +127,11 @@ const { data } = useAxios('/vehicle/vehicle/getVehicleDetailed', {
         <div class="flex flex-col gap-3">
           <ElCollapse model-value="base">
             <ElCollapseItem name="base" title="基本信息">
-              <Descriptions v-if="data?.body?.vehicleDetailed" border :data="data?.body?.vehicleDetailed" default-text="无" :map="carIdentityMap" />
+              <Descriptions v-if="data?.vehicleDetailed" border :data="data?.vehicleDetailed" default-text="无" :map="carIdentityMap" />
               <ElEmpty v-else />
             </ElCollapseItem>
             <ElCollapseItem title="运输证信息">
-              <Descriptions v-if="data?.body?.vehicleDetailed?.transporteCard" border :data="data?.body?.vehicleDetailed?.transporteCard" default-text="无" :map="transportationMap">
+              <Descriptions v-if="data?.vehicleDetailed?.transporteCard" border :data="data?.vehicleDetailed?.transporteCard" default-text="无" :map="transportationMap">
                 <template #transporteCardImg="{ value }">
                   <ElImage :src="value" />
                 </template>
@@ -139,7 +139,7 @@ const { data } = useAxios('/vehicle/vehicle/getVehicleDetailed', {
               <ElEmpty v-else />
             </ElCollapseItem>
             <ElCollapseItem title="行驶证信息">
-              <Descriptions v-if="data?.body?.vehicleDetailed?.driveLicense" border :data="data?.body?.vehicleDetailed?.driveLicense" default-text="无" :map="driveLicenseMap">
+              <Descriptions v-if="data?.vehicleDetailed?.driveLicense" border :data="data?.vehicleDetailed?.driveLicense" default-text="无" :map="driveLicenseMap">
                 <template #driveLicenceOriginal="{ value }">
                   <ElImage :src="value" />
                 </template>

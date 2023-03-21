@@ -1,10 +1,11 @@
+import type { UploadFile } from 'element-plus'
 import type { Form } from '@formily/core'
 import { i18n } from '@/plugins/i18n'
 import ApiError from '@/api/ApiError'
 
-interface Option<F extends object = any> {
+interface InitFormOption {
   url: string
-  form: Form<F>
+  form: Form<any>
   data: any
   transform?: (data: any) => any
 }
@@ -13,9 +14,9 @@ interface Option<F extends object = any> {
  * 初始化表单
  * @param option 初始选项
  */
-export async function initForm(option: Option) {
+export async function initForm(option: InitFormOption) {
   const { data } = await axios.post(option.url, option.data)
-  option.form.setInitialValues(option.transform?.(data.body) ?? data.body)
+  option.form.setInitialValues(option.transform?.(data) ?? data)
 }
 
 /**
@@ -42,17 +43,21 @@ interface ValidateError {
   type: string
 }
 
+/**
+ * 处理表单提交错误
+ */
 export function handleSubmitFailed(
   err: ApiError | ValidateError[],
-  option?: {
+  options?: {
     mode?: 'count' | 'single' | 'all'
   },
 ) {
+  console.warn(err)
   if (err instanceof ApiError) {
     return Promise.reject(err)
   }
   else if (Array.isArray(err)) {
-    switch (option?.mode) {
+    switch (options?.mode ?? 'count') {
       case 'single':
         ElMessage.error(err[0].messages[0])
         break
@@ -60,8 +65,24 @@ export function handleSubmitFailed(
         err.forEach(e => ElMessage.error(e.messages[0]))
         break
       case 'count':
-      default:
-        ElMessage.error(`还有${err.length}项内容未填写`)
+        ElMessage.error(`还有${err.length}项未通过校验`)
     }
   }
+}
+
+/**
+ * 格式化上传数据
+ * @param files 文件列表
+ */
+export function transformUploadData(files: UploadFile[]): {
+  name: string
+  url: string
+}[] {
+  return files?.map((file) => {
+    const res = file.response as any
+    return {
+      name: file.name,
+      url: res?.data?.fileUrl ?? file.url,
+    }
+  })
 }

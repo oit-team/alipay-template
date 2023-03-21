@@ -29,7 +29,7 @@ export function useJsonData(code?: string) {
 
       return {
         data: computed(() => {
-          const json = data.value?.body?.jsonData
+          const json = data.value?.jsonData
           const parsed = json ? JSON.parse(json) : null
           parsed && cache.set(code, parsed)
           return parsed

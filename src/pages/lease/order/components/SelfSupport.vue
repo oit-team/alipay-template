@@ -4,7 +4,7 @@ meta:
   </route>
 
 <script setup lang="ts">
-import { transformResponse } from '@/utils/helper'
+import { transformResponsePush } from '@/utils/helper'
 
 const schema = {
   'type': 'object',
@@ -175,7 +175,7 @@ function useOrderInfo() {
     execute,
   } = useAxios(
     '/order/leaseOrder/getT3LeaseOrder',
-    { transformResponse: transformResponse(data => data.body) },
+    { transformResponse: transformResponsePush(data => data) },
     { immediate: false },
   )
 

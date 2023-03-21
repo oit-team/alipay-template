@@ -32,9 +32,9 @@ async function getdata() {
     activityId: route.params.id,
   })
 
-  const arr = cloneDeep(res.data.body.schemeActivity)
-  schemeNotActivity.value = res.data.body.schemeNotActivity
-  if (res.data.body.schemeActivity)
+  const arr = cloneDeep(res.data.schemeActivity)
+  schemeNotActivity.value = res.data.schemeNotActivity
+  if (res.data.schemeActivity)
     schemeNotActivity.value.push(...arr)
   schemeActivity.value = arr.map((item: any) => item.schemeId)
 }
