@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { transformResponse } from '@/utils/helper'
+import { transformResponsePush } from '@/utils/helper'
 
 const { t } = useI18n()
 
@@ -11,7 +11,7 @@ const { data: detailInfo } = useAxios('/order/leaseOrder/getLeaseOrderByNo', {
   data: {
     workCode: route.query.workCode,
   },
-  transformResponse: transformResponse(data => data.body),
+  transformResponse: transformResponsePush(data => data.body),
 })
 
 const dialogCancelReasonVisible = ref(false)

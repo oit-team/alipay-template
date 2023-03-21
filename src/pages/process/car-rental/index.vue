@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Step1 from './components/step-1/index.vue'
 import Step2 from './components/step-2/index.vue'
-import { transformResponse } from '@/utils/helper'
+import { transformResponsePush } from '@/utils/helper'
 
 const route = useRoute()
 
@@ -16,7 +16,7 @@ const { data } = useAxios('/workFlow/workFlow/getWorkFlowSteps', {
     flowCode: route.query.flowCode || 'CAR_RENTAL',
     taskCode: '',
   },
-  transformResponse: transformResponse(data => data.body),
+  transformResponse: transformResponsePush(data => data.body),
 })
 
 watch(() => data.value?.step, (newstep) => {

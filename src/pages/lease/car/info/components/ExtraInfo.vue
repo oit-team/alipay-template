@@ -122,7 +122,7 @@ async function submit(form: any) {
       class="mt-2"
       :data="desc?.resultList[0]"
       default-text="无"
-      :map="extraMap"
+      :options="extraMap"
     />
     <ElEmpty v-else />
   </div>
