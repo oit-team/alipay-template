@@ -21,7 +21,6 @@ const form = createForm({
 })
 
 async function submit(form: any) {
-  console.log(form)
   await axios.post(
     isNew
       ? '/order/activityRules/addActivityRules'

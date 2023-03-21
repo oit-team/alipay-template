@@ -74,11 +74,11 @@ export function handleSubmitFailed(
  * 格式化上传数据
  * @param files 文件列表
  */
-export function formatUploadFile(files: UploadFile[]): {
+export function transformUploadData(files: UploadFile[]): {
   name: string
   url: string
 }[] {
-  return files.map((file) => {
+  return files?.map((file) => {
     const res = file.response as any
     return {
       name: file.name,

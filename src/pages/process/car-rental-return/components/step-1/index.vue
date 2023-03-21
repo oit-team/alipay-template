@@ -1,34 +1,37 @@
 <script setup lang="ts">
+import { pick } from 'lodash-es'
+import { workOrderApplySymbol } from '../../types'
 import schema from './schema/form.json'
 import { transformResponsePush } from '@/utils/helper'
+import { transformUploadData } from '@/utils/actions'
 
 const vehicleId = ref()
-
-console.log(schema)
-
-function executeQuery(fn: any, data: any) {
-  fn({
-    data: {
-      pageNum: 1,
-      pageSize: 10,
-      ...data,
-    },
-  })
-}
 
 const {
   data: vehicleList,
   isLoading: vehicleLoading,
   execute: getVehicleList,
 } = useAxios(
-  '/vehicle/vehicle/getVehicleList',
-  { transformResponse: transformResponsePush(data => data.vehicleList) },
+  '/order/returnVehicleOrder/getVehicleMap',
+  { transformResponse: transformResponsePush(data => data.resultList) },
   { immediate: false },
 )
 
-const form = createForm({})
+const vehicleInfo = computed(() => vehicleList.value?.find((item: any) => item.vehicleId === vehicleId.value))
 
-const log = console.log
+const form = createForm()
+const workOrderApply = inject(workOrderApplySymbol)
+
+function submit(data: any) {
+  if (!vehicleInfo.value)
+    ElMessage.error('请选择车辆')
+
+  workOrderApply?.({
+    ...data,
+    ...pick(vehicleInfo.value, ['vehicleId', 'driverId', 'leaseOrderNo']),
+    appendix: transformUploadData(data.appendix)?.map(file => file.url),
+  })
+}
 </script>
 
 <template>
@@ -36,9 +39,7 @@ const log = console.log
     <FormProvider :form="form">
       <PageHeader title="申请退车">
         <template #extra>
-          <Submit type="primary" @submit="log">
-            提交
-          </Submit>
+          <Submit type="primary" @submit="submit" />
         </template>
       </PageHeader>
 
@@ -53,14 +54,14 @@ const log = console.log
               :loading="vehicleLoading"
               placeholder="请输入内容搜索"
               remote
-              :remote-method="(v: any) => v && executeQuery(getVehicleList, { licensePlateNumber: v })"
+              :remote-method="(v: any) => v && getVehicleList({ data: { licensePlateNumber: v } })"
               remote-show-suffix
               reserve-keyword
             >
               <ElOption
                 v-for="item in vehicleList"
                 :key="item.vehicleId"
-                :label="`${item.licensePlateNumber}`"
+                :label="item.vehicleFrameNumber"
                 :value="item.vehicleId"
               />
             </ElSelect>
@@ -68,15 +69,15 @@ const log = console.log
         </template>
         <Descriptions
           border
-          :data="vehicleList?.find((item: any) => item.vehicleId === vehicleId)"
+          :data="vehicleInfo"
           default-text="暂无"
           label-width="130px"
           :options="[
             { label: '车架号', prop: 'vehicleFrameNumber' },
-            { label: '司机姓名', prop: 'city' },
-            { label: '身份证号', prop: 'brandSeries' },
-            { label: '所属运营商', prop: 'bodyColor' },
-            { label: '起租日期', prop: 'mileage' },
+            { label: '司机姓名', prop: 'driverName' },
+            { label: '身份证号', prop: 'identityCard' },
+            { label: '所属运营商', prop: 'driverOperate' },
+            { label: '起租日期', prop: 'startTime' },
             { label: '到租日期', prop: 'endTime' },
           ]"
         />

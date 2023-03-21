@@ -9,7 +9,7 @@
           "type": "void",
           "x-component": "FormGrid.Item",
           "properties": {
-            "pgiun9xec2m": {
+            "returnOrderType": {
               "type": "string | number",
               "title": "退车类型",
               "x-decorator": "FormItem",
@@ -30,40 +30,26 @@
               ],
               "x-index": 0
             },
-            "7d7st1wjt41": {
+            "returnTheCarTime": {
               "type": "string",
               "title": "申请退车日期",
               "x-decorator": "FormItem",
-              "x-component": "Input",
+              "x-component": "DatePicker",
               "x-index": 1
             },
-            "7ypa70xgknq": {
+            "driverRefundAccount": {
               "type": "string",
               "title": "退款银行账号",
               "x-decorator": "FormItem",
               "x-component": "Input",
               "x-index": 2
             },
-            "70kpq07q97b": {
+            "openingBank": {
               "type": "string",
               "title": "开户行",
               "x-decorator": "FormItem",
               "x-component": "Input",
               "x-index": 3
-            },
-            "4u4j8hm10b7": {
-              "type": "string",
-              "title": "开户支行",
-              "x-decorator": "FormItem",
-              "x-component": "Input",
-              "x-index": 4
-            },
-            "0qclkkjjj6j": {
-              "type": "string",
-              "title": "开户支行地址",
-              "x-decorator": "FormItem",
-              "x-component": "Input",
-              "x-index": 5
             }
           },
           "x-index": 0
@@ -72,13 +58,18 @@
           "type": "void",
           "x-component": "FormGrid.Item",
           "properties": {
-            "7iuluereaba": {
+            "appendix": {
               "type": "Array<object>",
               "title": "其他附件",
               "x-decorator": "FormItem",
               "x-component": "Upload",
+              "x-validator": {
+                "upload": true
+              },
               "x-component-props": {
-                "textContent": "Upload"
+                "multiple": true,
+                "accept": "image/*",
+                "max": 5
               },
               "x-index": 0
             }
