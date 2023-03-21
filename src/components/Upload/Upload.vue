@@ -13,6 +13,7 @@ interface UploadProps extends Partial<ElUploadProps> {
   fileList?: ElUploadProps['fileList']
   action?: ElUploadProps['action']
   listType?: ElUploadProps['listType']
+  limit?: ElUploadProps['limit']
   chunkSize?: number
   transformRequest?: AxiosRequestTransformer
   transformResponse?: AxiosResponseTransformer
@@ -22,6 +23,7 @@ const props = withDefaults(defineProps<UploadProps>(), {
   listType: 'picture-card',
   action: '/system/file/uploadFile',
   chunkSize: 1024 * 5,
+  limit: 9,
 })
 const emit = defineEmits(['update:fileList'])
 const uploadRef = ref<UploadInstance>()

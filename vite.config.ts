@@ -32,6 +32,7 @@ const ComponentsImports = {
   '@formily/vue': [
     'FormProvider',
     'Field',
+    'ObjectField',
     'ArrayField',
     'VoidField',
   ],

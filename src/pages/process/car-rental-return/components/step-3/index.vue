@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import table from './schema/table.json'
 import { handleSubmitFailed } from '@/utils/actions'
+import Upload from '@/components/FUpload'
 
 const form = createForm()
 const log = console.log

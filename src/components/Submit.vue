@@ -17,8 +17,8 @@ function onSubmitFailed(err: any) {
     })
 }
 
-function onSubmit(...args: []) {
-  props.onSubmit?.(...args)
+async function onSubmit(...args: []) {
+  await props.onSubmit?.(...args)
 }
 </script>
 

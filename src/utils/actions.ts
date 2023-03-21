@@ -48,8 +48,8 @@ interface ValidateError {
  */
 export function handleSubmitFailed(
   err: ApiError | ValidateError[],
-  option?: {
-    mode?: 'single' | 'count' | 'all'
+  options?: {
+    mode?: 'count' | 'single' | 'all'
   },
 ) {
   console.warn(err)
@@ -57,7 +57,7 @@ export function handleSubmitFailed(
     return Promise.reject(err)
   }
   else if (Array.isArray(err)) {
-    switch (option?.mode ?? 'single') {
+    switch (options?.mode ?? 'count') {
       case 'single':
         ElMessage.error(err[0].messages[0])
         break
