@@ -57,12 +57,8 @@ const menu: MenuItem[] = [
         path: '/lease/order',
       },
       {
-        title: '租车管理',
-        path: '/',
-      },
-      {
-        title: '退租管理',
-        path: '/',
+        title: '工单列表',
+        path: '/lease/workOrder',
       },
     ],
   },
