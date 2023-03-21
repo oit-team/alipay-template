@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import schema from './schema/form.json'
-import { transformResponse } from '@/utils/helper'
+import { transformResponsePush } from '@/utils/helper'
 
 const vehicleId = ref()
 
@@ -22,7 +22,7 @@ const {
   execute: getVehicleList,
 } = useAxios(
   '/vehicle/vehicle/getVehicleList',
-  { transformResponse: transformResponse(data => data.vehicleList) },
+  { transformResponse: transformResponsePush(data => data.vehicleList) },
   { immediate: false },
 )
 
