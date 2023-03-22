@@ -71,14 +71,14 @@ export function handleSubmitFailed(
 }
 
 /**
- * 格式化上传数据
+ * 转换上传数据
  * @param files 文件列表
  */
 export function transformUploadData(files: UploadFile[]): {
   name: string
   url: string
-}[] {
-  return files?.map((file) => {
+}[] | undefined {
+  return files?.map?.((file) => {
     const res = file.response as any
     return {
       name: file.name,
