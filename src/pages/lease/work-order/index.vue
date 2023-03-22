@@ -1,7 +1,7 @@
-<route lang="yaml">
+<route>
 meta:
   cache: true
-  </route>
+</route>
 
 <script setup lang="ts">
 const router = useRouter()

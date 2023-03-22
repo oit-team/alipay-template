@@ -58,7 +58,7 @@ const menu: MenuItem[] = [
       },
       {
         title: '工单列表',
-        path: '/lease/workOrder',
+        path: '/lease/work-order',
       },
     ],
   },

@@ -39,7 +39,7 @@ async function handlePass() {
     },
   )
   ElMessage.success(t('handle.success'))
-  router.push('/lease/workOrder')
+  router.push('/lease/work-order')
 }
 
 async function handleCancel() {
@@ -60,7 +60,7 @@ async function handleCancel() {
       },
     )
     dialogCancelReasonVisible.value = false
-    router.push('/lease/workOrder')
+    router.push('/lease/work-order')
   }
   else {
     ElMessage.warning('请先填写拒绝原因！')
