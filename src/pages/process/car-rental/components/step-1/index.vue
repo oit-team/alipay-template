@@ -218,7 +218,7 @@ async function submit() {
           { label: '车牌号', prop: 'licensePlateNumber' },
           { label: '车架号', prop: 'vehicleFrameNumber' },
           { label: '城市', prop: 'city' },
-          { label: '品牌车系车型', prop: 'brandSeries' },
+          { label: '品牌车系车型', prop: 'vehicleModel' },
           { label: '车身颜色', prop: 'bodyColor' },
           { label: '行驶里程', prop: 'mileage' },
           { label: '终止时间', prop: 'endTime' },
