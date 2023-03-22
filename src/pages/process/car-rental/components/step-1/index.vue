@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import { handleSubmitFailed } from '@/utils/actions'
 import { transformResponsePush } from '@/utils/helper'
+
+const { t } = useI18n()
+const router = useRouter()
 
 const state = reactive({
   driverId: '',
@@ -28,6 +32,7 @@ const {
   { transformResponse: transformResponsePush(data => data.resultList) },
   { immediate: false },
 )
+const driverItem = computed(() => driverList.value?.find((item: any) => item.driverId === state.driverId))
 
 const {
   data: vehicleList,
@@ -38,6 +43,7 @@ const {
   { transformResponse: transformResponsePush(data => data.vehicleList) },
   { immediate: false },
 )
+const vehicleItem = computed(() => vehicleList.value?.find((item: any) => item.vehicleId === state.vehicleId))
 
 const {
   data: schemeList,
@@ -48,6 +54,7 @@ const {
   { transformResponse: transformResponsePush(data => data.schemeList) },
   { immediate: false },
 )
+const schemeItem = computed(() => schemeList.value?.find((item: any) => item.id === state.schemeId))
 
 const {
   data: activityList,
@@ -58,6 +65,7 @@ const {
   { transformResponse: transformResponsePush(data => data.resultList) },
   { immediate: false },
 )
+const activityItem = computed(() => activityList.value?.find((item: any) => item.activityId === state.activityId))
 
 const {
   data: activityData,
@@ -79,13 +87,61 @@ watch(() => state.activityId, () => {
     },
   })
 })
+
+// 优惠信息 账单信息
+const {
+  data: preferentialList,
+  execute: getOrderPreferential,
+} = useAxios(
+  '/order/leaseOrder/getOrderPreferential',
+  { transformResponse: transformResponsePush(data => data.body) },
+  { immediate: false },
+)
+
+watch(() => state.schemeId || state.activityId, () => {
+  getOrderPreferential({
+    data: {
+      schemeId: state.schemeId,
+      activityId: state.activityId,
+    },
+  })
+})
+
+// 提交第一步
+async function submit() {
+  const params = {
+    leaseTerm: schemeItem.value.leaseTerm,
+    primaryEndTime: preferentialList.value?.preferentialMap.primaryEndTime,
+    rent: schemeItem.value.rent,
+    preferentialRent: preferentialList.value?.preferentialMap.preferentialRent,
+    startTime: preferentialList.value?.preferentialMap.startTime,
+    endTime: vehicleItem.value.endTime,
+    remarks: preferentialList.value?.preferentialMap.remarks,
+    contractName: '', // 上传的合同名称地址
+    contractUrl: '',
+    mileage: vehicleItem.value.mileage,
+    cashPledge: schemeItem.value.cashPledge,
+    vehicleAge: schemeItem.value.vehicleAge || '',
+    ...state,
+
+  }
+  await axios.post(
+    '/workFlow/workFlow/workOrderApply',
+    {
+      flowCode: 'CAR_RENTAL',
+      params,
+    },
+  )
+  ElMessage.success(t('handle.success'))
+  router.push('/lease/driver')
+}
 </script>
 
 <template>
   <div class="flex flex-col gap-2 p-2">
     <PageHeader title="申请租车">
       <template #extra>
-        <ElButton type="primary">
+        <ElButton type="primary" @click="submit" @submit-failed="handleSubmitFailed">
           提交
         </ElButton>
       </template>
@@ -117,7 +173,7 @@ watch(() => state.activityId, () => {
       </template>
       <Descriptions
         border
-        :data="driverList?.find((item: any) => item.driverId === state.driverId)"
+        :data="driverItem"
         default-text="暂无"
         label-width="130px"
         :options="[
@@ -155,7 +211,7 @@ watch(() => state.activityId, () => {
       </template>
       <Descriptions
         border
-        :data="vehicleList?.find((item: any) => item.vehicleId === state.vehicleId)"
+        :data="vehicleItem"
         default-text="暂无"
         label-width="130px"
         :options="[
@@ -208,18 +264,17 @@ watch(() => state.activityId, () => {
       </template>
       <Descriptions
         border
-        :data="schemeList?.find((item: any) => item.id === state.schemeId)"
+        column="4"
+        :data="schemeItem"
         default-text="暂无"
         label-width="130px"
         :options="[
-          { label: '品牌车系车型', prop: 'brandCarModel' },
+          { label: '品牌车系车型', prop: 'brandCarModel', span: 2 },
           { label: '租期（月）', prop: 'leaseTerm' },
           { label: '月租（元）', prop: 'rent' },
           { label: '押金（元）', prop: 'cashPledge' },
           { label: '车龄（年）', prop: 'vehicleAge' },
           { label: '里程（km）', prop: 'mileage' },
-          { label: '起租日期', prop: '' },
-          { label: '终止日期', prop: 'expirationDate' },
         ]"
       />
     </ElCard>
@@ -252,7 +307,7 @@ watch(() => state.activityId, () => {
       </template>
       <Descriptions
         border
-        :data="activityList?.find((item: any) => item.activityId === state.activityId)"
+        :data="activityItem"
         default-text="暂无"
         label-width="130px"
         :options="[
@@ -279,32 +334,34 @@ watch(() => state.activityId, () => {
 
     <ElCard header="优惠信息">
       <Descriptions
+        v-if="preferentialList?.preferentialMap"
         border
-        :data="[]"
+        :data="preferentialList?.preferentialMap"
         default-text="暂无"
         label-width="130px"
         :options="[
-          { label: '租期（月）', prop: '' },
-          { label: '原月租（元）', prop: '' },
-          { label: '优惠月租（元）', prop: '' },
-          { label: '押金（元）', prop: '' },
-          { label: '起租日期', prop: '' },
-          { label: '原终止日期', prop: '' },
-          { label: '终止日期', prop: '' },
-          { label: '备注', prop: '' },
+          { label: '租期（月）', prop: 'leaseTerm' },
+          { label: '原月租（元）', prop: 'rent' },
+          { label: '优惠月租（元）', prop: 'preferentialRent' },
+          { label: '押金（元）', prop: 'cashPledge' },
+          { label: '起租日期', prop: 'startTime' },
+          { label: '原终止日期', prop: 'primaryEndTime' },
+          { label: '终止日期', prop: 'endTime' },
+          { label: '备注', prop: 'activityDescription' },
         ]"
       />
+      <ElEmpty v-else />
     </ElCard>
 
     <ElCard header="账单信息">
       <QueryTable
         :columns="[
-          { label: '期数', prop: '' },
-          { label: '账期', prop: '' },
-          { label: '月租', prop: '' },
-          { label: '备注', prop: '' },
+          { label: '期数', prop: 'numberOfPeriods' },
+          { label: '账期', prop: 'accountingPeriod' },
+          { label: '月租', prop: 'rent' },
+          { label: '备注', prop: 'remarks' },
         ]"
-        :data="driverList"
+        :data="preferentialList?.orderBill"
       />
     </ElCard>
   </div>
