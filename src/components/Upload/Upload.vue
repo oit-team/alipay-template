@@ -111,6 +111,7 @@ defineExpose({
     :action="action"
     class="vc-upload"
     :http-request="httpRequest"
+    :limit="limit"
     :list-type="listType"
     :on-remove="onRemove"
   >
