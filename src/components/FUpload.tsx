@@ -34,6 +34,14 @@ const UploadWrapper = defineComponent({
       })
     }
 
+    watch(() => props.fileList, (fileList) => {
+      const successful = fileList?.every(file => file.status === 'success')
+      if (successful)
+        fieldRef.value.feedbacks = []
+      else
+        setFeedBack(new Error('请等待文件上传完成'))
+    }, { deep: true })
+
     type Fn = (...args: any[]) => any
 
     const data = {
@@ -41,19 +49,15 @@ const UploadWrapper = defineComponent({
       fileList: props.fileList,
       onChange(file: UploadFile, fileList: UploadFile[]) {
         (attrs.onChange as Fn)?.(file, fileList)
-        setFeedBack()
         emit('change', fileList)
       },
       onRemove(file: UploadFile, fileList: UploadFile[]) {
         (attrs.onRemove as Fn)?.(file, fileList)
-        setFeedBack()
         emit('change', fileList)
       },
       onError(error: Error, file: UploadFile, fileList: UploadFile[]) {
         (attrs.onError as Fn)?.(error, file, fileList)
-        setTimeout(() => {
-          setFeedBack(error)
-        }, 0)
+        setFeedBack(error)
       },
     }
 

@@ -166,9 +166,6 @@ function submit(data: any) {
                   :decorator="[FormItem]"
                   name="vehicleCondition"
                   title="车辆信息"
-                  :validator="{
-                    upload: true,
-                  }"
                 />
               </ElCard>
               <ElCard header="其他附件">
@@ -180,9 +177,6 @@ function submit(data: any) {
                   :decorator="[FormItem]"
                   name="appendix"
                   title="附件"
-                  :validator="{
-                    upload: true,
-                  }"
                 />
               </ElCard>
             </div>

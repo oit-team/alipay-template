@@ -63,9 +63,6 @@
               "title": "其他附件",
               "x-decorator": "FormItem",
               "x-component": "Upload",
-              "x-validator": {
-                "upload": true
-              },
               "x-component-props": {
                 "multiple": true,
                 "accept": "image/*",
