@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { pick } from 'lodash-es'
-import Step1 from './components/step-1/index.vue'
-import Step2 from './components/step-2/index.vue'
-import Step3 from './components/step-3/index.vue'
+import ApplyStep from './components/apply/index.vue'
+import MaintainStep from './components/maintain/index.vue'
+import ValidateCarStep from './components/validate-car/index.vue'
 import { workOrderApplySymbol, workOrderInfoSymbol, workOrderSubmitSymbol } from './types'
 import type { WorkOrderApply, WorkOrderSubmit } from './types'
 
@@ -14,7 +14,12 @@ const initParams = {
   taskCode: route.query.taskCode || '',
 }
 
-const view = computed(() => [Step1, Step2, Step3, Step2][viewStep.value])
+const view = computed(() => [
+  ApplyStep,
+  ValidateCarStep,
+  MaintainStep,
+  ValidateCarStep,
+][viewStep.value])
 
 const {
   data,

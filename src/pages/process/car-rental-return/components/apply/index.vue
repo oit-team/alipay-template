@@ -6,6 +6,7 @@ import { transformResponsePush } from '@/utils/helper'
 import { transformUploadData } from '@/utils/actions'
 
 const vehicleId = ref()
+const router = useRouter()
 
 const {
   data: vehicleList,
@@ -31,6 +32,9 @@ async function submit(data: any) {
     ...pick(vehicleInfo.value, ['vehicleId', 'driverId', 'leaseOrderNo']),
     appendix: transformUploadData(data.appendix)?.map(file => file.url),
   })
+
+  ElMessage.success('提交成功')
+  router.back()
 }
 </script>
 

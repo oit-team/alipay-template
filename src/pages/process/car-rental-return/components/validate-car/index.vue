@@ -10,15 +10,14 @@ const workOrderSubmit = inject(workOrderSubmitSymbol)
 const workOrderInfo = inject(workOrderInfoSymbol)
 
 async function submit(data: any, agree: 0 | 1) {
-  console.log(data)
   data = {
     ...data,
     vehicleCondition: transformUploadData(data.vehicleCondition)?.map(item => item.url),
     appendix: transformUploadData(data.appendix)?.map(item => item.url),
   }
-  const keepInRepair = data.keepInRepair?.length > 0
+  const keepInRepair = !data.keepInRepair?.length
   const info = workOrderInfo?.value
-  console.log(keepInRepair && info)
+
   await workOrderSubmit?.(data, {
     approvalStatus: agree,
     // 没有维修项时跳到下一个流程
