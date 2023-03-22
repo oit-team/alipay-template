@@ -9,7 +9,11 @@ export interface WorkOrderApplyParams {
   params: any
 }
 
-export const workOrderApplySymbol = Symbol('workOrderApply') as InjectionKey<(params: WorkOrderApplyParams) => Promise<any>>
+export interface WorkOrderApply {
+  (params: WorkOrderApplyParams): Promise<any>
+}
+
+export const workOrderApplySymbol = Symbol('workOrderApply') as InjectionKey<WorkOrderApply>
 
 export interface WorkOrderInfo {
   workCode: string
@@ -18,3 +22,16 @@ export interface WorkOrderInfo {
 }
 
 export const workOrderInfoSymbol = Symbol('workOrderInfo') as InjectionKey<Ref<WorkOrderInfo>>
+
+export interface WorkOrderSubmit {
+  (params: any, options: {
+    // 下一个任务编号
+    nextTaskCode?: string
+    // 0：不同意 1：同意
+    approvalStatus: 0 | 1
+    // 备注
+    approvalNotes?: string
+  }): Promise<any>
+}
+
+export const workOrderSubmitSymbol = Symbol('workOrderInfo') as InjectionKey<WorkOrderSubmit>

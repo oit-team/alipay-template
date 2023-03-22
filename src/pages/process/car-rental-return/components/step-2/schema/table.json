@@ -1,7 +1,7 @@
 {
   "type": "object",
   "properties": {
-    "array": {
+    "keepInRepair": {
       "type": "array",
       "x-decorator": "FormItem",
       "x-component": "ArrayTable",
@@ -30,7 +30,7 @@
             "x-component": "ArrayTable.Column",
             "x-component-props": { "title": "项目名称" },
             "properties": {
-              "a1": {
+              "keepInRepairItemName": {
                 "type": "string",
                 "x-decorator": "Editable",
                 "x-component": "Input",
@@ -46,7 +46,7 @@
             "x-component": "ArrayTable.Column",
             "x-component-props": { "title": "备注" },
             "properties": {
-              "a2": {
+              "remarks": {
                 "type": "string",
                 "x-decorator": "FormItem",
                 "x-component": "Input"

@@ -1,14 +1,23 @@
 <script setup lang="ts">
 import { Checkbox } from '@formily/element-plus'
+import { workOrderSubmitSymbol } from '../../types'
 import table from './schema/table.json'
 import Upload from '~/components/FUpload'
+import { transformUploadData } from '@/utils/actions'
 
 const form = createForm()
-const log = console.log
-const switchProps = {
-  'inline-prompt': true,
-  'active-text': '存在',
-  'inactive-text': '丢失',
+const workOrderSubmit = inject(workOrderSubmitSymbol)
+
+function submit(data: any) {
+  console.log(data)
+  data = {
+    ...data,
+    vehicleCondition: transformUploadData(data.vehicleCondition).map(item => item.url),
+    appendix: transformUploadData(data.appendix).map(item => item.url),
+  }
+  workOrderSubmit?.(data, {
+    approvalStatus: 1,
+  })
 }
 </script>
 
@@ -20,7 +29,7 @@ const switchProps = {
           <ElButton type="danger">
             拒绝
           </ElButton>
-          <Submit type="primary" @submit="log">
+          <Submit type="primary" @submit="submit">
             通过
           </Submit>
         </template>
@@ -28,7 +37,7 @@ const switchProps = {
 
       <ElTabs class="flex-1 rounded-b-lg" type="border-card">
         <ElTabPane label="信息补充">
-          <FormLayout class="flex gap-2 p-2" label-col="2">
+          <FormLayout class="flex flex-col gap-2 p-2" label-col="2">
             <div class="flex-1 flex flex-col gap-2">
               <ElCard class="whitespace-nowrap">
                 <FormLayout>
@@ -42,26 +51,29 @@ const switchProps = {
                     :key="item.groupKey"
                     class="flex"
                   >
-                    <div class="mt-1">
+                    <div class="mt-1 w-5em">
                       {{ item.groupName }}：
                     </div>
-                    <div class="flex gap-2">
+                    <div class="grid grid-cols-4 flex-1 gap-2">
                       <ObjectField :name="item.groupKey">
                         <Field
                           v-for="field of [
-                            { name: '应收金额', key: 'receivable' },
-                            { name: '已收金额', key: 'netReceipts' },
-                            { name: '小计', key: 'subtotal', required: false },
+                            { name: '应收金额', key: 'receivable', validator: 'number' },
+                            { name: '已收金额', key: 'netReceipts', validator: 'number' },
+                            { name: '小计', key: 'subtotal' },
                             { name: '备注', key: 'remarks', required: false },
                           ]"
                           :key="field.name"
-                          :component="[Input, {
-                            placeholder: field.name,
-                          }]"
+                          :component="[Input]"
                           :decorator="[FormItem]"
                           :name="field.key"
                           :required="field.required ?? true"
-                        />
+                          :validator="field.validator"
+                        >
+                          <template #prepend>
+                            {{ field.name }}
+                          </template>
+                        </Field>
                       </ObjectField>
                     </div>
                   </div>
@@ -73,74 +85,72 @@ const switchProps = {
                     :key="item.groupKey"
                     class="flex"
                   >
-                    <div class="mt-1">
+                    <div class="mt-1 w-5em">
                       {{ item.groupName }}：
                     </div>
-                    <div class="flex gap-2">
+                    <div class="grid grid-cols-4 flex-1 gap-2">
                       <ObjectField :name="item.groupKey">
                         <Field
                           v-for="field of [
-                            { name: '请输入信息', key: 'receivable' },
-                            { name: '小计', key: 'subtotal', required: false },
+                            { name: '信息', key: 'receivable' },
+                            { name: '小计', key: 'subtotal' },
                             { name: '备注', key: 'remarks', required: false },
                           ]"
                           :key="field.name"
-                          :component="[Input, {
-                            placeholder: field.name,
-                          }]"
+                          :component="[Input]"
                           :decorator="[FormItem]"
                           :name="field.key"
                           :required="field.required ?? true"
-                        />
+                        >
+                          <template #prepend>
+                            {{ field.name }}
+                          </template>
+                        </Field>
                       </ObjectField>
                     </div>
                   </div>
                   <div
                     class="flex"
                   >
-                    <div class="mt-1">
+                    <div class="mt-1 w-5em">
                       车辆证件：
                     </div>
-                    <div class="flex gap-2">
+                    <div class="grid grid-cols-4 flex-1 gap-2">
                       <ObjectField name="vehicleCertificate">
+                        <div class="flex gap-4">
+                          <Field
+                            v-for="field of [
+                              { name: '行驶证', key: 'drivingLicense' },
+                              { name: '车钥匙', key: 'carKeys' },
+                              { name: '运输证', key: 'transportCertificate' },
+                            ]"
+                            :key="field.name"
+                            :component="[Checkbox, {
+                              label: field.name,
+                            }]"
+                            :decorator="[FormItem]"
+                            :name="field.key"
+                          />
+                        </div>
                         <Field
                           v-for="field of [
-                            { name: '行驶证', key: 'drivingLicense' },
-                            { name: '车钥匙', key: 'carKeys' },
-                            { name: '运输证', key: 'transportCertificate' },
-                          ]"
-                          :key="field.name"
-                          :component="[Checkbox, {
-                            label: field.name,
-                          }]"
-                          :decorator="[FormItem]"
-                          :name="field.key"
-                        />
-                        <Field
-                          v-for="field of [
-                            { name: '小计', key: 'subtotal', required: false },
+                            { name: '小计', key: 'subtotal' },
                             { name: '备注', key: 'remarks', required: false },
                           ]"
                           :key="field.name"
-                          :component="[Input, {
-                            placeholder: field.name,
-                          }]"
+                          :component="[Input]"
                           :decorator="[FormItem]"
                           :name="field.key"
                           :required="field.required ?? true"
-                        />
+                        >
+                          <template #prepend>
+                            {{ field.name }}
+                          </template>
+                        </Field>
                       </ObjectField>
                     </div>
                   </div>
                 </FormLayout>
-              </ElCard>
-              <ElCard>
-                <Field
-                  :component="[InputNumber, { min: 0 }]"
-                  :decorator="[FormItem]"
-                  name="key1"
-                  title="违约金"
-                />
               </ElCard>
               <ElCard>
                 <UseSchemaField :schema="table" />
@@ -150,19 +160,29 @@ const switchProps = {
               <ElCard header="车辆情况">
                 <Field
                   :component="[Upload, {
-                    limit: 5,
+                    multiple: true,
+                    accept: 'image/*',
                   }]"
                   :decorator="[FormItem]"
-                  name="upload"
+                  name="vehicleCondition"
                   title="车辆信息"
+                  :validator="{
+                    upload: true,
+                  }"
                 />
               </ElCard>
               <ElCard header="其他附件">
                 <Field
-                  :component="[Upload]"
+                  :component="[Upload, {
+                    multiple: true,
+                    accept: 'image/*',
+                  }]"
                   :decorator="[FormItem]"
-                  name="upload"
+                  name="appendix"
                   title="附件"
+                  :validator="{
+                    upload: true,
+                  }"
                 />
               </ElCard>
             </div>
