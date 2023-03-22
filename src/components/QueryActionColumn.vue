@@ -8,7 +8,10 @@ defineProps({
     default: '操作',
   },
   width: [String, Number],
-  fixed: [Boolean, String] as PropType<boolean | 'left' | 'right'>,
+  fixed: {
+    type: [Boolean, String] as PropType<boolean | 'left' | 'right'>,
+    default: 'right',
+  },
 })
 
 const config: ConfigProviderInstance['$props'] = {
