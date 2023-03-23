@@ -44,12 +44,12 @@ const schema = {
           'name': 'xt9ff93t76p',
           'x-designable-id': 'gidkb069pec',
           'properties': {
-            vehicleFrameNumber: {
+            driverName: {
               'title': '司机姓名',
               'x-decorator': 'FormItem',
               'x-component': 'Input',
               'x-index': 0,
-              'name': 'vehicleFrameNumber',
+              'name': 'driverName',
               'x-designable-id': 'fqqu90lagw0',
               'x-validator': [],
               'x-component-props': {},
@@ -115,20 +115,24 @@ const columns = [
     label: '工单名称',
   },
   {
+    prop: 'orderCode',
+    label: '订单名称',
+  },
+  {
+    prop: 'taskName',
+    label: '任务名称',
+  },
+  {
     prop: 'flowCode',
     label: '流程编号',
   },
   {
-    prop: 'status',
+    prop: 'statusName',
     label: '状态',
   },
   {
-    prop: 'driverId',
-    label: '司机ID',
-  },
-  {
-    prop: 'driverCode',
-    label: '司机编号',
+    prop: 'licensePlateNumber',
+    label: '车牌号',
   },
   {
     prop: 'driverName',
@@ -138,21 +142,49 @@ const columns = [
     prop: 'city',
     label: '所属城市',
   },
+  {
+    prop: 'createDate',
+    label: '创建时间',
+  },
 ]
 const columnsConfig = {
   workCode: {
-    width: 200,
+    width: 150,
     showOverflowTooltip: true,
   },
   workName: {
+    width: 100,
+    showOverflowTooltip: true,
+  },
+  orderCode: {
     width: 150,
+    showOverflowTooltip: true,
+  },
+  taskName: {
+    width: 100,
     showOverflowTooltip: true,
   },
   flowCode: {
     width: 150,
     showOverflowTooltip: true,
   },
-  taskCode: {
+  statusName: {
+    width: 100,
+    showOverflowTooltip: true,
+  },
+  licensePlateNumber: {
+    width: 150,
+    showOverflowTooltip: true,
+  },
+  driverName: {
+    width: 100,
+    showOverflowTooltip: true,
+  },
+  city: {
+    width: 100,
+    showOverflowTooltip: true,
+  },
+  createDate: {
     width: 150,
     showOverflowTooltip: true,
   },
