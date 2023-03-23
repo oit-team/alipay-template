@@ -25,7 +25,7 @@ const workOrderApply = inject(workOrderApplySymbol)
 
 async function submit(data: any) {
   if (!vehicleInfo.value)
-    ElMessage.error('请选择车辆')
+    return ElMessage.error('请选择车辆')
 
   await workOrderApply?.({
     ...data,
@@ -41,7 +41,7 @@ async function submit(data: any) {
 <template>
   <div class="flex flex-col gap-2 p-2">
     <FormProvider :form="form">
-      <PageHeader title="申请退车">
+      <PageHeader title="申请退租">
         <template #extra>
           <Submit type="primary" @submit="submit" />
         </template>
