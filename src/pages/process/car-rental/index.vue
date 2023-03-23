@@ -16,7 +16,7 @@ const { data } = useAxios('/workFlow/workFlow/getWorkFlowSteps', {
     flowCode: route.query.flowCode || 'CAR_RENTAL',
     taskCode: '',
   },
-  transformResponse: transformResponsePush(data => data.body),
+  transformResponse: transformResponsePush(data => data),
 })
 
 watch(() => data.value?.step, (newstep) => {

@@ -11,7 +11,7 @@ const { data: detailInfo } = useAxios('/order/leaseOrder/getLeaseOrderByNo', {
   data: {
     workCode: route.query.workCode,
   },
-  transformResponse: transformResponsePush(data => data.body),
+  transformResponse: transformResponsePush(data => data),
 })
 
 const dialogCancelReasonVisible = ref(false)
@@ -24,8 +24,8 @@ async function handlePass() {
   const con = {
     workCode: route.query?.workCode,
     flowCode: route.query?.flowCode,
-    taskCode: route.query?.nextTaskCode,
-    nextTaskCode: '',
+    taskCode: route.query?.taskCode,
+    // nextTaskCode: '',
     approvalStatus: 1, // 1 同意 0 不同意
   }
   await axios.post(
@@ -34,7 +34,7 @@ async function handlePass() {
       ...con,
       approvalNotes: '',
       params: {
-        statue: route.query?.status,
+        statue: 1,
       },
     },
   )
@@ -46,8 +46,8 @@ async function handleCancel() {
   const con = {
     workCode: route.query?.workCode,
     flowCode: route.query?.flowCode,
-    taskCode: route.query?.nextTaskCode,
-    nextTaskCode: '',
+    taskCode: route.query?.taskCode,
+    // nextTaskCode: '',
     approvalStatus: 0, // 1 同意 0 不同意
   }
   if (form.approvalNotes) {
@@ -56,7 +56,9 @@ async function handleCancel() {
       {
         ...con,
         approvalNotes: form.approvalNotes,
-        params: {},
+        params: {
+          statue: 3,
+        },
       },
     )
     dialogCancelReasonVisible.value = false

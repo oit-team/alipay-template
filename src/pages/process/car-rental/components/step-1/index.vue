@@ -94,7 +94,7 @@ const {
   execute: getOrderPreferential,
 } = useAxios(
   '/order/leaseOrder/getOrderPreferential',
-  { transformResponse: transformResponsePush(data => data.body) },
+  { transformResponse: transformResponsePush(data => data) },
   { immediate: false },
 )
 
