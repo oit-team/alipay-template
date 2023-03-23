@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { FormProvider } from '@formily/vue'
 import schema from './schema/form.json'
-import { handleSubmitFailed, initForm } from '@/utils/actions'
+import { getCityList, useSelectAsyncDataSource, vehicleServiceList } from '@/reactions'
+import { handleSubmitFailed, initForm, transformUploadData } from '@/utils/actions'
 
 const { t } = useI18n()
 
@@ -22,14 +23,29 @@ const form = createForm({
   transform: data => data.vehicleDetailed,
 })
 
-async function submit(form: any) {
+async function submit(formData: any) {
+  const getImageUrl = (list: any) => transformUploadData(list)?.[0].url
   await axios.post(
     isNew
       ? '/vehicle/vehicle/addVehicle'
       : '/vehicle/vehicle/updateVehicle',
     {
-      ...form,
+      ...formData,
       vehicleId: isNew ? undefined : route.params.id,
+      imgList: {
+        carFrontImg: getImageUrl(formData.imgList.carFrontImg),
+        carRearImg: getImageUrl(formData.imgList.carRearImg),
+        carLeftImg: getImageUrl(formData.imgList.carLeftImg),
+        carRightImg: getImageUrl(formData.imgList.carRightImg),
+        carOtherImg: getImageUrl(formData.imgList.carOtherImg),
+      },
+      transporteCard: {
+        transporteCardImg: getImageUrl(formData.transporteCard.transporteCardImg),
+      },
+      driveLicense: {
+        driveLicenceOriginal: getImageUrl(formData.driveLicense.driveLicenceOriginal),
+        driveLicenceEctype: getImageUrl(formData.driveLicense.driveLicenceEctype),
+      },
     },
   )
   ElMessage.success(t('save.success'))
@@ -46,7 +62,7 @@ async function submit(form: any) {
         u-px-2
         wrapper-col="10"
       >
-        <UseSchemaField :schema="schema" />
+        <UseSchemaField :schema="schema" :scope="{ useSelectAsyncDataSource, getCityList, vehicleServiceList }" />
       </FormLayout>
       <div class="mt-auto flex justify-center py-2">
         <Submit size="large" @submit="submit" @submit-failed="handleSubmitFailed">
