@@ -11,7 +11,11 @@ const state = reactive({
   schemeId: '',
   activityId: '',
 })
+
 const schemeTypeId = ref(0)
+
+const isSchemeDisabled = ref(true)
+const isActivityDisabled = ref(true)
 
 function executeQuery(fn: any, data: any) {
   fn({
@@ -45,6 +49,10 @@ const {
 )
 const vehicleItem = computed(() => vehicleList.value?.find((item: any) => item.vehicleId === state.vehicleId))
 
+watch(() => state.vehicleId, () => {
+  isSchemeDisabled.value = false
+})
+
 const {
   data: schemeList,
   isLoading: schemeLoading,
@@ -55,6 +63,10 @@ const {
   { immediate: false },
 )
 const schemeItem = computed(() => schemeList.value?.find((item: any) => item.id === state.schemeId))
+
+watch(() => state.schemeId, () => {
+  isActivityDisabled.value = false
+})
 
 const {
   data: activityList,
@@ -80,6 +92,7 @@ watch(schemeTypeId, () => {
   state.schemeId = ''
   schemeList.value = []
 })
+
 watch(() => state.activityId, () => {
   getActivityMap({
     data: {
@@ -158,7 +171,7 @@ async function submit() {
             :loading="driverLoading"
             placeholder="请输入手机号搜索"
             remote
-            :remote-method="(v: any) => v && executeQuery(getDriverList, { driverPhone: v })"
+            :remote-method="(v: any) => v && executeQuery(getDriverList, { driverPhone: v, driverStatue: 0 })"
             remote-show-suffix
             reserve-keyword
           >
@@ -196,7 +209,7 @@ async function submit() {
             :loading="vehicleLoading"
             placeholder="请输入内容搜索"
             remote
-            :remote-method="(v: any) => v && executeQuery(getVehicleList, { licensePlateNumber: v })"
+            :remote-method="(v: any) => v && executeQuery(getVehicleList, { licensePlateNumber: v, vehicleState: 0 })"
             remote-show-suffix
             reserve-keyword
           >
@@ -218,7 +231,7 @@ async function submit() {
           { label: '车牌号', prop: 'licensePlateNumber' },
           { label: '车架号', prop: 'vehicleFrameNumber' },
           { label: '城市', prop: 'city' },
-          { label: '品牌车系车型', prop: 'brandSeries' },
+          { label: '品牌车系车型', prop: 'vehicleModel' },
           { label: '车身颜色', prop: 'bodyColor' },
           { label: '行驶里程', prop: 'mileage' },
           { label: '终止时间', prop: 'endTime' },
@@ -242,6 +255,7 @@ async function submit() {
           <ElSelect
             v-model="state.schemeId"
             default-first-option
+            :disabled="isSchemeDisabled"
             filterable
             :loading="schemeLoading"
             placeholder="请输入内容搜索"
@@ -249,6 +263,8 @@ async function submit() {
             :remote-method="(v: any) => v && executeQuery(getSchemeList, {
               keyWord: v,
               caseType: schemeTypeId,
+              caseState: 1,
+              vehicleModelId: vehicleItem.vehicleModelId,
             })"
             remote-show-suffix
             reserve-keyword
@@ -286,12 +302,15 @@ async function submit() {
           <ElSelect
             v-model="state.activityId"
             default-first-option
+            :disabled="isActivityDisabled"
             filterable
             :loading="activityLoading"
             placeholder="请输入内容搜索"
             remote
             :remote-method="(v: any) => v && executeQuery(getActivityList, {
               activityName: v,
+              activityStatue: 1,
+              schemeId: state.schemeId,
             })"
             remote-show-suffix
             reserve-keyword

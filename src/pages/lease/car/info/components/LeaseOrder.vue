@@ -8,6 +8,10 @@ const route = useRoute()
 
 const queryRef = ref()
 
+onMounted(() => {
+  queryRef.value?.query()
+})
+
 const columns = [
   {
     prop: 'leaseOrderNo',
