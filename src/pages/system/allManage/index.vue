@@ -94,7 +94,6 @@ watch(filterText, () => {
 async function getDeptList() {
   const res = await axios.post('system/dept/getDeptList', {})
   deptList.value = res.data.result
-  console.log(deptList.value)
 }
 
 function addDivision() {
@@ -144,7 +143,6 @@ async function getTreeOrgList() {
     pageNum: 1,
 
   })
-  console.log(res)
   areaList.value = res.data.body.result
 }
 
