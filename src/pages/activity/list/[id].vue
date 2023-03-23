@@ -157,7 +157,7 @@ async function submit() {
   }
   const url = isNew ? '/order/activity/addActivity' : '/order/activity/updateActivity'
   if (activityInfoFormRef.value) {
-    await activityInfoFormRef.value.validate(async (valid, fields) => {
+    await activityInfoFormRef.value.validate(async (valid) => {
       if (valid) {
         await axios.post(url, {
           ...activityInfoForm.value,

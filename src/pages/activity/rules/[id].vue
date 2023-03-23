@@ -32,7 +32,6 @@ async function submit(form: any) {
 }
 
 function submitFailed(err: any) {
-  console.log(err)
   ElMessage.error(err.message)
   // ElMessage.error(`还有${err.length}项内容未填写`)
 }

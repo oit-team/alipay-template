@@ -1,88 +1,14 @@
-<route>
-  meta:
-    cache: true
+<route lang="yaml">
+meta:
+  cache: true
 </route>
 
 <script setup lang="ts">
+import indexSearchForm from './schema/indexSearchForm.json'
+
 const queryRef = ref()
 
-const schema = {
-  'type': 'object',
-  'properties': {
-    grqhw98nznf: {
-      'type': 'void',
-      'x-component': 'FormGrid',
-      'x-validator': [],
-      'x-component-props': {},
-      'x-designable-id': 'grqhw98nznf',
-      'properties': {
-        'agfbpt98p0b': {
-          'type': 'void',
-          'x-component': 'FormGrid.GridColumn',
-          'x-designable-id': 'agfbpt98p0b',
-          'properties': {
-            tc5wodr0j33: {
-              'type': 'string',
-              'title': '区域',
-              'x-decorator': 'FormItem',
-              'x-component': 'Input',
-              'x-validator': [],
-              'x-component-props': {},
-              'x-decorator-props': {},
-              'x-designable-id': 'tc5wodr0j33',
-              'x-index': 0,
-            },
-          },
-          'x-index': 0,
-        },
-        '3wj34bj49c5': {
-          'type': 'void',
-          'x-component': 'FormGrid.GridColumn',
-          'x-validator': [],
-          'x-component-props': {},
-          'x-designable-id': '3wj34bj49c5',
-          'properties': {
-            v7tt8ki7ora: {
-              'type': 'string',
-              'title': '地址',
-              'x-decorator': 'FormItem',
-              'x-component': 'Input',
-              'x-validator': [],
-              'x-component-props': {},
-              'x-decorator-props': {},
-              'x-designable-id': 'v7tt8ki7ora',
-              'x-index': 0,
-            },
-          },
-          'x-index': 1,
-        },
-        'v9ocb6tbj0g': {
-          'type': 'void',
-          'x-component': 'FormGrid.GridColumn',
-          'x-designable-id': 'v9ocb6tbj0g',
-          'properties': {
-            sp3nqeuauq3: {
-              'type': 'string[]',
-              'title': '创建时间',
-              'x-decorator': 'FormItem',
-              'x-component': 'DatePicker',
-              'x-validator': [],
-              'x-component-props': {
-                type: 'daterange',
-              },
-              'x-decorator-props': {},
-              'x-designable-id': 'sp3nqeuauq3',
-              'x-index': 0,
-            },
-          },
-          'x-index': 2,
-        },
-      },
-      'x-index': 0,
-    },
-  },
-  'x-designable-id': 'kz22atjmtgk',
-}
+const { t } = useI18n()
 
 const columns = [
   {
@@ -98,6 +24,21 @@ const columns = [
     prop: 'createTime',
   },
 ]
+
+async function dltArea(id: number | string) {
+  await ElMessageBox.confirm(
+    t('confirm.delete'),
+    t('tip.info'),
+    {
+      type: 'warning',
+    },
+  )
+  await axios.post('/system/org/delOrgInfo', {
+    orgId: id,
+  })
+  await queryRef.value.query()
+  ElMessage.success(t('handle.success'))
+}
 </script>
 
 <template>
@@ -114,22 +55,22 @@ const columns = [
         ref="queryRef"
         auto-query="active"
         :columns="columns"
-        :schema="schema"
+        :schema="indexSearchForm"
       >
         <QueryForm />
         <QueryToolbar>
-          <ElButton type="primary">
+          <ElButton type="primary" @click="$router.push('./area/new')">
             {{ $t('button.new') }}
           </ElButton>
         </QueryToolbar>
         <QueryTable>
           <template #actions>
-            <QueryActionColumn label="操作" width="150px">
-              <ElButton type="primary">
-                {{ $t('button.edit') }}
+            <QueryActionColumn v-slot="{ row }" label="操作" width="150px">
+              <ElButton size="small" type="info" @click="$router.push(`./area/${row.orgId}`)">
+                编辑
               </ElButton>
-              <ElButton type="danger">
-                {{ $t('button.delete') }}
+              <ElButton size="small" type="danger" @click="dltArea(row.orgId)">
+                删除
               </ElButton>
             </QueryActionColumn>
           </template>

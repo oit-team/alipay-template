@@ -1,5 +1,9 @@
+<route lang="yaml">
+meta:
+  cache: true
+</route>
+
 <script setup lang="ts">
-import { cloneDeep } from 'lodash-es'
 import indexSearchForm from './schema/indexSearchForm.json'
 import drawerDeptForm from './schema/drawerDeptForm.json'
 import type { FormInstance } from 'element-plus'
@@ -10,29 +14,32 @@ const drawerForm = createForm({
 })
 const drawerFormRef = ref<FormInstance>()
 
-const columns = [
-  {
-    label: '创建时间',
-    prop: 'createTime',
-  }, {
-    label: '真实姓名',
-    prop: 'nickName',
-  }, {
-    label: '性别',
-    prop: 'sexName',
-  }, {
-    label: '手机号',
-    prop: 'phoneNum',
-  }, {
-    label: '用户名',
-    prop: 'userName',
-  }, {
-    label: '部门名称',
-    prop: 'deptName',
-  }, {
-    label: '区域名称',
-    prop: 'orgName',
-  },
+const { t } = useI18n()
+
+const router = useRouter()
+
+const columns = [{
+  label: '真实姓名',
+  prop: 'nickName',
+}, {
+  label: '性别',
+  prop: 'sexName',
+}, {
+  label: '手机号',
+  prop: 'phoneNum',
+}, {
+  label: '用户名',
+  prop: 'userName',
+}, {
+  label: '部门名称',
+  prop: 'deptName',
+}, {
+  label: '区域名称',
+  prop: 'orgName',
+}, {
+  label: '创建时间',
+  prop: 'createTime',
+},
 ]
 
 const queryRef = ref<any>()
@@ -42,19 +49,19 @@ const showPanel = ref(false)
 // 部门列表
 const deptList = ref([])
 // 区域列表
-const areaList = ref([])
+// const areaList = ref([])
 
 const handleClickFlag = ref(false)
 
 const now_nodeInfo = ref<any>()
+
+const isNewUp = ref(false)
+// 是不是新增部门
 const isNew = ref(false)
-const divisionForm = ref<{
-  deptName: string
-  describe: string
-  parentId: number | string
-}>({
+const divisionForm = ref<any>({
   deptName: '',
   describe: '',
+  deptId: 0,
   parentId: 0,
 })
 const divisionDrawer = ref(false)
@@ -94,11 +101,11 @@ watch(filterText, () => {
 async function getDeptList() {
   const res = await axios.post('system/dept/getDeptList', {})
   deptList.value = res.data.result
-  console.log(deptList.value)
 }
 
 function addDivision() {
-  isNew.value = true
+  isNewUp.value = true
+  isNewUp.value = true
   divisionForm.value.parentId = 0
   divisionDrawer.value = true
 }
@@ -111,48 +118,45 @@ function nodeRightClick(_MouseEvent: any, _object: any, Node: any, _VueComponent
 
 // 点击 node 节点 触发
 async function nodeClick(data: any) {
-  // console.log(data)
   deptId.value = data.deptId
   await queryRef.value.query()
 }
 
+async function beforeClose(done: any) {
+  await drawerForm.reset()
+  done()
+}
+
 // 新增部门
-async function onSubmit() {
-  if (!drawerFormRef)
-    return
-  await drawerFormRef.value?.validate(async (valid: any, fields: any) => {
-    if (valid) {
-      if (isNew.value) {
-        await ElMessageBox.confirm('确定新增吗', '提示')
-        await axios.post('/system/dept/addDeptInfo', { ...divisionForm.value })
-        ElMessage.success('新增成功')
-      }
-      else {
-        await ElMessageBox.confirm('确定修改吗', '提示')
-        await axios.post('/system/dept/updateDeptInfo', { ...divisionForm.value })
-        ElMessage.success('修改成功')
-      }
-      divisionDrawer.value = false
-      await getDeptList()
-    }
-  })
+async function onSubmit(form: any) {
+  await ElMessageBox.confirm(isNew.value ? '确定新增吗' : '确定修改吗', '提示')
+  const params = { ...form }
+  if (isNew.value) {
+    params.parentId = divisionForm.value.parentId
+  }
+  else {
+    params.deptId = divisionForm.value.deptId
+    params.parentId = divisionForm.value.parentId
+  }
+
+  await axios.post(isNew.value ? '/system/dept/addDeptInfo' : '/system/dept/updateDeptInfo', params)
+
+  ElMessage.success('成功')
+  divisionDrawer.value = false
+  await getDeptList()
 }
 
-async function getTreeOrgList() {
-  const res = await axios.post('/system/org/getTreeOrgList', {
-    pageSize: 1000,
-    pageNum: 1,
+// async function getTreeOrgList() {
+//   const res = await axios.post('/system/org/getTreeOrgList', {
+//     pageSize: 1000,
+//     pageNum: 1,
 
-  })
-  console.log(res)
-  areaList.value = res.data.body.result
-}
-
-// async function beforeCloseDiv(done: any) {
-//   drawerForm.reset()
-//   console.log(drawerForm)
-//   done()
+//   })
+//   areaList.value = res.data.body.result
+//   console.log(areaList.value)
+//   console.log(res.data)
 // }
+
 // 删除部门
 async function clickDel() {
   handleClickFlag.value = false
@@ -166,36 +170,52 @@ async function clickEdit() {
   divisionDrawer.value = true
   handleClickFlag.value = false
   isNew.value = false
+  divisionForm.value = { ...now_nodeInfo.value }
   drawerForm.reset()
-  nextTick(() => {
-    divisionForm.value = cloneDeep(now_nodeInfo.value)
-    drawerForm.setValues({ deptName: divisionForm.value.deptName, describe: divisionForm.value.describe }, 'overwrite')
-  })
+  drawerForm.setValues({ deptName: divisionForm.value.deptName, describe: divisionForm.value.describe })
 }
 // 新增部门
 function clickAdd() {
   handleClickFlag.value = false
-  nextTick(() => {
-    drawerForm.setInitialValues({ deptName: '', describe: '' })
-  })
-  // drawerForm.deleteInitialValuesIn()
   isNew.value = true
   divisionForm.value.parentId = now_nodeInfo.value.deptId
   divisionDrawer.value = true
 }
 
 async function dltUser(id: any) {
+  await ElMessageBox.confirm(
+    t('confirm.delete'),
+    t('tip.info'),
+    {
+      type: 'warning',
+    },
+  )
   await axios.post('/system/user/delUserById', {
     userId: id,
   })
+  await queryRef.value.query()
+  ElMessage.success(t('handle.success'))
+}
+
+function toAdd() {
+  if (deptId.value) {
+    // router.push(`./manage/details/${deptId}`)
+    router.push({
+      path: './manage/new',
+      query: {
+        deptId: deptId.value,
+      },
+    })
+  }
+  else { ElMessage.warning('请选择所属部门') }
 }
 </script>
 
 <template>
   <div class="h-full p-3 flex">
     <!--      左侧树形结构 -->
-    <div class="flex flex-col h-full text-sm w-1/6">
-      <div class="w-full flex p-2 box-border">
+    <div class="flex flex-col h-full text-sm w-[13vw]">
+      <div class="w-full flex p-2 box-borde justify-center">
         <ElTooltip content="新增区域部门" placement="top">
           <ElButton circle small type="danger" @click="addDivision">
             <div class="i-ic:round-plus" />
@@ -225,9 +245,9 @@ async function dltUser(id: any) {
         >
           <template #scope="{ data }">
             <span>{{ data.deptName }}</span>
-            <span v-if="data.isShop === '2'" style="margin-left:30px;" @click.stop="getTreeOrgList()">
+            <!-- <span v-if="data.isShop === '2'" style="margin-left:30px;" @click.stop="getTreeOrgList()">
               <div class="i-ri-tabler:refresh" />
-            </span>
+            </span> -->
           </template>
         </ElTree>
         <div v-else class="flex justify-center items-center">
@@ -255,10 +275,15 @@ async function dltUser(id: any) {
       >
         <QueryProvide v-bind="attrs" ref="queryRef" auto-query="active" :columns="columns" :schema="indexSearchForm">
           <QueryForm />
+          <QueryToolbar>
+            <ElButton type="primary" @click="toAdd">
+              {{ $t('button.new') }}
+            </ElButton>
+          </QueryToolbar>
           <QueryTable>
             <template #actions>
               <QueryActionColumn v-slot="{ row }" label="操作" width="180px">
-                <ElButton size="small" type="info" @click="$router.push(`./allManage/details?id=${row.userId}`)">
+                <ElButton size="small" type="info" @click="$router.push(`./manage/${row.userId}`)">
                   编辑
                 </ElButton>
                 <ElButton size="small" type="danger" @click="dltUser(row.userId)">
@@ -273,13 +298,13 @@ async function dltUser(id: any) {
     </div>
 
     <!-- 新增/编辑部门 -->
-    <ElDrawer v-model="divisionDrawer" direction="rtl" title="部门信息">
+    <ElDrawer v-model="divisionDrawer" :before-close="beforeClose" direction="rtl" title="部门信息">
       <div class="h-full flex flex-col p-4 justify-between box-border">
         <FormProvider ref="drawerFormRef" :form="drawerForm">
           <div class="flex flex-col h-full px-4 py-2">
             <FormLayout
-              label-col="8"
-              wrapper-col="10"
+              label-col="4"
+              wrapper-col="14"
             >
               <UseSchemaField :schema="drawerDeptForm" />
             </FormLayout>
@@ -300,13 +325,13 @@ async function dltUser(id: any) {
       width="270px"
     >
       <div class="flex justify-around items-center">
-        <ElButton size="small" @click="clickAdd">
+        <ElButton @click="clickAdd">
           新 增
         </ElButton>
-        <ElButton size="small" @click="clickEdit">
+        <ElButton @click="clickEdit">
           编 辑
         </ElButton>
-        <ElButton size="small" @click="clickDel">
+        <ElButton @click="clickDel">
           删 除
         </ElButton>
       </div>
@@ -314,6 +339,40 @@ async function dltUser(id: any) {
   </div>
 </template>
 
-<style lang="">
-
+<style lang="scss" scoped>
+:deep{
+  .el-tooltip{
+    padding: 7px !important;
+  }
+  .el-tree-node{
+    padding: 0 5px;
+  }
+  .el-upload-dragger{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+  }
+ .leftTreeCon .orgTreeBox :deep(.el-tree) {
+    min-width: 100%;
+    padding-right: 6px;
+    display: inline-block;
+    margin-bottom: 6px;
+  }
+  .el-tree .el-tree-node__content {
+    height: 38px;
+  }
+  .el-tree-node:focus > .el-tree-node__content {
+    color: #1978FE;
+  }
+  .el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {
+    background-color: #C5DDFF;
+    color: #1978FE;
+  }
+  .el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content:hover {
+    background-color: #F5F7FA;
+  }
+}
 </style>
