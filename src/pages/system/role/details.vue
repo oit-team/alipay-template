@@ -66,7 +66,6 @@ async function submit() {
   const checkedKeys = treeRef.value.getCheckedNodes() // 选中的节点所组成的数组
 
   halfCheckedKeys.forEach((item: any, i: number) => checkedKeys.push(halfCheckedKeys[i]))
-  console.log(checkedKeys)
   checkedKeys.forEach((item: any) => {
     let menuOperation = ''
     if (item.menuOperation) {
@@ -82,7 +81,6 @@ async function submit() {
       menuName: item.menuName,
     })
   })
-  console.log(menuIds.value)
   await axios.post(
     isNew
       ? '/system/role/insertRole'

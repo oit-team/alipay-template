@@ -1,8 +1,3 @@
-<route lang="yaml">
-meta:
-  cache: false
-</route>
-
 <script setup lang="ts">
 import { FormProvider } from '@formily/vue'
 import schema from '../schema/form.json'

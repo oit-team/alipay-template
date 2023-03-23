@@ -28,7 +28,7 @@ const menu: MenuItem[] = [
       },
       {
         title: '综合管理',
-        path: '/system/allManage',
+        path: '/system/manage',
       },
       {
         title: '区域管理',

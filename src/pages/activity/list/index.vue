@@ -37,10 +37,6 @@ const columns = [
   },
 ]
 
-onMounted(() => {
-  console.log(query.value)
-})
-
 async function dltList(id: string) {
   await ElMessageBox.confirm(t('confirm.delete'), t('tip.info'), {
     type: 'warning',
@@ -53,7 +49,6 @@ async function dltList(id: string) {
 }
 
 async function upOrDown(item: any) {
-  console.log(item)
   const msg = item.activityStatue === 0 ? '确定上架吗' : '确定下架吗'
   await ElMessageBox.confirm(msg, t('tip.info'), {
     type: 'warning',

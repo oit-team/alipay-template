@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { cloneDeep } from 'lodash-es'
 import indexSearchForm from './schema/indexSearchForm.json'
 import drawerDeptForm from './schema/drawerDeptForm.json'
 import type { FormInstance } from 'element-plus'
@@ -10,29 +9,32 @@ const drawerForm = createForm({
 })
 const drawerFormRef = ref<FormInstance>()
 
-const columns = [
-  {
-    label: '创建时间',
-    prop: 'createTime',
-  }, {
-    label: '真实姓名',
-    prop: 'nickName',
-  }, {
-    label: '性别',
-    prop: 'sexName',
-  }, {
-    label: '手机号',
-    prop: 'phoneNum',
-  }, {
-    label: '用户名',
-    prop: 'userName',
-  }, {
-    label: '部门名称',
-    prop: 'deptName',
-  }, {
-    label: '区域名称',
-    prop: 'orgName',
-  },
+const { t } = useI18n()
+
+const router = useRouter()
+
+const columns = [{
+  label: '真实姓名',
+  prop: 'nickName',
+}, {
+  label: '性别',
+  prop: 'sexName',
+}, {
+  label: '手机号',
+  prop: 'phoneNum',
+}, {
+  label: '用户名',
+  prop: 'userName',
+}, {
+  label: '部门名称',
+  prop: 'deptName',
+}, {
+  label: '区域名称',
+  prop: 'orgName',
+}, {
+  label: '创建时间',
+  prop: 'createTime',
+},
 ]
 
 const queryRef = ref<any>()
@@ -94,7 +96,6 @@ watch(filterText, () => {
 async function getDeptList() {
   const res = await axios.post('system/dept/getDeptList', {})
   deptList.value = res.data.result
-  console.log(deptList.value)
 }
 
 function addDivision() {
@@ -111,7 +112,6 @@ function nodeRightClick(_MouseEvent: any, _object: any, Node: any, _VueComponent
 
 // 点击 node 节点 触发
 async function nodeClick(data: any) {
-  // console.log(data)
   deptId.value = data.deptId
   await queryRef.value.query()
 }
@@ -120,7 +120,7 @@ async function nodeClick(data: any) {
 async function onSubmit() {
   if (!drawerFormRef)
     return
-  await drawerFormRef.value?.validate(async (valid: any, fields: any) => {
+  await drawerFormRef.value?.validate(async (valid: any) => {
     if (valid) {
       if (isNew.value) {
         await ElMessageBox.confirm('确定新增吗', '提示')
@@ -144,15 +144,9 @@ async function getTreeOrgList() {
     pageNum: 1,
 
   })
-  console.log(res)
   areaList.value = res.data.body.result
 }
 
-// async function beforeCloseDiv(done: any) {
-//   drawerForm.reset()
-//   console.log(drawerForm)
-//   done()
-// }
 // 删除部门
 async function clickDel() {
   handleClickFlag.value = false
@@ -168,7 +162,7 @@ async function clickEdit() {
   isNew.value = false
   drawerForm.reset()
   nextTick(() => {
-    divisionForm.value = cloneDeep(now_nodeInfo.value)
+    divisionForm.value = { ...now_nodeInfo.value }
     drawerForm.setValues({ deptName: divisionForm.value.deptName, describe: divisionForm.value.describe }, 'overwrite')
   })
 }
@@ -176,7 +170,7 @@ async function clickEdit() {
 function clickAdd() {
   handleClickFlag.value = false
   nextTick(() => {
-    drawerForm.setInitialValues({ deptName: '', describe: '' })
+    drawerForm.setInitialValues({})
   })
   // drawerForm.deleteInitialValuesIn()
   isNew.value = true
@@ -185,17 +179,39 @@ function clickAdd() {
 }
 
 async function dltUser(id: any) {
+  await ElMessageBox.confirm(
+    t('confirm.delete'),
+    t('tip.info'),
+    {
+      type: 'warning',
+    },
+  )
   await axios.post('/system/user/delUserById', {
     userId: id,
   })
+  await queryRef.value.query()
+  ElMessage.success(t('handle.success'))
+}
+
+function toAdd() {
+  if (deptId.value) {
+    // router.push(`./manage/details/${deptId}`)
+    router.push({
+      path: './manage/new',
+      query: {
+        deptId: deptId.value,
+      },
+    })
+  }
+  else { ElMessage.warning('请选择所属部门') }
 }
 </script>
 
 <template>
   <div class="h-full p-3 flex">
     <!--      左侧树形结构 -->
-    <div class="flex flex-col h-full text-sm w-1/6">
-      <div class="w-full flex p-2 box-border">
+    <div class="flex flex-col h-full text-sm w-[13vw]">
+      <div class="w-full flex p-2 box-borde justify-center">
         <ElTooltip content="新增区域部门" placement="top">
           <ElButton circle small type="danger" @click="addDivision">
             <div class="i-ic:round-plus" />
@@ -255,10 +271,16 @@ async function dltUser(id: any) {
       >
         <QueryProvide v-bind="attrs" ref="queryRef" auto-query="active" :columns="columns" :schema="indexSearchForm">
           <QueryForm />
+          <QueryToolbar>
+            <ElButton type="primary" @click="toAdd">
+              {{ $t('button.new') }}
+            </ElButton>
+          </QueryToolbar>
           <QueryTable>
             <template #actions>
               <QueryActionColumn v-slot="{ row }" label="操作" width="180px">
-                <ElButton size="small" type="info" @click="$router.push(`./allManage/details?id=${row.userId}`)">
+                <!-- <ElButton size="small" type="info" @click="toDetails(row)"> -->
+                <ElButton size="small" type="info" @click="$router.push(`./manage/${row.userId}`)">
                   编辑
                 </ElButton>
                 <ElButton size="small" type="danger" @click="dltUser(row.userId)">
@@ -278,8 +300,8 @@ async function dltUser(id: any) {
         <FormProvider ref="drawerFormRef" :form="drawerForm">
           <div class="flex flex-col h-full px-4 py-2">
             <FormLayout
-              label-col="8"
-              wrapper-col="10"
+              label-col="4"
+              wrapper-col="14"
             >
               <UseSchemaField :schema="drawerDeptForm" />
             </FormLayout>
@@ -300,13 +322,13 @@ async function dltUser(id: any) {
       width="270px"
     >
       <div class="flex justify-around items-center">
-        <ElButton size="small" @click="clickAdd">
+        <ElButton @click="clickAdd">
           新 增
         </ElButton>
-        <ElButton size="small" @click="clickEdit">
+        <ElButton @click="clickEdit">
           编 辑
         </ElButton>
-        <ElButton size="small" @click="clickDel">
+        <ElButton @click="clickDel">
           删 除
         </ElButton>
       </div>
@@ -314,6 +336,40 @@ async function dltUser(id: any) {
   </div>
 </template>
 
-<style lang="">
-
+<style lang="scss" scoped>
+:deep{
+  .el-tooltip{
+    padding: 7px !important;
+  }
+  .el-tree-node{
+    padding: 0 5px;
+  }
+  .el-upload-dragger{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+  }
+  #brandInteManage .leftTreeCon .orgTreeBox >>> .el-tree {
+    min-width: 100%;
+    padding-right: 6px;
+    display: inline-block;
+    margin-bottom: 6px;
+  }
+  .el-tree .el-tree-node__content {
+    height: 38px;
+  }
+  .el-tree-node:focus > .el-tree-node__content {
+    color: #1978FE;
+  }
+  .el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {
+    background-color: #C5DDFF;
+    color: #1978FE;
+  }
+  .el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content:hover {
+    background-color: #F5F7FA;
+  }
+}
 </style>
