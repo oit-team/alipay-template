@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { pick } from 'lodash-es'
-import Step1 from './components/step-1/index.vue'
-import Step2 from './components/step-2/index.vue'
-import Step3 from './components/step-3/index.vue'
+import ApplyStep from './components/apply/index.vue'
+import MaintainStep from './components/maintain/index.vue'
+import ValidateCarStep from './components/validate-car/index.vue'
 import { workOrderApplySymbol, workOrderInfoSymbol, workOrderSubmitSymbol } from './types'
 import type { WorkOrderApply, WorkOrderSubmit } from './types'
 
@@ -14,9 +14,17 @@ const initParams = {
   taskCode: route.query.taskCode || '',
 }
 
-const view = computed(() => [Step1, Step2, Step3][viewStep.value])
+const view = computed(() => [
+  ApplyStep,
+  ValidateCarStep,
+  MaintainStep,
+  ValidateCarStep,
+][viewStep.value])
 
-const { data } = useAxios('/workFlow/workFlow/getWorkFlowSteps', {
+const {
+  data,
+  isLoading,
+} = useAxios('/workFlow/workFlow/getWorkFlowSteps', {
   data: {
     ...initParams,
   },
@@ -39,7 +47,7 @@ const workOrderSubmit: WorkOrderSubmit = (params, options) => {
 
 const workOrderInfo = computed(() => ({
   ...data.value,
-  step: route.query.workCode ? data.value?.step : 0,
+  step: data.value?.step,
   viewStep: viewStep.value,
 }))
 
@@ -58,7 +66,7 @@ function setViewStep(step: number) {
 </script>
 
 <template>
-  <div u-flex="~ col" u-h-full>
+  <div v-loading="isLoading" u-flex="~ col" u-h-full>
     <ElSteps
       :active="workOrderInfo?.step"
       class="sticky top-0 z-10"
@@ -75,7 +83,7 @@ function setViewStep(step: number) {
     </ElSteps>
 
     <ElScrollbar>
-      <Component :is="view" />
+      <Component :is="view" v-if="!isLoading" />
     </ElScrollbar>
   </div>
 </template>

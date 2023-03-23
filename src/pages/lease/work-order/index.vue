@@ -4,103 +4,25 @@ meta:
 </route>
 
 <script setup lang="ts">
+import querySchema from './schema/query.json'
 const router = useRouter()
 
-const schema = {
-  'type': 'object',
-  'properties': {
-    '7t2oddolmd3': {
-      'type': 'void',
-      'x-component': 'FormGrid',
-      'x-index': 0,
-      'name': '7t2oddolmd3',
-      'x-designable-id': 'zmtlz5wbmr9',
-      'properties': {
-        '94exvsf2iwc': {
-          'type': 'void',
-          'x-component': 'FormGrid.GridColumn',
-          'x-index': 0,
-          'name': '94exvsf2iwc',
-          'x-designable-id': 'p2zjhwhznxo',
-          'properties': {
-            licensePlateNumber: {
-              'type': 'string',
-              'title': '车牌号',
-              'x-decorator': 'FormItem',
-              'x-component': 'Input',
-              'x-index': 0,
-              'name': 'licensePlateNumber',
-              'x-designable-id': 'g8e4vdsodke',
-              'x-validator': [],
-              'x-component-props': {},
-              'x-decorator-props': {},
-            },
-          },
-        },
-        'xt9ff93t76p': {
-          'type': 'void',
-          'x-component': 'FormGrid.GridColumn',
-          'x-index': 1,
-          'name': 'xt9ff93t76p',
-          'x-designable-id': 'gidkb069pec',
-          'properties': {
-            driverName: {
-              'title': '司机姓名',
-              'x-decorator': 'FormItem',
-              'x-component': 'Input',
-              'x-index': 0,
-              'name': 'driverName',
-              'x-designable-id': 'fqqu90lagw0',
-              'x-validator': [],
-              'x-component-props': {},
-              'x-decorator-props': {},
-            },
-          },
-        },
-        'xl5ijh663zj': {
-          'type': 'void',
-          'x-component': 'FormGrid.GridColumn',
-          'x-index': 2,
-          'name': 'xl5ijh663zj',
-          'x-designable-id': 'u8er41u23jg',
-          'x-validator': [],
-          'x-component-props': {},
-          'properties': {
-            '[startcreateDate,endcreateDate]': {
-              'type': 'string',
-              'title': '查询时间',
-              'x-decorator': 'FormItem',
-              'x-component': 'DatePicker',
-              'x-index': 0,
-              'name': '[startcreateDate,endcreateDate]',
-              'x-designable-id': 'cl06jvkw8p5',
-              'x-validator': [],
-              'x-component-props': {
-                type: 'daterange',
-                placeholder: '',
-              },
-              'x-decorator-props': {},
-            },
-          },
-        },
-      },
-    },
-  },
-  'x-designable-id': '7n5w97gbxef',
+const routeMap: Record<string, string> = {
+  CAR_RENTAL: '/process/car-rental',
+  CAR_RETURN: '/process/car-rental-return',
 }
-
-const queryRef = ref()
-
 async function goDetail(row: any) {
-  // router.push(`${row.nextTaskPageUrl}?workCode=${row.workCode}&flowCode=${row.flowCode}&taskCode=${row.taskCode}`)
+  const path = routeMap[row.flowCode]
+  if (!path)
+    return ElMessage.warning('未找到对应的流程页面')
   router.push({
-    path: row.taskPageUrl,
+    path,
     query: {
       workCode: row.workCode,
       flowCode: row.flowCode,
       taskCode: row.taskCode,
       // nextTaskCode: row.nextTaskCode,
-      status: row.status,
+      // status: row.status,
     },
   })
 }
@@ -149,7 +71,7 @@ const columns = [
 ]
 const columnsConfig = {
   workCode: {
-    width: 150,
+    width: 250,
     showOverflowTooltip: true,
   },
   workName: {
@@ -198,16 +120,14 @@ const columnsConfig = {
       :columns="columns"
       :columns-config="columnsConfig"
       :key-map="{ data: 'resultList', total: 'count' }"
-      :schema="schema"
+      :schema="querySchema"
       url="/workFlow/workFlow/workOrderList"
     >
       <QueryProvide
         v-bind="attrs"
-        ref="queryRef"
         auto-query="active"
       >
         <QueryForm />
-        <QueryToolbar />
         <QueryTable>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" fixed="right" label="操作" width="80px">

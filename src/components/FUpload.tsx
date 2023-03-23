@@ -46,7 +46,6 @@ const UploadWrapper = defineComponent({
 
     const data = {
       ...attrs,
-      fileList: props.fileList,
       onChange(file: UploadFile, fileList: UploadFile[]) {
         (attrs.onChange as Fn)?.(file, fileList)
         emit('change', fileList)
@@ -62,7 +61,7 @@ const UploadWrapper = defineComponent({
     }
 
     return () => (
-      <Upload {...data} />
+      <Upload {...data} file-list={props.fileList} />
     )
   },
 })

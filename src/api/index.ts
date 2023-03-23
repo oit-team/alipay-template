@@ -93,10 +93,8 @@ let lastMessage = ''
 function handleApiError(err: ApiError) {
   const msg = err.message || '服务器出错，请稍后重试'
   // 相同错误在指定时间内只弹出一次
-  if (lastMessage === msg) {
-    setTimeout(() => lastMessage = '', SILENCE_TIME)
+  if (lastMessage === msg)
     return
-  }
 
   switch (err.status) {
     case 403:{
@@ -105,6 +103,7 @@ function handleApiError(err: ApiError) {
   }
 
   lastMessage = msg
+  setTimeout(() => lastMessage = '', SILENCE_TIME)
   // 处理接口错误
   ElMessage.error(msg)
 }

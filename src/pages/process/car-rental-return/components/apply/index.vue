@@ -6,6 +6,7 @@ import { transformResponsePush } from '@/utils/helper'
 import { transformUploadData } from '@/utils/actions'
 
 const vehicleId = ref()
+const router = useRouter()
 
 const {
   data: vehicleList,
@@ -22,15 +23,18 @@ const vehicleInfo = computed(() => vehicleList.value?.find((item: any) => item.v
 const form = createForm()
 const workOrderApply = inject(workOrderApplySymbol)
 
-function submit(data: any) {
+async function submit(data: any) {
   if (!vehicleInfo.value)
     ElMessage.error('请选择车辆')
 
-  workOrderApply?.({
+  await workOrderApply?.({
     ...data,
     ...pick(vehicleInfo.value, ['vehicleId', 'driverId', 'leaseOrderNo']),
     appendix: transformUploadData(data.appendix)?.map(file => file.url),
   })
+
+  ElMessage.success('提交成功')
+  router.back()
 }
 </script>
 

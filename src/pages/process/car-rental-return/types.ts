@@ -19,6 +19,24 @@ export interface WorkOrderInfo {
   workCode: string
   flowCode: string
   taskCode: string
+  step: number
+  viewStep: number
+  mainParams: Record<string, any>
+  workFlowSteps: {
+    id: number
+    name: string
+    taskCode: string
+    flowCode: string
+    preId: number
+    nextId: number
+    step: number
+    role: number
+    pageUrl: string
+    postUrl: string
+    parameter: null
+    updateTime: null
+    createDate: null
+  }[]
 }
 
 export const workOrderInfoSymbol = Symbol('workOrderInfo') as InjectionKey<Ref<WorkOrderInfo>>
