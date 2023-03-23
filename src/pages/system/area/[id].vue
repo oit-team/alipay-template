@@ -44,7 +44,7 @@ async function submit(form: any) {
 <template>
   <FormProvider :form="form">
     <div class="flex flex-col h-full">
-      <PageHeader title="流水详情" />
+      <PageHeader :title="isNew ? '新增区域' : '修改区域'" />
       <FormLayout class="h-full w-full mt-4" label-col="2" u-px-2 wrapper-col="14">
         <UseSchemaField :schema="schema" />
       </FormLayout>

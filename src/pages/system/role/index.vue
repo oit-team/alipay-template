@@ -1,4 +1,4 @@
-<route>
+<route lang="yaml">
 meta:
   cache: true
 </route>
@@ -6,6 +6,7 @@ meta:
 <script setup lang="ts">
 const { t } = useI18n()
 const queryRef = ref()
+// const router = useRouter()
 
 async function onDelete(row: any) {
   await ElMessageBox.confirm(
@@ -19,6 +20,13 @@ async function onDelete(row: any) {
   await queryRef.value.query()
   ElMessage.success(t('handle.success'))
 }
+
+// function toDetails(row: any) {
+//   router.push({
+//     path: './role/details',
+//     query: row,
+//   })
+// }
 </script>
 
 <template>
@@ -32,14 +40,15 @@ async function onDelete(row: any) {
       <QueryProvide v-bind="query" ref="queryRef" auto-query="active">
         <QueryForm />
         <QueryToolbar>
-          <ElButton type="primary">
+          <ElButton type="primary" @click="$router.push('./role/new')">
             {{ $t('button.new') }}
           </ElButton>
         </QueryToolbar>
         <QueryTable>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" width="150px">
-              <ElButton type="primary">
+              <ElButton type="primary" @click="$router.push(`./role/${row.roleId}`)">
+                <!-- <ElButton type="primary" @click="toDetails(row)"> -->
                 {{ $t('button.edit') }}
               </ElButton>
               <ElButton type="danger" @click="onDelete(row)">

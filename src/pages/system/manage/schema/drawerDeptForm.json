@@ -11,6 +11,7 @@
       "x-decorator-props": {},
       "name": "deptName",
       "x-designable-id": "zcyefe3ov3l",
+      "required": true,
       "x-index": 0
     },
     "describe": {

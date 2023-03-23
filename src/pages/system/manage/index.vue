@@ -1,3 +1,8 @@
+<route lang="yaml">
+meta:
+  cache: true
+</route>
+
 <script setup lang="ts">
 import indexSearchForm from './schema/indexSearchForm.json'
 import drawerDeptForm from './schema/drawerDeptForm.json'
@@ -44,19 +49,19 @@ const showPanel = ref(false)
 // 部门列表
 const deptList = ref([])
 // 区域列表
-const areaList = ref([])
+// const areaList = ref([])
 
 const handleClickFlag = ref(false)
 
 const now_nodeInfo = ref<any>()
+
+const isNewUp = ref(false)
+// 是不是新增部门
 const isNew = ref(false)
-const divisionForm = ref<{
-  deptName: string
-  describe: string
-  parentId: number | string
-}>({
+const divisionForm = ref<any>({
   deptName: '',
   describe: '',
+  deptId: 0,
   parentId: 0,
 })
 const divisionDrawer = ref(false)
@@ -99,7 +104,8 @@ async function getDeptList() {
 }
 
 function addDivision() {
-  isNew.value = true
+  isNewUp.value = true
+  isNewUp.value = true
   divisionForm.value.parentId = 0
   divisionDrawer.value = true
 }
@@ -116,36 +122,40 @@ async function nodeClick(data: any) {
   await queryRef.value.query()
 }
 
+async function beforeClose(done: any) {
+  await drawerForm.reset()
+  done()
+}
+
 // 新增部门
-async function onSubmit() {
-  if (!drawerFormRef)
-    return
-  await drawerFormRef.value?.validate(async (valid: any) => {
-    if (valid) {
-      if (isNew.value) {
-        await ElMessageBox.confirm('确定新增吗', '提示')
-        await axios.post('/system/dept/addDeptInfo', { ...divisionForm.value })
-        ElMessage.success('新增成功')
-      }
-      else {
-        await ElMessageBox.confirm('确定修改吗', '提示')
-        await axios.post('/system/dept/updateDeptInfo', { ...divisionForm.value })
-        ElMessage.success('修改成功')
-      }
-      divisionDrawer.value = false
-      await getDeptList()
-    }
-  })
+async function onSubmit(form: any) {
+  await ElMessageBox.confirm(isNew.value ? '确定新增吗' : '确定修改吗', '提示')
+  const params = { ...form }
+  if (isNew.value) {
+    params.parentId = divisionForm.value.parentId
+  }
+  else {
+    params.deptId = divisionForm.value.deptId
+    params.parentId = divisionForm.value.parentId
+  }
+
+  await axios.post(isNew.value ? '/system/dept/addDeptInfo' : '/system/dept/updateDeptInfo', params)
+
+  ElMessage.success('成功')
+  divisionDrawer.value = false
+  await getDeptList()
 }
 
-async function getTreeOrgList() {
-  const res = await axios.post('/system/org/getTreeOrgList', {
-    pageSize: 1000,
-    pageNum: 1,
+// async function getTreeOrgList() {
+//   const res = await axios.post('/system/org/getTreeOrgList', {
+//     pageSize: 1000,
+//     pageNum: 1,
 
-  })
-  areaList.value = res.data.body.result
-}
+//   })
+//   areaList.value = res.data.body.result
+//   console.log(areaList.value)
+//   console.log(res.data)
+// }
 
 // 删除部门
 async function clickDel() {
@@ -160,19 +170,13 @@ async function clickEdit() {
   divisionDrawer.value = true
   handleClickFlag.value = false
   isNew.value = false
+  divisionForm.value = { ...now_nodeInfo.value }
   drawerForm.reset()
-  nextTick(() => {
-    divisionForm.value = { ...now_nodeInfo.value }
-    drawerForm.setValues({ deptName: divisionForm.value.deptName, describe: divisionForm.value.describe }, 'overwrite')
-  })
+  drawerForm.setValues({ deptName: divisionForm.value.deptName, describe: divisionForm.value.describe })
 }
 // 新增部门
 function clickAdd() {
   handleClickFlag.value = false
-  nextTick(() => {
-    drawerForm.setInitialValues({})
-  })
-  // drawerForm.deleteInitialValuesIn()
   isNew.value = true
   divisionForm.value.parentId = now_nodeInfo.value.deptId
   divisionDrawer.value = true
@@ -241,9 +245,9 @@ function toAdd() {
         >
           <template #scope="{ data }">
             <span>{{ data.deptName }}</span>
-            <span v-if="data.isShop === '2'" style="margin-left:30px;" @click.stop="getTreeOrgList()">
+            <!-- <span v-if="data.isShop === '2'" style="margin-left:30px;" @click.stop="getTreeOrgList()">
               <div class="i-ri-tabler:refresh" />
-            </span>
+            </span> -->
           </template>
         </ElTree>
         <div v-else class="flex justify-center items-center">
@@ -279,7 +283,6 @@ function toAdd() {
           <QueryTable>
             <template #actions>
               <QueryActionColumn v-slot="{ row }" label="操作" width="180px">
-                <!-- <ElButton size="small" type="info" @click="toDetails(row)"> -->
                 <ElButton size="small" type="info" @click="$router.push(`./manage/${row.userId}`)">
                   编辑
                 </ElButton>
@@ -295,7 +298,7 @@ function toAdd() {
     </div>
 
     <!-- 新增/编辑部门 -->
-    <ElDrawer v-model="divisionDrawer" direction="rtl" title="部门信息">
+    <ElDrawer v-model="divisionDrawer" :before-close="beforeClose" direction="rtl" title="部门信息">
       <div class="h-full flex flex-col p-4 justify-between box-border">
         <FormProvider ref="drawerFormRef" :form="drawerForm">
           <div class="flex flex-col h-full px-4 py-2">
@@ -352,7 +355,7 @@ function toAdd() {
     height: 60px;
     border-radius: 50%;
   }
-  #brandInteManage .leftTreeCon .orgTreeBox >>> .el-tree {
+ .leftTreeCon .orgTreeBox :deep(.el-tree) {
     min-width: 100%;
     padding-right: 6px;
     display: inline-block;

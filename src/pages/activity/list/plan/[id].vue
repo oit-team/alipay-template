@@ -16,12 +16,13 @@ const schemeNotActivity = ref<{
   schemeId: number | string
   disabled: Boolean
 }[]>([])
-const schemeActivity = ref<{
-  caseCode: string
-  caseName: string
-  orgName: string
-  schemeId: number | string
-}[]>([])
+// const schemeActivity = ref<{
+//   caseCode: string
+//   caseName: string
+//   orgName: string
+//   schemeId: number | string
+// }[]>([])
+const schemeActivity = ref<any>([])
 
 onMounted(() => {
   getdata()
