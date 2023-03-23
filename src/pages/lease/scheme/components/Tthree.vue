@@ -7,28 +7,38 @@ meta:
 import { downloadFile } from '@oit/utils'
 import { useUserStore } from '@/store/user'
 import { mergeColumns } from '@/utils/helper'
+import { getCityList, useSelectAsyncDataSource } from '@/reactions'
 
 const { t } = useI18n()
 // 搜索框json
 const schema = {
-  type: 'object',
-  properties: {
+  'type': 'object',
+  'properties': {
     '7t2oddolmd3': {
       'type': 'void',
       'x-component': 'FormGrid',
       'x-index': 0,
+      'name': '7t2oddolmd3',
+      'x-designable-id': 'm2ujwvnd4n3',
       'properties': {
         '94exvsf2iwc': {
           'type': 'void',
           'x-component': 'FormGrid.GridColumn',
           'x-index': 0,
+          'name': '94exvsf2iwc',
+          'x-designable-id': 'tjsj9rlcs6x',
           'properties': {
-            licensePlateNumber: {
+            caseCode: {
               'type': 'string',
               'title': '方案编号',
               'x-decorator': 'FormItem',
               'x-component': 'Input',
               'x-index': 0,
+              'name': 'keyWord',
+              'x-designable-id': 'lua72g0jziq',
+              'x-validator': [],
+              'x-component-props': {},
+              'x-decorator-props': {},
             },
           },
         },
@@ -36,12 +46,19 @@ const schema = {
           'type': 'void',
           'x-component': 'FormGrid.GridColumn',
           'x-index': 1,
+          'name': 'xt9ff93t76p',
+          'x-designable-id': '3p0qr6sfqc1',
           'properties': {
-            vehicleFrameNumber: {
+            caseName: {
               'title': '方案名称',
               'x-decorator': 'FormItem',
               'x-component': 'Input',
               'x-index': 0,
+              'name': 'vehicleFrameNumber',
+              'x-designable-id': 'n8es9vta59y',
+              'x-validator': [],
+              'x-component-props': {},
+              'x-decorator-props': {},
             },
           },
         },
@@ -49,13 +66,27 @@ const schema = {
           'type': 'void',
           'x-component': 'FormGrid.GridColumn',
           'x-index': 2,
+          'name': 'xl5ijh663zj',
+          'x-designable-id': 'umiatul0ot6',
           'properties': {
-            vehicleBrand: {
+            leasingCity: {
               'type': 'string',
               'title': '租赁城市',
               'x-decorator': 'FormItem',
-              'x-component': 'Input',
+              'x-component': 'Select',
               'x-index': 0,
+              'name': 'leasingCity',
+              'x-designable-id': '7atsa1nbj8w',
+              'x-validator': [],
+              'x-component-props': {
+                'filterable': true,
+                'remote': true,
+                'reserve-keyword': true,
+                'remote-show-suffix': true,
+                'placeholder': '请输入租赁城市',
+              },
+              'x-reactions': '{{useSelectAsyncDataSource(getCityList)}}',
+              'x-decorator-props': {},
             },
           },
         },
@@ -63,12 +94,35 @@ const schema = {
           'type': 'void',
           'x-component': 'FormGrid.GridColumn',
           'x-index': 3,
+          'name': '8yncuhbvicl',
+          'x-designable-id': '0gsa3kgh2ma',
           'properties': {
-            createTime: {
-              'type': 'string',
+            caseState: {
               'title': '状态',
               'x-decorator': 'FormItem',
-              'x-component': 'Input',
+              'x-component': 'Select',
+              'x-validator': [],
+              'x-component-props': {},
+              'x-decorator-props': {},
+              'name': 'caseState',
+              'enum': [
+                {
+                  children: [],
+                  label: '未上架',
+                  value: '0',
+                },
+                {
+                  children: [],
+                  label: '已上架',
+                  value: '1',
+                },
+                {
+                  children: [],
+                  label: '已失效',
+                  value: '2',
+                },
+              ],
+              'x-designable-id': 'hf4x7n0xnvi',
               'x-index': 0,
             },
           },
@@ -76,6 +130,7 @@ const schema = {
       },
     },
   },
+  'x-designable-id': 'x3rigs4m5hd',
 }
 
 const queryRef = ref()
@@ -84,7 +139,7 @@ async function onDelete(row: any) {
   await ElMessageBox.confirm('要删除该方案吗?', '提示', {
     type: 'warning',
   })
-  await axios.post('/order/scheme/delSchemeInfo', { caseId: row.caseId })
+  await axios.post('/order/scheme/delSchemeInfo', { caseId: row.id })
   await queryRef.value?.query()
   ElMessage.success('操作成功')
 }
@@ -160,7 +215,23 @@ const columns = mergeColumns(_columns, {
     showOverflowTooltip: true,
   },
   brandCarModel: {
-    width: 200,
+    width: 150,
+    showOverflowTooltip: true,
+  },
+  leaseTerm: {
+    width: 100,
+    showOverflowTooltip: true,
+  },
+  rent: {
+    width: 100,
+    showOverflowTooltip: true,
+  },
+  cashPledge: {
+    width: 100,
+    showOverflowTooltip: true,
+  },
+  expirationDate: {
+    width: 150,
     showOverflowTooltip: true,
   },
 })
@@ -219,7 +290,7 @@ watch(files, async (value) => {
         :columns="columns"
         :schema="schema"
       >
-        <QueryForm />
+        <QueryForm :scope="{ useSelectAsyncDataSource, getCityList }" />
         <QueryToolbar>
           <ElButton type="primary" @click="exportDialogVisible = true">
             T3方案导入
