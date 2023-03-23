@@ -101,10 +101,10 @@ const columnsConfig = {
 const { files, open } = useFileDialog()
 
 const importType = ref(0)
-function importYun() {
-  open({ multiple: false })
-  importType.value = 0
-}
+// function importYun() {
+//   open({ multiple: false })
+//   importType.value = 0
+// }
 function importCar() {
   open({ multiple: false })
   importType.value = 1
@@ -125,9 +125,9 @@ watch(files, async (value) => {
   const { profile } = useUserStore()
 
   switch (importType.value) {
-    case 0:
-      url.value = '/vehicle/vehicle/addT3OperationalData'
-      break
+    // case 0:
+    //   url.value = '/vehicle/vehicle/addT3OperationalData'
+    //   break
     case 1:
       url.value = '/vehicle/vehicle/addImportReplenishVehicle'
       break
@@ -182,9 +182,9 @@ watch(files, async (value) => {
           <ElButton type="primary" @click="$router.push(`./car/new`)">
             {{ $t('button.new') }}
           </ElButton>
-          <ElButton type="info" @click="importYun">
+          <!-- <ElButton type="info" @click="importYun">
             {{ $t('button.import') }}运营流水
-          </ElButton>
+          </ElButton> -->
           <ElButton type="info" @click="importCar">
             {{ $t('button.import') }}车辆信息
           </ElButton>
