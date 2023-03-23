@@ -1,0 +1,121 @@
+{
+  "type": "object",
+  "properties": {
+    "7t2oddolmd3": {
+      "type": "void",
+      "x-component": "FormGrid",
+      "x-index": 0,
+      "name": "7t2oddolmd3",
+      "x-designable-id": "m2ujwvnd4n3",
+      "properties": {
+        "94exvsf2iwc": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-index": 0,
+          "name": "94exvsf2iwc",
+          "x-designable-id": "tjsj9rlcs6x",
+          "properties": {
+            "keyWord": {
+              "type": "string",
+              "title": "方案编号",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-index": 0,
+              "name": "keyWord",
+              "x-designable-id": "lua72g0jziq",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {}
+            }
+          }
+        },
+        "xt9ff93t76p": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-index": 1,
+          "name": "xt9ff93t76p",
+          "x-designable-id": "3p0qr6sfqc1",
+          "properties": {
+            "vehicleFrameNumber": {
+              "title": "方案名称",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-index": 0,
+              "name": "vehicleFrameNumber",
+              "x-designable-id": "n8es9vta59y",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {}
+            }
+          }
+        },
+        "xl5ijh663zj": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-index": 2,
+          "name": "xl5ijh663zj",
+          "x-designable-id": "umiatul0ot6",
+          "properties": {
+            "leasingCity": {
+              "type": "string",
+              "title": "租赁城市",
+              "x-decorator": "FormItem",
+              "x-component": "Select",
+              "x-index": 0,
+              "name": "leasingCity",
+              "x-designable-id": "7atsa1nbj8w",
+              "x-validator": [],
+              "x-component-props": {
+                "filterable": true,
+                "remote": true,
+                "reserve-keyword": true,
+                "remote-show-suffix": true,
+                "placeholder": "请输入租赁城市"
+              },
+              "x-decorator-props": {},
+              "x-reactions": "{{useSelectAsyncDataSource(getCityList)}}"
+            }
+          }
+        },
+        "8yncuhbvicl": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-index": 3,
+          "name": "8yncuhbvicl",
+          "x-designable-id": "0gsa3kgh2ma",
+          "properties": {
+            "caseState": {
+              "title": "状态",
+              "x-decorator": "FormItem",
+              "x-component": "Select",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "caseState",
+              "enum": [
+                {
+                  "children": [],
+                  "label": "未上架",
+                  "value": "0"
+                },
+                {
+                  "children": [],
+                  "label": "已上架",
+                  "value": "1"
+                },
+                {
+                  "children": [],
+                  "label": "已失效",
+                  "value": "2"
+                }
+              ],
+              "x-designable-id": "hf4x7n0xnvi",
+              "x-index": 0
+            }
+          }
+        }
+      }
+    }
+  },
+  "x-designable-id": "x3rigs4m5hd"
+}
