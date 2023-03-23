@@ -1,16 +1,41 @@
 <script setup lang="ts">
+import { pick } from 'lodash-es'
+import { workOrderSubmitSymbol } from '../../types'
 import table from './schema/table.json'
-import { handleSubmitFailed } from '@/utils/actions'
 import Upload from '@/components/FUpload'
 
 const route = useRoute()
 const form = createForm()
+const workOrderSubmit = inject(workOrderSubmitSymbol)
 
 const { data } = useAxios('/order/leaseOrder/getRepairOrderInfo', {
   data: {
     workCode: route.query.workCode,
   },
 })
+
+watch(data, (data) => {
+  form.setInitialValues(data)
+})
+
+async function submit(data: any, agree: 0 | 1) {
+  await workOrderSubmit?.({
+    ...pick(data, [
+      'repairItem',
+      'repairOrderId',
+      'repairOrderStatue',
+      'repairOrderNumber',
+    ]),
+  }, {
+    approvalStatus: agree,
+  })
+}
+
+function reject() {
+  workOrderSubmit?.({}, {
+    approvalStatus: 0,
+  })
+}
 </script>
 
 <template>
@@ -19,10 +44,10 @@ const { data } = useAxios('/order/leaseOrder/getRepairOrderInfo', {
       <Form class="h-full" preview-text-placeholder="暂无">
         <PageHeader title="申请退租">
           <template #extra>
-            <ElButton type="danger">
+            <ElButton type="danger" @click="reject()">
               拒绝
             </ElButton>
-            <Submit type="primary" @submit-failed="handleSubmitFailed">
+            <Submit type="primary" @submit="submit($event, 1)">
               通过
             </Submit>
           </template>
@@ -41,7 +66,6 @@ const { data } = useAxios('/order/leaseOrder/getRepairOrderInfo', {
                         multiple: true,
                         accept: 'image/*',
                       }]"
-                      :decorator="[FormItem]"
                       name="vehicleCondition"
                       title="车辆信息"
                     />
@@ -51,7 +75,6 @@ const { data } = useAxios('/order/leaseOrder/getRepairOrderInfo', {
                       :component="[Upload, {
                         multiple: true,
                       }]"
-                      :decorator="[FormItem]"
                       name="appendix"
                       title="附件"
                     />
