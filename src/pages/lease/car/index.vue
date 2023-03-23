@@ -4,80 +4,11 @@ meta:
 </route>
 
 <script setup lang="ts">
+import schema from './schema/list.json'
 import { useUserStore } from '@/store/user'
+import { getCityList, useSelectAsyncDataSource, vehicleServiceList } from '@/reactions'
 
 const { t } = useI18n()
-
-const schema = {
-  type: 'object',
-  properties: {
-    '7t2oddolmd3': {
-      'type': 'void',
-      'x-component': 'FormGrid',
-      'x-index': 0,
-      'properties': {
-        '94exvsf2iwc': {
-          'type': 'void',
-          'x-component': 'FormGrid.GridColumn',
-          'x-index': 0,
-          'properties': {
-            licensePlateNumber: {
-              'type': 'string',
-              'title': '车牌号',
-              'x-decorator': 'FormItem',
-              'x-component': 'Input',
-              'x-index': 0,
-            },
-          },
-        },
-        'xt9ff93t76p': {
-          'type': 'void',
-          'x-component': 'FormGrid.GridColumn',
-          'x-index': 1,
-          'properties': {
-            vehicleFrameNumber: {
-              'title': '车架号',
-              'x-decorator': 'FormItem',
-              'x-component': 'Input',
-              'x-index': 0,
-            },
-          },
-        },
-        'xl5ijh663zj': {
-          'type': 'void',
-          'x-component': 'FormGrid.GridColumn',
-          'x-index': 2,
-          'properties': {
-            vehicleBrand: {
-              'type': 'string',
-              'title': '车辆品牌',
-              'x-decorator': 'FormItem',
-              'x-component': 'Input',
-              'x-index': 0,
-            },
-          },
-        },
-        '8yncuhbvicl': {
-          'type': 'void',
-          'x-component': 'FormGrid.GridColumn',
-          'x-index': 3,
-          'properties': {
-            createTime: {
-              'type': 'string[]',
-              'title': '创建时间',
-              'x-decorator': 'FormItem',
-              'x-component': 'DatePicker',
-              'x-component-props': {
-                type: 'daterange',
-              },
-              'x-index': 0,
-            },
-          },
-        },
-      },
-    },
-  },
-}
 
 const queryRef = ref()
 
@@ -100,20 +31,24 @@ const columns = [
     label: '车架号',
   },
   {
-    prop: 'vehicleBrand',
-    label: '车辆品牌',
+    prop: 'vehicleModel',
+    label: '品牌车系车型',
   },
   {
     prop: 'bodyColor',
     label: '车身颜色',
   },
   {
-    prop: 'stateMsg',
-    label: '状态值',
-  },
-  {
     prop: 'vehicleState',
     label: '车辆状态',
+  },
+  {
+    prop: 'city',
+    label: '所属城市',
+  },
+  {
+    prop: 'vehicleService',
+    label: '车务',
   },
   {
     prop: 'createTime',
@@ -129,15 +64,27 @@ const columnsConfig = {
     width: 150,
     showOverflowTooltip: true,
   },
-  vehicleBrand: {
+  vehicleModel: {
     width: 200,
     showOverflowTooltip: true,
   },
   vehicleFrameNumber: {
-    width: 200,
+    width: 150,
     showOverflowTooltip: true,
   },
   bodyColor: {
+    width: 100,
+    showOverflowTooltip: true,
+  },
+  vehicleService: {
+    width: 200,
+    showOverflowTooltip: true,
+  },
+  city: {
+    width: 100,
+    showOverflowTooltip: true,
+  },
+  vehicleState: {
     width: 100,
     showOverflowTooltip: true,
   },
@@ -230,7 +177,7 @@ watch(files, async (value) => {
         ref="queryRef"
         auto-query="active"
       >
-        <QueryForm />
+        <QueryForm :scope="{ useSelectAsyncDataSource, getCityList, vehicleServiceList }" />
         <QueryToolbar>
           <ElButton type="primary" @click="$router.push(`./car/new`)">
             {{ $t('button.new') }}
