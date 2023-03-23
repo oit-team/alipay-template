@@ -94,12 +94,12 @@ const queryRef = ref()
 async function goDetail(row: any) {
   // router.push(`${row.nextTaskPageUrl}?workCode=${row.workCode}&flowCode=${row.flowCode}&taskCode=${row.taskCode}`)
   router.push({
-    path: row.nextTaskPageUrl,
+    path: row.taskPageUrl,
     query: {
       workCode: row.workCode,
       flowCode: row.flowCode,
       taskCode: row.taskCode,
-      nextTaskCode: row.nextTaskCode,
+      // nextTaskCode: row.nextTaskCode,
       status: row.status,
     },
   })
