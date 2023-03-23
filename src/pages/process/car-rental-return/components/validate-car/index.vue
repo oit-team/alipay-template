@@ -5,6 +5,8 @@ import table from './schema/table.json'
 import Upload from '~/components/FUpload'
 import { transformUploadData } from '@/utils/actions'
 
+const { t } = useI18n()
+const router = useRouter()
 const form = createForm()
 const workOrderSubmit = inject(workOrderSubmitSymbol)
 const workOrderInfo = inject(workOrderInfoSymbol)
@@ -27,10 +29,17 @@ async function submit(data: any, agree: 0 | 1) {
   })
 }
 
-function reject() {
-  workOrderSubmit?.({}, {
+async function reject() {
+  const { value } = await ElMessageBox.prompt('填写拒绝原因', '提示')
+
+  await workOrderSubmit?.({
+    remark: value,
+  }, {
     approvalStatus: 0,
   })
+
+  ElMessage.success(t('submit.success'))
+  router.back()
 }
 </script>
 

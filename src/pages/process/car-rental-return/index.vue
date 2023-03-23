@@ -3,6 +3,7 @@ import { pick } from 'lodash-es'
 import ApplyStep from './components/apply/index.vue'
 import MaintainStep from './components/maintain/index.vue'
 import ValidateCarStep from './components/validate-car/index.vue'
+import FinanceStep from './components/finance/index.vue'
 import { workOrderApplySymbol, workOrderInfoSymbol, workOrderSubmitSymbol } from './types'
 import type { WorkOrderApply, WorkOrderSubmit } from './types'
 
@@ -11,14 +12,13 @@ const viewStep = ref(0)
 const initParams = {
   flowCode: 'CAR_RETURN',
   workCode: route.query.workCode || '',
-  taskCode: route.query.taskCode || '',
 }
 
 const view = computed(() => [
   ApplyStep,
   ValidateCarStep,
   MaintainStep,
-  ValidateCarStep,
+  FinanceStep,
 ][viewStep.value])
 
 const {
@@ -32,12 +32,16 @@ const {
 
 const workOrderApply: WorkOrderApply = (params) => {
   return axios.post('/workFlow/workFlow/workOrderApply', {
-    ...pick(data.value, ['workCode', 'flowCode', 'taskCode']),
+    ...pick(data.value, ['workCode', 'flowCode']),
     params,
   })
 }
 
-const workOrderSubmit: WorkOrderSubmit = (params, options) => {
+const workOrderSubmit: WorkOrderSubmit = async (params, options) => {
+  await ElMessageBox.confirm('确定要提交吗?', '提示', {
+    type: 'info',
+  })
+
   return axios.post('/workFlow/workFlow/submit', {
     ...initParams,
     ...options,

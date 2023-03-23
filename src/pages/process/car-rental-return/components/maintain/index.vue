@@ -3,7 +3,10 @@ import { pick } from 'lodash-es'
 import { workOrderSubmitSymbol } from '../../types'
 import table from './schema/table.json'
 import Upload from '@/components/FUpload'
+import { transformToUploadFiles, transformUploadData } from '@/utils/actions'
 
+const { t } = useI18n()
+const router = useRouter()
 const route = useRoute()
 const form = createForm()
 const workOrderSubmit = inject(workOrderSubmitSymbol)
@@ -15,7 +18,11 @@ const { data } = useAxios('/order/leaseOrder/getRepairOrderInfo', {
 })
 
 watch(data, (data) => {
-  form.setInitialValues(data)
+  form.setInitialValues({
+    ...data,
+    vehicleCondition: transformToUploadFiles(data.vehicleCondition),
+    appendix: transformToUploadFiles(data.appendix),
+  })
 })
 
 async function submit(data: any, agree: 0 | 1) {
@@ -26,15 +33,27 @@ async function submit(data: any, agree: 0 | 1) {
       'repairOrderStatue',
       'repairOrderNumber',
     ]),
+    vehicleCondition: transformUploadData(data.vehicleCondition, 'url'),
+    appendix: transformUploadData(data.appendix, 'url'),
   }, {
     approvalStatus: agree,
   })
+
+  ElMessage.success(t('submit.success'))
+  router.back()
 }
 
-function reject() {
-  workOrderSubmit?.({}, {
+async function reject() {
+  const { value } = await ElMessageBox.prompt('填写拒绝原因', '提示')
+
+  await workOrderSubmit?.({
+    remark: value,
+  }, {
     approvalStatus: 0,
   })
+
+  ElMessage.success(t('submit.success'))
+  router.back()
 }
 </script>
 
@@ -66,8 +85,8 @@ function reject() {
                         multiple: true,
                         accept: 'image/*',
                       }]"
+                      :decorator="[FormItem]"
                       name="vehicleCondition"
-                      title="车辆信息"
                     />
                   </ElCard>
                   <ElCard header="其他附件">
@@ -75,8 +94,8 @@ function reject() {
                       :component="[Upload, {
                         multiple: true,
                       }]"
+                      :decorator="[FormItem]"
                       name="appendix"
-                      title="附件"
                     />
                   </ElCard>
                 </div>

@@ -5,8 +5,9 @@ import schema from './schema/form.json'
 import { transformResponsePush } from '@/utils/helper'
 import { transformUploadData } from '@/utils/actions'
 
-const vehicleId = ref()
+const { t } = useI18n()
 const router = useRouter()
+const vehicleId = ref()
 
 const {
   data: vehicleList,
@@ -33,7 +34,7 @@ async function submit(data: any) {
     appendix: transformUploadData(data.appendix)?.map(file => file.url),
   })
 
-  ElMessage.success('提交成功')
+  ElMessage.success(t('submit.success'))
   router.back()
 }
 </script>
@@ -72,6 +73,7 @@ async function submit(data: any) {
           </div>
         </template>
         <Descriptions
+          v-if="vehicleInfo"
           border
           :data="vehicleInfo"
           default-text="暂无"
@@ -85,6 +87,46 @@ async function submit(data: any) {
             { label: '到租日期', prop: 'endTime' },
           ]"
         />
+      </ElCard>
+
+      <ElCard class="whitespace-nowrap">
+        <FormLayout class="p-2">
+          <ObjectField name="supplementaryData">
+            <div
+              v-for="item of [
+                { groupKey: 'rent', groupName: '租金' },
+              ]"
+              :key="item.groupKey"
+              class="flex"
+            >
+              <div class="mt-1">
+                {{ item.groupName }}：
+              </div>
+              <div class="grid grid-cols-[200px_200px_200px_1fr] flex-1 gap-2">
+                <ObjectField :name="item.groupKey">
+                  <Field
+                    v-for="field of [
+                      { name: '应收金额', key: 'receivable', validator: 'number' },
+                      { name: '已收金额', key: 'netReceipts', validator: 'number' },
+                      { name: '小计', key: 'subtotal' },
+                      { name: '备注', key: 'remarks', required: false },
+                    ]"
+                    :key="field.name"
+                    :component="[Input]"
+                    :decorator="[FormItem]"
+                    :name="field.key"
+                    :required="field.required ?? true"
+                    :validator="field.validator"
+                  >
+                    <template #prepend>
+                      {{ field.name }}
+                    </template>
+                  </Field>
+                </ObjectField>
+              </div>
+            </div>
+          </ObjectField>
+        </FormLayout>
       </ElCard>
 
       <ElCard header="退车信息">

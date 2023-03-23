@@ -9,6 +9,10 @@
     "success": "保存成功",
     "fail": "保存失败"
   },
+  "submit": {
+    "success": "提交成功",
+    "fail": "提交失败"
+  },
   "import": {
     "success": "导入成功",
     "fail": "导入失败"
