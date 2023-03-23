@@ -28,6 +28,14 @@ const columnConfig = {
     width: 150,
     showOverflowTooltip: true,
   },
+  vehicleModel: {
+    width: 200,
+    showOverflowTooltip: true,
+  },
+  licensePlateNumber: {
+    width: 150,
+    showOverflowTooltip: true,
+  },
 }
 
 const queryRef = ref()
