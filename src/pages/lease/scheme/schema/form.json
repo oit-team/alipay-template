@@ -180,7 +180,8 @@
       "x-decorator": "FormItem",
       "x-component": "Upload",
       "x-component-props": {
-        "textContent": "Upload"
+        "textContent": "Upload",
+        "limit": 1
       },
       "x-validator": [],
       "x-decorator-props": {},
@@ -194,24 +195,14 @@
       "x-decorator": "FormItem",
       "x-component": "Upload",
       "x-component-props": {
-        "textContent": "Upload"
+        "textContent": "Upload",
+        "limit": 1
       },
       "x-validator": [],
       "x-decorator-props": {},
       "name": "contractTemplateUrl",
       "x-designable-id": "toyuh0vvtfw",
       "x-index": 12
-    },
-    "yd0xu0rt3pq": {
-      "type": "string",
-      "title": "租赁包含内容",
-      "x-decorator": "FormItem",
-      "x-component": "Input.TextArea",
-      "x-validator": [],
-      "x-component-props": {},
-      "x-decorator-props": {},
-      "x-designable-id": "yd0xu0rt3pq",
-      "x-index": 13
     }
   },
   "x-designable-id": "609ucp7429v"

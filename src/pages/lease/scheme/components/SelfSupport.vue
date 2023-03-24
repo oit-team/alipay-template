@@ -70,17 +70,18 @@ const _columns = [
     label: '失效日期',
   },
   {
-    prop: 'caseState',
+    prop: 'caseStateMsg',
     label: '状态',
   },
   {
-    prop: 'updateId',
+    prop: 'operatorName',
     label: '操作人',
   },
 ]
+
 const columns = mergeColumns(_columns, {
   caseCode: {
-    width: 150,
+    width: 100,
     showOverflowTooltip: true,
   },
   caseName: {
@@ -89,25 +90,35 @@ const columns = mergeColumns(_columns, {
   },
   caseType: {
     width: 100,
-  },
-  leasingCity: {
-    width: 100,
-  },
-  rent: {
-    width: 100,
-  },
-  cashPledge: {
-    width: 100,
-  },
-  leaseTerm: {
-    width: 150,
+    showOverflowTooltip: true,
   },
   brandCarModel: {
     width: 150,
     showOverflowTooltip: true,
   },
+  leaseTerm: {
+    width: 100,
+    showOverflowTooltip: true,
+  },
+  rent: {
+    width: 100,
+    showOverflowTooltip: true,
+  },
+  cashPledge: {
+    width: 100,
+    showOverflowTooltip: true,
+  },
   expirationDate: {
     width: 150,
+    showOverflowTooltip: true,
+  },
+  caseStateMsg: {
+    width: 100,
+    showOverflowTooltip: true,
+  },
+  updateId: {
+    width: 100,
+    showOverflowTooltip: true,
   },
 })
 </script>
@@ -141,7 +152,7 @@ const columns = mergeColumns(_columns, {
               <ElButton :disabled="row.caseState === 1" size="small" type="primary" @click="$router.push(`./scheme/${row.id}`)">
                 {{ $t('button.edit') }}
               </ElButton>
-              <ElButton size="small" type="danger" @click="onDelete(row)">
+              <ElButton :disabled="row.caseState === 1" size="small" type="danger" @click="onDelete(row)">
                 {{ $t('button.delete') }}
               </ElButton>
               <ElButton size="small" type="warning" @click="onPutaway(row)">

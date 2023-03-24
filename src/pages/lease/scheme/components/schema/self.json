@@ -15,13 +15,13 @@
           "name": "94exvsf2iwc",
           "x-designable-id": "tjsj9rlcs6x",
           "properties": {
-            "keyWord": {
+            "caseCode": {
               "type": "string",
               "title": "方案编号",
               "x-decorator": "FormItem",
               "x-component": "Input",
               "x-index": 0,
-              "name": "keyWord",
+              "name": "caseCode",
               "x-designable-id": "lua72g0jziq",
               "x-validator": [],
               "x-component-props": {},
@@ -36,12 +36,12 @@
           "name": "xt9ff93t76p",
           "x-designable-id": "3p0qr6sfqc1",
           "properties": {
-            "vehicleFrameNumber": {
+            "caseName": {
               "title": "方案名称",
               "x-decorator": "FormItem",
               "x-component": "Input",
               "x-index": 0,
-              "name": "vehicleFrameNumber",
+              "name": "caseName",
               "x-designable-id": "n8es9vta59y",
               "x-validator": [],
               "x-component-props": {},
