@@ -18,7 +18,9 @@
           "x-component": "Input",
           "x-validator": [],
           "x-component-props": {},
-          "x-decorator-props": {},
+          "x-decorator-props": {
+            "colon": false
+          },
           "x-designable-id": "x2rfuylfgmr",
           "x-index": 0,
           "name": "roleName"
@@ -30,7 +32,9 @@
           "x-component": "Input",
           "x-validator": [],
           "x-component-props": {},
-          "x-decorator-props": {},
+          "x-decorator-props": {
+            "colon": false
+          },
           "x-designable-id": "8qfd02ideon",
           "x-index": 1,
           "name": "roleCode"
@@ -42,7 +46,9 @@
           "x-component": "Input",
           "x-validator": [],
           "x-component-props": {},
-          "x-decorator-props": {},
+          "x-decorator-props": {
+            "colon": false
+          },
           "x-designable-id": "an758yvisrw",
           "x-index": 2,
           "name": "roleRemark"
@@ -57,7 +63,9 @@
             "picker": "time",
             "type": "daterange"
           },
-          "x-decorator-props": {},
+          "x-decorator-props": {
+            "colon": false
+          },
           "x-designable-id": "urnqvle74zk",
           "x-index": 3,
           "name": "[startcreateDate,endcreateDate]"
