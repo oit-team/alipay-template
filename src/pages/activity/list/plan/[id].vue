@@ -4,8 +4,6 @@ meta:
 </route>
 
 <script setup lang="ts">
-import { cloneDeep } from 'lodash-es'
-
 const route = useRoute()
 const router = useRouter()
 
@@ -33,7 +31,7 @@ async function getdata() {
     activityId: route.params.id,
   })
 
-  const arr = cloneDeep(res.data.schemeActivity)
+  const arr = res.data.schemeActivity
   schemeNotActivity.value = res.data.schemeNotActivity
   if (res.data.schemeActivity)
     schemeNotActivity.value.push(...arr)

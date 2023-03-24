@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { FormProvider } from '@formily/vue'
 import schema from './schema/form.json'
-import { handleSubmitFailed, initForm } from '@/utils/actions'
-import { getCityList } from '@/reactions'
+import type { UploadUserFile } from 'element-plus'
+import { handleSubmitFailed, transformUploadData } from '@/utils/actions'
+import { getCityList, getUserKeyWord } from '@/reactions'
 
 const route = useRoute()
 const router = useRouter()
@@ -13,15 +14,73 @@ const form = createForm({
   validateFirst: true,
 })
 
-!isNew && initForm({
-  form,
-  url: '/driverServer/driver/getDriverMap',
-  data: {
+// 临时删除JSON
+// "driverOperate": {
+//               "title": "所属运营商",
+//               "x-decorator": "FormItem",
+//               "x-component": "Input",
+//               "x-index": 4,
+//               "name": "driverOperate"
+//             },
+// "driverFleet": {
+//               "type": "string",
+//               "title": "所属车队",
+//               "x-decorator": "FormItem",
+//               "x-component": "Input",
+//               "x-index": 6,
+//               "name": "driverFleet"
+//             },
+
+const getData = async () => {
+  const { data } = await axios.post('/driverServer/driver/getDriverMap', {
     driverId: isNew ? null : route.params.id,
-  },
-})
+  })
+
+  data.driverIdentity.identityImg = [{
+    name: 'details',
+    url: data.driverIdentity.identityImg[0] || '',
+    status: 'success',
+  }] as UploadUserFile[]
+  data.driverIdentity.identityReverse = [{
+    name: 'details',
+    url: data.driverIdentity.identityReverse[0] || '',
+    status: 'success',
+  }] as UploadUserFile[]
+  data.driverIdentity.identityStraight = [{
+    name: 'details',
+    url: data.driverIdentity.identityStraight[0] || '',
+    status: 'success',
+  }] as UploadUserFile[]
+  data.driveLicense.driveLicenseAssistant = [{
+    name: 'details',
+    url: data.driveLicense.driveLicenseAssistant[0] || '',
+    status: 'success',
+  }] as UploadUserFile[]
+  data.driveLicense.driveLicenseHost = [{
+    name: 'details',
+    url: data.driveLicense.driveLicenseHost[0] || '',
+    status: 'success',
+  }] as UploadUserFile[]
+  data.driverQualifica.certificateImg = [{
+    name: 'details',
+    url: data.driverQualifica.certificateImg[0] || '',
+    status: 'success',
+  }] as UploadUserFile[]
+
+  form.setInitialValues(data)
+}
+!isNew && getData()
 
 async function submit(form: any) {
+  form.driverIdentity.identityImg = transformUploadData(form.driverIdentity.identityImg)?.[0].url
+  form.driverIdentity.identityReverse = transformUploadData(form.driverIdentity.identityReverse)?.[0].url
+  form.driverIdentity.identityStraight = transformUploadData(form.driverIdentity.identityStraight)?.[0].url
+
+  form.driveLicense.driveLicenseAssistant = transformUploadData(form.driveLicense.driveLicenseAssistant)?.[0].url
+  form.driveLicense.driveLicenseHost = transformUploadData(form.driveLicense.driveLicenseHost)?.[0].url
+
+  form.driverQualifica.certificateImg = transformUploadData(form.driverQualifica.certificateImg)?.[0].url
+
   await axios.post(
     isNew
       ? '/driverServer/driver/addDriverInfo'
@@ -42,7 +101,7 @@ async function submit(form: any) {
         u-px-2
         wrapper-col="10"
       >
-        <UseSchemaField :schema="schema" :scope="{ getCityList }" />
+        <UseSchemaField :schema="schema" :scope="{ getCityList, getUserKeyWord }" />
       </FormLayout>
       <div class="mt-auto flex justify-center py-2">
         <Submit size="large" @submit="submit" @submit-failed="handleSubmitFailed">

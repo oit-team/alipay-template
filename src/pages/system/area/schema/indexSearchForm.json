@@ -20,7 +20,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "x-designable-id": "tc5wodr0j33",
               "x-index": 0
             }
@@ -41,7 +43,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "x-designable-id": "v7tt8ki7ora",
               "x-index": 0
             }
@@ -62,7 +66,9 @@
               "x-component-props": {
                 "type": "daterange"
               },
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "x-designable-id": "sp3nqeuauq3",
               "x-index": 0
             }

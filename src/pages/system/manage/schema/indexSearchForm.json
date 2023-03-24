@@ -18,7 +18,9 @@
           "x-component": "Input",
           "x-validator": [],
           "x-component-props": {},
-          "x-decorator-props": {},
+          "x-decorator-props": {
+            "colon": false
+          },
           "name": "userName",
           "x-designable-id": "i645cjyv0xc",
           "x-index": 0
@@ -30,7 +32,9 @@
           "x-component": "Input",
           "x-validator": [],
           "x-component-props": {},
-          "x-decorator-props": {},
+          "x-decorator-props": {
+            "colon": false
+          },
           "name": "nickName",
           "x-designable-id": "rdo3ca67r84",
           "x-index": 1
@@ -42,7 +46,9 @@
           "x-component": "Input",
           "x-validator": [],
           "x-component-props": {},
-          "x-decorator-props": {},
+          "x-decorator-props": {
+            "colon": false
+          },
           "name": "telephone",
           "x-designable-id": "rdo3ca67r84",
           "x-index": 2

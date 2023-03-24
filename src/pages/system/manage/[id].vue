@@ -71,7 +71,7 @@ async function submit(form: any) {
   <FormProvider :form="form">
     <div class="flex flex-col h-full">
       <PageHeader :title="isNew ? '新增用户' : '编辑用户'" />
-      <div class="w-1/2 mt-4">
+      <div class="w-full mt-4">
         <FormLayout class="h-full w-full" label-col="2" u-px-2 wrapper-col="14">
           <UseSchemaField :schema="schema" :scope="{ getTreeOrgList }" />
         </FormLayout>

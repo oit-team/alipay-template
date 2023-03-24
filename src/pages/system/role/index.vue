@@ -4,9 +4,10 @@ meta:
 </route>
 
 <script setup lang="ts">
+import router from '@/router'
+
 const { t } = useI18n()
 const queryRef = ref()
-// const router = useRouter()
 
 async function onDelete(row: any) {
   await ElMessageBox.confirm(
@@ -21,12 +22,23 @@ async function onDelete(row: any) {
   ElMessage.success(t('handle.success'))
 }
 
-// function toDetails(row: any) {
-//   router.push({
-//     path: './role/details',
-//     query: row,
-//   })
-// }
+function toTask(id: number | string) {
+  router.push({
+    path: './role/task',
+    query: {
+      id,
+    },
+  })
+}
+
+function toAuthorize(id: number | string) {
+  router.push({
+    path: './role/authorize',
+    query: {
+      id,
+    },
+  })
+}
 </script>
 
 <template>
@@ -46,9 +58,14 @@ async function onDelete(row: any) {
         </QueryToolbar>
         <QueryTable>
           <template #actions>
-            <QueryActionColumn v-slot="{ row }" width="150px">
+            <QueryActionColumn v-slot="{ row }" width="260px">
+              <ElButton @click="toTask(row.roleId)">
+                任务
+              </ElButton>
+              <ElButton type="success" @click="toAuthorize(row.roleId)">
+                授权
+              </ElButton>
               <ElButton type="primary" @click="$router.push(`./role/${row.roleId}`)">
-                <!-- <ElButton type="primary" @click="toDetails(row)"> -->
                 {{ $t('button.edit') }}
               </ElButton>
               <ElButton type="danger" @click="onDelete(row)">

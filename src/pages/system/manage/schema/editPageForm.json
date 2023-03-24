@@ -69,10 +69,8 @@
       "title": "手机号",
       "x-decorator": "FormItem",
       "x-component": "Input",
-      "x-validator": "number",
-      "x-component-props": {
-        "maxlength": "11"
-      },
+      "x-validator": "phone",
+      "x-component-props": {},
       "x-decorator-props": {},
       "name": "phoneNum",
       "x-designable-id": "nx6m5kmyvtm",
