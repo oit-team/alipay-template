@@ -21,7 +21,8 @@
               "x-decorator": "FormItem",
               "x-component": "Upload",
               "x-component-props": {
-                "textContent": "Upload"
+                "textContent": "Upload",
+                "limit": 1
               },
               "x-validator": [],
               "x-decorator-props": {},
@@ -45,7 +46,8 @@
               "x-decorator": "FormItem",
               "x-component": "Upload",
               "x-component-props": {
-                "textContent": "Upload"
+                "textContent": "Upload",
+                "limit": 1
               },
               "x-validator": [],
               "x-decorator-props": {},

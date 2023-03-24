@@ -125,7 +125,7 @@ const { data } = useAxios('/order/leaseOrder/getLeaseOrderInfo', {
         title="租赁信息"
       >
         <template #contractName="{ value }">
-          <ElLink v-if="data?.orderInfo?.contractUrl" :href="data?.orderInfo?.contractUrl" type="primary">
+          <ElLink v-if="data?.orderInfo?.contractUrl" :href="data?.orderInfo?.contractUrl" target="_blank" type="primary">
             {{ value || '无' }}
           </ElLink>
           <span v-else>无</span>
