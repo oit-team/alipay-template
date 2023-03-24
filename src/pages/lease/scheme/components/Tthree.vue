@@ -34,7 +34,7 @@ const schema = {
               'x-decorator': 'FormItem',
               'x-component': 'Input',
               'x-index': 0,
-              'name': 'keyWord',
+              'name': 'caseCode',
               'x-designable-id': 'lua72g0jziq',
               'x-validator': [],
               'x-component-props': {},
@@ -54,7 +54,7 @@ const schema = {
               'x-decorator': 'FormItem',
               'x-component': 'Input',
               'x-index': 0,
-              'name': 'vehicleFrameNumber',
+              'name': 'caseName',
               'x-designable-id': 'n8es9vta59y',
               'x-validator': [],
               'x-component-props': {},
@@ -105,23 +105,19 @@ const schema = {
               'x-component-props': {},
               'x-decorator-props': {},
               'name': 'caseState',
-              'enum': [
-                {
-                  children: [],
-                  label: '未上架',
-                  value: '0',
-                },
-                {
-                  children: [],
-                  label: '已上架',
-                  value: '1',
-                },
-                {
-                  children: [],
-                  label: '已失效',
-                  value: '2',
-                },
-              ],
+              'enum': [{
+                children: [],
+                label: '未上架',
+                value: '0',
+              }, {
+                children: [],
+                label: '已上架',
+                value: '1',
+              }, {
+                children: [],
+                label: '已失效',
+                value: '2',
+              }],
               'x-designable-id': 'hf4x7n0xnvi',
               'x-index': 0,
             },
@@ -134,6 +130,10 @@ const schema = {
 }
 
 const queryRef = ref()
+
+onMounted(() => {
+  queryRef.value?.query()
+})
 
 async function onDelete(row: any) {
   await ElMessageBox.confirm('要删除该方案吗?', '提示', {
@@ -197,11 +197,11 @@ const _columns = [
     label: '失效日期',
   },
   {
-    prop: 'caseState',
+    prop: 'caseStateMsg',
     label: '状态',
   },
   {
-    prop: 'updateId',
+    prop: 'operatorName',
     label: '操作人',
   },
 ]
@@ -212,6 +212,10 @@ const columns = mergeColumns(_columns, {
   },
   caseName: {
     width: 150,
+    showOverflowTooltip: true,
+  },
+  caseType: {
+    width: 100,
     showOverflowTooltip: true,
   },
   brandCarModel: {
@@ -232,6 +236,14 @@ const columns = mergeColumns(_columns, {
   },
   expirationDate: {
     width: 150,
+    showOverflowTooltip: true,
+  },
+  caseStateMsg: {
+    width: 100,
+    showOverflowTooltip: true,
+  },
+  updateId: {
+    width: 100,
     showOverflowTooltip: true,
   },
 })
@@ -302,7 +314,7 @@ watch(files, async (value) => {
               <ElButton :disabled="row.caseState === 1" size="small" type="primary" @click="$router.push(`./scheme/${row.id}`)">
                 {{ $t('button.edit') }}
               </ElButton>
-              <ElButton size="small" type="danger" @click="onDelete(row)">
+              <ElButton :disabled="row.caseState === 1" size="small" type="danger" @click="onDelete(row)">
                 {{ $t('button.delete') }}
               </ElButton>
               <ElButton size="small" type="warning" @click="onPutaway(row)">

@@ -64,8 +64,8 @@ const {
 )
 const schemeItem = computed(() => schemeList.value?.find((item: any) => item.id === state.schemeId))
 
-watch(() => state.schemeId, () => {
-  isActivityDisabled.value = false
+watch(() => state.schemeId, (val) => {
+  isActivityDisabled.value = !val
 })
 
 const {
@@ -110,6 +110,15 @@ const {
   { transformResponse: transformResponsePush(data => data) },
   { immediate: false },
 )
+
+watch(() => state.activityId, () => {
+  getOrderPreferential({
+    data: {
+      schemeId: state.schemeId,
+      activityId: state.activityId,
+    },
+  })
+})
 
 watch(() => state.schemeId || state.activityId, () => {
   getOrderPreferential({
@@ -351,7 +360,7 @@ async function submit() {
       </Descriptions>
     </ElCard>
 
-    <ElCard header="优惠信息">
+    <ElCard header="详细信息">
       <Descriptions
         v-if="preferentialList?.preferentialMap"
         border

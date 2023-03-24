@@ -2,7 +2,8 @@
 import { FormProvider } from '@formily/vue'
 
 import schema from './schema/form.json'
-import { handleSubmitFailed } from '@/utils/actions'
+import type { UploadUserFile } from 'element-plus'
+import { handleSubmitFailed, transformUploadData } from '@/utils/actions'
 
 const { t } = useI18n()
 
@@ -129,21 +130,49 @@ const infoMap = [
   },
 ]
 
-const { data } = useAxios('/order/leaseOrder/getT3LeaseOrderInfo', {
-  method: 'POST',
-  data: { t3LeaseOrderId: route.params.id },
-})
+const data = ref()
 
-// 提交上传的合同 TODO
-async function submit(form: any) {
+// 反显t3详情合同模板
+const getDetailInfo = async () => {
+  const { data: detailInfo } = await axios.post('/order/leaseOrder/getT3LeaseOrderInfo', {
+    t3LeaseOrderId: route.params.id,
+  })
+  const info = detailInfo?.resultMap
+  data.value = info
+
+  // 代扣合同模板
+  if (info.agreementName) {
+    info.agreementName = [{
+      name: info.agreementName,
+      url: info.agreementUrl || '',
+      status: 'success',
+    }] as UploadUserFile[]
+  }
+
+  // 合同模板
+  if (info.leaseContractName) {
+    info.leaseContractName = [{
+      name: info.leaseContractName,
+      url: info.leaseContractUrl || '',
+      status: 'success',
+    }] as UploadUserFile[]
+  }
+
+  form.setInitialValues({
+    ...info,
+  })
+}
+getDetailInfo()
+
+// 提交上传的合同
+async function submit(formData: any) {
   await axios.post('/order/leaseOrder/updateT3LeaseOrderInfo',
     {
-      ...form, // 两个上传的？？
-      // agreementUrl: '123', // 代扣协议地址
-      // agreementName: 'qqq', // 代扣协议名称
-      // leaseContractName: '456', // 租赁合同名称
-      // leaseContractUrl: '456', // 租赁合同地址
       t3LeaseOrderId: route.params.id,
+      agreementUrl: transformUploadData(formData.agreementName)?.[0].url, // 代扣协议地址
+      agreementName: transformUploadData(formData.agreementName)?.[0].name, // 代扣协议名称
+      leaseContractName: transformUploadData(formData.leaseContractName)?.[0].url, // 租赁合同名称
+      leaseContractUrl: transformUploadData(formData.leaseContractName)?.[0].name, // 租赁合同地址
     },
   )
   ElMessage.success(t('save.success'))
@@ -156,27 +185,26 @@ async function submit(form: any) {
     <div class="flex flex-col px-4 py-2">
       <PageHeader title="订单详情" />
       <Descriptions
-        v-if="data?.resultMap"
+        v-if="data?.id"
         border
-        :column="4"
-        :data="data?.resultMap"
+        :data="data"
         default-text="无"
         :options="infoMap"
       >
         <template #leaseContractName="{ value }">
-          <ElLink :href="data?.resultMap?.leaseContractUrl" type="primary">
-            {{ value }}
+          <ElLink :href="data?.leaseContractUrl" target="_blank" type="primary">
+            {{ value[0].name }}
           </ElLink>
         </template>
         <template #agreementName="{ value }">
-          <ElLink :href="data?.resultMap?.agreementUrl" type="primary">
-            {{ value }}
+          <ElLink :href="data?.agreementUrl" target="_blank" type="primary">
+            {{ value[0].name }}
           </ElLink>
         </template>
       </Descriptions>
       <ElEmpty v-else />
     </div>
-    <div class="flex flex-col mt-4">
+    <div class="flex flex-col mt-4 px-4 font-bold">
       <FormLayout
         label-col="4"
         wrapper-col="10"

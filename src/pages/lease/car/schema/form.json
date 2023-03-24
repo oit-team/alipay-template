@@ -32,17 +32,17 @@
               "x-index": 1,
               "name": "vehicleFrameNumber"
             },
-            "vehicleModelId": {
+            "vehicleModel": {
               "title": "品牌车系车型",
               "required": true,
               "x-decorator": "FormItem",
-              "x-component": "Cascader",
+              "x-component": "Input",
               "x-validator": [],
               "x-component-props": {
                 "placeholder": "请输入品牌车系车型"
               },
               "x-decorator-props": {},
-              "x-designable-id": "vehicleModelId",
+              "x-designable-id": "vehicleModel",
               "x-index": 3
             },
             "bodyColor": {
@@ -344,7 +344,7 @@
             },
             "driveLicenceOriginal": {
               "type": "Array<object>",
-              "title": "驾驶证正本",
+              "title": "行驶证正本",
               "required": true,
               "x-decorator": "FormItem",
               "x-component": "Upload",
@@ -362,7 +362,7 @@
             },
             "driveLicenceEctype": {
               "type": "Array<object>",
-              "title": "驾驶证副本",
+              "title": "行驶证副本",
               "required": true,
               "x-decorator": "FormItem",
               "x-component": "Upload",

@@ -10,7 +10,10 @@ interface OptionItem {
 defineProps({
   data: Object,
   options: Array as PropType<OptionItem[]>,
-  labelWidth: [Number, String],
+  labelWidth: {
+    type: [Number, String],
+    default: '160px',
+  },
   defaultText: String,
 })
 </script>

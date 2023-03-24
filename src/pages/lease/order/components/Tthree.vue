@@ -12,6 +12,10 @@ const { t } = useI18n()
 
 const queryRef = ref()
 
+onMounted(() => {
+  queryRef.value?.query()
+})
+
 // 表格的json
 const columns = [
   {
