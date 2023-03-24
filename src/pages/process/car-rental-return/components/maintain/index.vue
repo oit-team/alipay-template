@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { pick } from 'lodash-es'
-import { workOrderSubmitSymbol } from '../../types'
+import { workOrderInfoSymbol, workOrderSubmitSymbol } from '../../types'
 import table from './schema/table.json'
 import Upload from '@/components/FUpload'
 import { transformToUploadFiles, transformUploadData } from '@/utils/actions'
@@ -10,6 +10,17 @@ const router = useRouter()
 const route = useRoute()
 const form = createForm()
 const workOrderSubmit = inject(workOrderSubmitSymbol)
+const workOrderInfo = inject(workOrderInfoSymbol)
+const workOrderReview = inject('workOrderReview') as Ref<any>
+
+watch(workOrderReview, (data) => {
+  const initData = {
+  }
+  form.setInitialValues({
+    ...initData,
+  })
+  form.readOnly = !!workOrderInfo?.value.isReview
+}, { immediate: true })
 
 const { data } = useAxios('/order/leaseOrder/getRepairOrderInfo', {
   data: {

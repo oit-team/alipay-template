@@ -10,6 +10,18 @@ const router = useRouter()
 const form = createForm()
 const workOrderSubmit = inject(workOrderSubmitSymbol)
 const workOrderInfo = inject(workOrderInfoSymbol)
+const workOrderReview = inject('workOrderReview') as Ref<any>
+
+watch(workOrderReview, (data) => {
+  const initData = {
+    vehicleInspectionDetailed: data?.vehicleInspectionMap?.vehicleInspectionDetailed,
+    keepInRepair: data.repairDetailedMap,
+  }
+  form.setInitialValues({
+    ...initData,
+  })
+  form.readOnly = !!workOrderInfo?.value.isReview
+}, { immediate: true })
 
 async function submit(data: any, agree: 0 | 1) {
   data = {

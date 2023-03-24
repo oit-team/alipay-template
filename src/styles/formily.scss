@@ -9,3 +9,9 @@
 .formily-element-plus-array-table {
   width: 100%;
 }
+
+.formily-readonly {
+  [readonly], [readonly] * {
+    pointer-events: none!important;
+  }
+}

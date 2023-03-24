@@ -5,7 +5,7 @@ import MaintainStep from './components/maintain/index.vue'
 import ValidateCarStep from './components/validate-car/index.vue'
 import FinanceStep from './components/finance/index.vue'
 import { workOrderApplySymbol, workOrderInfoSymbol, workOrderSubmitSymbol } from './types'
-import type { WorkOrderApply, WorkOrderSubmit } from './types'
+import type { WorkOrderApply, WorkOrderInfo, WorkOrderSubmit } from './types'
 
 const route = useRoute()
 const viewStep = ref(0)
@@ -20,6 +20,17 @@ const view = computed(() => [
   MaintainStep,
   FinanceStep,
 ][viewStep.value])
+
+const { data: workOrderReview, execute: getReturnVehicleOrderMap } = useAxios('/order/returnVehicleOrder/getReturnVehicleOrderMap', {
+  data: {
+    workCode: initParams.workCode,
+  },
+}, { immediate: false })
+
+if (initParams.workCode)
+  getReturnVehicleOrderMap()
+
+provide('workOrderReview', workOrderReview)
 
 const {
   data,
@@ -49,10 +60,11 @@ const workOrderSubmit: WorkOrderSubmit = async (params, options) => {
   })
 }
 
-const workOrderInfo = computed(() => ({
+const workOrderInfo = computed<WorkOrderInfo>(() => ({
   ...data.value,
   step: data.value?.step,
   viewStep: viewStep.value,
+  isReview: viewStep.value < data.value?.step,
 }))
 
 watch(() => workOrderInfo.value.step, (step) => {
@@ -87,7 +99,7 @@ function setViewStep(step: number) {
     </ElSteps>
 
     <ElScrollbar>
-      <Component :is="view" v-if="!isLoading" />
+      <Component :is="view" v-if="!isLoading" :class="{ 'formily-readonly': workOrderInfo?.isReview }" />
     </ElScrollbar>
   </div>
 </template>

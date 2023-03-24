@@ -21,6 +21,7 @@ export interface WorkOrderInfo {
   taskCode: string
   step: number
   viewStep: number
+  isReview: boolean
   mainParams: Record<string, any>
   workFlowSteps: {
     id: number

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { pick } from 'lodash-es'
-import { workOrderApplySymbol } from '../../types'
+import { workOrderApplySymbol, workOrderInfoSymbol } from '../../types'
 import schema from './schema/form.json'
 import { transformResponsePush } from '@/utils/helper'
-import { transformUploadData } from '@/utils/actions'
+import { transformToUploadFiles, transformUploadData } from '@/utils/actions'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -23,6 +23,17 @@ const vehicleInfo = computed(() => vehicleList.value?.find((item: any) => item.v
 
 const form = createForm()
 const workOrderApply = inject(workOrderApplySymbol)
+const workOrderInfo = inject(workOrderInfoSymbol)
+const workOrderReview = inject('workOrderReview') as Ref<any>
+
+watch(workOrderReview, (data) => {
+  const initData = data?.returnVehicleOrderMap
+  form.setInitialValues({
+    ...initData,
+    appendix: transformToUploadFiles(initData?.appendix),
+  })
+  form.readOnly = !!initData
+}, { immediate: true })
 
 async function submit(data: any) {
   if (!vehicleInfo.value)
@@ -31,7 +42,7 @@ async function submit(data: any) {
   await workOrderApply?.({
     ...data,
     ...pick(vehicleInfo.value, ['vehicleId', 'driverId', 'leaseOrderNo']),
-    appendix: transformUploadData(data.appendix)?.map(file => file.url),
+    appendix: transformUploadData(data.appendix, 'url'),
   })
 
   ElMessage.success(t('submit.success'))
@@ -40,10 +51,12 @@ async function submit(data: any) {
 </script>
 
 <template>
-  <div class="flex flex-col gap-2 p-2">
+  <div
+    class="flex flex-col gap-2 p-2"
+  >
     <FormProvider :form="form">
       <PageHeader title="申请退租">
-        <template #extra>
+        <template v-if="!workOrderInfo?.isReview" #extra>
           <Submit type="primary" @submit="submit" />
         </template>
       </PageHeader>
@@ -58,15 +71,16 @@ async function submit(data: any) {
               filterable
               :loading="vehicleLoading"
               placeholder="请输入内容搜索"
+              :readonly="workOrderInfo?.isReview"
               remote
-              :remote-method="(v: any) => v && getVehicleList({ data: { licensePlateNumber: v } })"
+              :remote-method="(v: any) => v && getVehicleList({ data: { licensePlateNumber: v, pageSize: 10, pageNum: 1 } })"
               remote-show-suffix
               reserve-keyword
             >
               <ElOption
                 v-for="item in vehicleList"
                 :key="item.vehicleId"
-                :label="item.vehicleFrameNumber"
+                :label="item.licensePlateNumber"
                 :value="item.vehicleId"
               />
             </ElSelect>
