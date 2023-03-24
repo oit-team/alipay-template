@@ -67,3 +67,20 @@ export const vehicleServiceList: AsyncDataSourceSelectService = async ({ keyword
     value: item.userId,
   }))
 }
+
+/**
+ * 获取专属用户
+ */
+export const getUserKeyWord: AsyncDataSourceSelectService = async ({ keyword }) => {
+  if (!keyword)
+    return []
+
+  const { data } = await axios.post('/system/user/getUserByKeyword', {
+    keyWord: keyword,
+  })
+  return data.result.map((e: { userName: string; userId: number }) => ({
+    label: e.userName,
+    value: e.userId,
+  }))
+}
+
