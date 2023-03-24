@@ -5,6 +5,8 @@ import Upload from '@/components/FUpload'
 
 const route = useRoute()
 const form = createForm()
+// eslint-disable-next-line no-console
+const log = console.log
 
 const { data } = useAxios('/order/leaseOrder/getRepairOrderInfo', {
   data: {
@@ -22,43 +24,69 @@ const { data } = useAxios('/order/leaseOrder/getRepairOrderInfo', {
             <ElButton type="danger">
               拒绝
             </ElButton>
-            <Submit type="primary" @submit-failed="handleSubmitFailed">
-              通过
-            </Submit>
+            <Submit type="primary" @submit="log" @submit-failed="handleSubmitFailed">
+              <Submit type="primary" @submit-failed="handleSubmitFailed">
+                通过
+              </Submit>
+            </submit>
           </template>
         </PageHeader>
         <ElTabs class="h-full rounded-b-lg" type="border-card">
           <ElTabPane label="维修补充">
-            <FormLayout label-col="3">
-              <div class="grid grid-cols-1 p-2 gap-2">
-                <ElCard>
-                  <UseSchemaField :schema="table" />
-                </ElCard>
-                <div class="grid grid-cols-2 gap-2">
-                  <ElCard header="车辆情况">
-                    <Field
-                      :component="[Upload, {
-                        multiple: true,
-                        accept: 'image/*',
-                      }]"
-                      :decorator="[FormItem]"
-                      name="vehicleCondition"
-                      title="车辆信息"
-                    />
+            <FormLayout feedback-layout="none">
+              <FormLayout label-col="3">
+                <div class="grid grid-cols-1 p-2 gap-2">
+                  <ElCard>
+                    <UseSchemaField :schema="table" />
                   </ElCard>
-                  <ElCard header="其他附件">
-                    <Field
-                      :component="[Upload, {
-                        multiple: true,
-                      }]"
-                      :decorator="[FormItem]"
-                      name="appendix"
-                      title="附件"
-                    />
-                  </ElCard>
+                  <div class="grid grid-cols-2 gap-2">
+                    <ElCard header="车辆情况">
+                      <div class="p-2">
+                        <Field
+                          :component="[Upload]"
+                          :decorator="[FormItem]"
+                          name="upload"
+                          title="车尾部"
+                        />
+                        <Field
+                          :component="[Upload]"
+                          :decorator="[FormItem]"
+                          name="upload"
+                          title="车前脸"
+                        />
+                      </div>
+                      <Field
+                        :component="[Upload, {
+                          multiple: true,
+                          accept: 'image/*',
+                        }]"
+                        :decorator="[FormItem]"
+                        name="vehicleCondition"
+                        title="车辆信息"
+                      />
+                    </ElCard>
+                    <ElCard header="其他附件">
+                      <div class="p-2">
+                        <Field
+                          :component="[Upload]"
+                          :decorator="[FormItem]"
+                          name="upload"
+                          title="车尾部"
+                        />
+                      </div>
+                      <Field
+                        :component="[Upload, {
+                          multiple: true,
+                        }]"
+                        :decorator="[FormItem]"
+                        name="appendix"
+                        title="附件"
+                      />
+                    </ElCard>
+                  </div>
                 </div>
-              </div>
-            </FormLayout>
+              </FormLayout>
+            </formlayout>
           </ElTabPane>
         </ElTabs>
       </Form>
