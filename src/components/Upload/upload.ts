@@ -1,8 +1,10 @@
 import axios, { AxiosHeaders } from 'axios'
 import type { AxiosProgressEvent, AxiosRequestConfig, AxiosRequestTransformer, AxiosResponseTransformer } from 'axios'
 
+// 请求头类型
 type HeadersType = Headers | AxiosHeaders | Record<string, string | number | null | undefined>
 
+// 上传请求配置
 export interface UploadRequestOptions {
   action: string
   method: string
@@ -20,6 +22,7 @@ export interface UploadRequestOptions {
   transformResponse?: AxiosResponseTransformer | AxiosResponseTransformer[]
 }
 
+// 文件分块
 export class FileChunk extends File {
   raw: File
   constructor(file: File, public start: number, public end: number) {
@@ -33,6 +36,10 @@ export class FileChunk extends File {
 
 const abortMap = new WeakMap<File, AbortController>()
 
+/**
+ * 转换请求头
+ * @param headers 请求头
+ */
 function transformHeaders(headers: HeadersType): AxiosHeaders {
   const axiosHeaders = new AxiosHeaders()
   if (headers instanceof Headers) {
@@ -48,6 +55,11 @@ function transformHeaders(headers: HeadersType): AxiosHeaders {
   return axiosHeaders
 }
 
+/**
+ * 添加转换器
+ * @param target 转换器类型
+ * @param transformer 转换器
+ */
 function addTransformer<T extends AxiosRequestTransformer | AxiosResponseTransformer>(
   target: 'transformRequest' | 'transformResponse',
   transformer: T | T[],
@@ -63,6 +75,10 @@ function addTransformer<T extends AxiosRequestTransformer | AxiosResponseTransfo
   return transformerArray
 }
 
+/**
+ * 上传请求
+ * @param options 上传配置
+ */
 function uploadRequest(options: UploadRequestOptions) {
   const rawFile = options.file
   const headers = transformHeaders(options.headers)
@@ -89,12 +105,20 @@ function uploadRequest(options: UploadRequestOptions) {
   return axios(config)
 }
 
+/**
+ * 文件上传
+ * @param options 上传配置
+ */
 function uploadAll(options: UploadRequestOptions) {
   return uploadRequest(options)
     .then(options.onSuccess)
     .catch(options.onError)
 }
 
+/**
+ * 文件分块上传
+ * @param options 上传配置
+ */
 async function uploadChunk(options: UploadRequestOptions) {
   const rawFile = options.file
   const chunkSize = (options?.chunkSize || 1) * 1024
@@ -134,11 +158,19 @@ async function uploadChunk(options: UploadRequestOptions) {
   }
 }
 
+/**
+ * 上传
+ * @param options 上传配置
+ */
 export function upload(options: UploadRequestOptions) {
   const isChunkUpload = !!options?.chunkSize && options.chunkSize > 0
   isChunkUpload ? uploadChunk(options) : uploadAll(options)
 }
 
+/**
+ * 取消上传
+ * @param file 要取消上传的文件
+ */
 export function abort(file: File) {
   const controller = abortMap.get(file)
   if (controller) {
