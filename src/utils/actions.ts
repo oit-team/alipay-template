@@ -1,4 +1,4 @@
-import type { UploadFile } from 'element-plus'
+import type { UploadFile, UploadUserFile } from 'element-plus'
 import type { Form } from '@formily/core'
 import { i18n } from '@/plugins/i18n'
 import ApiError from '@/api/ApiError'
@@ -74,15 +74,27 @@ export function handleSubmitFailed(
  * 转换上传数据
  * @param files 文件列表
  */
-export function transformUploadData(files: UploadFile[]): {
+export function transformUploadData(files: UploadFile[], mode?: 'url'): {
   name: string
   url: string
 }[] | undefined {
-  return files?.map?.((file) => {
+  const data = files?.map?.((file) => {
     const res = file.response as any
     return {
       name: file.name,
       url: res?.data?.fileUrl ?? file.url,
     }
   })
+  return mode === 'url'
+    ? data?.map?.(item => item.url)
+    : data
+}
+
+export function transformToUploadFiles(urls: string[] | string): UploadUserFile[] | undefined {
+  urls = typeof urls === 'string' ? JSON.parse(urls) : urls
+  urls = Array.isArray(urls) ? urls : []
+  return urls?.map?.((url, index) => ({
+    name: `${index}`,
+    url,
+  }))
 }

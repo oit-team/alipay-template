@@ -5,6 +5,8 @@ import table from './schema/table.json'
 import Upload from '~/components/FUpload'
 import { transformUploadData } from '@/utils/actions'
 
+const { t } = useI18n()
+const router = useRouter()
 const form = createForm()
 const workOrderSubmit = inject(workOrderSubmitSymbol)
 const workOrderInfo = inject(workOrderInfoSymbol)
@@ -26,6 +28,19 @@ async function submit(data: any, agree: 0 | 1) {
       : undefined,
   })
 }
+
+async function reject() {
+  const { value } = await ElMessageBox.prompt('填写拒绝原因', '提示')
+
+  await workOrderSubmit?.({
+    remark: value,
+  }, {
+    approvalStatus: 0,
+  })
+
+  ElMessage.success(t('submit.success'))
+  router.back()
+}
 </script>
 
 <template>
@@ -33,7 +48,7 @@ async function submit(data: any, agree: 0 | 1) {
     <FormProvider :form="form">
       <PageHeader title="申请退租">
         <template #extra>
-          <ElButton type="danger" @submit="submit($event, 0)">
+          <ElButton type="danger" @click="reject()">
             拒绝
           </ElButton>
           <Submit type="primary" @submit="submit($event, 1)">
@@ -62,13 +77,14 @@ async function submit(data: any, agree: 0 | 1) {
                       <div class="mt-1 w-5em">
                         {{ item.groupName }}：
                       </div>
-                      <div class="grid grid-cols-4 flex-1 gap-2">
+                      <div class="grid grid-cols-[200px_200px_200px_200px_1fr] flex-1 gap-2">
                         <ObjectField :name="item.groupKey">
                           <Field
                             v-for="field of [
                               { name: '应收金额', key: 'receivable', validator: 'number' },
                               { name: '已收金额', key: 'netReceipts', validator: 'number' },
                               { name: '小计', key: 'subtotal' },
+                              { name: '负责人', key: 'subtotal' },
                               { name: '备注', key: 'remarks', required: false },
                             ]"
                             :key="field.name"
@@ -96,12 +112,13 @@ async function submit(data: any, agree: 0 | 1) {
                       <div class="mt-1 w-5em">
                         {{ item.groupName }}：
                       </div>
-                      <div class="grid grid-cols-4 flex-1 gap-2">
+                      <div class="grid grid-cols-[410px_200px_200px_1fr] flex-1 gap-2">
                         <ObjectField :name="item.groupKey">
                           <Field
                             v-for="field of [
                               { name: '信息', key: 'receivable' },
                               { name: '小计', key: 'subtotal' },
+                              { name: '负责人', key: 'subtotal' },
                               { name: '备注', key: 'remarks', required: false },
                             ]"
                             :key="field.name"
@@ -123,7 +140,7 @@ async function submit(data: any, agree: 0 | 1) {
                       <div class="mt-1 w-5em">
                         车辆证件：
                       </div>
-                      <div class="grid grid-cols-4 flex-1 gap-2">
+                      <div class="grid grid-cols-[410px_200px_200px_1fr] flex-1 gap-2">
                         <ObjectField name="vehicleCertificate">
                           <div class="flex gap-4">
                             <Field
@@ -143,6 +160,7 @@ async function submit(data: any, agree: 0 | 1) {
                           <Field
                             v-for="field of [
                               { name: '小计', key: 'subtotal' },
+                              { name: '负责人', key: 'subtotal' },
                               { name: '备注', key: 'remarks', required: false },
                             ]"
                             :key="field.name"
@@ -172,7 +190,6 @@ async function submit(data: any, agree: 0 | 1) {
                     multiple: true,
                     accept: 'image/*',
                   }]"
-                  :decorator="[FormItem]"
                   name="vehicleCondition"
                   title="车辆信息"
                 />
@@ -182,7 +199,6 @@ async function submit(data: any, agree: 0 | 1) {
                   :component="[Upload, {
                     multiple: true,
                   }]"
-                  :decorator="[FormItem]"
                   name="appendix"
                   title="附件"
                 />

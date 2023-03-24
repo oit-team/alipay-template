@@ -35,7 +35,7 @@ const UploadWrapper = defineComponent({
     }
 
     watch(() => props.fileList, (fileList) => {
-      const successful = fileList?.every(file => file.status === 'success')
+      const successful = fileList?.every?.(file => file.status === 'success')
       if (successful)
         fieldRef.value.feedbacks = []
       else

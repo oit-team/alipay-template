@@ -20,9 +20,7 @@ async function goDetail(row: any) {
     query: {
       workCode: row.workCode,
       flowCode: row.flowCode,
-      taskCode: row.taskCode,
-      // nextTaskCode: row.nextTaskCode,
-      // status: row.status,
+      // taskCode: row.taskCode,
     },
   })
 }

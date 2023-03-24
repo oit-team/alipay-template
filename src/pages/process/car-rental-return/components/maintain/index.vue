@@ -1,16 +1,60 @@
 <script setup lang="ts">
+import { pick } from 'lodash-es'
+import { workOrderSubmitSymbol } from '../../types'
 import table from './schema/table.json'
-import { handleSubmitFailed } from '@/utils/actions'
 import Upload from '@/components/FUpload'
+import { transformToUploadFiles, transformUploadData } from '@/utils/actions'
 
+const { t } = useI18n()
+const router = useRouter()
 const route = useRoute()
 const form = createForm()
+const workOrderSubmit = inject(workOrderSubmitSymbol)
 
 const { data } = useAxios('/order/leaseOrder/getRepairOrderInfo', {
   data: {
     workCode: route.query.workCode,
   },
 })
+
+watch(data, (data) => {
+  form.setInitialValues({
+    ...data,
+    vehicleCondition: transformToUploadFiles(data.vehicleCondition),
+    appendix: transformToUploadFiles(data.appendix),
+  })
+})
+
+async function submit(data: any, agree: 0 | 1) {
+  await workOrderSubmit?.({
+    ...pick(data, [
+      'repairItem',
+      'repairOrderId',
+      'repairOrderStatue',
+      'repairOrderNumber',
+    ]),
+    vehicleCondition: transformUploadData(data.vehicleCondition, 'url'),
+    appendix: transformUploadData(data.appendix, 'url'),
+  }, {
+    approvalStatus: agree,
+  })
+
+  ElMessage.success(t('submit.success'))
+  router.back()
+}
+
+async function reject() {
+  const { value } = await ElMessageBox.prompt('填写拒绝原因', '提示')
+
+  await workOrderSubmit?.({
+    remark: value,
+  }, {
+    approvalStatus: 0,
+  })
+
+  ElMessage.success(t('submit.success'))
+  router.back()
+}
 </script>
 
 <template>
@@ -19,10 +63,10 @@ const { data } = useAxios('/order/leaseOrder/getRepairOrderInfo', {
       <Form class="h-full" preview-text-placeholder="暂无">
         <PageHeader title="申请退租">
           <template #extra>
-            <ElButton type="danger">
+            <ElButton type="danger" @click="reject()">
               拒绝
             </ElButton>
-            <Submit type="primary" @submit-failed="handleSubmitFailed">
+            <Submit type="primary" @submit="submit($event, 1)">
               通过
             </Submit>
           </template>
@@ -43,7 +87,6 @@ const { data } = useAxios('/order/leaseOrder/getRepairOrderInfo', {
                       }]"
                       :decorator="[FormItem]"
                       name="vehicleCondition"
-                      title="车辆信息"
                     />
                   </ElCard>
                   <ElCard header="其他附件">
@@ -53,7 +96,6 @@ const { data } = useAxios('/order/leaseOrder/getRepairOrderInfo', {
                       }]"
                       :decorator="[FormItem]"
                       name="appendix"
-                      title="附件"
                     />
                   </ElCard>
                 </div>
