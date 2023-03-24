@@ -4,75 +4,9 @@ meta:
   </route>
 
 <script setup lang="ts">
+import schema from './schema/self.json'
 import { mergeColumns } from '@/utils/helper'
-
-const schema = {
-  type: 'object',
-  properties: {
-    '7t2oddolmd3': {
-      'type': 'void',
-      'x-component': 'FormGrid',
-      'x-index': 0,
-      'properties': {
-        '94exvsf2iwc': {
-          'type': 'void',
-          'x-component': 'FormGrid.GridColumn',
-          'x-index': 0,
-          'properties': {
-            caseCode: {
-              'type': 'string',
-              'title': '方案编号',
-              'x-decorator': 'FormItem',
-              'x-component': 'Input',
-              'x-index': 0,
-            },
-          },
-        },
-        'xt9ff93t76p': {
-          'type': 'void',
-          'x-component': 'FormGrid.GridColumn',
-          'x-index': 1,
-          'properties': {
-            caseName: {
-              'title': '方案名称',
-              'x-decorator': 'FormItem',
-              'x-component': 'Input',
-              'x-index': 0,
-            },
-          },
-        },
-        'xl5ijh663zj': {
-          'type': 'void',
-          'x-component': 'FormGrid.GridColumn',
-          'x-index': 2,
-          'properties': {
-            leasingCity: {
-              'type': 'string',
-              'title': '租赁城市',
-              'x-decorator': 'FormItem',
-              'x-component': 'Input',
-              'x-index': 0,
-            },
-          },
-        },
-        '8yncuhbvicl': {
-          'type': 'void',
-          'x-component': 'FormGrid.GridColumn',
-          'x-index': 3,
-          'properties': {
-            caseState: {
-              'type': 'string',
-              'title': '状态',
-              'x-decorator': 'FormItem',
-              'x-component': 'Input',
-              'x-index': 0,
-            },
-          },
-        },
-      },
-    },
-  },
-}
+import { getCityList, useSelectAsyncDataSource } from '@/reactions'
 
 const queryRef = ref()
 
@@ -154,22 +88,22 @@ const columns = mergeColumns(_columns, {
     showOverflowTooltip: true,
   },
   caseType: {
-    width: 150,
+    width: 100,
   },
   leasingCity: {
-    width: 150,
+    width: 100,
   },
   rent: {
-    width: 150,
+    width: 100,
   },
   cashPledge: {
-    width: 150,
+    width: 100,
   },
   leaseTerm: {
     width: 150,
   },
   brandCarModel: {
-    width: 200,
+    width: 150,
     showOverflowTooltip: true,
   },
   expirationDate: {
@@ -183,7 +117,7 @@ const columns = mergeColumns(_columns, {
     <UseQuery
       v-slot="attrs"
       :data="{
-        caseType: 0,
+        caseType: 0, // 自营: 0 t3: 1
       }"
       :key-map="{ data: 'schemeList', total: 'totalCount' }"
       url="/order/scheme/getSchemeList"
@@ -195,7 +129,7 @@ const columns = mergeColumns(_columns, {
         :columns="columns"
         :schema="schema"
       >
-        <QueryForm />
+        <QueryForm :scope="{ useSelectAsyncDataSource, getCityList }" />
         <QueryToolbar>
           <ElButton type="primary" @click="$router.push(`./scheme/new`)">
             新增方案

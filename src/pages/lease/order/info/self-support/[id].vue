@@ -78,17 +78,15 @@ const leaseInfoMap = [
   {
     prop: 'contractName',
     label: '合同名',
-    span: 4,
+    span: 2,
   },
   {
     prop: 'other',
     label: '其他附件',
-    span: 2,
   },
   {
     prop: 'remarks',
     label: '备注',
-    span: 2,
   },
 ]
 
@@ -113,7 +111,6 @@ const { data } = useAxios('/order/leaseOrder/getLeaseOrderInfo', {
       <Descriptions
         v-if="data?.vehicleInfo"
         border
-        column="4"
         :data="data?.vehicleInfo"
         default-text="无"
         :options="carInfoMap"
@@ -122,16 +119,16 @@ const { data } = useAxios('/order/leaseOrder/getLeaseOrderInfo', {
       <Descriptions
         v-if="data?.orderInfo"
         border
-        column="4"
         :data="data?.orderInfo"
         default-text="无"
         :options="leaseInfoMap"
         title="租赁信息"
       >
         <template #contractName="{ value }">
-          <ElLink :href="data?.orderInfo?.contractUrl" type="primary">
-            {{ value }}
+          <ElLink v-if="data?.orderInfo?.contractUrl" :href="data?.orderInfo?.contractUrl" type="primary">
+            {{ value || '无' }}
           </ElLink>
+          <span v-else>无</span>
         </template>
       </Descriptions>
       <ElEmpty v-else />

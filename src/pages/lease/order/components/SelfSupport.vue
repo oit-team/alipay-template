@@ -27,13 +27,13 @@ const schema = {
           'name': '94exvsf2iwc',
           'x-designable-id': 'yppd6g3e59z',
           'properties': {
-            caseCode: {
+            orderNo: {
               'type': 'string',
               'title': '订单编号',
               'x-decorator': 'FormItem',
               'x-component': 'Input',
               'x-index': 0,
-              'name': 'caseCode',
+              'name': 'orderNo',
               'x-designable-id': 'uwmt4p2jxkg',
               'x-validator': [],
               'x-component-props': {},
@@ -50,12 +50,12 @@ const schema = {
           'x-validator': [],
           'x-component-props': {},
           'properties': {
-            caseName: {
+            carNumber: {
               'title': '车牌号',
               'x-decorator': 'FormItem',
               'x-component': 'Input',
               'x-index': 0,
-              'name': 'caseName',
+              'name': 'carNumber',
               'x-designable-id': 'h2ztdd8xho4',
               'x-validator': [],
               'x-component-props': {},
@@ -90,7 +90,7 @@ const schema = {
           'x-designable-id': 'wac1milvyta',
           'x-index': 3,
           'properties': {
-            '9t5dc851oyr': {
+            schemeNo: {
               'type': 'string',
               'title': '方案编号',
               'x-decorator': 'FormItem',
@@ -100,6 +100,7 @@ const schema = {
               'x-decorator-props': {},
               'x-designable-id': '9t5dc851oyr',
               'x-index': 0,
+              'name': 'schemeNo',
             },
           },
         },
@@ -111,38 +112,27 @@ const schema = {
           'x-designable-id': '3lox43bzr24',
           'x-index': 4,
           'properties': {
-            ieg19fxsl6t: {
+            '[startcreateTime,endcreateTime]': {
               'type': 'string',
-              'title': '创建时间',
+              'title': '起始时间',
               'x-decorator': 'FormItem',
               'x-component': 'DatePicker',
               'x-validator': [],
               'x-component-props': {
+                type: 'daterange',
                 placeholder: '',
               },
               'x-decorator-props': {},
               'x-designable-id': 'ieg19fxsl6t',
               'x-index': 0,
+              'name': '[startcreateTime,endcreateTime]',
             },
           },
-        },
-        'u96e1u5lu4s': {
-          'type': 'string',
-          'title': '起租日期',
-          'x-decorator': 'FormItem',
-          'x-component': 'DatePicker',
-          'x-validator': [],
-          'x-component-props': {
-            placeholder: '',
-          },
-          'x-decorator-props': {},
-          'x-designable-id': 'u96e1u5lu4s',
-          'x-index': 5,
         },
       },
     },
   },
-  'x-designable-id': '609ucp7429v',
+  'x-designable-id': 'x3rigs4m5hd',
 }
 
 const { t } = useI18n()

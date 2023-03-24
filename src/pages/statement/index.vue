@@ -4,6 +4,35 @@ meta:
 </route>
 
 <script setup lang="ts">
+import { useUserStore } from '@/store/user'
+
+const { t } = useI18n()
+
+const { files, open } = useFileDialog()
+
+watch(files, async (value) => {
+  if (!value || !value.length)
+    return
+
+  const { profile } = useUserStore()
+
+  axios.post('/vehicle/vehicle/addT3OperationalData', {
+    file: value[0],
+    userId: profile?.userId,
+  }, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+    .then(() => {
+      ElMessage.success(t('import.success'))
+    })
+    .catch((err) => {
+      ElMessageBox.alert(err.message, '警告', {
+        type: 'warning',
+      })
+    })
+})
 const schema = {
   'type': 'object',
   'properties': {
@@ -113,6 +142,11 @@ const columns = [
     <UseQuery v-slot="attrs" url="/vehicle/vehicle/getT3OperationalDataList">
       <QueryProvide v-bind="attrs" ref="query" auto-query="active" :columns="columns" :schema="schema">
         <QueryForm />
+        <QueryToolbar>
+          <ElButton type="info" @click="open({ multiple: false })">
+            {{ $t('button.import') }}运营流水
+          </ElButton>
+        </QueryToolbar>
         <QueryTable>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" label="操作" width="100px">

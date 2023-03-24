@@ -11,7 +11,6 @@ const routeMap: Record<string, string> = {
   CAR_RENTAL: '/process/car-rental',
   CAR_RETURN: '/process/car-rental-return',
 }
-
 async function goDetail(row: any) {
   const path = routeMap[row.flowCode]
   if (!path)
@@ -21,6 +20,7 @@ async function goDetail(row: any) {
     query: {
       workCode: row.workCode,
       flowCode: row.flowCode,
+      // taskCode: row.taskCode,
     },
   })
 }
@@ -35,20 +35,24 @@ const columns = [
     label: '工单名称',
   },
   {
+    prop: 'orderCode',
+    label: '订单名称',
+  },
+  {
+    prop: 'taskName',
+    label: '任务名称',
+  },
+  {
     prop: 'flowCode',
     label: '流程编号',
   },
   {
-    prop: 'status',
+    prop: 'statusName',
     label: '状态',
   },
   {
-    prop: 'driverId',
-    label: '司机ID',
-  },
-  {
-    prop: 'driverCode',
-    label: '司机编号',
+    prop: 'licensePlateNumber',
+    label: '车牌号',
   },
   {
     prop: 'driverName',
@@ -58,6 +62,10 @@ const columns = [
     prop: 'city',
     label: '所属城市',
   },
+  {
+    prop: 'createDate',
+    label: '创建时间',
+  },
 ]
 const columnsConfig = {
   workCode: {
@@ -65,14 +73,38 @@ const columnsConfig = {
     showOverflowTooltip: true,
   },
   workName: {
+    width: 100,
+    showOverflowTooltip: true,
+  },
+  orderCode: {
     width: 150,
+    showOverflowTooltip: true,
+  },
+  taskName: {
+    width: 100,
     showOverflowTooltip: true,
   },
   flowCode: {
     width: 150,
     showOverflowTooltip: true,
   },
-  taskCode: {
+  statusName: {
+    width: 100,
+    showOverflowTooltip: true,
+  },
+  licensePlateNumber: {
+    width: 150,
+    showOverflowTooltip: true,
+  },
+  driverName: {
+    width: 100,
+    showOverflowTooltip: true,
+  },
+  city: {
+    width: 100,
+    showOverflowTooltip: true,
+  },
+  createDate: {
     width: 150,
     showOverflowTooltip: true,
   },
