@@ -40,7 +40,7 @@
               "title": "家庭住址",
               "x-decorator": "FormItem",
               "x-component": "Input",
-              "x-index": 2,
+              "x-index": 3,
               "name": "address"
             },
             "driverPhone": {
@@ -48,15 +48,8 @@
               "title": "联系电话",
               "x-decorator": "FormItem",
               "x-component": "Input",
-              "x-index": 3,
+              "x-index": 2,
               "name": "driverPhone"
-            },
-            "driverOperate": {
-              "title": "所属运营商",
-              "x-decorator": "FormItem",
-              "x-component": "Input",
-              "x-index": 4,
-              "name": "driverOperate"
             },
             "city": {
               "title": "所属城市",
@@ -73,28 +66,36 @@
               "x-reactions": "{{useSelectAsyncDataSource(getCityList)}}",
               "name": "city"
             },
-            "driverFleet": {
-              "type": "string",
-              "title": "所属车队",
-              "x-decorator": "FormItem",
-              "x-component": "Input",
-              "x-index": 6,
-              "name": "driverFleet"
-            },
-            "exclusiveService": {
+            "exclusiveServiceId": {
               "title": "专属私服",
               "required": true,
               "x-decorator": "FormItem",
-              "x-component": "Input",
-              "x-index": 7,
-              "name": "exclusiveService"
+              "x-component": "Select",
+              "x-component-props": {
+                "default-first-option": true,
+                "filterable": true,
+                "remote": true,
+                "remote-show-suffix": true,
+                "reserve-keyword": true
+              },
+              "x-reactions": "{{useSelectAsyncDataSource(getUserKeyWord)}}",
+              "name": "exclusiveServiceId",
+              "x-index": 7
             },
             "salesLeader": {
               "title": "销售负责人",
               "x-decorator": "FormItem",
-              "x-component": "Input",
-              "x-index": 8,
-              "name": "salesLeader"
+              "x-component": "Select",
+              "x-component-props": {
+                "default-first-option": true,
+                "filterable": true,
+                "remote": true,
+                "remote-show-suffix": true,
+                "reserve-keyword": true
+              },
+              "x-reactions": "{{useSelectAsyncDataSource(getUserKeyWord)}}",
+              "name": "salesLeader",
+              "x-index": 8
             }
           }
         },
