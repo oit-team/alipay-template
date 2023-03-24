@@ -62,14 +62,14 @@ function toAuthorize(id: number | string) {
               <ElButton @click="toTask(row.roleId)">
                 任务
               </ElButton>
+              <ElButton type="success" @click="toAuthorize(row.roleId)">
+                授权
+              </ElButton>
               <ElButton type="primary" @click="$router.push(`./role/${row.roleId}`)">
                 {{ $t('button.edit') }}
               </ElButton>
               <ElButton type="danger" @click="onDelete(row)">
                 {{ $t('button.delete') }}
-              </ElButton>
-              <ElButton type="success" @click="toAuthorize(row.roleId)">
-                授权
               </ElButton>
             </QueryActionColumn>
           </template>
