@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { cloneDeep } from 'lodash-es'
-
 const route = useRoute()
 const router = useRouter()
 
@@ -14,7 +12,7 @@ onMounted(() => {
 
 async function getWorkFlowSteps() {
   const res = await axios.post('/workFlow/workFlowForManage/getWorkFlowSteps', {})
-  taskAllList.value = cloneDeep(res.data.workFlowList)
+  taskAllList.value = res.data.workFlowList
 }
 
 async function getSelectedWorkFlowTask() {

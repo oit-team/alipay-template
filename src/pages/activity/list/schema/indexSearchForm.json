@@ -18,7 +18,9 @@
           "x-component": "Input",
           "x-validator": [],
           "x-component-props": {},
-          "x-decorator-props": {},
+          "x-decorator-props": {
+            "colon": false
+          },
           "name": "activityName",
           "x-designable-id": "51rqtyb947n",
           "x-index": 0
@@ -33,7 +35,9 @@
             "showArrow": true,
             "maxTagCount": 2
           },
-          "x-decorator-props": {},
+          "x-decorator-props": {
+            "colon": false
+          },
           "enum": [
             {
               "label": "未上架",
@@ -57,7 +61,9 @@
           "x-component-props": {
             "type": "daterange"
           },
-          "x-decorator-props": {},
+          "x-decorator-props": {
+            "colon": false
+          },
           "x-designable-id": "gwqth79ovg7",
           "x-index": 2,
           "name": "[startcreateTime,endcreateTime]"
