@@ -6,6 +6,7 @@ meta:
 <script setup lang="ts">
 import indexSearchForm from './schema/indexSearchForm.json'
 import drawerDeptForm from './schema/drawerDeptForm.json'
+// import { drawerColumn } from './column/drawerRole.js'
 import type { FormInstance } from 'element-plus'
 import { handleSubmitFailed } from '@/utils/actions'
 
@@ -42,9 +43,17 @@ const columns = [{
 },
 ]
 
+const userTableRef = ref()
+
 const queryRef = ref<any>()
 
 const showPanel = ref(false)
+
+// const roleDrawer = ref(false)
+
+// const checkedUserArr = ref<any>([])
+
+// const queryRoleRef = ref()
 
 // 部门列表
 const deptList = ref([])
@@ -70,12 +79,6 @@ const filterText = ref('')
 const curCheckedKey = ref('')
 const deptId = ref(0)
 
-// interface Tree {
-//   id: number
-//   label: string
-//   children?: Tree[]
-// }
-
 // 树节点搜索过滤
 // const filterNode = (value: string, data: Tree) => {
 const filterNode = (value: string, data: any) => {
@@ -88,6 +91,8 @@ const filterNode = (value: string, data: any) => {
 const treeRef = ref()
 
 const orgListLoading = ref(false)
+
+// const roleId = ref<number | string>(0)
 
 onMounted(async () => {
   await getDeptList()
@@ -105,7 +110,7 @@ async function getDeptList() {
 
 function addDivision() {
   isNewUp.value = true
-  isNewUp.value = true
+  isNew.value = true
   divisionForm.value.parentId = 0
   divisionDrawer.value = true
 }
@@ -119,6 +124,7 @@ function nodeRightClick(_MouseEvent: any, _object: any, Node: any, _VueComponent
 // 点击 node 节点 触发
 async function nodeClick(data: any) {
   deptId.value = data.deptId
+  await nextTick()
   await queryRef.value.query()
 }
 
@@ -145,17 +151,6 @@ async function onSubmit(form: any) {
   divisionDrawer.value = false
   await getDeptList()
 }
-
-// async function getTreeOrgList() {
-//   const res = await axios.post('/system/org/getTreeOrgList', {
-//     pageSize: 1000,
-//     pageNum: 1,
-
-//   })
-//   areaList.value = res.data.body.result
-//   console.log(areaList.value)
-//   console.log(res.data)
-// }
 
 // 删除部门
 async function clickDel() {
@@ -209,6 +204,95 @@ function toAdd() {
   }
   else { ElMessage.warning('请选择所属部门') }
 }
+
+// async function getRoleList() {
+//   const { data } = await axios.post('/system/role/getRoleList', {
+//     pageNum: 1,
+//     pageSize: 1000,
+//   })
+//   roleList.value = data.resultList
+//   // console.log(roleList.value)
+// }
+// getRoleList()
+
+// async function showRolePower() {
+//   console.log(queryRoleRef.value)
+//   if (checkedUserArr.value.length === 0) {
+//     ElMessage.warning('请先选择要批量授权的用户')
+//   }
+//   else if (checkedUserArr.value.length === 1) {
+//     roleDrawer.value = true
+//     roleId.value = checkedUserArr.value[0].roleId
+//     await nextTick()
+//     queryRoleRef.value?.query()
+//   }
+//   else {
+//     roleId.value = checkedUserArr.value[0].roleId
+//     roleDrawer.value = true
+//     await nextTick()
+//     queryRoleRef.value?.query()
+//   }
+// }
+
+// 当页勾选以及取消   selection-动态勾选的所有行  row-改变勾选状态的当前项
+// function selectUser(selection: any, row: any) {
+//   // 从保存项saveCheckList里面寻找,如果找到了row则删除，如果没找到则添加
+//   const fitemIndex = checkedUserArr.value.findIndex((item: any) => {
+//     return item === row.userId
+//   })
+//   if (fitemIndex === -1)
+//     checkedUserArr.value.push(row.userId)
+
+//   else
+//     checkedUserArr.value.splice(fitemIndex, 1)
+// }
+// // 表格全选内容
+// function selectAllUser(val: any) {
+//   // 如果为空，则为清除选项状态，此时将table中的所有内容都从saveCheckList移除
+//   if (val && val.length === 0) { checkedUserArr.value = [] }
+
+//   else if (val && val.length !== 0 && checkedUserArr.value.length !== 0) {
+//     // 如果不为空,且this.checkedUserArr也不为空则从val里面找
+//     val.forEach((row: any) => {
+//       // 从保存项checkedUserArr里面寻找,如果找到了row则删除，如果没找到则添加
+//       const fitemIndex = checkedUserArr.value.findIndex((item: any) => {
+//         return item === row.userId
+//       })
+//       if (fitemIndex !== -1)
+//         checkedUserArr.value.push(row.userId)
+//     })
+//   }
+//   else if (val && val.length !== 0 && checkedUserArr.value.length === 0) {
+//     val.forEach((row: any) => {
+//       checkedUserArr.value.push(row.userId)
+//     })
+//   }
+// }
+
+// 确认授权
+// async function confirmBatch() {
+//   await axios.post('/system/user/addUserAndRole', {
+
+//   })
+// addUserAndRole({
+//   roleIds: this.roleId.toString(),
+//   userIds: this.userIds.toString(),
+//   usRoCode:'1',
+// }).then((res) => {
+//   if (res.head.status === 0) {
+//     this.$message({
+//       message: "用户授权成功",
+//       type: "success",
+//     });
+//     this.batchPowerFlag = false;
+//   } else {
+//     this.$message({
+//       message: res.head.msg,
+//       type: "warning",
+//     });
+//   }
+// });
+// }
 </script>
 
 <template>
@@ -279,8 +363,20 @@ function toAdd() {
             <ElButton type="primary" @click="toAdd">
               {{ $t('button.new') }}
             </ElButton>
+            <!-- <ElTooltip class="item" content="只有管家用户和APP及管家用户才可以授权" effect="dark" placement="top-start">
+              <ElButton type="warning" @click="showRolePower">
+                角色授权
+              </ElButton>
+            </ElTooltip> -->
           </QueryToolbar>
-          <QueryTable>
+          <!-- :selection="{
+              type: 'checkbox',
+            }"
+            @select="selectUser"
+            @select-all="selectAllUser" -->
+          <QueryTable
+            ref="userTableRef"
+          >
             <template #actions>
               <QueryActionColumn v-slot="{ row }" label="操作" width="180px">
                 <ElButton size="small" type="info" @click="$router.push(`./manage/${row.userId}`)">
@@ -317,6 +413,60 @@ function toAdd() {
         </FormProvider>
       </div>
     </ElDrawer>
+
+    <!-- <ElDrawer
+      v-model="roleDrawer"
+      direction="rtl"
+    >
+      <template #header>
+        <div class="w-full text-center">
+          角色授权
+        </div>
+      </template>
+      <div class="w-full h-full p-4">
+        <UseQuery
+          v-slot="query"
+          column="1677137737909"
+          :data="{ roleId }"
+          url="/system/role/getRoleList"
+        >
+          <QueryProvide
+            v-bind="query"
+            ref="queryRoleRef"
+            auto-query="active"
+          > -->
+    <!-- :column="drawerColumn" -->
+    <!-- <QueryTable
+              :selection="{
+                type: 'checkbox',
+                width: 60,
+              }"
+              @select="selectUser"
+              @select-all="selectAllUser"
+            />
+          </QueryProvide>
+        </UseQuery>
+        <div class="roleTips">
+          <i
+            class="el-icon-magic-stick"
+            style="font-size: 16px; margin-right: 6px"
+          />选择单用户时，可查看该用户已授权的角色。
+        </div>
+
+        <div class="text-center mt-0">
+          <ElButton
+            size="small"
+            type="primary"
+            @click="confirmBatch()"
+          >
+            确认
+          </ElButton>
+          <ElButton size="small" @click="cancelBatch()">
+            取消
+          </ElButton>
+        </div>
+      </div>
+    </ElDrawer> -->
 
     <ElDialog
       v-model="handleClickFlag"
