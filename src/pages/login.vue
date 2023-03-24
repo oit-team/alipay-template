@@ -93,7 +93,7 @@ const onSubmit = async (form: any) => {
 </script>
 
 <template>
-  <div class="grid place-content-center h-full">
+  <div class="grid place-content-center h-full login">
     <ElCard class="w-400px p-6">
       <FormProvider :form="form">
         <FormLayout label-col="5">
@@ -108,3 +108,9 @@ const onSubmit = async (form: any) => {
     </ElCard>
   </div>
 </template>
+
+<style scoped lang="scss">
+.login{
+  // background: url('../../public/login-bg.jpg') center no-repeat;
+}
+</style>
