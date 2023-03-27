@@ -44,7 +44,7 @@ async function getMethod() {
     <FormProvider :form="form">
       <div class="flex flex-col h-full">
         <PageHeader title="规则详情" />
-        <FormLayout class="h-full w-full" label-col="4" u-px-2 wrapper-col="10">
+        <FormLayout class="h-full w-full" label-col="2" u-px-2 wrapper-col="10">
           <UseSchemaField :schema="schema" :scope="{ getUnit, getMethod }" />
         </FormLayout>
       </div>
