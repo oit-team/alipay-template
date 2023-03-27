@@ -23,7 +23,6 @@ const transportationMap = [
   {
     prop: 'transporteCardImg',
     label: '运输证照片',
-    span: 2,
   },
 ]
 const driveLicenseMap = [
@@ -58,12 +57,10 @@ const driveLicenseMap = [
   {
     prop: 'driveLicenceOriginal',
     label: '驾驶证正本',
-    span: 2,
   },
   {
     prop: 'driveLicenceEctype',
     label: '驾驶证副本',
-    span: 2,
   },
 ]
 const carIdentityMap = [
@@ -78,7 +75,6 @@ const carIdentityMap = [
   {
     prop: 'vehicleBrand',
     label: '车辆品牌',
-    span: 2,
   },
   {
     prop: 'brandSeries',
@@ -114,6 +110,10 @@ const carIdentityMap = [
   },
 ]
 
+const labelWidth = ref('180px')
+const itemWidth = ref('220px')
+const activeName = ref('baseInfo')
+
 const { data } = useAxios('/vehicle/vehicle/getVehicleDetailed', {
   method: 'POST',
   data: { vehicleId: route.params.id },
@@ -123,26 +123,83 @@ const { data } = useAxios('/vehicle/vehicle/getVehicleDetailed', {
 <template>
   <div u-h-full>
     <PageHeader title="车辆详情" />
-    <ElTabs type="border-card" u-h-full u-rounded-b-lg>
-      <ElTabPane label="基本信息">
+    <ElTabs v-model="activeName" type="border-card" u-h-full u-rounded-b-lg>
+      <ElTabPane label="基本信息" lazy name="baseInfo">
         <div class="flex flex-col gap-3">
           <ElCollapse model-value="base">
             <ElCollapseItem name="base" title="基本信息">
-              <Descriptions v-if="data?.vehicleDetailed" border :data="data?.vehicleDetailed" default-text="无" :options="carIdentityMap" />
+              <Descriptions
+                v-if="data?.vehicleDetailed"
+                border
+                :data="data?.vehicleDetailed"
+                default-text="无"
+                :item-width="itemWidth"
+                :label-width="labelWidth"
+                :options="carIdentityMap"
+              />
               <ElEmpty v-else />
             </ElCollapseItem>
             <ElCollapseItem title="运输证信息">
-              <Descriptions v-if="data?.vehicleDetailed?.transporteCard" border :data="data?.vehicleDetailed?.transporteCard" default-text="无" :options="transportationMap">
+              <Descriptions
+                v-if="data?.vehicleDetailed?.transporteCard"
+                border
+                :data="data?.vehicleDetailed?.transporteCard"
+                default-text="无"
+                :item-width="itemWidth"
+                :label-width="labelWidth"
+                :options="transportationMap"
+              >
                 <template #transporteCardImg="{ value }">
-                  <ElImage :src="value" />
+                  <ElImage
+                    v-if="value"
+                    fit="cover"
+                    hide-on-click-modal
+                    :preview-src-list="[value]"
+                    :src="value"
+                    style="width: 100px; height: 100px"
+                  />
+                  <div v-else>
+                    无
+                  </div>
                 </template>
               </Descriptions>
               <ElEmpty v-else />
             </ElCollapseItem>
             <ElCollapseItem title="行驶证信息">
-              <Descriptions v-if="data?.vehicleDetailed?.driveLicense" border :data="data?.vehicleDetailed?.driveLicense" default-text="无" :options="driveLicenseMap">
+              <Descriptions
+                v-if="data?.vehicleDetailed?.driveLicense"
+                border
+                :data="data?.vehicleDetailed?.driveLicense"
+                default-text="无"
+                :item-width="itemWidth"
+                :label-width="labelWidth"
+                :options="driveLicenseMap"
+              >
                 <template #driveLicenceOriginal="{ value }">
-                  <ElImage :src="value" />
+                  <ElImage
+                    v-if="value"
+                    fit="cover"
+                    hide-on-click-modal
+                    :preview-src-list="[value]"
+                    :src="value"
+                    style="width: 100px; height: 100px"
+                  />
+                  <div v-else>
+                    无
+                  </div>
+                </template>
+                <template #driveLicenceEctype="{ value }">
+                  <ElImage
+                    v-if="value"
+                    fit="cover"
+                    hide-on-click-modal
+                    :preview-src-list="[value]"
+                    :src="value"
+                    style="width: 100px; height: 100px"
+                  />
+                  <div v-else>
+                    无
+                  </div>
                 </template>
               </Descriptions>
               <ElEmpty v-else />
@@ -150,13 +207,13 @@ const { data } = useAxios('/vehicle/vehicle/getVehicleDetailed', {
           </ElCollapse>
         </div>
       </ElTabPane>
-      <ElTabPane label="补充信息">
+      <ElTabPane label="运营补充" lazy name="replenish">
         <ExtraInfo />
       </ElTabPane>
-      <ElTabPane label="租赁订单">
+      <ElTabPane label="租赁订单" lazy name="order">
         <LeaseOrder />
       </ElTabPane>
-      <ElTabPane label="违章记录">
+      <ElTabPane label="违章记录" lazy name="record">
         <IllegalRecords />
       </ElTabPane>
     </ElTabs>

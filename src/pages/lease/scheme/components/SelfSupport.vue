@@ -10,6 +10,10 @@ import { getCityList, useSelectAsyncDataSource } from '@/reactions'
 
 const queryRef = ref()
 
+onMounted(() => {
+  queryRef.value?.query()
+})
+
 async function onDelete(row: any) {
   await ElMessageBox.confirm('要删除该方案吗?', '提示', {
     type: 'warning',

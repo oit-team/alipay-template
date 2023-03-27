@@ -48,6 +48,9 @@ const getDetailInfo = async () => {
 getDetailInfo()
 
 async function submit(formData: any) {
+  await ElMessageBox.confirm('确定要提交吗?', '提示', {
+    type: 'warning',
+  })
   await axios.post(
     isNew
       ? '/order/scheme/addSchemeInfo'

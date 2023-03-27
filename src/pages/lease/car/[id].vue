@@ -88,6 +88,9 @@ const getDetailInfo = async () => {
 getDetailInfo()
 
 async function submit(formData: any) {
+  await ElMessageBox.confirm('确定要提交吗?', '提示', {
+    type: 'warning',
+  })
   const getImageUrl = (list: any) => transformUploadData(list)?.[0].url
   await axios.post(
     isNew

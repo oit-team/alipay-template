@@ -26,7 +26,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "purchaseInvoiceNumber",
               "x-designable-id": "srvauvsyopl",
               "x-index": 0
@@ -48,7 +50,9 @@
               "x-component": "DatePicker",
               "x-validator": "date",
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "purchaseInvoiceDate",
               "x-designable-id": "wjy89cjxgoh",
               "x-index": 0
@@ -68,7 +72,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "transporteCardNumber",
               "x-designable-id": "9ojjyz63osi",
               "x-index": 0
@@ -82,7 +88,9 @@
           "x-component": "Input",
           "x-validator": [],
           "x-component-props": {},
-          "x-decorator-props": {},
+          "x-decorator-props": {
+            "colon": false
+          },
           "name": "certificateNumber",
           "x-designable-id": "hqbeadianub",
           "x-index": 3
@@ -100,7 +108,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "assetCompany",
               "x-designable-id": "exz19xj7i3g",
               "x-index": 0
@@ -120,7 +130,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "warrantyMileage",
               "x-designable-id": "gc9hx3upmvz",
               "x-index": 0
@@ -140,7 +152,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "operator",
               "x-designable-id": "ba0bm9y34fd",
               "x-index": 0
@@ -161,8 +175,12 @@
               "x-decorator": "FormItem",
               "x-component": "DatePicker",
               "x-validator": [],
-              "x-component-props": {},
-              "x-decorator-props": {},
+              "x-component-props": {
+                "placeholder": ""
+              },
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "warrantyExpirationDate",
               "x-designable-id": "3vdskecvhex",
               "x-index": 0
@@ -182,7 +200,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "vehicleCreditGrantor",
               "x-designable-id": "0a4z2fidox8",
               "x-index": 0
@@ -204,7 +224,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "maintainMileageIntervals",
               "x-designable-id": "cbm8i32kbrn",
               "x-index": 0
@@ -224,7 +246,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "vehicleHolder",
               "x-designable-id": "hqdo5llgsmt",
               "x-index": 0
@@ -244,7 +268,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "productLine",
               "x-designable-id": "8yoxlflv7wq",
               "x-index": 0
@@ -264,7 +290,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "vehicleSupplier",
               "x-designable-id": "epw8b73ocm1",
               "x-index": 0
@@ -284,7 +312,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "vehicleClass",
               "x-designable-id": "g2ndalk6qz9",
               "x-index": 0
@@ -298,7 +328,9 @@
           "x-component": "Input",
           "x-validator": [],
           "x-component-props": {},
-          "x-decorator-props": {},
+          "x-decorator-props": {
+            "colon": false
+          },
           "name": "supplyMethod",
           "x-designable-id": "1ql7fo4bg9j",
           "x-index": 14
@@ -316,7 +348,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "setSource",
               "x-designable-id": "cub8d9d0vv7",
               "x-index": 0
@@ -336,7 +370,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "engineCode",
               "x-designable-id": "e27di8y0ckx",
               "x-index": 0
@@ -357,8 +393,12 @@
               "x-decorator": "FormItem",
               "x-component": "DatePicker",
               "x-validator": [],
-              "x-component-props": {},
-              "x-decorator-props": {},
+              "x-component-props": {
+                "placeholder": ""
+              },
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "operationalTime",
               "x-designable-id": "wqbe5ngr1ut",
               "x-index": 0
@@ -378,7 +418,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "modelCode",
               "x-designable-id": "x9wcwvfqlbn",
               "x-index": 0
@@ -400,7 +442,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "assetType",
               "x-designable-id": "8ddjrt4rdgs",
               "x-index": 0
@@ -420,7 +464,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "vehiclePrice",
               "x-designable-id": "st5ac4c1082",
               "x-index": 0
@@ -441,10 +487,13 @@
               "x-decorator": "FormItem",
               "x-component": "Upload",
               "x-component-props": {
-                "textContent": "Upload"
+                "textContent": "Upload",
+                "limit": 1
               },
               "x-validator": [],
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "invoiceImgs",
               "x-designable-id": "9snj5y13ib3",
               "x-index": 0
@@ -464,7 +513,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "keyNumber",
               "x-designable-id": "4hxq8xtmoq6",
               "x-index": 0
@@ -485,10 +536,13 @@
               "x-decorator": "FormItem",
               "x-component": "Upload",
               "x-component-props": {
-                "textContent": "Upload"
+                "textContent": "Upload",
+                "limit": 1
               },
               "x-validator": [],
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "certificateImg",
               "x-designable-id": "jeb7izw06u4",
               "x-index": 0
@@ -508,7 +562,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "city",
               "x-designable-id": "tpj9yvk449a",
               "x-index": 0
@@ -536,7 +592,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "warehouse",
               "x-designable-id": "546x4ysv29m",
               "x-index": 0
@@ -564,7 +622,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "reservoirArea",
               "x-designable-id": "b5a7r3ya5xm",
               "x-index": 0
@@ -574,5 +634,5 @@
       }
     }
   },
-  "x-designable-id": "609ucp7429v"
+  "x-designable-id": "x3rigs4m5hd"
 }
