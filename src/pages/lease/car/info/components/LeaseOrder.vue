@@ -18,7 +18,7 @@ const columns = [
     label: '订单编号',
   },
   {
-    prop: 'orderStatue',
+    prop: 'orderStatueName',
     label: '订单状态',
   },
   {
@@ -64,7 +64,7 @@ const columns = [
 ]
 const columnsConfig = {
   caseCode: {
-    width: 200,
+    width: 150,
     showOverflowTooltip: true,
   },
   leaseTerm: {
@@ -72,7 +72,7 @@ const columnsConfig = {
     showOverflowTooltip: true,
   },
   cashPledge: {
-    width: 100,
+    width: 150,
   },
   updateTime: {
     width: 150,
@@ -83,28 +83,31 @@ const columnsConfig = {
     showOverflowTooltip: true,
   },
   rent: {
-    width: 100,
+    width: 150,
   },
   leaseOrderNo: {
     width: 150,
     showOverflowTooltip: true,
   },
   licensePlateNumber: {
-    width: 100,
+    width: 150,
   },
   createTime: {
     width: 150,
     showOverflowTooltip: true,
   },
   driverName: {
-    width: 100,
+    width: 150,
   },
   startTime: {
     width: 150,
     showOverflowTooltip: true,
   },
   orderStatue: {
-    width: 100,
+    width: 150,
+  },
+  orderStatueName: {
+    width: 150,
   },
   endTime: {
     width: 150,
@@ -131,7 +134,15 @@ const columnsConfig = {
         auto-query="active"
       >
         <!-- <QueryForm /> -->
-        <QueryTable />
+        <QueryTable>
+          <template #actions>
+            <QueryActionColumn v-slot="{ row }" fixed="right" label="操作" width="100px">
+              <ElButton size="small" type="success" @click="$router.push(`/lease/order/info/self-support/${row.id}`)">
+                {{ $t('button.info') }}
+              </ElButton>
+            </QueryActionColumn>
+          </template>
+        </QueryTable>
         <QueryPagination />
       </QueryProvide>
     </UseQuery>
