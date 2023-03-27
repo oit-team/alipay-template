@@ -49,10 +49,6 @@ const {
 )
 const vehicleItem = computed(() => vehicleList.value?.find((item: any) => item.vehicleId === state.vehicleId))
 
-watch(() => state.vehicleId, () => {
-  isSchemeDisabled.value = false
-})
-
 const {
   data: schemeList,
   isLoading: schemeLoading,
@@ -93,14 +89,6 @@ watch(schemeTypeId, () => {
   schemeList.value = []
 })
 
-watch(() => state.activityId, () => {
-  getActivityMap({
-    data: {
-      activityId: state.activityId,
-    },
-  })
-})
-
 // 优惠信息 账单信息
 const {
   data: preferentialList,
@@ -110,8 +98,18 @@ const {
   { transformResponse: transformResponsePush(data => data) },
   { immediate: false },
 )
+watch(() => state.vehicleId, () => {
+  state.schemeId = ''
+  preferentialList.value = {}
+  isSchemeDisabled.value = false
+})
 
 watch(() => state.activityId, () => {
+  getActivityMap({
+    data: {
+      activityId: state.activityId,
+    },
+  })
   getOrderPreferential({
     data: {
       schemeId: state.schemeId,
@@ -120,7 +118,8 @@ watch(() => state.activityId, () => {
   })
 })
 
-watch(() => state.schemeId || state.activityId, () => {
+watch(() => state.schemeId, () => {
+  state.activityId = ''
   getOrderPreferential({
     data: {
       schemeId: state.schemeId,
