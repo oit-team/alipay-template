@@ -21,7 +21,10 @@
               "x-decorator": "FormItem",
               "x-component": "Input",
               "x-index": 0,
-              "name": "licensePlateNumber"
+              "name": "licensePlateNumber",
+              "x-decorator-props": {
+                "colon": false
+              }
             },
             "vehicleFrameNumber": {
               "type": "string",
@@ -30,7 +33,10 @@
               "x-decorator": "FormItem",
               "x-component": "Input",
               "x-index": 1,
-              "name": "vehicleFrameNumber"
+              "name": "vehicleFrameNumber",
+              "x-decorator-props": {
+                "colon": false
+              }
             },
             "vehicleModel": {
               "title": "品牌车系车型",
@@ -41,7 +47,9 @@
               "x-component-props": {
                 "placeholder": "请输入品牌车系车型"
               },
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "x-designable-id": "vehicleModel",
               "x-index": 3
             },
@@ -52,7 +60,10 @@
               "x-decorator": "FormItem",
               "x-component": "Input",
               "x-index": 6,
-              "name": "bodyColor"
+              "name": "bodyColor",
+              "x-decorator-props": {
+                "colon": false
+              }
             },
             "city": {
               "title": "所属城市",
@@ -66,7 +77,9 @@
                 "remote-show-suffix": true,
                 "placeholder": "请输入城市"
               },
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "x-reactions": "{{useSelectAsyncDataSource(getCityList)}}",
               "name": "city",
               "required": true,
@@ -85,7 +98,9 @@
                 "remote-show-suffix": true,
                 "placeholder": "请输入车务姓名"
               },
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "x-reactions": "{{useSelectAsyncDataSource(vehicleServiceList)}}",
               "name": "vehicleService",
               "required": true,
@@ -115,6 +130,9 @@
                 "textContent": "Upload",
                 "limit": 1
               },
+              "x-decorator-props": {
+                "colon": false
+              },
               "x-index": 1
             },
             "carRearImg": {
@@ -129,6 +147,9 @@
               "x-component-props": {
                 "textContent": "Upload",
                 "limit": 1
+              },
+              "x-decorator-props": {
+                "colon": false
               },
               "x-index": 2
             },
@@ -145,6 +166,9 @@
                 "textContent": "Upload",
                 "limit": 1
               },
+              "x-decorator-props": {
+                "colon": false
+              },
               "x-index": 3
             },
             "carRightImg": {
@@ -160,6 +184,9 @@
                 "textContent": "Upload",
                 "limit": 1
               },
+              "x-decorator-props": {
+                "colon": false
+              },
               "x-index": 4
             },
             "carOtherImg": {
@@ -174,6 +201,9 @@
               "x-component-props": {
                 "textContent": "Upload",
                 "limit": 1
+              },
+              "x-decorator-props": {
+                "colon": false
               },
               "x-index": 5
             }
@@ -195,7 +225,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "transporteCardNumber",
               "x-designable-id": "jljemgsj7i5",
               "x-index": 0
@@ -208,7 +240,9 @@
               "x-component": "Input",
               "x-validator": "number",
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "certificateHandlingMoney",
               "x-designable-id": "57ckiv0zrwu",
               "x-index": 1
@@ -221,7 +255,9 @@
               "x-component": "DatePicker",
               "x-validator": "date",
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "cardCommencementDate",
               "x-designable-id": "b963trzzaif",
               "x-index": 2
@@ -234,7 +270,9 @@
               "x-component": "DatePicker",
               "x-validator": "date",
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "cardMaturityDate",
               "x-designable-id": "obv9maqjizy",
               "x-index": 3
@@ -251,6 +289,9 @@
               "x-component-props": {
                 "textContent": "Upload",
                 "limit": 1
+              },
+              "x-decorator-props": {
+                "colon": false
               },
               "x-index": 4
             }
@@ -272,7 +313,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "licenseNumber",
               "x-designable-id": "9m8xgiqddav",
               "x-index": 0
@@ -285,7 +328,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "fileNumber",
               "x-designable-id": "rngrg8jtq5j",
               "x-index": 1
@@ -298,7 +343,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "owner",
               "x-designable-id": "pfb3ln27e9e",
               "x-index": 2
@@ -311,7 +358,9 @@
               "x-component": "DatePicker",
               "x-validator": "date",
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "registrationDate",
               "x-designable-id": "ih0i71gl31u",
               "x-index": 3
@@ -324,7 +373,9 @@
               "x-component": "DatePicker",
               "x-validator": "date",
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "openingDate",
               "x-designable-id": "ugaqb8wcmky",
               "x-index": 4
@@ -337,7 +388,9 @@
               "x-component": "DatePicker",
               "x-validator": "date",
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "checkValidUntil",
               "x-designable-id": "8g5ik9zvozn",
               "x-index": 5
@@ -352,10 +405,12 @@
                 "textContent": "Upload",
                 "limit": 1
               },
+              "x-decorator-props": {
+                "colon": false
+              },
               "x-validator": {
                 "required": true
               },
-              "x-decorator-props": {},
               "name": "driveLicenceOriginal",
               "x-designable-id": "41695lfbaxv",
               "x-index": 6
@@ -373,7 +428,9 @@
               "x-validator": {
                 "required": true
               },
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "driveLicenceEctype",
               "x-designable-id": "0ntkprlo046",
               "x-index": 7

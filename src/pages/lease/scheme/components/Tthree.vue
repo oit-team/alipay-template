@@ -38,7 +38,9 @@ const schema = {
               'x-designable-id': 'lua72g0jziq',
               'x-validator': [],
               'x-component-props': {},
-              'x-decorator-props': {},
+              'x-decorator-props': {
+                colon: false,
+              },
             },
           },
         },
@@ -58,7 +60,9 @@ const schema = {
               'x-designable-id': 'n8es9vta59y',
               'x-validator': [],
               'x-component-props': {},
-              'x-decorator-props': {},
+              'x-decorator-props': {
+                colon: false,
+              },
             },
           },
         },
@@ -86,7 +90,9 @@ const schema = {
                 'placeholder': '请输入租赁城市',
               },
               'x-reactions': '{{useSelectAsyncDataSource(getCityList)}}',
-              'x-decorator-props': {},
+              'x-decorator-props': {
+                colon: false,
+              },
             },
           },
         },
@@ -103,7 +109,9 @@ const schema = {
               'x-component': 'Select',
               'x-validator': [],
               'x-component-props': {},
-              'x-decorator-props': {},
+              'x-decorator-props': {
+                colon: false,
+              },
               'name': 'caseState',
               'enum': [{
                 children: [],

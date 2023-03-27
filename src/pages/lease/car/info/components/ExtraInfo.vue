@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import schema from './schema/extra.json'
-import { notSavedTips } from '@/utils/actions'
+import type { UploadUserFile } from 'element-plus'
+import { notSavedTips, transformUploadData } from '@/utils/actions'
 
 const route = useRoute()
 const { t } = useI18n()
@@ -35,12 +36,15 @@ const extraMap = [
   { prop: 'setSource', label: '设定来源' },
   { prop: 'operationalTime', label: '投入运营时间' },
   { prop: 'assetType', label: '资产类型' },
-  { prop: 'invoiceImgs', label: '发票照片', span: 2 },
-  { prop: 'certificateImg', label: '合格证照片', span: 2 },
+  { prop: 'invoiceImgs', label: '发票照片' },
+  { prop: 'certificateImg', label: '合格证照片' },
   // { prop: 'replenishType', label: '补充类型' },
   { prop: 'createTime', label: '创建时间' },
   { prop: 'updateTime', label: '更新时间' },
 ]
+
+const labelWidth = ref('180px')
+const itemWidth = ref('220px')
 
 const form = createForm({
   validateFirst: true,
@@ -73,11 +77,31 @@ function openDrawer() {
   showDrawer.value = true
   if (hasData.value) {
     form.reset()
-    form.setInitialValues(desc.value.resultList[0])
+    // 反显
+    const updateInfo = desc.value.resultList[0]
+    if (updateInfo?.invoiceImgs) {
+      updateInfo.invoiceImgs = [{
+        name: 'avatar',
+        url: updateInfo.invoiceImgs || '',
+        status: 'success',
+      }] as UploadUserFile[]
+    }
+
+    if (updateInfo?.certificateImg) {
+      updateInfo.certificateImg = [{
+        name: 'avatar',
+        url: updateInfo.certificateImg || '',
+        status: 'success',
+      }] as UploadUserFile[]
+    }
+    form.setInitialValues(updateInfo)
   }
 }
 
 async function submit(form: any) {
+  await ElMessageBox.confirm('确定要提交吗?', '提示', {
+    type: 'warning',
+  })
   await axios.post(
     hasData.value
       ? '/vehicle/vehicle/updateVehicleReplenish'
@@ -86,6 +110,8 @@ async function submit(form: any) {
       ...form,
       vehicleId: route.params.id,
       replenishType: type.value,
+      invoiceImgs: transformUploadData(form.invoiceImgs)?.[0].url, // 发票照片
+      certificateImg: transformUploadData(form.certificateImg)?.[0].url, // 合格证照片
     },
   )
   showDrawer.value = false
@@ -122,8 +148,37 @@ async function submit(form: any) {
       class="mt-2"
       :data="desc?.resultList[0]"
       default-text="无"
+      :item-width="itemWidth"
+      :label-width="labelWidth"
       :options="extraMap"
-    />
+    >
+      <template #invoiceImgs="{ value }">
+        <ElImage
+          v-if="value"
+          fit="cover"
+          hide-on-click-modal
+          :preview-src-list="[value]"
+          :src="value"
+          style="width: 100px; height: 100px"
+        />
+        <div v-else>
+          无
+        </div>
+      </template>
+      <template #certificateImg="{ value }">
+        <ElImage
+          v-if="value"
+          fit="cover"
+          hide-on-click-modal
+          :preview-src-list="[value]"
+          :src="value"
+          style="width: 100px; height: 100px"
+        />
+        <div v-else>
+          无
+        </div>
+      </template>
+    </Descriptions>
     <ElEmpty v-else />
   </div>
 

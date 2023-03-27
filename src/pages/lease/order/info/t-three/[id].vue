@@ -106,17 +106,14 @@ const infoMap = [
   {
     prop: 'operator',
     label: '运营商',
-    span: 2,
   },
   {
     prop: 'assetCompany',
     label: '资产公司',
-    span: 2,
   },
   {
     prop: 'brandCarModel',
     label: '品牌车系车型',
-    span: 2,
   },
   {
     prop: 'leaseContractName',
@@ -129,7 +126,8 @@ const infoMap = [
     span: 4,
   },
 ]
-
+const labelWidth = ref('180px')
+const itemWidth = ref('220px')
 const data = ref()
 
 // 反显t3详情合同模板
@@ -166,6 +164,9 @@ getDetailInfo()
 
 // 提交上传的合同
 async function submit(formData: any) {
+  await ElMessageBox.confirm('确定要提交吗?', '提示', {
+    type: 'warning',
+  })
   await axios.post('/order/leaseOrder/updateT3LeaseOrderInfo',
     {
       t3LeaseOrderId: route.params.id,
@@ -189,6 +190,8 @@ async function submit(formData: any) {
         border
         :data="data"
         default-text="无"
+        :item-width="itemWidth"
+        :label-width="labelWidth"
         :options="infoMap"
       >
         <template #leaseContractName="{ value }">

@@ -29,7 +29,9 @@
               "x-designable-id": "uwmt4p2jxkg",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {}
+              "x-decorator-props": {
+                "colon": false
+              }
             }
           }
         },
@@ -50,7 +52,9 @@
               "x-designable-id": "3qswva5pmz8",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {}
+              "x-decorator-props": {
+                "colon": false
+              }
             }
           }
         },
@@ -70,7 +74,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "carNumber",
               "x-designable-id": "8sani2j4l7k",
               "x-index": 0
@@ -93,7 +99,9 @@
               "x-designable-id": "h2ztdd8xho4",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {}
+              "x-decorator-props": {
+                "colon": false
+              }
             }
           }
         },
@@ -112,7 +120,9 @@
               "x-component": "Input",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "driverId",
               "x-designable-id": "s84scxt0wv5",
               "x-index": 0
@@ -140,7 +150,9 @@
                 "reserve-keyword": true,
                 "placeholder": "请输入"
               },
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "x-reactions": "{{useSelectAsyncDataSource(getCityList)}}",
               "name": "city",
               "x-designable-id": "yisb9f7lwsi",
@@ -166,7 +178,9 @@
                 "type": "daterange",
                 "placeholder": ""
               },
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "[startcreateTime,endcreateTime]",
               "x-designable-id": "h52kzzpz34g",
               "x-index": 0
@@ -189,7 +203,9 @@
                 "type": "daterange",
                 "placeholder": ""
               },
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "[startdeliveryDate,enddeliveryDate]",
               "x-designable-id": "tbb9a0s8ax3",
               "x-index": 0
@@ -212,7 +228,9 @@
                 "type": "daterange",
                 "placeholder": ""
               },
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "[startendDate,endendDate]",
               "x-designable-id": "jtkjel614qs",
               "x-index": 0

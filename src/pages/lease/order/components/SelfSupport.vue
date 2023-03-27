@@ -6,7 +6,8 @@ meta:
 <script setup lang="ts">
 import { transformResponsePush } from '@/utils/helper'
 
-const schema = {
+const schema
+= {
   'type': 'object',
   'properties': {
     '7t2oddolmd3': {
@@ -27,17 +28,19 @@ const schema = {
           'name': '94exvsf2iwc',
           'x-designable-id': 'yppd6g3e59z',
           'properties': {
-            orderNo: {
+            leaseOrderNo: {
               'type': 'string',
               'title': '订单编号',
               'x-decorator': 'FormItem',
               'x-component': 'Input',
               'x-index': 0,
-              'name': 'orderNo',
+              'name': 'leaseOrderNo',
               'x-designable-id': 'uwmt4p2jxkg',
               'x-validator': [],
               'x-component-props': {},
-              'x-decorator-props': {},
+              'x-decorator-props': {
+                colon: false,
+              },
             },
           },
         },
@@ -59,7 +62,9 @@ const schema = {
               'x-designable-id': 'h2ztdd8xho4',
               'x-validator': [],
               'x-component-props': {},
-              'x-decorator-props': {},
+              'x-decorator-props': {
+                colon: false,
+              },
             },
           },
         },
@@ -80,7 +85,9 @@ const schema = {
               'x-designable-id': '3qswva5pmz8',
               'x-validator': [],
               'x-component-props': {},
-              'x-decorator-props': {},
+              'x-decorator-props': {
+                colon: false,
+              },
             },
           },
         },
@@ -97,7 +104,9 @@ const schema = {
               'x-component': 'Input',
               'x-validator': [],
               'x-component-props': {},
-              'x-decorator-props': {},
+              'x-decorator-props': {
+                colon: false,
+              },
               'x-designable-id': '9t5dc851oyr',
               'x-index': 0,
               'name': 'schemeNo',
@@ -114,7 +123,7 @@ const schema = {
           'properties': {
             '[startcreateTime,endcreateTime]': {
               'type': 'string',
-              'title': '起始时间',
+              'title': '创建时间',
               'x-decorator': 'FormItem',
               'x-component': 'DatePicker',
               'x-validator': [],
@@ -122,7 +131,9 @@ const schema = {
                 type: 'daterange',
                 placeholder: '',
               },
-              'x-decorator-props': {},
+              'x-decorator-props': {
+                colon: false,
+              },
               'x-designable-id': 'ieg19fxsl6t',
               'x-index': 0,
               'name': '[startcreateTime,endcreateTime]',
@@ -237,7 +248,7 @@ const columns = [
     label: '订单编号',
   },
   {
-    prop: 'orderStatue',
+    prop: 'orderStatueName',
     label: '订单状态',
   },
   {
@@ -281,9 +292,10 @@ const columns = [
     label: '更新时间',
   },
 ]
+
 const columnsConfig = {
   caseCode: {
-    width: 200,
+    width: 150,
     showOverflowTooltip: true,
   },
   leaseTerm: {
@@ -291,7 +303,7 @@ const columnsConfig = {
     showOverflowTooltip: true,
   },
   cashPledge: {
-    width: 100,
+    width: 150,
   },
   updateTime: {
     width: 150,
@@ -302,28 +314,31 @@ const columnsConfig = {
     showOverflowTooltip: true,
   },
   rent: {
-    width: 100,
+    width: 150,
   },
   leaseOrderNo: {
     width: 150,
     showOverflowTooltip: true,
   },
   licensePlateNumber: {
-    width: 100,
+    width: 150,
   },
   createTime: {
     width: 150,
     showOverflowTooltip: true,
   },
   driverName: {
-    width: 100,
+    width: 150,
   },
   startTime: {
     width: 150,
     showOverflowTooltip: true,
   },
   orderStatue: {
-    width: 100,
+    width: 150,
+  },
+  orderStatueName: {
+    width: 150,
   },
   endTime: {
     width: 150,

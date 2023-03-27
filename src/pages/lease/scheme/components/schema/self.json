@@ -25,7 +25,9 @@
               "x-designable-id": "lua72g0jziq",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {}
+              "x-decorator-props": {
+                "colon": false
+              }
             }
           }
         },
@@ -45,7 +47,9 @@
               "x-designable-id": "n8es9vta59y",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {}
+              "x-decorator-props": {
+                "colon": false
+              }
             }
           }
         },
@@ -72,7 +76,9 @@
                 "remote-show-suffix": true,
                 "placeholder": "请输入租赁城市"
               },
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "x-reactions": "{{useSelectAsyncDataSource(getCityList)}}"
             }
           }
@@ -90,7 +96,9 @@
               "x-component": "Select",
               "x-validator": [],
               "x-component-props": {},
-              "x-decorator-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
               "name": "caseState",
               "enum": [
                 {

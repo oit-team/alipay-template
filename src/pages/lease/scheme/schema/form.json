@@ -11,7 +11,8 @@
         "maxLength": 50
       },
       "x-decorator-props": {
-        "layout": "horizontal"
+        "layout": "horizontal",
+        "colon": false
       },
       "name": "assetCompany",
       "x-designable-id": "e3pkf0etyol",
@@ -27,7 +28,9 @@
       "x-component-props": {
         "maxLength": 50
       },
-      "x-decorator-props": {},
+      "x-decorator-props": {
+        "colon": false
+      },
       "name": "caseName",
       "x-designable-id": "6i6pagv7bfc",
       "x-index": 1,
@@ -41,7 +44,9 @@
       "x-component-props": {
         "placeholder": "请选择方案类型"
       },
-      "x-decorator-props": {},
+      "x-decorator-props": {
+        "colon": false
+      },
       "enum": [
         {
           "children": [],
@@ -69,7 +74,9 @@
       "x-component-props": {
         "maxLength": 50
       },
-      "x-decorator-props": {},
+      "x-decorator-props": {
+        "colon": false
+      },
       "name": "brandCarModel",
       "x-designable-id": "gb3xjkddzli",
       "x-index": 3,
@@ -87,7 +94,9 @@
         "reserve-keyword": true,
         "remote-show-suffix": true
       },
-      "x-decorator-props": {},
+      "x-decorator-props": {
+        "colon": false
+      },
       "name": "leasingCity",
       "x-designable-id": "2nlwc2j6a8t",
       "x-reactions": "{{useSelectAsyncDataSource(loadData)}}",
@@ -101,7 +110,9 @@
       "x-component": "Input",
       "x-validator": "number",
       "x-component-props": {},
-      "x-decorator-props": {},
+      "x-decorator-props": {
+        "colon": false
+      },
       "name": "rent",
       "x-designable-id": "1bhthaijp8z",
       "x-index": 5,
@@ -114,7 +125,9 @@
       "x-component": "Input",
       "x-validator": "number",
       "x-component-props": {},
-      "x-decorator-props": {},
+      "x-decorator-props": {
+        "colon": false
+      },
       "required": true,
       "name": "cashPledge",
       "x-designable-id": "sqbqreqe5s3",
@@ -127,7 +140,9 @@
       "x-component": "Input",
       "x-validator": [],
       "x-component-props": {},
-      "x-decorator-props": {},
+      "x-decorator-props": {
+        "colon": false
+      },
       "name": "leaseTerm",
       "required": true,
       "x-designable-id": "wheij0ufoc7",
@@ -140,7 +155,9 @@
       "x-component": "Input",
       "x-validator": "number",
       "x-component-props": {},
-      "x-decorator-props": {},
+      "x-decorator-props": {
+        "colon": false
+      },
       "name": "vehicleAge",
       "x-designable-id": "9hf0sdzk8y6",
       "x-index": 8,
@@ -153,7 +170,9 @@
       "x-component": "Input",
       "x-validator": "number",
       "x-component-props": {},
-      "x-decorator-props": {},
+      "x-decorator-props": {
+        "colon": false
+      },
       "name": "mileage",
       "x-designable-id": "m6oy6qgtlnz",
       "x-index": 9,
@@ -168,7 +187,9 @@
       "x-component-props": {
         "placeholder": "选择方案截止时间"
       },
-      "x-decorator-props": {},
+      "x-decorator-props": {
+        "colon": false
+      },
       "name": "expirationDate",
       "x-designable-id": "obn3q704om6",
       "x-index": 10,
@@ -184,7 +205,9 @@
         "limit": 1
       },
       "x-validator": [],
-      "x-decorator-props": {},
+      "x-decorator-props": {
+        "colon": false
+      },
       "name": "agencyDeductionTemplateUrl",
       "x-designable-id": "b0o5zb9n8ny",
       "x-index": 11
@@ -199,7 +222,9 @@
         "limit": 1
       },
       "x-validator": [],
-      "x-decorator-props": {},
+      "x-decorator-props": {
+        "colon": false
+      },
       "name": "contractTemplateUrl",
       "x-designable-id": "toyuh0vvtfw",
       "x-index": 12
