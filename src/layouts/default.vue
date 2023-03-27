@@ -23,6 +23,10 @@ const menu: MenuItem[] = [
     icon: 'i-ant-design:setting-outlined',
     children: [
       {
+        title: '菜单管理',
+        path: '/system/menu',
+      },
+      {
         title: '角色管理',
         path: '/system/role',
       },
