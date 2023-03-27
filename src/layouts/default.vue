@@ -8,84 +8,22 @@ interface MenuItem {
   children?: MenuItem[]
 }
 
-const treeList = ref([])
+const { data } = useAxios('/system/menu/getTreeMenuList')
 
-async function getTreeList() {
-  const { data } = await axios.post('/system/menu/getTreeMenuList', {
-    userId: '0',
+function formatMenu(data: any[]): MenuItem[] {
+  return data?.map((item) => {
+    return {
+      title: item.menuName,
+      icon: item.menuImg,
+      path: item.menuUrl,
+      children: formatMenu(item.childrenMenu),
+    }
   })
-  treeList.value = data.resultList
 }
-getTreeList()
-const menu: MenuItem[] = [
-  {
-    title: '系统设置',
-    icon: 'i-ant-design:setting-outlined',
-    children: [
-      {
-        title: '菜单管理',
-        path: '/system/menu',
-      },
-      {
-        title: '角色管理',
-        path: '/system/role',
-      },
-      {
-        title: '综合管理',
-        path: '/system/manage',
-      },
-      {
-        title: '区域管理',
-        path: '/system/area',
-      },
-    ],
-  },
-  {
-    title: '租赁管理',
-    icon: 'i-ri:money-cny-circle-line',
-    children: [
-      {
-        title: '司机管理',
-        path: '/lease/driver',
-      },
-      {
-        title: '车辆管理',
-        path: '/lease/car',
-      },
-      {
-        title: '方案管理',
-        path: '/lease/scheme',
-      },
-      {
-        title: '订单管理',
-        path: '/lease/order',
-      },
-      {
-        title: '工单列表',
-        path: '/lease/work-order',
-      },
-    ],
-  },
-  {
-    title: '流水管理',
-    icon: 'i-ri:money-cny-circle-line',
-    children: [{
-      title: '运营流水',
-      path: '/statement',
-    }],
-  },
-  {
-    title: '活动管理',
-    icon: 'i-ri:money-cny-circle-line',
-    children: [{
-      title: '活动列表',
-      path: '/activity/list',
-    }, {
-      title: '活动规则',
-      path: '/activity/rules',
-    }],
-  },
-]
+
+const menu = computed<MenuItem[]>(() => {
+  return formatMenu(data.value?.resultList)
+})
 
 function logout() {
   localStorage.clear()
