@@ -21,7 +21,7 @@ export const defaultTransformResponse = (Axios.defaults.transformResponse as Axi
 export const transformRequest: AxiosRequestTransformer = (data, headers) => {
   const { profile } = useUserStore()
 
-  return typeof data === 'object' && headers['Content-Type'] === 'application/json'
+  return (typeof data === 'object' || data === undefined) && headers['Content-Type'] === 'application/json'
     ? JSON.stringify({
       head: {
         aid: profile?.userId,
@@ -34,7 +34,7 @@ export const transformRequest: AxiosRequestTransformer = (data, headers) => {
         uuid: profile?.orgId,
         chcode: 'ef19843298ae8f2134f',
       },
-      con: data,
+      con: data ?? {},
     })
     : data
 }
