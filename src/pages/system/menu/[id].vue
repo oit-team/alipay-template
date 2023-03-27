@@ -13,29 +13,53 @@ const form = createForm({
   validateFirst: true,
 })
 
-!isNew && initForm({
-  form,
-  url: '/system/menu/getAllMenuById',
-  data: {
-    menuId: route.params.id,
-  },
-  transform: data => data.resultList,
+onMounted(() => {
+  if (!isNew)
+    form.query('pId').map()[0].disabled = true
 })
+if (!isNew) {
+  initForm({
+    form,
+    url: '/system/menu/getAllMenuById',
+    data: {
+      menuId: route.params.id,
+    },
+    transform: data => data.resultList,
+  })
+}
+
+async function getData() {
+  const { data } = await axios.post('/system/menu/getAllMenuById', {
+    menuId: route.params.id,
+  })
+  const info = data.resultList
+  // const list = info.path.split(',')
+  // info.pId = list[list.length - 1]
+  info.pId = info.path
+
+  if (info.pId === '0')
+    info.pId = undefined
+
+  form.setInitialValues(info)
+}
+!isNew && getData()
 
 async function getMenu() {
-  const { data } = await axios.post('/system/menu/getTreeMenuList', {
+  const { data } = await axios.post('/system/menu/getAllMenuLists', {
     pageNum: 1,
     pageSize: 999,
   })
-  return data.resultList.map((e: { menuName: string; menuId: number }) => ({
+  return data.resultList.map((e: { menuName: string; menuId: number; path: string }) => ({
     label: e.menuName,
-    value: Number(e.menuId),
+    value: `${e.path},${e.menuId}`,
   }),
   )
 }
 
 async function submit(form: any) {
   const { profile } = useUserStore()
+  if (!form.pId && isNew)
+    form.pId = '0'
   await axios.post(
     isNew
       ? '/system/menu/insertMenu'
