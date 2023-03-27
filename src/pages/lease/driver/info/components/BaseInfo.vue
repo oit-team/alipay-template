@@ -197,16 +197,6 @@ const { data } = useAxios('/driverServer/driver/getDriverMap', {
       </ElCollapseItem>
       <ElCollapseItem title="驾驶证信息">
         <Descriptions
-          v-if="data?.driverQualifica"
-          border
-          :data="data?.driverQualifica"
-          default-text="无"
-          :options="driverQualificaMap"
-        />
-        <ElEmpty v-else />
-      </ElCollapseItem>
-      <ElCollapseItem title="网约车证信息">
-        <Descriptions
           v-if="data?.driveLicense"
           border
           :data="data?.driveLicense"
@@ -220,6 +210,16 @@ const { data } = useAxios('/driverServer/driver/getDriverMap', {
             <ElImage :src="value" />
           </template>
         </Descriptions>
+        <ElEmpty v-else />
+      </ElCollapseItem>
+      <ElCollapseItem title="网约车证信息">
+        <Descriptions
+          v-if="data?.driverQualifica"
+          border
+          :data="data?.driverQualifica"
+          default-text="无"
+          :options="driverQualificaMap"
+        />
         <ElEmpty v-else />
       </ElCollapseItem>
     </ElCollapse>
