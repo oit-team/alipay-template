@@ -1,0 +1,97 @@
+{
+  "type": "object",
+  "properties": {
+    "menuName": {
+      "type": "string",
+      "title": "菜单名称",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-validator": [],
+      "x-component-props": {},
+      "x-decorator-props": {},
+      "name": "menuName",
+      "x-designable-id": "fe9ed0br2ng",
+      "required": true,
+      "x-index": 0
+    },
+    "pId": {
+      "title": "父级菜单",
+      "x-decorator": "FormItem",
+      "x-component": "Select",
+      "x-validator": [],
+      "x-component-props": {
+        "placeholder": "请选择父级菜单(不选默认添加根菜单)"
+      },
+      "x-decorator-props": {},
+      "x-reactions": ["{{useAsyncDataSource(getMenu)}}"],
+      "name": "pId",
+      "x-designable-id": "7gwz8u8cdns",
+      "x-index": 1
+    },
+    "menuUrl": {
+      "type": "string",
+      "title": "菜单路径",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-validator": [],
+      "x-component-props": {},
+      "x-decorator-props": {},
+      "name": "menuUrl",
+      "x-designable-id": "wccw2h0i6r6",
+      "required": true,
+      "x-index": 2
+    },
+    "menuCode": {
+      "type": "string",
+      "title": "菜单编码",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-component-props": {},
+      "x-decorator-props": {},
+      "name": "menuCode",
+      "x-designable-id": "1y6t4x2ua82",
+      "required": true,
+      "x-index": 3
+    },
+    "orderBy": {
+      "type": "string",
+      "title": "显示顺序",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-validator": "integer",
+      "x-component-props": {},
+      "x-decorator-props": {},
+      "name": "orderBy",
+      "x-designable-id": "1y6t445ua82",
+      "required": true,
+      "x-index": 4
+    },
+    "menuRemark": {
+      "type": "string",
+      "title": "菜单描述",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-validator": [],
+      "x-component-props": {},
+      "x-decorator-props": {},
+      "name": "menuRemark",
+      "x-designable-id": "7508bl1qvsr",
+      "required": true,
+      "x-index": 5
+    },
+    "menuImg": {
+      "type": "string",
+      "title": "菜单图标",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-validator": [],
+      "x-component-props": {},
+      "x-decorator-props": {},
+      "name": "menuImg",
+      "x-designable-id": "danmhy4vo7i",
+      "required": true,
+      "x-index": 6
+    }
+  },
+  "x-designable-id": "pvpjtwa01gx"
+}

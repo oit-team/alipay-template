@@ -20,7 +20,6 @@ const form = createForm({
   data: {
     orgId: route.params.id,
   },
-  transform: data => data.vehicleDetailed,
 })
 
 async function submit(form: any) {
