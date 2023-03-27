@@ -8,7 +8,7 @@ import schema from './schema/indexSearchForm.json'
 
 const { t } = useI18n()
 
-const query = ref<any>(null)
+const query = ref<any>()
 
 const columns = [
   {
@@ -37,8 +37,8 @@ async function dltList(id: string) {
   await ElMessageBox.confirm(t('confirm.delete'), t('tip.info'), {
     type: 'warning',
   })
-  await axios.post('/order/activity/deleteActivity', {
-    activityId: id,
+  await axios.post('/system/menu/delMenuById', {
+    menuId: id,
   })
   ElMessage.success('删除成功')
   query.value?.query()
