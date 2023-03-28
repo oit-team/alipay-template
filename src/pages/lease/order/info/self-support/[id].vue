@@ -88,7 +88,7 @@ const leaseInfoMap = [
     label: '备注',
   },
 ]
-const itemWidth = ref('220px')
+
 const { data } = useAxios('/order/leaseOrder/getLeaseOrderInfo', {
   method: 'POST',
   data: { leaseOrderId: route.params.id },
@@ -104,7 +104,6 @@ const { data } = useAxios('/order/leaseOrder/getLeaseOrderInfo', {
         border
         :data="data?.driverInfo"
         default-text="无"
-        :item-width="itemWidth"
         :options="driverInfoMap"
         title="司机信息"
       />
@@ -113,7 +112,6 @@ const { data } = useAxios('/order/leaseOrder/getLeaseOrderInfo', {
         border
         :data="data?.vehicleInfo"
         default-text="无"
-        :item-width="itemWidth"
         :options="carInfoMap"
         title="车辆信息"
       />
@@ -122,7 +120,6 @@ const { data } = useAxios('/order/leaseOrder/getLeaseOrderInfo', {
         border
         :data="data?.orderInfo"
         default-text="无"
-        :item-width="itemWidth"
         :options="leaseInfoMap"
         title="租赁信息"
       >

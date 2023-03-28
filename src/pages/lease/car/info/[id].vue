@@ -87,7 +87,6 @@ const carIdentityMap = [
 ]
 
 const labelWidth = ref('180px')
-const itemWidth = ref('220px')
 const activeName = ref('baseInfo')
 
 const { data } = useAxios('/vehicle/vehicle/getVehicleDetailed', {
@@ -109,7 +108,6 @@ const { data } = useAxios('/vehicle/vehicle/getVehicleDetailed', {
                 border
                 :data="data?.vehicleDetailed"
                 default-text="无"
-                :item-width="itemWidth"
                 :label-width="labelWidth"
                 :options="carIdentityMap"
               />
@@ -121,7 +119,6 @@ const { data } = useAxios('/vehicle/vehicle/getVehicleDetailed', {
                 border
                 :data="data?.vehicleDetailed?.transporteCard"
                 default-text="无"
-                :item-width="itemWidth"
                 :label-width="labelWidth"
                 :options="transportationMap"
               >
@@ -147,7 +144,6 @@ const { data } = useAxios('/vehicle/vehicle/getVehicleDetailed', {
                 border
                 :data="data?.vehicleDetailed?.driveLicense"
                 default-text="无"
-                :item-width="itemWidth"
                 :label-width="labelWidth"
                 :options="driveLicenseMap"
               >

@@ -41,7 +41,6 @@ const extraMap = [
 ]
 
 const labelWidth = ref('180px')
-const itemWidth = ref('220px')
 
 const form = createForm({
   validateFirst: true,
@@ -55,6 +54,7 @@ const { data: typeList } = useAxios('/driverServer/replenish/getReplenishTypeLis
   },
 })
 
+// 根据类型反显描述列表
 const { data: desc } = useAxios('/driverServer/replenish/getReplenishTypeList', {
   method: 'POST',
   data: {
@@ -157,7 +157,6 @@ async function submit(form: any) {
       class="mt-2"
       :data="desc?.resultList[0]"
       default-text="无"
-      :item-width="itemWidth"
       :label-width="labelWidth"
       :options="extraMap"
     >
