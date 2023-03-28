@@ -282,6 +282,17 @@ const columns = [
   {
     prop: 'endTime',
     label: '终止时间',
+  }, {
+    prop: 't3OrderNo',
+    label: '关联订单',
+  },
+  {
+    prop: 'rentalWorkCode',
+    label: '租赁工单编号',
+  },
+  {
+    prop: 'returnWorkCode',
+    label: '退租工单编号',
   },
   {
     prop: 'createTime',
@@ -344,6 +355,18 @@ const columnsConfig = {
     width: 150,
     showOverflowTooltip: true,
   },
+  t3OrderNo: {
+    width: 150,
+    showOverflowTooltip: true,
+  },
+  rentalWorkCode: {
+    width: 150,
+    showOverflowTooltip: true,
+  },
+  returnWorkCode: {
+    width: 150,
+    showOverflowTooltip: true,
+  },
 }
 </script>
 
@@ -375,7 +398,7 @@ const columnsConfig = {
               <ElButton size="small" type="warning" @click="onRelevanceOrder(row)">
                 {{ row.isAssociated === 0 ? '关联订单' : '解除订单' }}
               </ElButton>
-              <ElButton size="small" type="danger" @click="onCancellation(row)">
+              <ElButton :disabled="row.orderStatue === 2 || row.orderStatue === 3" size="small" type="danger" @click="onCancellation(row)">
                 订单作废
               </ElButton>
             </QueryActionColumn>
