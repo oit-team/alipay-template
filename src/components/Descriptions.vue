@@ -14,10 +14,6 @@ defineProps({
     type: [Number, String],
     default: '120px',
   },
-  itemWidth: {
-    type: [Number, String],
-    default: '120px',
-  },
   defaultText: String,
 })
 </script>
@@ -28,7 +24,7 @@ defineProps({
     v-bind="$attrs"
     :style="{ '--el-descriptions-label-width': labelWidth }"
   >
-    <ElDescriptionsItem v-for="item of options" :key="item.prop" v-bind="item" :width="itemWidth">
+    <ElDescriptionsItem v-for="item of options" :key="item.prop" v-bind="item">
       <slot :name="item.prop" v-bind="{ value: data[item.prop] }">
         <!-- {{ data[item.prop] ?? item?.default ?? defaultText }} -->
         {{ data[item.prop] }}
