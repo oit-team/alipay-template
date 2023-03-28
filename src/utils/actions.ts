@@ -111,6 +111,6 @@ export function transformToUploadFiles(urls: string[] | string): UploadUserFile[
  * 设置目标字段数据源
  */
 export function setFieldDataSource<F extends object>(form: Form<F>, pathPattern: FormPathPattern, data: any) {
-  const field = form.query('exclusiveServiceId').take() as Field
+  const field = form.query(pathPattern).take() as Field
   field?.setDataSource(data)
 }
