@@ -1,5 +1,5 @@
 import type { UploadFile, UploadUserFile } from 'element-plus'
-import type { Form } from '@formily/core'
+import type { Field, Form, FormPathPattern } from '@formily/core'
 import { i18n } from '@/plugins/i18n'
 import ApiError from '@/api/ApiError'
 
@@ -105,4 +105,12 @@ export function transformToUploadFiles(urls: string[] | string): UploadUserFile[
     name: `${index}`,
     url,
   }))
+}
+
+/**
+ * 设置目标字段数据源
+ */
+export function setFieldDataSource<F extends object>(form: Form<F>, pathPattern: FormPathPattern, data: any) {
+  const field = form.query('exclusiveServiceId').take() as Field
+  field?.setDataSource(data)
 }
