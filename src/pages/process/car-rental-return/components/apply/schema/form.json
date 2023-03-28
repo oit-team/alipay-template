@@ -25,12 +25,12 @@
                 },
                 {
                   "label": "违约收车",
-                  "value": "2"
+                  "value": 2
                 }
               ],
               "x-index": 0
             },
-            "returnTheCarTime": {
+            "applyReturnTime": {
               "type": "string",
               "title": "申请退车日期",
               "x-decorator": "FormItem",
