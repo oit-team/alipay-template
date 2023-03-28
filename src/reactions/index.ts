@@ -75,6 +75,17 @@ export const vehicleServiceList: AsyncDataSourceSelectService = async ({ keyword
 }
 
 /**
+ * 获取品牌车系车型
+ */
+export const getVehicleBrandSeriesModel: AsyncDataSourceSelectService = async ({ keyword }) => {
+  const { data } = await axios.post('/vehicle/vehicle/getVehicleBrandSeriesModel', { keyWord: keyword })
+  return data.resultList.map((item: any) => ({
+    label: item.brandSeriesModel,
+    value: item.modelCode,
+  }))
+}
+
+/**
  * 获取专属用户
  */
 export const getUserKeyWord: AsyncDataSourceSelectService = async ({ keyword }) => {

@@ -14,7 +14,7 @@ specifiers:
   '@types/mime': ^3.0.1
   '@types/node': ^18.15.5
   '@unocss/reset': ^0.50.6
-  '@uxuip/element-plus-query': 0.0.7
+  '@uxuip/element-plus-query': 0.0.8
   '@uxuip/eslint-config': ^0.1.7
   '@vitejs/plugin-vue': ^4.1.0
   '@vitejs/plugin-vue-jsx': ^3.0.1
@@ -60,7 +60,7 @@ dependencies:
   '@formily/element-plus': 1.0.0-beta.8_fbiusmgbpedyibgqwr2yj4u2hy
   '@formily/vue': 2.2.21_fbiusmgbpedyibgqwr2yj4u2hy
   '@oit/utils': 0.1.0
-  '@uxuip/element-plus-query': 0.0.7_fimje5fbp73yiv4amscsas6eee
+  '@uxuip/element-plus-query': 0.0.8_fimje5fbp73yiv4amscsas6eee
   '@vue/composition-api': 1.7.1_vue@3.2.47
   '@vueuse/core': 9.13.0_nl35ja3bquglpolb4ogn4n6pq4
   '@vueuse/integrations': 9.13.0_rplmerq4sp57pfbyojdljwtjsy
@@ -1902,8 +1902,8 @@ packages:
       - rollup
     dev: true
 
-  /@uxuip/element-plus-query/0.0.7_fimje5fbp73yiv4amscsas6eee:
-    resolution: {integrity: sha512-upq7w5uiQZZxv9tj8XWq7d0u9bNDkNMRcohBLLZNQDXXdhlGgknqWhw/hPbe2hUAJujHE7FkhothEhpdp30a1g==}
+  /@uxuip/element-plus-query/0.0.8_fimje5fbp73yiv4amscsas6eee:
+    resolution: {integrity: sha512-gi5E2Z10U1KYN1WB+20Zv41YmwLGaVCPalLlAVvIDTZZ/lC1ehkpj+UPPXZMWquYmo/FBjFEWNZTa4EM7lq/4Q==}
     dependencies:
       '@element-plus/icons-vue': 2.1.0_vue@3.2.47
       '@formily/core': 2.2.21

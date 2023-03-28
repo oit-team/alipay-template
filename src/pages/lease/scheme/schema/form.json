@@ -69,11 +69,17 @@
       "type": "string",
       "title": "品牌车系车型",
       "x-decorator": "FormItem",
-      "x-component": "Input",
+      "x-component": "Select",
       "x-validator": [],
       "x-component-props": {
-        "maxLength": 50
+        "placeholder": "请输入品牌车系车型",
+        "allowClear": true,
+        "filterable": true,
+        "remote": true,
+        "reserve-keyword": true,
+        "remote-show-suffix": true
       },
+      "x-reactions": "{{useSelectAsyncDataSource(getVehicleBrandSeriesModel)}}",
       "x-decorator-props": {
         "colon": false
       },
