@@ -1,7 +1,8 @@
 import { connect, mapProps, useField } from '@formily/vue'
+import { autorun } from '@formily/reactive'
 import { Upload } from './Upload'
 import type { Field } from '@formily/core'
-import type { UploadFile, UploadProps, UploadUserFile } from 'element-plus'
+import type { UploadFile, UploadProps } from 'element-plus'
 import { transformToUploadFiles, transformUploadData } from '@/utils/actions'
 
 const UploadWrapper = defineComponent({
@@ -19,16 +20,15 @@ const UploadWrapper = defineComponent({
       },
     },
     fileList: {
-      type: [Object, String, Array] as PropType<UploadProps['fileList'] | string | string[]>,
+      type: [String, Array] as PropType<UploadProps['fileList'] | string | string[]>,
     },
-    format: {
-      type: [String, Boolean] as PropType<'url' | false>,
-      default: 'url',
-    },
+    format: String as PropType<'url'>,
   },
   emits: ['change'],
   setup(props, { attrs, emit }) {
     const fieldRef = useField<Field>()
+    const fileListRef = ref<UploadFile[]>()
+
     const setFeedBack = (error?: Error) => {
       const message = props.errorAdaptor(error)
 
@@ -38,37 +38,28 @@ const UploadWrapper = defineComponent({
         messages: message ? [message] : [],
       })
     }
-    const isStringArray = (value?: any): value is string[] => {
-      return Array.isArray(value) && value?.every(item => typeof item === 'string')
-    }
-    const fileListRef = ref<UploadFile[]>([])
-    const fileListProvide = computed<UploadUserFile[]>(() => {
-      return (
-        props.format && (typeof props.fileList === 'string' || isStringArray(props.fileList))
-          ? transformToUploadFiles(props.fileList)
-          : props.fileList as UploadUserFile[]
-      ) ?? []
-    })
+
     const fileListFormated = computed(() => {
       return props.format
-        ? transformUploadData(fileListRef.value, props.format)
+        ? transformUploadData(fileListRef.value!, props.format)
         : fileListRef.value
+    })
+
+    autorun(() => {
+      fileListRef.value = props.format
+        ? transformToUploadFiles(fieldRef.value.initialValue) as UploadFile[]
+        : fieldRef.value.initialValue
     })
 
     const onChange = attrs.onChange as Fn
     const onError = attrs.onError as Fn
 
-    watch(() => props.fileList, () => {
-      fileListRef.value = fileListProvide.value as UploadFile[]
-    }, { immediate: true })
-
     watch(fileListRef, (fileList) => {
-      console.log(fileList)
       const successful = fileList?.every?.(file => file.status === 'success')
       if (successful) {
         fieldRef.value.feedbacks = []
-        console.log(fileListFormated.value)
         onChange?.(fileListFormated.value)
+        emit('change', fileListFormated.value)
       }
       else {
         setFeedBack(new Error('请等待文件上传完成'))
@@ -93,7 +84,7 @@ const UploadWrapper = defineComponent({
     }
 
     return () => (
-      <Upload {...data} file-list={fileListRef} />
+      <Upload {...data} file-list={fileListRef.value} />
     )
   },
 })
