@@ -58,6 +58,7 @@ async function upOrDown(item: any) {
     activityStatue: item.activityStatue === 0 ? 1 : 0,
   })
   ElMessage.success('成功')
+  query.value?.query()
 }
 </script>
 
@@ -74,19 +75,19 @@ async function upOrDown(item: any) {
         <QueryTable>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" label="操作" width="350">
-              <ElButton size="small" type="primary" @click="$router.push(`./list/plan/${row.activityId}`)">
+              <ElButton :disabled="row.activityStatue === 1" size="small" type="primary" @click="$router.push(`./list/plan/${row.activityId}`)">
                 关联方案
               </ElButton>
-              <ElButton size="small" type="success" @click="upOrDown(row)">
-                上/下架
+              <ElButton size="small" :type="row.activityStatue === 1 ? '' : 'success'" @click="upOrDown(row)">
+                {{ row.activityStatue === 1 ? '下架' : '上架' }}
               </ElButton>
               <ElButton size="small" type="info" @click="$router.push(`./list/info/${row.activityId}`)">
                 {{ $t('button.info') }}
               </ElButton>
-              <ElButton size="small" type="warning" @click="$router.push(`./list/${row.activityId}`)">
+              <ElButton :disabled="row.activityStatue === 1" size="small" type="warning" @click="$router.push(`./list/${row.activityId}`)">
                 {{ $t('button.edit') }}
               </ElButton>
-              <ElButton size="small" type="danger" @click="dltList(row.activityId)">
+              <ElButton :disabled="row.activityStatue === 1" size="small" type="danger" @click="dltList(row.activityId)">
                 {{ $t('button.delete') }}
               </ElButton>
             </QueryActionColumn>
