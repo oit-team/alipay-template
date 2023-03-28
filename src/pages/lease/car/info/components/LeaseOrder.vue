@@ -133,7 +133,6 @@ const columnsConfig = {
         ref="queryRef"
         auto-query="active"
       >
-        <!-- <QueryForm /> -->
         <QueryTable>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" fixed="right" label="操作" width="100px">
