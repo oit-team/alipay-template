@@ -419,7 +419,7 @@ const columnsConfig = {
           label-width="130px"
           :options="[
             { label: '司机id', prop: 'driverId' },
-            { label: '司机手机号', prop: 'driverMobileNumber' },
+            { label: '司机手机号', prop: 'driverPhone' },
             { label: '司机姓名', prop: 'driverName' },
             { label: '车牌号', prop: 'carNumber' },
             { label: '车架号', prop: 'vinNo' },
@@ -427,8 +427,8 @@ const columnsConfig = {
           ]"
         />
       </ElCard>
-      <div v-if="orderInfo?.isAssociated === 1" class="text-ms flex my-4">
-        <span class="text-red-500 px-2">*</span>该订单已被关联
+      <div v-if="orderInfo?.isAssociated === 1" class="text-xs flex my-4">
+        <span class="text-red-500 px-2">*该订单已被关联</span>
       </div>
       <div class="p-4 flex justify-around">
         <ElButton :disabled="!orderNo || orderInfo?.isAssociated === 1" type="primary" @click="submitRelevanceOrder()">

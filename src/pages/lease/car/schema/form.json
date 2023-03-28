@@ -144,12 +144,9 @@
             "carRearImg": {
               "type": "Array<object>",
               "title": "车辆尾部图片",
-              "required": true,
               "x-decorator": "FormItem",
               "x-component": "Upload",
-              "x-validator": {
-                "required": true
-              },
+              "x-validator": {},
               "x-component-props": {
                 "textContent": "Upload",
                 "limit": 1
@@ -162,12 +159,9 @@
             "carLeftImg": {
               "type": "Array<object>",
               "title": "车辆左侧图片",
-              "required": true,
               "x-decorator": "FormItem",
               "x-component": "Upload",
-              "x-validator": {
-                "required": true
-              },
+              "x-validator": {},
               "x-component-props": {
                 "textContent": "Upload",
                 "limit": 1
@@ -180,12 +174,9 @@
             "carRightImg": {
               "type": "Array<object>",
               "title": "车辆右侧图片",
-              "required": true,
               "x-decorator": "FormItem",
               "x-component": "Upload",
-              "x-validator": {
-                "required": true
-              },
+              "x-validator": {},
               "x-component-props": {
                 "textContent": "Upload",
                 "limit": 1
@@ -198,12 +189,9 @@
             "carOtherImg": {
               "type": "Array<object>",
               "title": "车辆其他图片",
-              "required": true,
               "x-decorator": "FormItem",
               "x-component": "Upload",
-              "x-validator": {
-                "required": true
-              },
+              "x-validator": {},
               "x-component-props": {
                 "textContent": "Upload",
                 "limit": 1
@@ -226,7 +214,6 @@
             "transporteCardNumber": {
               "type": "string",
               "title": "运输证编号",
-              "required": true,
               "x-decorator": "FormItem",
               "x-component": "Input",
               "x-validator": [],
@@ -241,7 +228,6 @@
             "certificateHandlingMoney": {
               "type": "string",
               "title": "办证金额",
-              "required": true,
               "x-decorator": "FormItem",
               "x-component": "Input",
               "x-validator": "number",
@@ -256,7 +242,6 @@
             "cardCommencementDate": {
               "type": "string",
               "title": "运输证生效日期",
-              "required": true,
               "x-decorator": "FormItem",
               "x-component": "DatePicker",
               "x-validator": "date",
@@ -271,7 +256,6 @@
             "cardMaturityDate": {
               "type": "string",
               "title": "运输证到期日期",
-              "required": true,
               "x-decorator": "FormItem",
               "x-component": "DatePicker",
               "x-validator": "date",
@@ -286,12 +270,9 @@
             "transporteCardImg": {
               "type": "Array<object>",
               "title": "运输证照片",
-              "required": true,
               "x-decorator": "FormItem",
               "x-component": "Upload",
-              "x-validator": {
-                "required": true
-              },
+              "x-validator": {},
               "x-component-props": {
                 "textContent": "Upload",
                 "limit": 1
