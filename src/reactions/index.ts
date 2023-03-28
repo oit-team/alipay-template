@@ -24,20 +24,27 @@ export function useAsyncDataSource(service: AsyncDataSourceService) {
   }
 }
 
-export function useSelectAsyncDataSource(service: AsyncDataSourceSelectService) {
+export function useSelectAsyncDataSource(service: AsyncDataSourceSelectService, options?: { init: boolean }) {
   return (field: Field) => {
+    const request = async (keyword: string) => {
+      try {
+        field.loading = true
+        const data = await service({ field, keyword })
+        field.dataSource = data
+      }
+      finally {
+        field.loading = false
+      }
+    }
+
     field.setComponentProps({
-      remoteMethod: async (keyword: string) => {
-        try {
-          field.loading = true
-          const data = await service({ field, keyword })
-          field.dataSource = data
-        }
-        finally {
-          field.loading = false
-        }
-      },
+      filterable: true,
+      remote: true,
+      remoteMethod: request,
     })
+
+    // 初始化时请求一次
+    options?.init && request('')
   }
 }
 
