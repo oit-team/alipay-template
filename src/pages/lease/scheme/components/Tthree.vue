@@ -167,7 +167,7 @@ async function onPutaway(row: any) {
 }
 
 // 表格的json
-const _columns = [
+const columns = [
   {
     prop: 'caseCode',
     label: '方案编号',
@@ -213,48 +213,38 @@ const _columns = [
     label: '操作人',
   },
 ]
-const columns = mergeColumns(_columns, {
+const columnsConfig = {
   caseCode: {
     width: 150,
-    showOverflowTooltip: true,
   },
   caseName: {
     width: 150,
-    showOverflowTooltip: true,
   },
   caseType: {
     width: 100,
-    showOverflowTooltip: true,
   },
   brandCarModel: {
     width: 150,
-    showOverflowTooltip: true,
   },
   leaseTerm: {
     width: 100,
-    showOverflowTooltip: true,
   },
   rent: {
     minWidth: 100,
-    showOverflowTooltip: true,
   },
   cashPledge: {
     width: 100,
-    showOverflowTooltip: true,
   },
   expirationDate: {
     width: 150,
-    showOverflowTooltip: true,
   },
   caseStateMsg: {
     minWidth: 100,
-    showOverflowTooltip: true,
   },
   updateId: {
     minWidth: 100,
-    showOverflowTooltip: true,
   },
-})
+}
 
 const exportDialogVisible = ref(false)
 
@@ -297,18 +287,19 @@ watch(files, async (value) => {
   <div class="h-full p-2">
     <UseQuery
       v-slot="attrs"
+      :columns="columns"
+      :columns-config="columnsConfig"
       :data="{
         caseType: 1,
       }"
       :key-map="{ data: 'schemeList', total: 'totalCount' }"
+      :schema="schema"
       url="/order/scheme/getSchemeList"
     >
       <QueryProvide
         v-bind="attrs"
         ref="queryRef"
         auto-query="active"
-        :columns="columns"
-        :schema="schema"
       >
         <QueryForm :scope="{ useSelectAsyncDataSource, getCityList }" />
         <QueryToolbar>

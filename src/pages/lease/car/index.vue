@@ -62,39 +62,30 @@ const columns = [
 const columnsConfig = {
   licensePlateNumber: {
     width: 150,
-    showOverflowTooltip: true,
   },
   vehicleModel: {
     width: 200,
-    showOverflowTooltip: true,
   },
   vehicleFrameNumber: {
     width: 150,
-    showOverflowTooltip: true,
   },
   bodyColor: {
-    width: 100,
-    showOverflowTooltip: true,
+    minWidth: 100,
   },
   vehicleService: {
     width: 200,
-    showOverflowTooltip: true,
   },
   city: {
-    width: 100,
-    showOverflowTooltip: true,
+    minWidth: 100,
   },
   vehicleState: {
-    width: 100,
-    showOverflowTooltip: true,
+    minWidth: 100,
   },
   createTime: {
     width: 200,
-    showOverflowTooltip: true,
   },
   updateTime: {
     width: 200,
-    showOverflowTooltip: true,
   },
 }
 

@@ -65,43 +65,36 @@ const columns = [
 const columnsConfig = {
   caseCode: {
     width: 150,
-    showOverflowTooltip: true,
   },
   leaseTerm: {
     width: 150,
-    showOverflowTooltip: true,
   },
   cashPledge: {
-    width: 150,
+    minWidth: 150,
   },
   updateTime: {
     width: 150,
-    showOverflowTooltip: true,
   },
   vinNo: {
     width: 150,
-    showOverflowTooltip: true,
   },
   rent: {
-    width: 150,
+    minWidth: 150,
   },
   leaseOrderNo: {
     width: 150,
-    showOverflowTooltip: true,
   },
   licensePlateNumber: {
     width: 150,
   },
   createTime: {
     width: 150,
-    showOverflowTooltip: true,
   },
   driverName: {
-    width: 150,
+    minWidth: 150,
   },
   startTime: {
     width: 150,
-    showOverflowTooltip: true,
   },
   orderStatue: {
     width: 150,
@@ -111,7 +104,6 @@ const columnsConfig = {
   },
   endTime: {
     width: 150,
-    showOverflowTooltip: true,
   },
 }
 </script>
