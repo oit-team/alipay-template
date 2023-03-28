@@ -22,6 +22,10 @@ const props = defineProps({
     }),
   },
   columnsConfig: Object as PropType<Record<string, any>>,
+  showOverflowTooltip: {
+    type: Boolean,
+    default: true,
+  },
 })
 
 const total = ref(0)
@@ -52,9 +56,13 @@ async function onQuery(options: QueryOptions) {
 
 const columnsMerged = computed(() => {
   const columns = props.columns ?? columnsForQuery.value
-  return props.columnsConfig
+  const merged = props.columnsConfig
     ? mergeColumns(columns, props.columnsConfig)
     : columns
+  return merged.map((item: any) => ({
+    ...item,
+    showOverflowTooltip: props.showOverflowTooltip,
+  }))
 })
 </script>
 

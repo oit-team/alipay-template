@@ -70,43 +70,33 @@ const columns = [
 const columnsConfig = {
   workCode: {
     width: 250,
-    showOverflowTooltip: true,
   },
   workName: {
     width: 100,
-    showOverflowTooltip: true,
   },
   orderCode: {
     width: 150,
-    showOverflowTooltip: true,
   },
   taskName: {
     width: 100,
-    showOverflowTooltip: true,
   },
   flowCode: {
     width: 150,
-    showOverflowTooltip: true,
   },
   statusName: {
     width: 100,
-    showOverflowTooltip: true,
   },
   licensePlateNumber: {
     width: 150,
-    showOverflowTooltip: true,
   },
   driverName: {
     width: 100,
-    showOverflowTooltip: true,
   },
   city: {
     width: 100,
-    showOverflowTooltip: true,
   },
   createDate: {
     width: 150,
-    showOverflowTooltip: true,
   },
 }
 </script>
