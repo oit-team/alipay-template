@@ -14,7 +14,7 @@ specifiers:
   '@types/mime': ^3.0.1
   '@types/node': ^18.15.5
   '@unocss/reset': ^0.50.6
-  '@uxuip/element-plus-query': 0.0.5
+  '@uxuip/element-plus-query': 0.0.7
   '@uxuip/eslint-config': ^0.1.7
   '@vitejs/plugin-vue': ^4.1.0
   '@vitejs/plugin-vue-jsx': ^3.0.1
@@ -60,7 +60,7 @@ dependencies:
   '@formily/element-plus': 1.0.0-beta.8_fbiusmgbpedyibgqwr2yj4u2hy
   '@formily/vue': 2.2.21_fbiusmgbpedyibgqwr2yj4u2hy
   '@oit/utils': 0.1.0
-  '@uxuip/element-plus-query': 0.0.5_fimje5fbp73yiv4amscsas6eee
+  '@uxuip/element-plus-query': 0.0.7_fimje5fbp73yiv4amscsas6eee
   '@vue/composition-api': 1.7.1_vue@3.2.47
   '@vueuse/core': 9.13.0_nl35ja3bquglpolb4ogn4n6pq4
   '@vueuse/integrations': 9.13.0_rplmerq4sp57pfbyojdljwtjsy
@@ -1146,8 +1146,8 @@ packages:
       vue-i18n:
         optional: true
     dependencies:
-      '@intlify/message-compiler': 9.3.0-beta.16
-      '@intlify/shared': 9.3.0-beta.16
+      '@intlify/message-compiler': 9.3.0-beta.17
+      '@intlify/shared': 9.3.0-beta.17
       acorn: 8.8.2
       estree-walker: 2.0.2
       jsonc-eslint-parser: 1.4.1
@@ -1179,11 +1179,11 @@ packages:
       '@intlify/shared': 9.2.2
       source-map: 0.6.1
 
-  /@intlify/message-compiler/9.3.0-beta.16:
-    resolution: {integrity: sha512-CGQI3xRcs1ET75eDQ0DUy3MRYOqTauRIIgaMoISKiF83gqRWg93FqN8lGMKcpBqaF4tI0JhsfosCaGiBL9+dnw==}
+  /@intlify/message-compiler/9.3.0-beta.17:
+    resolution: {integrity: sha512-i7hvVIRk1Ax2uKa9xLRJCT57to08OhFMhFXXjWN07rmx5pWQYQ23MfX1xgggv9drnWTNhqEiD+u4EJeHoS5+Ww==}
     engines: {node: '>= 14'}
     dependencies:
-      '@intlify/shared': 9.3.0-beta.16
+      '@intlify/shared': 9.3.0-beta.17
       source-map: 0.6.1
     dev: true
 
@@ -1191,8 +1191,8 @@ packages:
     resolution: {integrity: sha512-wRwTpsslgZS5HNyM7uDQYZtxnbI12aGiBZURX3BTR9RFIKKRWpllTsgzHWvj3HKm3Y2Sh5LPC1r0PDCKEhVn9Q==}
     engines: {node: '>= 14'}
 
-  /@intlify/shared/9.3.0-beta.16:
-    resolution: {integrity: sha512-kXbm4svALe3lX+EjdJxfnabOphqS4yQ1Ge/iIlR8tvUiYRCoNz3hig1M4336iY++Dfx5ytEQJPNjIcknNIuvig==}
+  /@intlify/shared/9.3.0-beta.17:
+    resolution: {integrity: sha512-mscf7RQsUTOil35jTij4KGW1RC9SWQjYScwLxP53Ns6g24iEd5HN7ksbt9O6FvTmlQuX77u+MXpBdfJsGqizLQ==}
     engines: {node: '>= 14'}
     dev: true
 
@@ -1212,7 +1212,7 @@ packages:
         optional: true
     dependencies:
       '@intlify/bundle-utils': 5.3.1_vue-i18n@9.2.2
-      '@intlify/shared': 9.3.0-beta.16
+      '@intlify/shared': 9.3.0-beta.17
       '@rollup/pluginutils': 5.0.2
       '@vue/compiler-sfc': 3.2.47
       debug: 4.3.4
@@ -1902,8 +1902,8 @@ packages:
       - rollup
     dev: true
 
-  /@uxuip/element-plus-query/0.0.5_fimje5fbp73yiv4amscsas6eee:
-    resolution: {integrity: sha512-6ebBMi64YE16Tl9jejsWuxtSomzwhV6p3bNso5wDyzpJsCLp0AQAxUE7cN/oAd0QuugU9ZOsdLH6NfnZCgFD4w==}
+  /@uxuip/element-plus-query/0.0.7_fimje5fbp73yiv4amscsas6eee:
+    resolution: {integrity: sha512-upq7w5uiQZZxv9tj8XWq7d0u9bNDkNMRcohBLLZNQDXXdhlGgknqWhw/hPbe2hUAJujHE7FkhothEhpdp30a1g==}
     dependencies:
       '@element-plus/icons-vue': 2.1.0_vue@3.2.47
       '@formily/core': 2.2.21
