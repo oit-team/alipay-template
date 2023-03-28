@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { FormProvider } from '@formily/vue'
 import schema from './schema/form.json'
-import type { UploadUserFile } from 'element-plus'
-import { handleSubmitFailed, setFieldDataSource, transformUploadData } from '@/utils/actions'
+import { handleSubmitFailed, setFieldDataSource } from '@/utils/actions'
 import { getCityList, getUserKeyWord } from '@/reactions'
 
 const route = useRoute()
@@ -13,23 +12,6 @@ const isNew = route.params.id === 'new'
 const form = createForm({
   validateFirst: true,
 })
-
-// 临时删除JSON
-// "driverOperate": {
-//               "title": "所属运营商",
-//               "x-decorator": "FormItem",
-//               "x-component": "Input",
-//               "x-index": 4,
-//               "name": "driverOperate"
-//             },
-// "driverFleet": {
-//               "type": "string",
-//               "title": "所属车队",
-//               "x-decorator": "FormItem",
-//               "x-component": "Input",
-//               "x-index": 6,
-//               "name": "driverFleet"
-//             },
 
 const getData = async () => {
   const { data } = await axios.post('/driverServer/driver/getDriverMap', {
@@ -49,69 +31,11 @@ const getData = async () => {
     },
   ])
 
-  if (data.driverIdentity?.identityImg) {
-    data.driverIdentity.identityImg = [{
-      name: 'details',
-      url: data.driverIdentity?.identityImg[0] || '',
-      status: 'success',
-    }] as UploadUserFile[]
-  }
-  if (data.driverIdentity?.identityReverse) {
-    data.driverIdentity.identityReverse = [{
-      name: 'details',
-      url: data.driverIdentity?.identityReverse[0] || '',
-      status: 'success',
-    }] as UploadUserFile[]
-  }
-  if (data.driverIdentity?.identityStraight) {
-    data.driverIdentity.identityStraight = [{
-      name: 'details',
-      url: data.driverIdentity?.identityStraight[0] || '',
-      status: 'success',
-    }] as UploadUserFile[]
-  }
-  if (data.driveLicense?.driveLicenseAssistant) {
-    data.driveLicense.driveLicenseAssistant = [{
-      name: 'details',
-      url: data.driveLicense?.driveLicenseAssistant[0] || '',
-      status: 'success',
-    }] as UploadUserFile[]
-  }
-  if (data.driveLicense?.driveLicenseHost) {
-    data.driveLicense.driveLicenseHost = [{
-      name: 'details',
-      url: data.driveLicense?.driveLicenseHost[0] || '',
-      status: 'success',
-    }] as UploadUserFile[]
-  }
-  if (data.driverQualifica?.certificateImg) {
-    data.driverQualifica.certificateImg = [{
-      name: 'details',
-      url: data.driverQualifica?.certificateImg[0] || '',
-      status: 'success',
-    }] as UploadUserFile[]
-  }
-
   form.setInitialValues(data)
 }
 !isNew && getData()
 
 async function submit(form: any) {
-  if (form.driverIdentity.identityImg?.length)
-    form.driverIdentity.identityImg = transformUploadData(form.driverIdentity.identityImg)?.[0].url
-  if (form.driverIdentity.identityReverse?.length)
-    form.driverIdentity.identityReverse = transformUploadData(form.driverIdentity.identityReverse)?.[0].url
-  if (form.driverIdentity.identityStraight?.length)
-    form.driverIdentity.identityStraight = transformUploadData(form.driverIdentity.identityStraight)?.[0].url
-
-  if (form.driveLicense.driveLicenseAssistant?.length)
-    form.driveLicense.driveLicenseAssistant = transformUploadData(form.driveLicense.driveLicenseAssistant)?.[0].url
-  if (form.driveLicense.driveLicenseHost?.length)
-    form.driveLicense.driveLicenseHost = transformUploadData(form.driveLicense.driveLicenseHost)?.[0].url
-
-  if (form.driverQualifica.certificateImg?.length)
-    form.driverQualifica.certificateImg = transformUploadData(form.driverQualifica.certificateImg)?.[0].url
-
   await axios.post(
     isNew
       ? '/driverServer/driver/addDriverInfo'

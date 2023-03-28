@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { FormProvider } from '@formily/vue'
 import schema from './schema/editPageForm.json'
-import type { UploadUserFile } from 'element-plus'
 import type { AsyncDataSourceService } from '@/reactions'
-import { handleSubmitFailed, transformUploadData } from '@/utils/actions'
+import { handleSubmitFailed } from '@/utils/actions'
 
 const route = useRoute()
 const router = useRouter()
@@ -21,15 +20,6 @@ const getData = async () => {
     const { data } = await axios.post('/system/user/getUserById', {
       userId: route.params.id,
     })
-
-    if (data.headPortrait) {
-      data.headPortrait = [{
-        name: 'avatar',
-        url: data.headPortrait || '',
-        status: 'success',
-      }] as UploadUserFile[]
-    }
-
     form.setInitialValues({
       ...data,
     })
@@ -49,18 +39,14 @@ const getTreeOrgList: AsyncDataSourceService = async () => {
 }
 
 async function submit(form: any) {
-  const params = {
-    ...form,
-    headPortrait: transformUploadData(form.headPortrait)?.[0].url,
-  }
-
   if (isNew)
-    params.deptId = route.query.deptId
+    form.deptId = route.query.deptId
+
   await axios.post(
     isNew
       ? '/system/user/addUserInfo'
       : '/system/user/updateUserById',
-    params,
+    form,
   )
   ElMessage.success(t('save.success'))
   router.push('/system/manage')
