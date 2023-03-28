@@ -127,7 +127,6 @@ const infoMap = [
   },
 ]
 const labelWidth = ref('180px')
-const itemWidth = ref('220px')
 const data = ref()
 
 // 反显t3详情合同模板
@@ -190,7 +189,6 @@ async function submit(formData: any) {
         border
         :data="data"
         default-text="无"
-        :item-width="itemWidth"
         :label-width="labelWidth"
         :options="infoMap"
       >

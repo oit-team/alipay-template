@@ -113,7 +113,7 @@ const columnsConfig = {
     showOverflowTooltip: true,
   },
   orderType: {
-    width: 100,
+    minWidth: 100,
     showOverflowTooltip: true,
   },
   t3CreatTime: {
@@ -140,7 +140,7 @@ const columnsConfig = {
     showOverflowTooltip: true,
   },
   driverName: {
-    width: 100,
+    minWidth: 100,
     showOverflowTooltip: true,
   },
   driverMobileNumber: {

@@ -105,7 +105,7 @@
       },
       "name": "leasingCity",
       "x-designable-id": "2nlwc2j6a8t",
-      "x-reactions": "{{useSelectAsyncDataSource(loadData)}}",
+      "x-reactions": "{{useSelectAsyncDataSource(loadData, {init: true})}}",
       "x-index": 4,
       "required": true
     },

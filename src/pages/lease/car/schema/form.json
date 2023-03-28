@@ -52,7 +52,7 @@
                 "reserve-keyword": true,
                 "remote-show-suffix": true
               },
-              "x-reactions": "{{useSelectAsyncDataSource(getVehicleBrandSeriesModel)}}",
+              "x-reactions": "{{useSelectAsyncDataSource(getVehicleBrandSeriesModel, {init: true})}}",
               "x-decorator-props": {
                 "colon": false
               },

@@ -314,7 +314,7 @@ const columnsConfig = {
     showOverflowTooltip: true,
   },
   cashPledge: {
-    width: 150,
+    minWidth: 150,
   },
   updateTime: {
     width: 150,
@@ -325,7 +325,7 @@ const columnsConfig = {
     showOverflowTooltip: true,
   },
   rent: {
-    width: 150,
+    minWidth: 150,
   },
   leaseOrderNo: {
     width: 150,
@@ -339,7 +339,7 @@ const columnsConfig = {
     showOverflowTooltip: true,
   },
   driverName: {
-    width: 150,
+    minWidth: 150,
   },
   startTime: {
     width: 150,

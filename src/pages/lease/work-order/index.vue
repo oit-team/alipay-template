@@ -69,7 +69,7 @@ const columns = [
 ]
 const columnsConfig = {
   workCode: {
-    width: 250,
+    width: 150,
   },
   workName: {
     width: 100,

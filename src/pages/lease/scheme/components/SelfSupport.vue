@@ -105,7 +105,7 @@ const columns = mergeColumns(_columns, {
     showOverflowTooltip: true,
   },
   rent: {
-    width: 100,
+    minWidth: 100,
     showOverflowTooltip: true,
   },
   cashPledge: {
@@ -117,11 +117,11 @@ const columns = mergeColumns(_columns, {
     showOverflowTooltip: true,
   },
   caseStateMsg: {
-    width: 100,
+    minWidth: 100,
     showOverflowTooltip: true,
   },
   updateId: {
-    width: 100,
+    minWidth: 100,
     showOverflowTooltip: true,
   },
 })
