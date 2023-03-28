@@ -5,23 +5,22 @@ import { notSavedTips, transformUploadData } from '@/utils/actions'
 
 const route = useRoute()
 const { t } = useI18n()
-const type = ref()
+const type = ref(1) // 暂时默认只有T3
 const showDrawer = ref(false)
 
 const extraMap = [
   // { prop: 'vehicleId', label: '车辆id' },
-  { prop: 'transporteCardNumber', label: '运输证编号' },
+  // { prop: 'transporteCardNumber', label: '运输证编号' },
   { prop: 'assetCompany', label: '资产公司' },
-  { prop: 'operator', label: '运营商' },
-  { prop: 'vehicleCreditGrantor', label: '车辆授信方' },
+  // { prop: 'operator', label: '运营商' },
+  // { prop: 'vehicleCreditGrantor', label: '车辆授信方' },
   { prop: 'vehicleHolder', label: '车辆持有方' },
-  { prop: 'vehicleSupplier', label: '车辆供应商' },
+  // { prop: 'vehicleSupplier', label: '车辆供应商' },
   { prop: 'supplyMethod', label: '供应方式' },
   { prop: 'engineCode', label: '发动机/电机编号' },
   { prop: 'modelCode', label: '车型代码' },
   { prop: 'vehiclePrice', label: '车辆价格' },
-  { prop: 'keyNumber', label: '所属区域' },
-  { prop: 'serviceType', label: '钥匙号' },
+  { prop: 'keyNumber', label: '钥匙号' },
   { prop: 'city', label: '所属城市' },
   { prop: 'warehouse', label: '库房' },
   { prop: 'reservoirArea', label: '库区' },
@@ -37,10 +36,8 @@ const extraMap = [
   { prop: 'operationalTime', label: '投入运营时间' },
   { prop: 'assetType', label: '资产类型' },
   { prop: 'invoiceImgs', label: '发票照片' },
-  { prop: 'certificateImg', label: '合格证照片' },
+  { prop: 'certificateImgs', label: '合格证照片' },
   // { prop: 'replenishType', label: '补充类型' },
-  { prop: 'createTime', label: '创建时间' },
-  { prop: 'updateTime', label: '更新时间' },
 ]
 
 const labelWidth = ref('180px')
@@ -49,6 +46,7 @@ const itemWidth = ref('220px')
 const form = createForm({
   validateFirst: true,
 })
+
 // 查询补充类型信息
 const { data: typeList } = useAxios('/driverServer/replenish/getReplenishTypeList', {
   method: 'POST',
@@ -57,40 +55,51 @@ const { data: typeList } = useAxios('/driverServer/replenish/getReplenishTypeLis
   },
 })
 
-const { data: desc, execute, isLoading } = useAxios('/vehicle/vehicle/getT3VehicleReplenish', {
+const { data: desc } = useAxios('/driverServer/replenish/getReplenishTypeList', {
   method: 'POST',
-}, { immediate: false })
+  data: {
+    vehicleId: route.params.id,
+    replenishType: type.value,
+  },
+})
 const hasData = computed(() => !!desc.value?.resultList.length)
 
-watch(type, reload)
+// 暂时只有T3 所以先不监听变化逻辑
+// const { data: desc, execute, isLoading } = useAxios('/vehicle/vehicle/getT3VehicleReplenish', {
+//   method: 'POST',
+// }, { immediate: true })
+// const hasData = computed(() => !!desc.value?.resultList.length)
 
-function reload() {
-  execute({
-    data: {
-      vehicleId: route.params.id,
-      replenishType: type.value,
-    },
-  })
-}
+// watch(type, reload)
+
+// function reload() {
+//   execute({
+//     data: {
+//       vehicleId: route.params.id,
+//       replenishType: type.value,
+//     },
+//   })
+// }
 
 function openDrawer() {
   showDrawer.value = true
+
   if (hasData.value) {
     form.reset()
     // 反显
     const updateInfo = desc.value.resultList[0]
     if (updateInfo?.invoiceImgs) {
       updateInfo.invoiceImgs = [{
-        name: 'avatar',
+        name: 'invoiceImgs',
         url: updateInfo.invoiceImgs || '',
         status: 'success',
       }] as UploadUserFile[]
     }
 
-    if (updateInfo?.certificateImg) {
-      updateInfo.certificateImg = [{
-        name: 'avatar',
-        url: updateInfo.certificateImg || '',
+    if (updateInfo?.certificateImgs) {
+      updateInfo.certificateImgs = [{
+        name: 'certificateImgs',
+        url: updateInfo.certificateImgs || '',
         status: 'success',
       }] as UploadUserFile[]
     }
@@ -111,7 +120,7 @@ async function submit(form: any) {
       vehicleId: route.params.id,
       replenishType: type.value,
       invoiceImgs: transformUploadData(form.invoiceImgs)?.[0].url, // 发票照片
-      certificateImg: transformUploadData(form.certificateImg)?.[0].url, // 合格证照片
+      certificateImgs: transformUploadData(form.certificateImgs)?.[0].url, // 合格证照片
     },
   )
   showDrawer.value = false
@@ -165,7 +174,7 @@ async function submit(form: any) {
           无
         </div>
       </template>
-      <template #certificateImg="{ value }">
+      <template #certificateImgs="{ value }">
         <ElImage
           v-if="value"
           fit="cover"

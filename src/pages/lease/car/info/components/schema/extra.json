@@ -481,6 +481,106 @@
           "x-designable-id": "d7rgetr6nbj",
           "x-index": 21,
           "properties": {
+            "keyNumber": {
+              "type": "string",
+              "title": "钥匙号",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
+              "name": "keyNumber",
+              "x-designable-id": "4hxq8xtmoq6",
+              "x-index": 0
+            }
+          }
+        },
+        "jlhqk4o40ee": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "jlhqk4o40ee",
+          "x-index": 22,
+          "properties": {
+            "city": {
+              "type": "string",
+              "title": "所属城市",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
+              "name": "city",
+              "x-designable-id": "tpj9yvk449a",
+              "x-index": 0
+            }
+          }
+        },
+        "6x4l303ccy9": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-validator": [],
+          "x-component-props": {},
+          "x-designable-id": "6x4l303ccy9",
+          "x-index": 23,
+          "properties": {
+            "reservoirArea": {
+              "type": "string",
+              "title": "库区",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
+              "name": "reservoirArea",
+              "x-designable-id": "b5a7r3ya5xm",
+              "x-index": 0
+            }
+          }
+        },
+        "f91eh6uncow": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-validator": [],
+          "x-component-props": {},
+          "x-designable-id": "f91eh6uncow",
+          "x-index": 24,
+          "properties": {
+            "warehouse": {
+              "type": "string",
+              "title": "库房",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
+              "name": "warehouse",
+              "x-designable-id": "546x4ysv29m",
+              "x-index": 0
+            }
+          }
+        },
+        "7itbmi6e9i8": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "7itbmi6e9i8",
+          "x-index": 25
+        },
+        "nppe4uv7dk5": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-validator": [],
+          "x-component-props": {},
+          "x-designable-id": "nppe4uv7dk5",
+          "x-index": 26,
+          "properties": {
             "invoiceImgs": {
               "type": "Array<object>",
               "title": "发票照片",
@@ -500,37 +600,15 @@
             }
           }
         },
-        "jlhqk4o40ee": {
+        "et69jk2xerb": {
           "type": "void",
           "x-component": "FormGrid.GridColumn",
-          "x-designable-id": "jlhqk4o40ee",
-          "x-index": 22,
-          "properties": {
-            "keyNumber": {
-              "type": "string",
-              "title": "钥匙号",
-              "x-decorator": "FormItem",
-              "x-component": "Input",
-              "x-validator": [],
-              "x-component-props": {},
-              "x-decorator-props": {
-                "colon": false
-              },
-              "name": "keyNumber",
-              "x-designable-id": "4hxq8xtmoq6",
-              "x-index": 0
-            }
-          }
-        },
-        "f91eh6uncow": {
-          "type": "void",
-          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "et69jk2xerb",
+          "x-index": 27,
           "x-validator": [],
           "x-component-props": {},
-          "x-designable-id": "f91eh6uncow",
-          "x-index": 23,
           "properties": {
-            "certificateImg": {
+            "certificateImgs": {
               "type": "Array<object>",
               "title": "合格证照片",
               "x-decorator": "FormItem",
@@ -543,90 +621,8 @@
               "x-decorator-props": {
                 "colon": false
               },
-              "name": "certificateImg",
+              "name": "certificateImgs",
               "x-designable-id": "jeb7izw06u4",
-              "x-index": 0
-            }
-          }
-        },
-        "7itbmi6e9i8": {
-          "type": "void",
-          "x-component": "FormGrid.GridColumn",
-          "x-designable-id": "7itbmi6e9i8",
-          "x-index": 24,
-          "properties": {
-            "city": {
-              "type": "string",
-              "title": "所属城市",
-              "x-decorator": "FormItem",
-              "x-component": "Input",
-              "x-validator": [],
-              "x-component-props": {},
-              "x-decorator-props": {
-                "colon": false
-              },
-              "name": "city",
-              "x-designable-id": "tpj9yvk449a",
-              "x-index": 0
-            }
-          }
-        },
-        "nppe4uv7dk5": {
-          "type": "void",
-          "x-component": "FormGrid.GridColumn",
-          "x-validator": [],
-          "x-component-props": {},
-          "x-designable-id": "nppe4uv7dk5",
-          "x-index": 25
-        },
-        "et69jk2xerb": {
-          "type": "void",
-          "x-component": "FormGrid.GridColumn",
-          "x-designable-id": "et69jk2xerb",
-          "x-index": 26,
-          "properties": {
-            "warehouse": {
-              "type": "string",
-              "title": "库房",
-              "x-decorator": "FormItem",
-              "x-component": "Input",
-              "x-validator": [],
-              "x-component-props": {},
-              "x-decorator-props": {
-                "colon": false
-              },
-              "name": "warehouse",
-              "x-designable-id": "546x4ysv29m",
-              "x-index": 0
-            }
-          }
-        },
-        "dgjqwxhdqy5": {
-          "type": "void",
-          "x-component": "FormGrid.GridColumn",
-          "x-validator": [],
-          "x-component-props": {},
-          "x-designable-id": "dgjqwxhdqy5",
-          "x-index": 27
-        },
-        "o6i29el2aek": {
-          "type": "void",
-          "x-component": "FormGrid.GridColumn",
-          "x-designable-id": "o6i29el2aek",
-          "x-index": 28,
-          "properties": {
-            "reservoirArea": {
-              "type": "string",
-              "title": "库区",
-              "x-decorator": "FormItem",
-              "x-component": "Input",
-              "x-validator": [],
-              "x-component-props": {},
-              "x-decorator-props": {
-                "colon": false
-              },
-              "name": "reservoirArea",
-              "x-designable-id": "b5a7r3ya5xm",
               "x-index": 0
             }
           }
