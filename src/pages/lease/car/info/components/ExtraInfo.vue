@@ -5,7 +5,7 @@ import { notSavedTips, transformUploadData } from '@/utils/actions'
 
 const route = useRoute()
 const { t } = useI18n()
-const type = ref(1) // 暂时默认只有T3
+const type = ref()
 const showDrawer = ref(false)
 
 const extraMap = [
@@ -54,32 +54,26 @@ const { data: typeList } = useAxios('/driverServer/replenish/getReplenishTypeLis
   },
 })
 
-// 根据类型反显描述列表
-const { data: desc } = useAxios('/driverServer/replenish/getReplenishTypeList', {
-  method: 'POST',
-  data: {
-    vehicleId: route.params.id,
-    replenishType: type.value,
-  },
+watch(typeList, () => {
+  // 默认取第一项
+  type.value = typeList.value.resultList?.[0]?.replenishTypeValue
 })
+
+const { data: desc, execute, isLoading } = useAxios('/vehicle/vehicle/getT3VehicleReplenish', {
+  method: 'POST',
+}, { immediate: true })
 const hasData = computed(() => !!desc.value?.resultList.length)
 
-// 暂时只有T3 所以先不监听变化逻辑
-// const { data: desc, execute, isLoading } = useAxios('/vehicle/vehicle/getT3VehicleReplenish', {
-//   method: 'POST',
-// }, { immediate: true })
-// const hasData = computed(() => !!desc.value?.resultList.length)
+watch(type, reload)
 
-// watch(type, reload)
-
-// function reload() {
-//   execute({
-//     data: {
-//       vehicleId: route.params.id,
-//       replenishType: type.value,
-//     },
-//   })
-// }
+function reload() {
+  execute({
+    data: {
+      vehicleId: route.params.id,
+      replenishType: type.value,
+    },
+  })
+}
 
 function openDrawer() {
   showDrawer.value = true
