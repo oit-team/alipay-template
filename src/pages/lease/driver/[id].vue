@@ -2,7 +2,7 @@
 import { FormProvider } from '@formily/vue'
 import schema from './schema/form.json'
 import type { UploadUserFile } from 'element-plus'
-import { handleSubmitFailed, transformUploadData } from '@/utils/actions'
+import { handleSubmitFailed, setFieldDataSource, transformUploadData } from '@/utils/actions'
 import { getCityList, getUserKeyWord } from '@/reactions'
 
 const route = useRoute()
@@ -35,6 +35,19 @@ const getData = async () => {
   const { data } = await axios.post('/driverServer/driver/getDriverMap', {
     driverId: isNew ? null : route.params.id,
   })
+
+  setFieldDataSource(form, 'exclusiveServiceId', [
+    {
+      label: data.exclusiveService,
+      value: data.exclusiveServiceId,
+    },
+  ])
+  setFieldDataSource(form, 'salesLeaderId', [
+    {
+      label: data.salesLeader,
+      value: data.salesLeaderId,
+    },
+  ])
 
   if (data.driverIdentity?.identityImg) {
     data.driverIdentity.identityImg = [{
@@ -84,19 +97,19 @@ const getData = async () => {
 !isNew && getData()
 
 async function submit(form: any) {
-  if (form.driverIdentity.identityImg)
+  if (form.driverIdentity.identityImg?.length)
     form.driverIdentity.identityImg = transformUploadData(form.driverIdentity.identityImg)?.[0].url
-  if (form.driverIdentity.identityReverse)
+  if (form.driverIdentity.identityReverse?.length)
     form.driverIdentity.identityReverse = transformUploadData(form.driverIdentity.identityReverse)?.[0].url
-  if (form.driverIdentity.identityStraight)
+  if (form.driverIdentity.identityStraight?.length)
     form.driverIdentity.identityStraight = transformUploadData(form.driverIdentity.identityStraight)?.[0].url
 
-  if (form.driveLicense.driveLicenseAssistant)
+  if (form.driveLicense.driveLicenseAssistant?.length)
     form.driveLicense.driveLicenseAssistant = transformUploadData(form.driveLicense.driveLicenseAssistant)?.[0].url
-  if (form.driveLicense.driveLicenseHost)
+  if (form.driveLicense.driveLicenseHost?.length)
     form.driveLicense.driveLicenseHost = transformUploadData(form.driveLicense.driveLicenseHost)?.[0].url
 
-  if (form.driverQualifica.certificateImg)
+  if (form.driverQualifica.certificateImg?.length)
     form.driverQualifica.certificateImg = transformUploadData(form.driverQualifica.certificateImg)?.[0].url
 
   await axios.post(
