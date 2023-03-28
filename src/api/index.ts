@@ -43,7 +43,6 @@ export const transformResponse: AxiosResponseTransformer = (data, headers) => {
   return (
     headers['content-type'] === 'application/json'
     && data instanceof Object
-    && data.body
       ? data.body
       : data
   )

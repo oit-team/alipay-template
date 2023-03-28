@@ -1,3 +1,4 @@
+import { onFieldInitialValueChange } from '@formily/core'
 import type { Field, FieldDataSource } from '@formily/core'
 
 export interface AsyncDataSourceService {
@@ -26,17 +27,22 @@ export function useAsyncDataSource(service: AsyncDataSourceService) {
 
 export function useSelectAsyncDataSource(service: AsyncDataSourceSelectService) {
   return (field: Field) => {
+    const request = async (keyword: string) => {
+      try {
+        field.loading = true
+        const data = await service({ field, keyword })
+        field.dataSource = data
+      }
+      finally {
+        field.loading = false
+      }
+    }
+
+    onFieldInitialValueChange(field.path, () => {
+      request(field.initialValue)
+    })
     field.setComponentProps({
-      remoteMethod: async (keyword: string) => {
-        try {
-          field.loading = true
-          const data = await service({ field, keyword })
-          field.dataSource = data
-        }
-        finally {
-          field.loading = false
-        }
-      },
+      remoteMethod: request,
     })
   }
 }

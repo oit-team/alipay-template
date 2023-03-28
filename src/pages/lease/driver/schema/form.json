@@ -82,7 +82,7 @@
               "name": "exclusiveServiceId",
               "x-index": 7
             },
-            "salesLeader": {
+            "salesLeaderId": {
               "title": "销售负责人",
               "x-decorator": "FormItem",
               "x-component": "Select",
@@ -94,7 +94,7 @@
                 "reserve-keyword": true
               },
               "x-reactions": "{{useSelectAsyncDataSource(getUserKeyWord)}}",
-              "name": "salesLeader",
+              "name": "salesLeaderId",
               "x-index": 8
             }
           }
