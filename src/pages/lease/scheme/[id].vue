@@ -3,6 +3,7 @@ import { FormProvider } from '@formily/vue'
 import schema from './schema/form.json'
 import type { UploadUserFile } from 'element-plus'
 import type { AsyncDataSourceSelectService } from '@/reactions'
+import { getVehicleBrandSeriesModel } from '@/reactions'
 import { handleSubmitFailed, transformUploadData } from '@/utils/actions'
 
 const { t } = useI18n()
@@ -86,7 +87,7 @@ const loadData: AsyncDataSourceSelectService = async ({ keyword }) => {
         label-col="3"
         wrapper-col="10"
       >
-        <UseSchemaField :schema="schema" :scope="{ loadData }" />
+        <UseSchemaField :schema="schema" :scope="{ loadData, getVehicleBrandSeriesModel }" />
       </FormLayout>
       <div class="mt-auto flex justify-center py-2">
         <Submit size="large" @submit="submit" @submit-failed="handleSubmitFailed">

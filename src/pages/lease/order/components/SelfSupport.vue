@@ -282,6 +282,17 @@ const columns = [
   {
     prop: 'endTime',
     label: '终止时间',
+  }, {
+    prop: 't3OrderNo',
+    label: '关联订单',
+  },
+  {
+    prop: 'rentalWorkCode',
+    label: '租赁工单编号',
+  },
+  {
+    prop: 'returnWorkCode',
+    label: '退租工单编号',
   },
   {
     prop: 'createTime',
@@ -296,43 +307,36 @@ const columns = [
 const columnsConfig = {
   caseCode: {
     width: 150,
-    showOverflowTooltip: true,
   },
   leaseTerm: {
     width: 150,
-    showOverflowTooltip: true,
   },
   cashPledge: {
-    width: 150,
+    minWidth: 150,
   },
   updateTime: {
     width: 150,
-    showOverflowTooltip: true,
   },
   vinNo: {
     width: 150,
-    showOverflowTooltip: true,
   },
   rent: {
-    width: 150,
+    minWidth: 150,
   },
   leaseOrderNo: {
     width: 150,
-    showOverflowTooltip: true,
   },
   licensePlateNumber: {
     width: 150,
   },
   createTime: {
     width: 150,
-    showOverflowTooltip: true,
   },
   driverName: {
-    width: 150,
+    minWidth: 150,
   },
   startTime: {
     width: 150,
-    showOverflowTooltip: true,
   },
   orderStatue: {
     width: 150,
@@ -342,7 +346,15 @@ const columnsConfig = {
   },
   endTime: {
     width: 150,
-    showOverflowTooltip: true,
+  },
+  t3OrderNo: {
+    width: 150,
+  },
+  rentalWorkCode: {
+    width: 150,
+  },
+  returnWorkCode: {
+    width: 150,
   },
 }
 </script>
@@ -375,7 +387,7 @@ const columnsConfig = {
               <ElButton size="small" type="warning" @click="onRelevanceOrder(row)">
                 {{ row.isAssociated === 0 ? '关联订单' : '解除订单' }}
               </ElButton>
-              <ElButton size="small" type="danger" @click="onCancellation(row)">
+              <ElButton :disabled="row.orderStatue === 2 || row.orderStatue === 3" size="small" type="danger" @click="onCancellation(row)">
                 订单作废
               </ElButton>
             </QueryActionColumn>
@@ -407,7 +419,7 @@ const columnsConfig = {
           label-width="130px"
           :options="[
             { label: '司机id', prop: 'driverId' },
-            { label: '司机手机号', prop: 'driverMobileNumber' },
+            { label: '司机手机号', prop: 'driverPhone' },
             { label: '司机姓名', prop: 'driverName' },
             { label: '车牌号', prop: 'carNumber' },
             { label: '车架号', prop: 'vinNo' },
@@ -415,8 +427,8 @@ const columnsConfig = {
           ]"
         />
       </ElCard>
-      <div v-if="orderInfo?.isAssociated === 1" class="text-ms flex my-4">
-        <span class="text-red-500 px-2">*</span>该订单已被关联
+      <div v-if="orderInfo?.isAssociated === 1" class="text-xs flex my-4">
+        <span class="text-red-500 px-2">*该订单已被关联</span>
       </div>
       <div class="p-4 flex justify-around">
         <ElButton :disabled="!orderNo || orderInfo?.isAssociated === 1" type="primary" @click="submitRelevanceOrder()">

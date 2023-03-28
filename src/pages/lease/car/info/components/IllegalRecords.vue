@@ -65,59 +65,45 @@ const columns = [
 const columnsConfig = {
   projectName: {
     width: 150,
-    showOverflowTooltip: true,
   },
   companyName: {
     width: 150,
-    showOverflowTooltip: true,
   },
   plateNumber: {
     width: 150,
-    showOverflowTooltip: true,
   },
   violationTime: {
     width: 150,
-    showOverflowTooltip: true,
   },
   codeOfViolation: {
     width: 150,
-    showOverflowTooltip: true,
   },
   violationScore: {
-    width: 150,
-    showOverflowTooltip: true,
+    minWidth: 150,
   },
   forfeit: {
     width: 150,
-    showOverflowTooltip: true,
   },
   illegalBehavior: {
     width: 150,
-    showOverflowTooltip: true,
   },
   violationAddress: {
     width: 150,
-    showOverflowTooltip: true,
   },
   gatherOrgan: {
     width: 150,
-    showOverflowTooltip: true,
   },
   disposeState: {
     width: 150,
-    showOverflowTooltip: true,
   },
   violationRecordNumber: {
     width: 150,
-    showOverflowTooltip: true,
   },
   disposeTime: {
     width: 150,
-    showOverflowTooltip: true,
   },
   queryTime: {
     width: 150,
-    showOverflowTooltip: true,
   },
 }
 

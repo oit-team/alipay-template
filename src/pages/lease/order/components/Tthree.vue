@@ -106,69 +106,54 @@ const columns = [
 const columnsConfig = {
   orderNo: {
     width: 150,
-    showOverflowTooltip: true,
   },
   brandCarModel: {
     width: 200,
-    showOverflowTooltip: true,
   },
   orderType: {
-    width: 100,
-    showOverflowTooltip: true,
+    minWidth: 100,
   },
   t3CreatTime: {
     width: 150,
-    showOverflowTooltip: true,
   },
   actualEndDate: {
     width: 150,
-    showOverflowTooltip: true,
   },
   endDate: {
     width: 150,
-    showOverflowTooltip: true,
   },
   tenancy: {
     width: 150,
   },
   schemeNo: {
     width: 150,
-    showOverflowTooltip: true,
   },
   carNumber: {
     width: 150,
-    showOverflowTooltip: true,
   },
   driverName: {
-    width: 100,
-    showOverflowTooltip: true,
+    minWidth: 100,
   },
   driverMobileNumber: {
     width: 150,
-    showOverflowTooltip: true,
   },
   assetCompany: {
     width: 150,
-    showOverflowTooltip: true,
   },
   vinNo: {
     width: 200,
-    showOverflowTooltip: true,
   },
   deliveryDate: {
     width: 200,
-    showOverflowTooltip: true,
   },
   importUserName: {
     width: 200,
-    showOverflowTooltip: true,
   },
   monthlyRent: {
     width: 100,
   },
   importTime: {
     width: 200,
-    showOverflowTooltip: true,
   },
 }
 

@@ -59,7 +59,7 @@ const columnsMerged = computed(() => {
   const merged = props.columnsConfig
     ? mergeColumns(columns, props.columnsConfig)
     : columns
-  return merged.map((item: any) => ({
+  return merged?.map((item: any) => ({
     ...item,
     showOverflowTooltip: props.showOverflowTooltip,
   }))

@@ -69,7 +69,7 @@ const columns = [
 ]
 const columnsConfig = {
   workCode: {
-    width: 250,
+    width: 150,
   },
   workName: {
     width: 100,
@@ -118,7 +118,7 @@ const columnsConfig = {
         <QueryForm />
         <QueryTable>
           <template #actions>
-            <QueryActionColumn v-slot="{ row }" fixed="right" label="操作" width="80px">
+            <QueryActionColumn v-slot="{ row }" fixed="right" label="操作" width="120px">
               <ElButton size="small" type="success" @click="goDetail(row)">
                 {{ $t('button.info') }}
               </ElButton>

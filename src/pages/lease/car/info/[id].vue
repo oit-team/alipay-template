@@ -27,10 +27,6 @@ const transportationMap = [
 ]
 const driveLicenseMap = [
   {
-    prop: 'licensePlateNumber',
-    label: '车牌号',
-  },
-  {
     prop: 'licenseNumber',
     label: '行驶证编号',
   },
@@ -73,45 +69,24 @@ const carIdentityMap = [
     label: '车架号',
   },
   {
-    prop: 'vehicleBrand',
-    label: '车辆品牌',
-  },
-  {
-    prop: 'brandSeries',
-    label: '品牌系列',
-  },
-  {
-    prop: 'serialModelNo',
-    label: '系列型号',
+    prop: 'vehicleModel',
+    label: '品牌车系车型',
   },
   {
     prop: 'bodyColor',
     label: '车身颜色',
   },
   {
-    prop: 'vehicleType',
-    label: '车辆类型',
+    prop: 'city',
+    label: '所属城市',
   },
   {
-    prop: 'orgName',
-    label: '所属区域名称',
-  },
-  {
-    prop: 'vehicleState',
-    label: '车辆状态',
-  },
-  {
-    prop: 'stateMsg',
-    label: '状态值',
-  },
-  {
-    prop: 'belongPlatform',
-    label: '所属平台',
+    prop: 'vehicleService',
+    label: '所属车务',
   },
 ]
 
 const labelWidth = ref('180px')
-const itemWidth = ref('220px')
 const activeName = ref('baseInfo')
 
 const { data } = useAxios('/vehicle/vehicle/getVehicleDetailed', {
@@ -133,7 +108,6 @@ const { data } = useAxios('/vehicle/vehicle/getVehicleDetailed', {
                 border
                 :data="data?.vehicleDetailed"
                 default-text="无"
-                :item-width="itemWidth"
                 :label-width="labelWidth"
                 :options="carIdentityMap"
               />
@@ -145,7 +119,6 @@ const { data } = useAxios('/vehicle/vehicle/getVehicleDetailed', {
                 border
                 :data="data?.vehicleDetailed?.transporteCard"
                 default-text="无"
-                :item-width="itemWidth"
                 :label-width="labelWidth"
                 :options="transportationMap"
               >
@@ -171,7 +144,6 @@ const { data } = useAxios('/vehicle/vehicle/getVehicleDetailed', {
                 border
                 :data="data?.vehicleDetailed?.driveLicense"
                 default-text="无"
-                :item-width="itemWidth"
                 :label-width="labelWidth"
                 :options="driveLicenseMap"
               >
