@@ -36,50 +36,68 @@ const getData = async () => {
     driverId: isNew ? null : route.params.id,
   })
 
-  data.driverIdentity.identityImg = [{
-    name: 'details',
-    url: data.driverIdentity.identityImg[0] || '',
-    status: 'success',
-  }] as UploadUserFile[]
-  data.driverIdentity.identityReverse = [{
-    name: 'details',
-    url: data.driverIdentity.identityReverse[0] || '',
-    status: 'success',
-  }] as UploadUserFile[]
-  data.driverIdentity.identityStraight = [{
-    name: 'details',
-    url: data.driverIdentity.identityStraight[0] || '',
-    status: 'success',
-  }] as UploadUserFile[]
-  data.driveLicense.driveLicenseAssistant = [{
-    name: 'details',
-    url: data.driveLicense.driveLicenseAssistant[0] || '',
-    status: 'success',
-  }] as UploadUserFile[]
-  data.driveLicense.driveLicenseHost = [{
-    name: 'details',
-    url: data.driveLicense.driveLicenseHost[0] || '',
-    status: 'success',
-  }] as UploadUserFile[]
-  data.driverQualifica.certificateImg = [{
-    name: 'details',
-    url: data.driverQualifica.certificateImg[0] || '',
-    status: 'success',
-  }] as UploadUserFile[]
+  if (data.driverIdentity?.identityImg) {
+    data.driverIdentity.identityImg = [{
+      name: 'details',
+      url: data.driverIdentity?.identityImg[0] || '',
+      status: 'success',
+    }] as UploadUserFile[]
+  }
+  if (data.driverIdentity?.identityReverse) {
+    data.driverIdentity.identityReverse = [{
+      name: 'details',
+      url: data.driverIdentity?.identityReverse[0] || '',
+      status: 'success',
+    }] as UploadUserFile[]
+  }
+  if (data.driverIdentity?.identityStraight) {
+    data.driverIdentity.identityStraight = [{
+      name: 'details',
+      url: data.driverIdentity?.identityStraight[0] || '',
+      status: 'success',
+    }] as UploadUserFile[]
+  }
+  if (data.driveLicense?.driveLicenseAssistant) {
+    data.driveLicense.driveLicenseAssistant = [{
+      name: 'details',
+      url: data.driveLicense?.driveLicenseAssistant[0] || '',
+      status: 'success',
+    }] as UploadUserFile[]
+  }
+  if (data.driveLicense?.driveLicenseHost) {
+    data.driveLicense.driveLicenseHost = [{
+      name: 'details',
+      url: data.driveLicense?.driveLicenseHost[0] || '',
+      status: 'success',
+    }] as UploadUserFile[]
+  }
+  if (data.driverQualifica?.certificateImg) {
+    data.driverQualifica.certificateImg = [{
+      name: 'details',
+      url: data.driverQualifica?.certificateImg[0] || '',
+      status: 'success',
+    }] as UploadUserFile[]
+  }
 
   form.setInitialValues(data)
 }
 !isNew && getData()
 
 async function submit(form: any) {
-  form.driverIdentity.identityImg = transformUploadData(form.driverIdentity.identityImg)?.[0].url
-  form.driverIdentity.identityReverse = transformUploadData(form.driverIdentity.identityReverse)?.[0].url
-  form.driverIdentity.identityStraight = transformUploadData(form.driverIdentity.identityStraight)?.[0].url
+  if (form.driverIdentity.identityImg)
+    form.driverIdentity.identityImg = transformUploadData(form.driverIdentity.identityImg)?.[0].url
+  if (form.driverIdentity.identityReverse)
+    form.driverIdentity.identityReverse = transformUploadData(form.driverIdentity.identityReverse)?.[0].url
+  if (form.driverIdentity.identityStraight)
+    form.driverIdentity.identityStraight = transformUploadData(form.driverIdentity.identityStraight)?.[0].url
 
-  form.driveLicense.driveLicenseAssistant = transformUploadData(form.driveLicense.driveLicenseAssistant)?.[0].url
-  form.driveLicense.driveLicenseHost = transformUploadData(form.driveLicense.driveLicenseHost)?.[0].url
+  if (form.driveLicense.driveLicenseAssistant)
+    form.driveLicense.driveLicenseAssistant = transformUploadData(form.driveLicense.driveLicenseAssistant)?.[0].url
+  if (form.driveLicense.driveLicenseHost)
+    form.driveLicense.driveLicenseHost = transformUploadData(form.driveLicense.driveLicenseHost)?.[0].url
 
-  form.driverQualifica.certificateImg = transformUploadData(form.driverQualifica.certificateImg)?.[0].url
+  if (form.driverQualifica.certificateImg)
+    form.driverQualifica.certificateImg = transformUploadData(form.driverQualifica.certificateImg)?.[0].url
 
   await axios.post(
     isNew
