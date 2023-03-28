@@ -1,4 +1,3 @@
-import { onFieldInitialValueChange } from '@formily/core'
 import type { Field, FieldDataSource } from '@formily/core'
 
 export interface AsyncDataSourceService {
@@ -25,7 +24,7 @@ export function useAsyncDataSource(service: AsyncDataSourceService) {
   }
 }
 
-export function useSelectAsyncDataSource(service: AsyncDataSourceSelectService) {
+export function useSelectAsyncDataSource(service: AsyncDataSourceSelectService, options?: { init: boolean }) {
   return (field: Field) => {
     const request = async (keyword: string) => {
       try {
@@ -38,12 +37,14 @@ export function useSelectAsyncDataSource(service: AsyncDataSourceSelectService) 
       }
     }
 
-    onFieldInitialValueChange(field.path, () => {
-      request(field.initialValue)
-    })
     field.setComponentProps({
+      filterable: true,
+      remote: true,
       remoteMethod: request,
     })
+
+    // 初始化时请求一次
+    options?.init && request('')
   }
 }
 
