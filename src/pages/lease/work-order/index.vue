@@ -69,11 +69,11 @@ const columns = [
 ]
 const columnsConfig = {
   workCode: {
-    width: 250,
+    width: 200,
     showOverflowTooltip: true,
   },
   workName: {
-    width: 100,
+    width: 150,
     showOverflowTooltip: true,
   },
   orderCode: {
@@ -81,7 +81,7 @@ const columnsConfig = {
     showOverflowTooltip: true,
   },
   taskName: {
-    width: 100,
+    width: 150,
     showOverflowTooltip: true,
   },
   flowCode: {
@@ -89,7 +89,7 @@ const columnsConfig = {
     showOverflowTooltip: true,
   },
   statusName: {
-    width: 100,
+    width: 150,
     showOverflowTooltip: true,
   },
   licensePlateNumber: {
@@ -97,15 +97,15 @@ const columnsConfig = {
     showOverflowTooltip: true,
   },
   driverName: {
-    width: 100,
+    width: 150,
     showOverflowTooltip: true,
   },
   city: {
-    width: 100,
+    width: 150,
     showOverflowTooltip: true,
   },
   createDate: {
-    width: 150,
+    width: 200,
     showOverflowTooltip: true,
   },
 }
@@ -128,7 +128,7 @@ const columnsConfig = {
         <QueryForm />
         <QueryTable>
           <template #actions>
-            <QueryActionColumn v-slot="{ row }" fixed="right" label="操作" width="80px">
+            <QueryActionColumn v-slot="{ row }" fixed="right" label="操作" width="120px">
               <ElButton size="small" type="success" @click="goDetail(row)">
                 {{ $t('button.info') }}
               </ElButton>
