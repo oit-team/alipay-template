@@ -7,7 +7,7 @@ const fileTypes = {
 }
 
 interface UploadData {
-  file: File
+  file: File | FileChunk
   [key: string]: any
 }
 
