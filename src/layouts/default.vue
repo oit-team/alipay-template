@@ -1,5 +1,10 @@
 <script lang="ts" setup>
+import { useUserStore } from '@/store/user'
+
+const { profile } = useUserStore()
 const router = useRouter()
+
+const resetPwdRef = ref()
 
 interface MenuItem {
   title: string
@@ -30,21 +35,40 @@ function logout() {
   sessionStorage.clear()
   router.push('/login')
 }
+
+// function openCgPw() {
+//   console.log(555)
+// }
 </script>
 
 <template>
   <ElContainer class="h-full overflow-hidden">
     <ElHeader class="flex items-center justify-between border-b gap-3">
       <div class="flex items-center gap-3">
-        <ElAvatar :size="40" src="" />
+        <ElAvatar class="bg-white" :size="24" src="/public/image/logo.jpg" />
         <div class="font-bold text-lg">
           汽车租赁管理系统
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <ElButton link @click="logout()">
-          退出登录
-        </ElButton>
+        <ElDropdown v-if="profile?.userName">
+          <span class="el-dropdown-link">
+            {{ profile.userName }}
+          </span>
+          <template #dropdown>
+            <ElDropdownMenu>
+              <ElDropdownItem>
+                修改密码
+              </ElDropdownItem>
+              <ElDropdownItem @click="logout()">
+                退出登录
+              </ElDropdownItem>
+            </ElDropdownMenu>
+          </template>
+        </ElDropdown>
+        <div v-else @click="$router.push('./login')">
+          去登录
+        </div>
       </div>
     </ElHeader>
 
@@ -100,5 +124,7 @@ function logout() {
         </div>
       </ElMain>
     </ElContainer>
+
+    <ResetPassword ref="resetPwdRef" />
   </ElContainer>
 </template>
