@@ -163,6 +163,9 @@ const driverIdentityMap = [
   },
 ]
 
+// 图片预览
+const srcList = ref<any>([])
+
 const { data } = useAxios('/driverServer/driver/getDriverMap', {
   method: 'POST',
   data: { driverId: route.params.id },
@@ -184,13 +187,13 @@ const { data } = useAxios('/driverServer/driver/getDriverMap', {
           :options="driverIdentityMap"
         >
           <template #identityImg="{ value }">
-            <ElImage :src="value" />
+            <ElImage class="all_img" :preview-src-list="srcList" :src="value" @click="srcList = [value]" />
           </template>
           <template #identityStraight="{ value }">
-            <ElImage :src="value" />
+            <ElImage class="all_img" :preview-src-list="srcList" :src="value" @click="srcList = [value]" />
           </template>
           <template #identityReverse="{ value }">
-            <ElImage :src="value" />
+            <ElImage class="all_img" :preview-src-list="srcList" :src="value" @click="srcList = [value]" />
           </template>
         </Descriptions>
         <ElEmpty v-else />
@@ -204,10 +207,10 @@ const { data } = useAxios('/driverServer/driver/getDriverMap', {
           :options="driveLicenseMap"
         >
           <template #driveLicenseHost="{ value }">
-            <ElImage :src="value" />
+            <ElImage class="all_img" :preview-src-list="srcList" :src="value" @click="srcList = [value]" />
           </template>
           <template #driveLicenseAssistant="{ value }">
-            <ElImage :src="value" />
+            <ElImage class="all_img" :preview-src-list="srcList" :src="value" @click="srcList = [value]" />
           </template>
         </Descriptions>
         <ElEmpty v-else />
@@ -221,7 +224,7 @@ const { data } = useAxios('/driverServer/driver/getDriverMap', {
           :options="driverQualificaMap"
         >
           <template #certificateImg="{ value }">
-            <ElImage :src="value" />
+            <ElImage class="all_img" :preview-src-list="srcList" :src="value" @click="srcList = [value]" />
           </template>
         </Descriptions>
         <ElEmpty v-else />
@@ -229,3 +232,10 @@ const { data } = useAxios('/driverServer/driver/getDriverMap', {
     </ElCollapse>
   </div>
 </template>
+
+<style lang="scss" scoped>
+:deep(.all_img){
+  width: 150px;
+  height: 150px;
+}
+</style>
