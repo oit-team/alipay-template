@@ -65,9 +65,6 @@ export const getCityList: AsyncDataSourceSelectService = async ({ keyword }) => 
  * 获取车务
  */
 export const vehicleServiceList: AsyncDataSourceSelectService = async ({ keyword }) => {
-  if (!keyword)
-    return []
-
   const { data } = await axios.post('/system/user/getUserByKeyword', { keyWord: keyword })
   return data.result.map((item: any) => ({
     label: item.userName,
