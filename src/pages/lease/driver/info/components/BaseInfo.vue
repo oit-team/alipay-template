@@ -187,13 +187,13 @@ const { data } = useAxios('/driverServer/driver/getDriverMap', {
           :options="driverIdentityMap"
         >
           <template #identityImg="{ value }">
-            <ElImage class="all_img" :preview-src-list="srcList" :src="value" @click="srcList = [value]" />
+            <ElImage class="all_img" :preview-src-list="srcList" :src="value[0]" @click="srcList = [value]" />
           </template>
           <template #identityStraight="{ value }">
-            <ElImage class="all_img" :preview-src-list="srcList" :src="value" @click="srcList = [value]" />
+            <ElImage class="all_img" :preview-src-list="srcList" :src="value[0]" @click="srcList = [value]" />
           </template>
           <template #identityReverse="{ value }">
-            <ElImage class="all_img" :preview-src-list="srcList" :src="value" @click="srcList = [value]" />
+            <ElImage class="all_img" :preview-src-list="srcList" :src="value[0]" @click="srcList = [value]" />
           </template>
         </Descriptions>
         <ElEmpty v-else />
@@ -207,10 +207,10 @@ const { data } = useAxios('/driverServer/driver/getDriverMap', {
           :options="driveLicenseMap"
         >
           <template #driveLicenseHost="{ value }">
-            <ElImage class="all_img" :preview-src-list="srcList" :src="value" @click="srcList = [value]" />
+            <ElImage class="all_img" :preview-src-list="srcList" :src="value[0]" @click="srcList = [value]" />
           </template>
           <template #driveLicenseAssistant="{ value }">
-            <ElImage class="all_img" :preview-src-list="srcList" :src="value" @click="srcList = [value]" />
+            <ElImage class="all_img" :preview-src-list="srcList" :src="value[0]" @click="srcList = [value]" />
           </template>
         </Descriptions>
         <ElEmpty v-else />
@@ -224,7 +224,7 @@ const { data } = useAxios('/driverServer/driver/getDriverMap', {
           :options="driverQualificaMap"
         >
           <template #certificateImg="{ value }">
-            <ElImage class="all_img" :preview-src-list="srcList" :src="value" @click="srcList = [value]" />
+            <ElImage class="all_img" :preview-src-list="srcList" :src="value[0]" @click="srcList = [value]" />
           </template>
         </Descriptions>
         <ElEmpty v-else />
