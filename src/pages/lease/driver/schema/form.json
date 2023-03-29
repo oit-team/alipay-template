@@ -130,7 +130,10 @@
               "x-decorator": "FormItem",
               "x-component": "Upload",
               "x-component-props": {
-                "textContent": "Upload"
+                "textContent": "Upload",
+                "format": "url",
+                "limit": 1,
+                "accept": "image/*"
               },
               "x-index": 2
             },
@@ -140,7 +143,10 @@
               "x-decorator": "FormItem",
               "x-component": "Upload",
               "x-component-props": {
-                "textContent": "Upload"
+                "textContent": "Upload",
+                "format": "url",
+                "limit": 1,
+                "accept": "image/*"
               },
               "x-index": 3
             },
@@ -150,7 +156,10 @@
               "x-decorator": "FormItem",
               "x-component": "Upload",
               "x-component-props": {
-                "textContent": "Upload"
+                "textContent": "Upload",
+                "format": "url",
+                "limit": 1,
+                "accept": "image/*"
               },
               "x-index": 4
             }
@@ -208,7 +217,10 @@
               "x-decorator": "FormItem",
               "x-component": "Upload",
               "x-component-props": {
-                "textContent": "Upload"
+                "textContent": "Upload",
+                "format": "url",
+                "limit": 1,
+                "accept": "image/*"
               },
               "x-index": 5
             },
@@ -218,7 +230,10 @@
               "x-decorator": "FormItem",
               "x-component": "Upload",
               "x-component-props": {
-                "textContent": "Upload"
+                "textContent": "Upload",
+                "format": "url",
+                "limit": 1,
+                "accept": "image/*"
               },
               "x-index": 6
             }
@@ -290,7 +305,10 @@
               "x-decorator": "FormItem",
               "x-component": "Upload",
               "x-component-props": {
-                "textContent": "Upload"
+                "textContent": "Upload",
+                "format": "url",
+                "limit": 1,
+                "accept": "image/*"
               },
               "x-index": 7
             }
