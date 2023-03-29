@@ -10,6 +10,7 @@
       "x-component-props": {
         "maxLength": 50
       },
+      "default": "江西浪汛月凌科技发展有限公司",
       "x-decorator-props": {
         "layout": "horizontal",
         "colon": false
@@ -51,12 +52,12 @@
         {
           "children": [],
           "label": "自营",
-          "value": 0
+          "value": "0"
         },
         {
           "children": [],
           "label": "T3",
-          "value": 1
+          "value": "1"
         }
       ],
       "x-designable-id": "l4xbtsr2vu2",
@@ -65,7 +66,7 @@
       "name": "caseType",
       "default": ""
     },
-    "brandCarModel": {
+    "brandCarModelId": {
       "type": "string",
       "title": "品牌车系车型",
       "x-decorator": "FormItem",
@@ -79,7 +80,7 @@
         "reserve-keyword": true,
         "remote-show-suffix": true
       },
-      "x-reactions": "{{useSelectAsyncDataSource(getVehicleBrandSeriesModel)}}",
+      "x-reactions": "{{useSelectAsyncDataSource(getVehicleBrandSeriesModel, {init: true})}}",
       "x-decorator-props": {
         "colon": false
       },
@@ -209,8 +210,7 @@
       "x-component-props": {
         "textContent": "Upload",
         "limit": 1,
-        "format": "url",
-        "accept": "image/*"
+        "format": "url"
       },
       "x-validator": [],
       "x-decorator-props": {
@@ -228,8 +228,8 @@
       "x-component-props": {
         "textContent": "Upload",
         "limit": 1,
-        "format": "url",
-        "accept": "image/*"
+        "format": "url"
+
       },
       "x-validator": [],
       "x-decorator-props": {
