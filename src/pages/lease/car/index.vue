@@ -174,10 +174,10 @@ watch(files, async (value) => {
               <ElButton size="small" type="info" @click="$router.push(`./car/info/${row.vehicleId}`)">
                 {{ $t('button.info') }}
               </ElButton>
-              <ElButton size="small" type="primary" @click="$router.push(`./car/${row.vehicleId}`)">
+              <ElButton :disabled="row.vehicleStateVal === 1" size="small" type="primary" @click="$router.push(`./car/${row.vehicleId}`)">
                 {{ $t('button.edit') }}
               </ElButton>
-              <ElButton size="small" type="danger" @click="onDelete(row)">
+              <ElButton :disabled="row.vehicleStateVal === 1" size="small" type="danger" @click="onDelete(row)">
                 {{ $t('button.delete') }}
               </ElButton>
             </QueryActionColumn>

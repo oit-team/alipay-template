@@ -25,7 +25,7 @@ const getDetailInfo = async () => {
     })
   }
 }
-getDetailInfo()
+!isNew && getDetailInfo()
 
 async function submit(formData: any) {
   await ElMessageBox.confirm('确定要提交吗?', '提示', {
