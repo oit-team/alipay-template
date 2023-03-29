@@ -93,24 +93,32 @@ const onSubmit = async (form: any) => {
 </script>
 
 <template>
-  <div class="grid place-content-center h-full login">
-    <ElCard class="w-400px p-6">
-      <FormProvider :form="form">
-        <FormLayout label-col="5">
-          <SchemaField :schema="schema" />
-          <FormButtonGroup align-form-item>
-            <Submit @submit="onSubmit">
-              登录
-            </Submit>
-          </FormButtonGroup>
-        </FormLayout>
-      </FormProvider>
+  <div class="grid place-content-center h-full ">
+    <ElCard class="w-780px box-border login ">
+      <div class="flex justify-between">
+        <div class="h-full w-1/2" />
+        <div class="h-[45vh] w-1/2 p-2 bg-white flex flex-col justify-center items-center">
+          <div class="mb-4 text-[#4860be] text-3xl">
+            浪 汛 车 行
+          </div>
+          <FormProvider :form="form">
+            <FormLayout label-col="5">
+              <SchemaField :schema="schema" />
+              <FormButtonGroup align-form-item class="w-full">
+                <Submit @submit="onSubmit">
+                  登录
+                </Submit>
+              </FormButtonGroup>
+            </FormLayout>
+          </FormProvider>
+        </div>
+      </div>
     </ElCard>
   </div>
 </template>
 
 <style scoped lang="scss">
 .login{
-  // background: url('../../public/login-bg.jpg') center no-repeat;
+  background: center / contain no-repeat url("../../public/image/login-bg.jpg");
 }
 </style>
