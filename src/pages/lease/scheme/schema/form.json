@@ -203,7 +203,7 @@
     },
     "agencyDeductionTemplateUrl": {
       "type": "Array<object>",
-      "title": "代扣模板地址",
+      "title": "代扣模板",
       "x-decorator": "FormItem",
       "x-component": "Upload",
       "x-component-props": {
@@ -222,7 +222,7 @@
     },
     "contractTemplateUrl": {
       "type": "Array<object>",
-      "title": "合同模板地址",
+      "title": "合同模板",
       "x-decorator": "FormItem",
       "x-component": "Upload",
       "x-component-props": {
