@@ -5,7 +5,6 @@ meta:
 
 <script setup lang="ts">
 import schema from './schema/self.json'
-import { mergeColumns } from '@/utils/helper'
 import { getCityList, useSelectAsyncDataSource } from '@/reactions'
 
 const queryRef = ref()
