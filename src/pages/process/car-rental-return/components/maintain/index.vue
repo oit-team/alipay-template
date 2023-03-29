@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { pick } from 'lodash-es'
-import { workOrderInfoSymbol, workOrderSubmitSymbol } from '../../types'
+import { workOrderInfoSymbol, workOrderSubmitSymbol } from '../../../types'
 import table from './schema/table.json'
 import Upload from '@/components/FUpload'
 import { transformToUploadFiles, transformUploadData } from '@/utils/actions'
@@ -14,11 +14,7 @@ const workOrderInfo = inject(workOrderInfoSymbol)
 const workOrderReview = inject('workOrderReview') as Ref<any>
 
 watch(workOrderReview, (data) => {
-  const initData = {
-  }
-  form.setInitialValues({
-    ...initData,
-  })
+  form.setInitialValues(data)
   form.readOnly = !!workOrderInfo?.value.isReview
 }, { immediate: true })
 
@@ -73,7 +69,7 @@ async function reject() {
     <FormProvider :form="form">
       <Form class="h-full" preview-text-placeholder="暂无">
         <PageHeader title="申请退租">
-          <template #extra>
+          <template v-if="!workOrderInfo?.isReview" #extra>
             <ElButton type="danger" @click="reject()">
               拒绝
             </ElButton>
