@@ -28,6 +28,8 @@ const workOrderReview = inject('workOrderReview') as Ref<any>
 
 watch(workOrderReview, (data) => {
   const initData = data?.returnVehicleOrderMap
+  vehicleId.value = initData.vehicleId
+  vehicleList.value = data?.resultList
   form.setInitialValues({
     ...initData,
     appendix: transformToUploadFiles(initData?.appendix),
@@ -73,7 +75,7 @@ async function submit(data: any) {
               placeholder="请输入内容搜索"
               :readonly="workOrderInfo?.isReview"
               remote
-              :remote-method="(v: any) => v && getVehicleList({ data: { licensePlateNumber: v, pageSize: 10, pageNum: 1 } })"
+              :remote-method="(v: any) => getVehicleList({ data: { licensePlateNumber: v, pageSize: 10, pageNum: 1 } })"
               remote-show-suffix
               reserve-keyword
             >
