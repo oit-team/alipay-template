@@ -90,7 +90,7 @@ async function reject() {
                             v-for="field of [
                               { name: '应收金额', key: 'receivable', validator: 'number' },
                               { name: '已收金额', key: 'netReceipts', validator: 'number' },
-                              { name: '小计', key: 'subtotal' },
+                              { name: '金额小计', key: 'subtotal' },
                               { name: '负责人', key: 'subtotal' },
                               { name: '备注', key: 'remarks', required: false },
                             ]"
@@ -124,7 +124,7 @@ async function reject() {
                           <Field
                             v-for="field of [
                               { name: '信息', key: 'receivable' },
-                              { name: '小计', key: 'subtotal' },
+                              { name: '金额小计', key: 'subtotal' },
                               { name: '负责人', key: 'subtotal' },
                               { name: '备注', key: 'remarks', required: false },
                             ]"
@@ -167,7 +167,7 @@ async function reject() {
                           </div>
                           <Field
                             v-for="field of [
-                              { name: '小计', key: 'subtotal' },
+                              { name: '金额小计', key: 'subtotal' },
                               { name: '负责人', key: 'subtotal' },
                               { name: '备注', key: 'remarks', required: false },
                             ]"

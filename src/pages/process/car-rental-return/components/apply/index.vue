@@ -102,7 +102,7 @@ async function submit(data: any) {
         />
       </ElCard>
 
-      <ElCard class="whitespace-nowrap">
+      <ElCard class="whitespace-nowrap" header="租金">
         <FormLayout class="p-2">
           <ObjectField name="supplementaryData">
             <div
@@ -112,9 +112,6 @@ async function submit(data: any) {
               :key="item.groupKey"
               class="flex"
             >
-              <div class="mt-1">
-                {{ item.groupName }}：
-              </div>
               <div class="grid grid-cols-[200px_200px_200px_1fr] flex-1 gap-2">
                 <ObjectField :name="item.groupKey">
                   <Field

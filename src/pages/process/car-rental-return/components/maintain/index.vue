@@ -3,7 +3,6 @@ import { pick } from 'lodash-es'
 import { workOrderInfoSymbol, workOrderSubmitSymbol } from '../../../types'
 import table from './schema/table.json'
 import Upload from '@/components/FUpload'
-import { transformToUploadFiles, transformUploadData } from '@/utils/actions'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -13,36 +12,35 @@ const workOrderSubmit = inject(workOrderSubmitSymbol)
 const workOrderInfo = inject(workOrderInfoSymbol)
 const workOrderReview = inject('workOrderReview') as Ref<any>
 
+const readonly = ref(false)
+
 watch(workOrderReview, (data) => {
-  form.setInitialValues(data)
-  form.readOnly = !!workOrderInfo?.value.isReview
+  // review或维修确认时，表单只读
+  readonly.value = !!workOrderInfo?.value.isReview || workOrderInfo?.value.taskCode === 'CAR_RETURN_VEHICLE_MAINTENANCE_SURE'
+  form.readOnly = readonly.value
 }, { immediate: true })
 
-const { data } = useAxios('/order/leaseOrder/getRepairOrderInfo', {
+const { data: repairOrderInfo } = useAxios('/order/leaseOrder/getRepairOrderInfo', {
   data: {
     workCode: route.query.workCode,
   },
 })
 
-watch(data, (data) => {
+watch(repairOrderInfo, (data) => {
   form.setInitialValues({
-    ...data,
-    vehicleCondition: transformToUploadFiles(data.vehicleCondition),
-    appendix: transformToUploadFiles(data.appendix),
-  })
-})
-
-async function submit(data: any, agree: 0 | 1) {
-  await workOrderSubmit?.({
     ...pick(data, [
       'repairItem',
       'repairOrderId',
       'repairOrderStatue',
       'repairOrderNumber',
+      'vehicleCondition',
+      'appendix',
     ]),
-    vehicleCondition: transformUploadData(data.vehicleCondition, 'url'),
-    appendix: transformUploadData(data.appendix, 'url'),
-  }, {
+  })
+})
+
+async function submit(data: any, agree: 0 | 1) {
+  await workOrderSubmit?.(data, {
     approvalStatus: agree,
   })
 
@@ -61,7 +59,7 @@ async function reject() {
 </script>
 
 <template>
-  <div class="h-full flex flex-col">
+  <div class="h-full flex flex-col" :class="{ 'formily-readonly': readonly }">
     <FormProvider :form="form">
       <Form class="h-full" preview-text-placeholder="暂无">
         <PageHeader title="申请退租">
@@ -87,6 +85,7 @@ async function reject() {
                       :component="[Upload, {
                         multiple: true,
                         accept: 'image/*',
+                        format: 'url',
                       }]"
                       :decorator="[FormItem]"
                       name="vehicleCondition"
@@ -96,6 +95,7 @@ async function reject() {
                     <Field
                       :component="[Upload, {
                         multiple: true,
+                        format: 'url',
                       }]"
                       :decorator="[FormItem]"
                       name="appendix"
