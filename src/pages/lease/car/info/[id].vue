@@ -2,6 +2,7 @@
 import IllegalRecords from './components/IllegalRecords.vue'
 import ExtraInfo from './components/ExtraInfo.vue'
 import LeaseOrder from './components/LeaseOrder.vue'
+import Statement from './components/Statement.vue'
 const route = useRoute()
 const transportationMap = [
   {
@@ -181,6 +182,9 @@ const { data } = useAxios('/vehicle/vehicle/getVehicleDetailed', {
       </ElTabPane>
       <ElTabPane label="运营补充" lazy name="replenish">
         <ExtraInfo />
+      </ElTabPane>
+      <ElTabPane label="运营流水" lazy name="statement">
+        <Statement />
       </ElTabPane>
       <ElTabPane label="租赁订单" lazy name="order">
         <LeaseOrder />
