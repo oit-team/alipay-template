@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import schema from './schema/extra.json'
-import type { UploadUserFile } from 'element-plus'
-import { notSavedTips, transformUploadData } from '@/utils/actions'
+import { notSavedTips } from '@/utils/actions'
 
 const route = useRoute()
 const { t } = useI18n()
@@ -82,21 +81,6 @@ function openDrawer() {
     form.reset()
     // 反显
     const updateInfo = desc.value.resultList[0]
-    if (updateInfo?.invoiceImgs) {
-      updateInfo.invoiceImgs = [{
-        name: 'invoiceImgs',
-        url: updateInfo.invoiceImgs || '',
-        status: 'success',
-      }] as UploadUserFile[]
-    }
-
-    if (updateInfo?.certificateImgs) {
-      updateInfo.certificateImgs = [{
-        name: 'certificateImgs',
-        url: updateInfo.certificateImgs || '',
-        status: 'success',
-      }] as UploadUserFile[]
-    }
     form.setInitialValues(updateInfo)
   }
 }
@@ -113,8 +97,6 @@ async function submit(form: any) {
       ...form,
       vehicleId: route.params.id,
       replenishType: type.value,
-      invoiceImgs: transformUploadData(form.invoiceImgs)?.[0].url, // 发票照片
-      certificateImgs: transformUploadData(form.certificateImgs)?.[0].url, // 合格证照片
     },
   )
   showDrawer.value = false
