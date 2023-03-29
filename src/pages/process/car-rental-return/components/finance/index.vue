@@ -38,11 +38,7 @@ async function submit() {
 }
 
 async function reject() {
-  const { value } = await ElMessageBox.prompt('填写拒绝原因', '提示')
-
-  await workOrderSubmit?.({
-    remark: value,
-  }, {
+  await workOrderSubmit?.({}, {
     approvalStatus: 0,
   })
 
@@ -70,7 +66,6 @@ async function reject() {
           <ElCard>
             <Descriptions
               border
-              :column="4"
               :data="vehicleReturnNote"
               label-width="120px"
               :options="[

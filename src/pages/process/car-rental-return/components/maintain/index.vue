@@ -51,11 +51,7 @@ async function submit(data: any, agree: 0 | 1) {
 }
 
 async function reject() {
-  const { value } = await ElMessageBox.prompt('填写拒绝原因', '提示')
-
-  await workOrderSubmit?.({
-    remark: value,
-  }, {
+  await workOrderSubmit?.({}, {
     approvalStatus: 0,
   })
 

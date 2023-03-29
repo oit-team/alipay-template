@@ -27,6 +27,11 @@ const workOrderApply: WorkOrderApply = (params) => {
 }
 
 const workOrderSubmit: WorkOrderSubmit = async (params, options) => {
+  if (options.approvalStatus === 0 && !options.approvalNotes) {
+    const { value } = await ElMessageBox.prompt('填写拒绝原因', '提示')
+    options.approvalNotes = value
+  }
+
   await ElMessageBox.confirm('确定要提交吗?', '提示', {
     type: 'info',
   })
