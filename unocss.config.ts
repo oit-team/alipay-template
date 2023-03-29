@@ -14,6 +14,7 @@ export default defineConfig({
     presetIcons({
       scale: 1,
       warn: true,
+      cdn: 'https://esm.sh/',
     }),
     presetWebFonts({
       fonts: {
@@ -31,6 +32,10 @@ export default defineConfig({
     transformerDirectives(),
     transformerVariantGroup(),
   ],
+  shortcuts: {
+    'sticky-top': 'sticky top-0',
+    'sticky-bottom': 'sticky bottom-0',
+  },
   safelist: [
     'i-system-uicons:grid-small',
     'i-system-uicons:settings',
