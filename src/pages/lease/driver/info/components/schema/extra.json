@@ -27,7 +27,17 @@
       "type": "string",
       "title": "是否巡游",
       "x-decorator": "FormItem",
-      "x-component": "Input",
+      "enum": [
+        {
+          "label": "是",
+          "value": "是"
+        },
+        {
+          "label": "否",
+          "value": "否"
+        }
+      ],
+      "x-component": "Select",
       "x-index": 3
     },
     "driverGrade": {
@@ -104,14 +114,34 @@
       "type": "string",
       "title": "是否专职",
       "x-decorator": "FormItem",
-      "x-component": "Input",
+      "enum": [
+        {
+          "label": "是",
+          "value": "是"
+        },
+        {
+          "label": "否",
+          "value": "否"
+        }
+      ],
+      "x-component": "Select",
       "x-index": 14
     },
     "maritalStatus": {
       "type": "string",
       "title": "婚姻状态",
       "x-decorator": "FormItem",
-      "x-component": "Input",
+      "enum": [
+        {
+          "label": "已婚",
+          "value": "已婚"
+        },
+        {
+          "label": "未婚",
+          "value": "未婚"
+        }
+      ],
+      "x-component": "Select",
       "x-index": 15
     },
     "householdRegistraHierarchy": {

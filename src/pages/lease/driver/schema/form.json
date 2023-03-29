@@ -14,13 +14,27 @@
           },
           "x-index": 0,
           "properties": {
+            "headPortrait": {
+              "type": "Array<object>",
+              "title": "司机头像",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "required": true,
+              "x-component-props": {
+                "textContent": "Upload",
+                "format": "url",
+                "limit": 1,
+                "accept": "image/*"
+              },
+              "x-index": 0
+            },
             "driverName": {
               "type": "string",
               "title": " 姓名",
               "required": true,
               "x-decorator": "FormItem",
               "x-component": "Input",
-              "x-index": 0,
+              "x-index": 1,
               "name": "driverName"
             },
             "identityCard": {
@@ -32,23 +46,26 @@
               "x-validator": [
                 "idcard"
               ],
-              "x-index": 1,
+              "x-index": 2,
               "name": "identityCard"
             },
             "address": {
               "type": "string",
               "title": "家庭住址",
+              "required": true,
               "x-decorator": "FormItem",
               "x-component": "Input",
-              "x-index": 3,
+              "x-index": 4,
               "name": "address"
             },
             "driverPhone": {
               "type": "string",
               "title": "联系电话",
+              "required": true,
               "x-decorator": "FormItem",
               "x-component": "Input",
-              "x-index": 2,
+              "x-validator": "phone",
+              "x-index": 3,
               "name": "driverPhone"
             },
             "city": {
@@ -63,7 +80,8 @@
                 "reserve-keyword": true
               },
               "x-index": 5,
-              "x-reactions": "{{useSelectAsyncDataSource(getCityList)}}",
+              "required": true,
+              "x-reactions": "{{useSelectAsyncDataSource(getCityList, {init: true})}}",
               "name": "city"
             },
             "exclusiveServiceId": {
@@ -78,7 +96,7 @@
                 "remote-show-suffix": true,
                 "reserve-keyword": true
               },
-              "x-reactions": "{{useSelectAsyncDataSource(getUserKeyWord)}}",
+              "x-reactions": "{{useSelectAsyncDataSource(getUserKeyWord, {init: true})}}",
               "name": "exclusiveServiceId",
               "x-index": 7
             },
@@ -86,6 +104,7 @@
               "title": "销售负责人",
               "x-decorator": "FormItem",
               "x-component": "Select",
+              "required": true,
               "x-component-props": {
                 "default-first-option": true,
                 "filterable": true,
@@ -93,7 +112,7 @@
                 "remote-show-suffix": true,
                 "reserve-keyword": true
               },
-              "x-reactions": "{{useSelectAsyncDataSource(getUserKeyWord)}}",
+              "x-reactions": "{{useSelectAsyncDataSource(getUserKeyWord, {init: true})}}",
               "name": "salesLeaderId",
               "x-index": 8
             }
@@ -112,6 +131,7 @@
               "title": "有效期",
               "x-decorator": "FormItem",
               "x-component": "DatePicker",
+              "required": true,
               "x-component-props": {
                 "type": "daterange"
               },
@@ -122,6 +142,7 @@
               "title": "发证机构",
               "x-decorator": "FormItem",
               "x-component": "Input",
+              "required": true,
               "x-index": 1
             },
             "identityStraight": {
@@ -129,6 +150,7 @@
               "title": "身份证正面",
               "x-decorator": "FormItem",
               "x-component": "Upload",
+              "required": true,
               "x-component-props": {
                 "textContent": "Upload",
                 "format": "url",
@@ -142,6 +164,7 @@
               "title": "身份证反面",
               "x-decorator": "FormItem",
               "x-component": "Upload",
+              "required": true,
               "x-component-props": {
                 "textContent": "Upload",
                 "format": "url",
@@ -153,6 +176,7 @@
             "identityImg": {
               "type": "Array<object>",
               "title": "手持身份证照",
+              "required": true,
               "x-decorator": "FormItem",
               "x-component": "Upload",
               "x-component-props": {
@@ -177,6 +201,7 @@
               "type": "string",
               "title": "驾驶证编号",
               "x-decorator": "FormItem",
+              "required": true,
               "x-component": "Input",
               "x-index": 0
             },
@@ -184,6 +209,7 @@
               "type": "string",
               "title": "准驾车型",
               "x-decorator": "FormItem",
+              "required": true,
               "x-component": "Input",
               "x-index": 1
             },
@@ -192,6 +218,7 @@
               "title": "有效期",
               "x-decorator": "FormItem",
               "x-component": "DatePicker",
+              "required": true,
               "x-component-props": {
                 "type": "daterange"
               },
@@ -201,6 +228,7 @@
               "type": "string",
               "title": "初次领证日期",
               "x-decorator": "FormItem",
+              "required": true,
               "x-component": "DatePicker",
               "x-index": 3
             },
@@ -208,6 +236,7 @@
               "type": "string",
               "title": "档案编号",
               "x-decorator": "FormItem",
+              "required": true,
               "x-component": "Input",
               "x-index": 4
             },
@@ -215,6 +244,7 @@
               "type": "Array<object>",
               "title": "驾驶证主页",
               "x-decorator": "FormItem",
+              "required": true,
               "x-component": "Upload",
               "x-component-props": {
                 "textContent": "Upload",
@@ -228,6 +258,7 @@
               "type": "Array<object>",
               "title": "驾驶证副页",
               "x-decorator": "FormItem",
+              "required": true,
               "x-component": "Upload",
               "x-component-props": {
                 "textContent": "Upload",
@@ -251,7 +282,17 @@
               "type": "string",
               "title": "政府人证情况",
               "x-decorator": "FormItem",
-              "x-component": "Input",
+              "enum": [
+                {
+                  "label": "是",
+                  "value": "是"
+                },
+                {
+                  "label": "否",
+                  "value": "否"
+                }
+              ],
+              "x-component": "Select",
               "x-index": 0
             },
             "qualificaCode": {
