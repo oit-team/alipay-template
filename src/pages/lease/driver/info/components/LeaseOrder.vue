@@ -4,7 +4,7 @@ meta:
 </route>
 
 <script setup lang="ts">
-const route = useRoute()
+const driverId = inject('driverId')
 
 const queryRef = ref()
 
@@ -115,7 +115,7 @@ const columnsConfig = {
       :columns="columns"
       :columns-config="columnsConfig"
       :data="{
-        driverId: route.params.id,
+        driverId,
       }"
       :key-map="{ data: 'resultList', total: 'totalCount' }"
       url="/order/leaseOrder/getLeaseOrderList"

@@ -1,10 +1,4 @@
 <script setup lang="ts">
-defineProps({
-  data: Object,
-})
-
-const route = useRoute()
-
 const infoMap = [
   {
     prop: 'driverName',
@@ -165,10 +159,11 @@ const driverIdentityMap = [
 
 // 图片预览
 const srcList = ref<any>([])
+const driverId = inject('driverId')
 
 const { data } = useAxios('/driverServer/driver/getDriverMap', {
   method: 'POST',
-  data: { driverId: route.params.id },
+  data: { driverId },
 })
 </script>
 

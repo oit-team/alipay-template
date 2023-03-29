@@ -3,11 +3,19 @@ import BaseInfo from './components/BaseInfo.vue'
 import ExtraInfo from './components/ExtraInfo.vue'
 import LeaseOrder from './components/LeaseOrder.vue'
 import Operating from './components/Operating.vue'
+
+const props = defineProps({
+  driverId: String,
+  insert: Boolean,
+})
+const route = useRoute()
+
+provide('driverId', props.driverId ?? route.params.id)
 </script>
 
 <template>
   <div u-h-full>
-    <PageHeader title="司机详情" />
+    <PageHeader v-if="!insert" title="司机详情" />
     <ElTabs type="border-card" u-h-full u-rounded-b-lg>
       <ElTabPane label="基本信息">
         <BaseInfo />
