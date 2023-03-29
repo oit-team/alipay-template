@@ -1,21 +1,12 @@
-export interface WorkOrderApplyParams {
-  workCode: string
-  flowCode: string
-  taskCode: string
-  nextTaskCode: string
-  // 0：不同意 1：同意
-  approvalStatus: 0 | 1
-  approvalNotes: string
-  params: any
-}
-
 export interface WorkOrderApply {
-  (params: WorkOrderApplyParams): Promise<any>
+  (params: Record<string, any>): Promise<any>
 }
 
 export const workOrderApplySymbol = Symbol('workOrderApply') as InjectionKey<WorkOrderApply>
 
 export interface WorkOrderInfo {
+  setViewStep: (step: number) => void
+  currentLogs?: string[]
   workCode: string
   flowCode: string
   taskCode: string

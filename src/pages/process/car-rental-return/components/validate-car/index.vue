@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { Checkbox } from '@formily/element-plus'
-import { workOrderInfoSymbol, workOrderSubmitSymbol } from '../../types'
+import { workOrderInfoSymbol, workOrderSubmitSymbol } from '../../../types'
 import table from './schema/table.json'
 import Upload from '~/components/FUpload'
-import { transformUploadData } from '@/utils/actions'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -14,8 +13,8 @@ const workOrderReview = inject('workOrderReview') as Ref<any>
 
 watch(workOrderReview, (data) => {
   const initData = {
-    vehicleInspectionDetailed: data?.vehicleInspectionMap?.vehicleInspectionDetailed,
-    keepInRepair: data.repairDetailedMap,
+    ...data?.vehicleInspectionMap,
+    keepInRepair: data?.repairDetailedMap,
   }
   form.setInitialValues({
     ...initData,
@@ -23,12 +22,12 @@ watch(workOrderReview, (data) => {
   form.readOnly = !!workOrderInfo?.value.isReview
 }, { immediate: true })
 
+// TODO: fix checkbox
+const vehicleCertificate = computed(() =>
+  workOrderReview?.value?.vehicleInspectionMap?.vehicleInspectionDetailed?.vehicleCertificate,
+)
+
 async function submit(data: any, agree: 0 | 1) {
-  data = {
-    ...data,
-    vehicleCondition: transformUploadData(data.vehicleCondition)?.map(item => item.url),
-    appendix: transformUploadData(data.appendix)?.map(item => item.url),
-  }
   const keepInRepair = !data.keepInRepair?.length
   const info = workOrderInfo?.value
 
@@ -42,11 +41,7 @@ async function submit(data: any, agree: 0 | 1) {
 }
 
 async function reject() {
-  const { value } = await ElMessageBox.prompt('填写拒绝原因', '提示')
-
-  await workOrderSubmit?.({
-    remark: value,
-  }, {
+  await workOrderSubmit?.({}, {
     approvalStatus: 0,
   })
 
@@ -59,7 +54,7 @@ async function reject() {
   <div class="h-full flex flex-col">
     <FormProvider :form="form">
       <PageHeader title="申请退租">
-        <template #extra>
+        <template v-if="!workOrderInfo?.isReview" #extra>
           <ElButton type="danger" @click="reject()">
             拒绝
           </ElButton>
@@ -164,6 +159,7 @@ async function reject() {
                               :key="field.name"
                               :component="[Checkbox, {
                                 label: field.name,
+                                modelValue: vehicleCertificate?.[field.key],
                               }]"
                               :decorator="[FormItem]"
                               :name="field.key"
@@ -201,6 +197,7 @@ async function reject() {
                   :component="[Upload, {
                     multiple: true,
                     accept: 'image/*',
+                    format: 'url',
                   }]"
                   name="vehicleCondition"
                   title="车辆信息"
@@ -210,6 +207,7 @@ async function reject() {
                 <Field
                   :component="[Upload, {
                     multiple: true,
+                    format: 'url',
                   }]"
                   name="appendix"
                   title="附件"

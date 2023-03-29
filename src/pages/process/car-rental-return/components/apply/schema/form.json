@@ -30,7 +30,7 @@
               ],
               "x-index": 0
             },
-            "applyReturnTime": {
+            "returnTheCarTime": {
               "type": "string",
               "title": "申请退车日期",
               "x-decorator": "FormItem",
@@ -66,7 +66,8 @@
               "x-component-props": {
                 "multiple": true,
                 "accept": "image/*",
-                "max": 5
+                "limit": 5,
+                "format": "url"
               },
               "x-index": 0
             }

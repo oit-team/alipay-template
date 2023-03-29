@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { workOrderInfoSymbol, workOrderSubmitSymbol } from '../../types'
+import { workOrderInfoSymbol, workOrderSubmitSymbol } from '../../../types'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -38,11 +38,7 @@ async function submit() {
 }
 
 async function reject() {
-  const { value } = await ElMessageBox.prompt('填写拒绝原因', '提示')
-
-  await workOrderSubmit?.({
-    remark: value,
-  }, {
+  await workOrderSubmit?.({}, {
     approvalStatus: 0,
   })
 
@@ -55,7 +51,7 @@ async function reject() {
   <div class="h-full flex flex-col">
     <FormProvider :form="form">
       <PageHeader title="申请退租">
-        <template #extra>
+        <template v-if="!workOrderInfo?.isReview" #extra>
           <ElButton type="danger" @click="reject()">
             拒绝
           </ElButton>
@@ -70,7 +66,6 @@ async function reject() {
           <ElCard>
             <Descriptions
               border
-              :column="4"
               :data="vehicleReturnNote"
               label-width="120px"
               :options="[

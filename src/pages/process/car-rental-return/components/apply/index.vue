@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { pick } from 'lodash-es'
-import { workOrderApplySymbol, workOrderInfoSymbol } from '../../types'
+import { workOrderApplySymbol, workOrderInfoSymbol } from '../../../types'
 import schema from './schema/form.json'
 import { transformResponsePush } from '@/utils/helper'
-import { transformToUploadFiles, transformUploadData } from '@/utils/actions'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -28,13 +27,12 @@ const workOrderReview = inject('workOrderReview') as Ref<any>
 
 watch(workOrderReview, (data) => {
   const initData = data?.returnVehicleOrderMap
-  vehicleId.value = initData.vehicleId
+  vehicleId.value = initData?.vehicleId
   vehicleList.value = data?.resultList
   form.setInitialValues({
     ...initData,
-    appendix: transformToUploadFiles(initData?.appendix),
   })
-  form.readOnly = !!initData
+  form.readOnly = !!workOrderInfo?.value.isReview
 }, { immediate: true })
 
 async function submit(data: any) {
@@ -44,7 +42,6 @@ async function submit(data: any) {
   await workOrderApply?.({
     ...data,
     ...pick(vehicleInfo.value, ['vehicleId', 'driverId', 'leaseOrderNo']),
-    appendix: transformUploadData(data.appendix, 'url'),
   })
 
   ElMessage.success(t('submit.success'))
