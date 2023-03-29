@@ -209,7 +209,7 @@ async function onRelevanceOrder(row: any) {
     orderInfo.value = {}
   }
   else {
-    await ElMessageBox.confirm('确定要解除绑定吗?', '提示', {
+    await ElMessageBox.confirm('确认是否要解除自营订单与T3订单的绑定关系？', '提示', {
       type: 'warning',
     })
     await axios.post('/order/leaseOrder/addOrdelOrderAssocia', {
@@ -388,6 +388,11 @@ const columnsConfig = {
           </ElButton>
         </QueryToolbar>
         <QueryTable>
+          <!-- <template #content:orderStatueName="{ row }">
+            <ElTag :type="row.orderStatue === 1 ? 'success' : 'info'">
+              {{ row.vehicleState }}
+            </ElTag>
+          </template> -->
           <template #actions>
             <QueryActionColumn v-slot="{ row }" fixed="right" label="操作" width="240px">
               <ElButton size="small" type="success" @click="$router.push(`./order/info/self-support/${row.id}`)">

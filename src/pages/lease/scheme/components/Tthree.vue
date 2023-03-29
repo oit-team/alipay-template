@@ -5,8 +5,8 @@ meta:
 
 <script setup lang="ts">
 import { downloadFile } from '@oit/utils'
+import { Plus } from '@element-plus/icons-vue'
 import { useUserStore } from '@/store/user'
-import { mergeColumns } from '@/utils/helper'
 import { getCityList, useSelectAsyncDataSource } from '@/reactions'
 
 const { t } = useI18n()
@@ -255,7 +255,7 @@ async function downloadModel() {
 }
 
 // 导入方案
-const { files, open } = useFileDialog()
+const { files, open, reset } = useFileDialog()
 
 watch(files, async (value) => {
   if (!value || !value.length)
@@ -280,6 +280,7 @@ watch(files, async (value) => {
         type: 'warning',
       })
     })
+  reset()
 })
 </script>
 
@@ -303,8 +304,8 @@ watch(files, async (value) => {
       >
         <QueryForm :scope="{ useSelectAsyncDataSource, getCityList }" />
         <QueryToolbar>
-          <ElButton type="primary" @click="exportDialogVisible = true">
-            T3方案导入
+          <ElButton :icon="Plus" type="primary" @click="exportDialogVisible = true">
+            导入
           </ElButton>
         </QueryToolbar>
         <QueryTable>

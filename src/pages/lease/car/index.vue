@@ -89,13 +89,9 @@ const columnsConfig = {
   },
 }
 
-const { files, open } = useFileDialog()
+const { files, open, reset } = useFileDialog()
 
 const importType = ref(0)
-// function importYun() {
-//   open({ multiple: false })
-//   importType.value = 0
-// }
 function importCar() {
   open({ multiple: false })
   importType.value = 1
@@ -104,7 +100,6 @@ function importWei() {
   open({ multiple: false })
   importType.value = 2
 }
-const url = ref('')
 
 const errDrawer = ref(false)
 const errObj = ref()
@@ -115,22 +110,13 @@ watch(files, async (value) => {
 
   const { profile } = useUserStore()
 
-  switch (importType.value) {
-    // case 0:
-    //   url.value = '/vehicle/vehicle/addT3OperationalData'
-    //   break
-    case 1:
-      url.value = '/vehicle/vehicle/addImportReplenishVehicle'
-      break
-    case 2:
-      url.value = '/vehicle/vehicle/addImportIllegal'
-      break
-    default:
-      url.value = ''
-      break
+  const importUrl: Record<number, string> = {
+    1: '/vehicle/vehicle/addImportReplenishVehicle',
+    2: '/vehicle/vehicle/addImportIllegal',
   }
+  const url = importUrl[importType.value]
 
-  axios.post(url.value, {
+  axios.post(url, {
     file: value[0],
     userId: profile?.userId,
   }, {
@@ -150,6 +136,8 @@ watch(files, async (value) => {
         type: 'warning',
       })
     })
+
+  reset()
 })
 </script>
 
@@ -173,14 +161,11 @@ watch(files, async (value) => {
           <ElButton type="primary" @click="$router.push(`./car/new`)">
             {{ $t('button.new') }}
           </ElButton>
-          <!-- <ElButton type="info" @click="importYun">
-            {{ $t('button.import') }}运营流水
-          </ElButton> -->
           <ElButton type="info" @click="importCar">
-            {{ $t('button.import') }}车辆信息
+            车辆{{ $t('button.import') }}
           </ElButton>
           <ElButton type="info" @click="importWei">
-            {{ $t('button.import') }}违章信息
+            违章{{ $t('button.import') }}
           </ElButton>
         </QueryToolbar>
         <QueryTable>
@@ -189,10 +174,10 @@ watch(files, async (value) => {
               <ElButton size="small" type="info" @click="$router.push(`./car/info/${row.vehicleId}`)">
                 {{ $t('button.info') }}
               </ElButton>
-              <ElButton size="small" type="primary" @click="$router.push(`./car/${row.vehicleId}`)">
+              <ElButton :disabled="row.vehicleStateVal === 1" size="small" type="primary" @click="$router.push(`./car/${row.vehicleId}`)">
                 {{ $t('button.edit') }}
               </ElButton>
-              <ElButton size="small" type="danger" @click="onDelete(row)">
+              <ElButton :disabled="row.vehicleStateVal === 1" size="small" type="danger" @click="onDelete(row)">
                 {{ $t('button.delete') }}
               </ElButton>
             </QueryActionColumn>

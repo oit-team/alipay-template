@@ -38,7 +38,7 @@
                 "colon": false
               }
             },
-            "vehicleModel": {
+            "vehicleModelId": {
               "title": "品牌车系车型",
               "required": true,
               "x-decorator": "FormItem",
@@ -86,13 +86,13 @@
               "x-decorator-props": {
                 "colon": false
               },
-              "x-reactions": "{{useSelectAsyncDataSource(getCityList)}}",
+              "x-reactions": "{{useSelectAsyncDataSource(getCityList, {init: true})}}",
               "name": "city",
               "required": true,
               "x-designable-id": "28gjcfbt3y9",
               "x-index": 8
             },
-            "vehicleService": {
+            "vehicleServiceId": {
               "title": "所属车务",
               "x-decorator": "FormItem",
               "x-component": "Select",
@@ -107,11 +107,24 @@
               "x-decorator-props": {
                 "colon": false
               },
-              "x-reactions": "{{useSelectAsyncDataSource(vehicleServiceList)}}",
+              "x-reactions": "{{useSelectAsyncDataSource(vehicleServiceList, {init: true})}}",
               "name": "vehicleService",
               "required": true,
               "x-designable-id": "28gjcfbt3y9",
               "x-index": 9
+            },
+            "endTime": {
+              "type": "string",
+              "title": "终止日期",
+              "x-decorator": "FormItem",
+              "x-component": "DatePicker",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "endTime",
+              "required": true,
+              "x-designable-id": "l19xr1mn4gn",
+              "x-index": 10
             }
           }
         },
@@ -134,7 +147,9 @@
               },
               "x-component-props": {
                 "textContent": "Upload",
-                "limit": 1
+                "limit": 1,
+                "format": "url",
+                "accept": "image/*"
               },
               "x-decorator-props": {
                 "colon": false
@@ -149,7 +164,9 @@
               "x-validator": {},
               "x-component-props": {
                 "textContent": "Upload",
-                "limit": 1
+                "limit": 1,
+                "format": "url",
+                "accept": "image/*"
               },
               "x-decorator-props": {
                 "colon": false
@@ -164,7 +181,9 @@
               "x-validator": {},
               "x-component-props": {
                 "textContent": "Upload",
-                "limit": 1
+                "limit": 1,
+                "format": "url",
+                "accept": "image/*"
               },
               "x-decorator-props": {
                 "colon": false
@@ -179,7 +198,9 @@
               "x-validator": {},
               "x-component-props": {
                 "textContent": "Upload",
-                "limit": 1
+                "limit": 1,
+                "format": "url",
+                "accept": "image/*"
               },
               "x-decorator-props": {
                 "colon": false
@@ -194,7 +215,9 @@
               "x-validator": {},
               "x-component-props": {
                 "textContent": "Upload",
-                "limit": 1
+                "limit": 1,
+                "format": "url",
+                "accept": "image/*"
               },
               "x-decorator-props": {
                 "colon": false
@@ -275,7 +298,9 @@
               "x-validator": {},
               "x-component-props": {
                 "textContent": "Upload",
-                "limit": 1
+                "limit": 1,
+                "format": "url",
+                "accept": "image/*"
               },
               "x-decorator-props": {
                 "colon": false
@@ -390,7 +415,9 @@
               "x-component": "Upload",
               "x-component-props": {
                 "textContent": "Upload",
-                "limit": 1
+                "limit": 1,
+                "format": "url",
+                "accept": "image/*"
               },
               "x-decorator-props": {
                 "colon": false
@@ -410,7 +437,9 @@
               "x-component": "Upload",
               "x-component-props": {
                 "textContent": "Upload",
-                "limit": 1
+                "limit": 1,
+                "format": "url",
+                "accept": "image/*"
               },
               "x-validator": {
                 "required": true
