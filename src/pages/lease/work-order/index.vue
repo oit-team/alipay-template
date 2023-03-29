@@ -69,10 +69,10 @@ const columns = [
 ]
 const columnsConfig = {
   workCode: {
-    width: 150,
+    minWidth: 150,
   },
   workName: {
-    width: 100,
+    minWidth: 100,
   },
   orderCode: {
     width: 150,
@@ -81,19 +81,19 @@ const columnsConfig = {
     width: 100,
   },
   flowCode: {
-    width: 150,
+    minWidth: 150,
   },
   statusName: {
-    width: 100,
+    minWidth: 100,
   },
   licensePlateNumber: {
     width: 150,
   },
   driverName: {
-    width: 100,
+    minWidth: 100,
   },
   city: {
-    width: 100,
+    minWidth: 100,
   },
   createDate: {
     width: 150,
