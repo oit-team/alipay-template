@@ -219,7 +219,11 @@ const { data } = useAxios('/driverServer/driver/getDriverMap', {
           :data="data?.driverQualifica"
           default-text="无"
           :options="driverQualificaMap"
-        />
+        >
+          <template #certificateImg="{ value }">
+            <ElImage :src="value" />
+          </template>
+        </Descriptions>
         <ElEmpty v-else />
       </ElCollapseItem>
     </ElCollapse>
