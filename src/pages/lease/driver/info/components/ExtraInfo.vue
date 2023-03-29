@@ -4,7 +4,7 @@ import { notSavedTips } from '@/utils/actions'
 
 const route = useRoute()
 const { t } = useI18n()
-const type = ref()
+const type = ref(1)
 const showDrawer = ref(false)
 
 const extraMap = [
