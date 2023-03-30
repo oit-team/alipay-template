@@ -114,7 +114,7 @@ const columnsConfig = {
     minWidth: 100,
   },
   t3CreatTime: {
-    width: 150,
+    width: 200,
   },
   actualEndDate: {
     width: 150,
@@ -202,7 +202,10 @@ watch(files, async (value) => {
       >
         <QueryForm :scope="{ getCityList, useSelectAsyncDataSource }" />
         <QueryToolbar>
-          <ElButton type="primary" @click="open({ multiple: false })">
+          <ElButton link @click="open({ multiple: false })">
+            <template #icon>
+              <div class="i-raphael:import" />
+            </template>
             {{ $t('button.import') }}T3租赁订单
           </ElButton>
         </QueryToolbar>

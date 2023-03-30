@@ -304,7 +304,10 @@ watch(files, async (value) => {
       >
         <QueryForm :scope="{ useSelectAsyncDataSource, getCityList }" />
         <QueryToolbar>
-          <ElButton :icon="Plus" type="primary" @click="exportDialogVisible = true">
+          <ElButton link @click="exportDialogVisible = true">
+            <template #icon>
+              <div class="i-raphael:import" />
+            </template>
             导入
           </ElButton>
         </QueryToolbar>

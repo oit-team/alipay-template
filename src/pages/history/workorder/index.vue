@@ -65,13 +65,13 @@ const columns = [
 ]
 const columnsConfig = {
   workCode: {
-    minWidth: 150,
+    width: 180,
   },
   workName: {
     minWidth: 100,
   },
   orderCode: {
-    width: 150,
+    width: 220,
   },
   taskName: {
     width: 100,
@@ -92,7 +92,7 @@ const columnsConfig = {
     minWidth: 100,
   },
   createDate: {
-    width: 150,
+    width: 200,
   },
 }
 </script>
