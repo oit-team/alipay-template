@@ -22,14 +22,14 @@ const CheckCode = connect(
       const img = useObjectUrl(data)
 
       return () => (
-        <div class="flex">
+        <div class="flex w-full">
           <ElInput
             modelValue={attrs.value as any}
             onInput={attrs.onChange as any}
             placeholder="请输入验证码"
             class="flex-1 mr-2"
           />
-          <ElImage src={img.value} class="h-30px" onClick={execute}/>
+          <ElImage src={img.value} class="h-40px" onClick={execute}/>
         </div>
       )
     },
@@ -92,38 +92,56 @@ const onSubmit = async (form: any) => {
 </script>
 
 <template>
-  <div class="grid place-content-center h-full login">
-    <ElCard class="w-350px p-8 rounded-lg">
-      <div class="mb-4 text-[#6083cb] text-xl text-center w-full">
-        浪汛汽车租赁系统
+  <div class="grid place-content-center w-full h-full">
+    <div class="w-[60vw] min-w-[900px] h-[70vh] min-h-[500px] rounded-lg card-shadow">
+      <div class="w-full h-full flex justify-between items-center">
+        <div class="flex-1 h-full login border-r-1 border-[#e1e3da]" />
+        <div class="w-1/2 px-24 m-4 box-border py-[5rem] rounded-lg">
+          <div class="mb-4 text-[#456bdb] text-2xl w-full border-b-2 pb-4 border-[#456bdb] font-semibold">
+            浪汛汽车租赁系统
+          </div>
+          <div class="border-red border-bottom h-1" />
+          <FormProvider :form="form">
+            <FormLayout label-col="0">
+              <SchemaField :schema="schema" />
+              <FormButtonGroup align-form-item class="w-full">
+                <Submit class="w-full" @submit="onSubmit">
+                  登录
+                </Submit>
+              </FormButtonGroup>
+            </FormLayout>
+          </FormProvider>
+        </div>
       </div>
-      <div class="border-red border-bottom h-1" />
-      <FormProvider :form="form">
-        <FormLayout label-col="0">
-          <SchemaField :schema="schema" />
-          <FormButtonGroup align-form-item class="w-full">
-            <Submit class="w-full" @submit="onSubmit">
-              登录
-            </Submit>
-          </FormButtonGroup>
-        </FormLayout>
-      </FormProvider>
-    </ElCard>
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
+.card-shadow{
+  box-shadow: 0 0 30px 0 #c3d3ea;
+}
 .login{
   background: center / cover no-repeat url("/image/login-bg.jpg");
 }
-
-.formily-element-plus-space-item{
-  width: 100%;
+.width-3_5{
+  width: 60%;
 }
-.formily-element-plus-space-align-center{
-  width: 100%;
-}
-.formily-element-plus-form-item-label-align-right > .formily-element-plus-form-item-label{
-  display: none;
+:deep{
+  .formily-element-plus-space-item{
+    width: 100%;
+  }
+  .formily-element-plus-space-align-center{
+    width: 100%;
+  }
+  .formily-element-plus-form-item-label-align-right > .formily-element-plus-form-item-label{
+    display: none;
+  }
+  .el-button{
+    height: 40px;
+  }
+  .el-input__inner{
+    height: 40px;
+  }
 }
 </style>

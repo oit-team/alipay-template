@@ -106,6 +106,11 @@ watch(files, async (value) => {
           </ElButton>
         </QueryToolbar>
         <QueryTable>
+          <template #content:statue="{ row }">
+            <span :class="row.statue === '签约' ? 'text-[#63c441]' : ''">
+              {{ row.statue }}
+            </span>
+          </template>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" fixed="right" width="180px">
               <ElButton type="info" @click="$router.push(`./driver/info/${row.driverId}`)">
