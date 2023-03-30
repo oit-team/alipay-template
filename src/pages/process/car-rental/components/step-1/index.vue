@@ -1,25 +1,32 @@
 <script setup lang="ts">
-import { workOrderApplySymbol } from '@/pages/process/types'
+import type { UploadUserFile } from 'element-plus'
+import { workOrderApplySymbol, workOrderInfoSymbol } from '@/pages/process/types'
 import { transformResponsePush } from '@/utils/helper'
 import DriverInfo from '@/pages/lease/driver/info/[id].vue'
 import VehicleInfo from '@/pages/lease/car/info/[id].vue'
+import Upload from '@/components/Upload'
+import { transformUploadData } from '@/utils/actions'
 
 const { t } = useI18n()
 const router = useRouter()
+const workOrderInfo = inject(workOrderInfoSymbol)
+const workOrderApply = inject(workOrderApplySymbol)
+const workOrderReview = inject('workOrderReview') as Ref<any>
+const isReview = computed(() => workOrderInfo?.value?.isReview)
 
 const state = reactive({
-  driverId: '',
-  vehicleId: '',
-  schemeId: '',
-  activityId: '',
+  driverId: workOrderInfo?.value.mainParams?.driverId || '',
+  vehicleId: workOrderInfo?.value.mainParams?.vehicleId || '',
+  schemeId: workOrderInfo?.value.mainParams?.schemeId || '',
+  activityId: workOrderInfo?.value.mainParams?.activityId || '',
 })
 
 const schemeTypeId = ref(0)
 
-const isSchemeDisabled = ref(true)
-const isActivityDisabled = ref(true)
+const isSchemeDisabled = computed(() => !state.vehicleId)
+const isActivityDisabled = computed(() => !state.schemeId)
 
-const workOrderApply = inject(workOrderApplySymbol)
+const fileList = ref<UploadUserFile[]>([])
 
 function executeQuery(fn: any, data: any) {
   fn({
@@ -40,7 +47,7 @@ const {
   { transformResponse: transformResponsePush(data => data.resultList) },
   { immediate: false },
 )
-const driverItem = computed(() => driverList.value?.find((item: any) => item.driverId === state.driverId))
+const driverItem = computed(() => workOrderReview.value.leaseOrderBasic ?? driverList.value?.find((item: any) => item.driverId === state.driverId))
 
 const {
   data: vehicleList,
@@ -51,7 +58,7 @@ const {
   { transformResponse: transformResponsePush(data => data.vehicleList) },
   { immediate: false },
 )
-const vehicleItem = computed(() => vehicleList.value?.find((item: any) => item.vehicleId === state.vehicleId))
+const vehicleItem = computed(() => workOrderReview.value.leaseOrderBasic ?? vehicleList.value?.find((item: any) => item.vehicleId === state.vehicleId))
 
 const {
   data: schemeList,
@@ -62,11 +69,7 @@ const {
   { transformResponse: transformResponsePush(data => data.schemeList) },
   { immediate: false },
 )
-const schemeItem = computed(() => schemeList.value?.find((item: any) => item.id === state.schemeId))
-
-watch(() => state.schemeId, (val) => {
-  isActivityDisabled.value = !val
-})
+const schemeItem = computed(() => workOrderReview.value.leaseOrderBasic ?? schemeList.value?.find((item: any) => item.id === state.schemeId))
 
 const {
   data: activityList,
@@ -77,14 +80,13 @@ const {
   { transformResponse: transformResponsePush(data => data.resultList) },
   { immediate: false },
 )
-const activityItem = computed(() => activityList.value?.find((item: any) => item.activityId === state.activityId))
 
 const {
   data: activityData,
   execute: getActivityMap,
 } = useAxios(
   '/order/activity/getActivityMap',
-  { transformResponse: transformResponsePush(data => data.activityDetails) },
+  { transformResponse: transformResponsePush(data => data) },
   { immediate: false },
 )
 
@@ -105,7 +107,6 @@ const {
 watch(() => state.vehicleId, () => {
   state.schemeId = ''
   preferentialList.value = {}
-  isSchemeDisabled.value = false
 })
 
 watch(() => state.activityId, () => {
@@ -134,6 +135,22 @@ watch(() => state.schemeId, () => {
 
 // 提交第一步
 async function submit() {
+  const uploadSuccessful = fileList.value?.every?.(file => file.status === 'success')
+
+  const check = [
+    [state.driverId, '请选择司机'],
+    [state.vehicleId, '请选择车辆'],
+    [state.schemeId, '请选择方案'],
+    [uploadSuccessful, '请等待文件上传完成'],
+  ]
+  const checkResult = check.find(item => !item[0])
+  if (checkResult) {
+    ElMessage.error(checkResult[1] as string)
+    return
+  }
+
+  const files = transformUploadData(fileList.value)
+
   const params = {
     leaseTerm: schemeItem.value.leaseTerm,
     primaryEndTime: preferentialList.value?.preferentialMap.primaryEndTime,
@@ -142,23 +159,39 @@ async function submit() {
     startTime: preferentialList.value?.preferentialMap.startTime,
     endTime: vehicleItem.value.endTime,
     remarks: preferentialList.value?.preferentialMap.remarks,
-    contractName: '', // 上传的合同名称地址
-    contractUrl: '',
+    contractName: files?.[0].name,
+    contractUrl: files?.[0].url,
     mileage: vehicleItem.value.mileage,
     cashPledge: schemeItem.value.cashPledge,
     vehicleAge: schemeItem.value.vehicleAge || '',
     ...state,
   }
+
   await workOrderApply?.(params)
   ElMessage.success(t('handle.success'))
   router.push('/lease/driver')
+}
+
+workOrderInfo?.value.isReview && init()
+function init() {
+  getOrderPreferential({
+    data: {
+      schemeId: state.schemeId,
+      activityId: state.activityId,
+    },
+  })
+  getActivityMap({
+    data: {
+      activityId: state.activityId,
+    },
+  })
 }
 </script>
 
 <template>
   <div class="flex flex-col">
     <PageHeader title="申请租车">
-      <template #extra>
+      <template v-if="!isReview" #extra>
         <ElButton type="primary" @click="submit">
           提交
         </ElButton>
@@ -170,7 +203,10 @@ async function submit() {
         <div class="flex flex-col gap-2 p-2">
           <ElCard>
             <template #header>
-              <div>
+              <div v-if="isReview">
+                司机信息
+              </div>
+              <div v-else>
                 <span>司机：</span>
                 <ElSelect
                   v-model="state.driverId"
@@ -207,7 +243,10 @@ async function submit() {
           </ElCard>
           <ElCard>
             <template #header>
-              <div>
+              <div v-if="isReview">
+                车辆信息
+              </div>
+              <div v-else>
                 <span>车牌号：</span>
                 <ElSelect
                   v-model="state.vehicleId"
@@ -247,7 +286,10 @@ async function submit() {
           </ElCard>
           <ElCard>
             <template #header>
-              <div>
+              <div v-if="isReview">
+                方案信息
+              </div>
+              <div v-else>
                 <span>方案类型：</span>
                 <ElRadioGroup v-model="schemeTypeId" u-mr-6>
                   <ElRadio :label="0">
@@ -301,7 +343,10 @@ async function submit() {
           </ElCard>
           <ElCard>
             <template #header>
-              <div>
+              <div v-if="isReview">
+                活动信息
+              </div>
+              <div v-else>
                 <span>活动名称：</span>
                 <ElSelect
                   v-model="state.activityId"
@@ -330,7 +375,7 @@ async function submit() {
             </template>
             <Descriptions
               border
-              :data="activityItem"
+              :data="activityData"
               default-text="暂无"
               label-width="130px"
               :options="[
@@ -349,12 +394,21 @@ async function submit() {
                     { label: '数量', prop: 'number' },
                     { label: '兑现方式', prop: 'cashingMethod' },
                   ]"
-                  :data="activityData"
+                  :data="activityData?.activityDetails"
                 />
               </template>
             </Descriptions>
           </ElCard>
-          <ElCard header="详细信息">
+          <ElCard header="租赁合同">
+            <div class="p-2">
+              <Upload v-model:file-list="fileList" :limit="1" list-type="text">
+                <ElButton type="primary">
+                  上传
+                </ElButton>
+              </Upload>
+            </div>
+          </ElCard>
+          <ElCard header="租赁信息">
             <Descriptions
               v-if="preferentialList?.preferentialMap"
               border

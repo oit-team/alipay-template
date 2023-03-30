@@ -5,6 +5,7 @@ import { workOrderInfoSymbol, workOrderSubmitSymbol } from '@/pages/process/type
 
 const workOrderSubmit = inject(workOrderSubmitSymbol)
 const workOrderInfo = inject(workOrderInfoSymbol)
+const isReview = computed(() => workOrderInfo?.value?.isReview)
 
 async function submit() {
   await workOrderSubmit?.({}, {
@@ -16,7 +17,7 @@ async function submit() {
 <template>
   <div class="h-full flex flex-col">
     <PageHeader title="申请退租">
-      <template v-if="!workOrderInfo?.isReview" #extra>
+      <template v-if="!isReview" #extra>
         <Submit type="primary" @submit="submit" />
       </template>
     </PageHeader>

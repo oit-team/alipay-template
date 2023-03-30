@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { workOrderSubmitSymbol } from '@/pages/process/types'
+import { workOrderInfoSymbol, workOrderSubmitSymbol } from '@/pages/process/types'
 
 const { t } = useI18n()
 
 const route = useRoute()
 const router = useRouter()
 const workOrderSubmit = inject(workOrderSubmitSymbol)
+const workOrderInfo = inject(workOrderInfoSymbol)
+const isReview = computed(() => workOrderInfo?.value?.isReview)
 
 const { data: detailInfo } = useAxios('/order/leaseOrder/getLeaseOrderByNo', {
   method: 'POST',
@@ -38,7 +40,7 @@ async function handleCancel() {
 <template>
   <div class="flex flex-col gap-2 p-2">
     <PageHeader :title="`租车申请-${$route.query?.workCode}`">
-      <template #extra>
+      <template v-if="!isReview" #extra>
         <ElButton type="danger" @click="handleCancel()">
           拒绝
         </ElButton>

@@ -8,12 +8,14 @@ import { workOrderInfoSymbol } from '../types'
 import Logs from '../components/Logs.vue'
 import Step1 from './components/step-1/index.vue'
 import Step2 from './components/step-2/index.vue'
+import WarehousingStep from './components/warehousing/index.vue'
 
 const workOrderInfo = inject(workOrderInfoSymbol)
 
 const view = computed(() => [
   Step1,
   Step2,
+  WarehousingStep,
 ][workOrderInfo?.value?.viewStep ?? -1])
 
 const {

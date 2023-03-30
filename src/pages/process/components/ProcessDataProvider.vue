@@ -3,6 +3,12 @@ import { pick } from 'lodash-es'
 import { workOrderApplySymbol, workOrderInfoSymbol, workOrderSubmitSymbol } from '../types'
 import type { WorkOrderApply, WorkOrderInfo, WorkOrderSubmit } from '../types'
 
+enum OrderStatus {
+  Abandon = -1,
+  Processing = 0,
+  Done = 1,
+}
+
 const route = useRoute()
 const router = useRouter()
 const viewStep = ref<number>()
@@ -57,7 +63,8 @@ const workOrderInfo = computed<WorkOrderInfo>(() => ({
   ...initParams,
   step: flowStepsData.value?.step,
   viewStep: viewStep.value,
-  isReview: viewStep.value! < flowStepsData.value?.step,
+  isReview: [OrderStatus.Done, OrderStatus.Abandon].includes(flowStepsData.value?.status)
+            || viewStep.value! < flowStepsData.value?.step,
   setViewStep,
   currentLogs: currentLogs.value,
   currentStep: currentStep.value,
