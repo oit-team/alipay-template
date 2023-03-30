@@ -1,10 +1,12 @@
 <script lang="ts" setup>
+import ChangePassWord from '@/components/ChangePassWord.vue'
 import { useUserStore } from '@/store/user'
 
 const { profile } = useUserStore()
 const router = useRouter()
 
-const resetPwdRef = ref()
+const showDrawer = ref(false)
+const drawer = ref()
 
 interface MenuItem {
   title: string
@@ -36,16 +38,17 @@ function logout() {
   router.push('/login')
 }
 
-// function openCgPw() {
-//   console.log(555)
-// }
+function openCgPw() {
+  // showDrawer.value = true
+  drawer.value.open()
+}
 </script>
 
 <template>
   <ElContainer class="h-full overflow-hidden">
     <ElHeader class="flex items-center justify-between border-b gap-3">
       <div class="flex items-center gap-3">
-        <ElAvatar class="bg-white" :size="24" src="/image/logo.jpg" />
+        <ElAvatar class="bg-white" :size="24" src="./image/logo.jpg" />
         <div class="font-bold text-lg">
           汽车租赁管理系统
         </div>
@@ -57,7 +60,7 @@ function logout() {
           </span>
           <template #dropdown>
             <ElDropdownMenu>
-              <ElDropdownItem>
+              <ElDropdownItem @click="openCgPw">
                 修改密码
               </ElDropdownItem>
               <ElDropdownItem @click="logout()">
@@ -125,6 +128,6 @@ function logout() {
       </ElMain>
     </ElContainer>
 
-    <ResetPassword ref="resetPwdRef" />
+    <ChangePassWord ref="drawer" :drawer="showDrawer" />
   </ElContainer>
 </template>

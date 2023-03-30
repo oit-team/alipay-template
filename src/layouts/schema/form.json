@@ -1,0 +1,40 @@
+{
+  "type": "object",
+  "properties": {
+    "oldPassWord": {
+      "title": "旧密码",
+      "x-decorator": "FormItem",
+      "x-component": "Password",
+      "x-validator": [],
+      "x-component-props": {},
+      "x-decorator-props": {},
+      "name": "oldPassWord",
+      "x-designable-id": "wds9ny2k4eu",
+      "x-index": 0
+    },
+    "newPassWord": {
+      "title": "新密码",
+      "x-decorator": "FormItem",
+      "x-component": "Password",
+      "x-validator": [],
+      "x-component-props": {},
+      "x-decorator-props": {},
+      "name": "newPassWord",
+      "required": true,
+      "x-designable-id": "ludzt23p6cj",
+      "x-index": 1
+    },
+    "confirmPassWord": {
+      "title": "确认密码",
+      "x-decorator": "FormItem",
+      "x-component": "Password",
+      "x-validator": [],
+      "x-component-props": {},
+      "x-decorator-props": {},
+      "name": "confirmPassWord",
+      "x-designable-id": "9n4x89jh0h5",
+      "x-index": 2
+    }
+  },
+  "x-designable-id": "w3qoee6ba7g"
+}
