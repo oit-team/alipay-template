@@ -36,15 +36,11 @@ const columns = [
   },
   {
     prop: 'orderCode',
-    label: '订单名称',
+    label: '订单编号',
   },
   {
     prop: 'taskName',
-    label: '任务名称',
-  },
-  {
-    prop: 'flowCode',
-    label: '流程编号',
+    label: '当前任务',
   },
   {
     prop: 'statusName',
