@@ -47,7 +47,7 @@ const {
   { transformResponse: transformResponsePush(data => data.resultList) },
   { immediate: false },
 )
-const driverItem = computed(() => workOrderReview.value.leaseOrderBasic ?? driverList.value?.find((item: any) => item.driverId === state.driverId))
+const driverItem = computed(() => workOrderReview.value?.leaseOrderBasic ?? driverList.value?.find((item: any) => item.driverId === state.driverId))
 
 const {
   data: vehicleList,
@@ -58,7 +58,7 @@ const {
   { transformResponse: transformResponsePush(data => data.vehicleList) },
   { immediate: false },
 )
-const vehicleItem = computed(() => workOrderReview.value.leaseOrderBasic ?? vehicleList.value?.find((item: any) => item.vehicleId === state.vehicleId))
+const vehicleItem = computed(() => workOrderReview.value?.leaseOrderBasic ?? vehicleList.value?.find((item: any) => item.vehicleId === state.vehicleId))
 
 const {
   data: schemeList,
@@ -69,7 +69,7 @@ const {
   { transformResponse: transformResponsePush(data => data.schemeList) },
   { immediate: false },
 )
-const schemeItem = computed(() => workOrderReview.value.leaseOrderBasic ?? schemeList.value?.find((item: any) => item.id === state.schemeId))
+const schemeItem = computed(() => workOrderReview.value?.leaseOrderBasic ?? schemeList.value?.find((item: any) => item.id === state.schemeId))
 
 const {
   data: activityList,
