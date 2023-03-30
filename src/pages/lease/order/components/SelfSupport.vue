@@ -331,7 +331,7 @@ const columnsConfig = {
     minWidth: 150,
   },
   leaseOrderNo: {
-    width: 150,
+    width: 240,
   },
   licensePlateNumber: {
     width: 150,
@@ -346,13 +346,13 @@ const columnsConfig = {
     width: 150,
   },
   orderStatue: {
-    width: 150,
+    minWidth: 100,
   },
   orderStatueName: {
     width: 150,
   },
   endTime: {
-    width: 150,
+    width: 200,
   },
   t3OrderNo: {
     width: 150,
@@ -386,11 +386,16 @@ const columnsConfig = {
       >
         <QueryForm />
         <QueryToolbar>
-          <ElButton :auto-insert-space="false" plain type="primary" @click="$router.push('/process/car-rental')">
+          <ElButton :auto-insert-space="false" link @click="$router.push('/process/car-rental')">
+            <template #icon>
+              <div class="i-ic:baseline-add-task" />
+            </template>
             {{ $t('button.apply') }}租车
           </ElButton>
-          <ElDivider direction="vertical" />
-          <ElButton :auto-insert-space="false" plain type="primary" @click="$router.push('/process/car-rental-return')">
+          <ElButton :auto-insert-space="false" link @click="$router.push('/process/car-rental-return')">
+            <template #icon>
+              <div class="i-ic:baseline-add-task" />
+            </template>
             {{ $t('button.apply') }}退车
           </ElButton>
         </QueryToolbar>

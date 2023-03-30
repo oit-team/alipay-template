@@ -137,7 +137,10 @@ const columnsConfig = {
       >
         <QueryForm :scope="{ useSelectAsyncDataSource, getCityList }" />
         <QueryToolbar>
-          <ElButton type="primary" @click="$router.push(`./scheme/new`)">
+          <ElButton link @click="$router.push(`./scheme/new`)">
+            <template #icon>
+              <div class="i-material-symbols:add-circle" />
+            </template>
             新增方案
           </ElButton>
         </QueryToolbar>
