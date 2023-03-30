@@ -46,19 +46,31 @@ const schema = {
       },
       'x-designable-id': 'xzzo5vwr3ge',
       'properties': {
-        t3DriverId: {
+        'driverName': {
           'type': 'string',
-          'title': '司机id',
+          'title': '司机姓名',
           'x-decorator': 'FormItem',
           'x-component': 'Input',
           'x-validator': [],
           'x-component-props': {},
           'x-decorator-props': {},
-          'name': 't3DriverId',
+          'name': 'driverName',
           'x-designable-id': '51rqtyb947n',
           'x-index': 0,
         },
-        statisticalDate: {
+        'carNumber': {
+          'type': 'string',
+          'title': '车牌号',
+          'x-decorator': 'FormItem',
+          'x-component': 'Input',
+          'x-validator': [],
+          'x-component-props': {},
+          'x-decorator-props': {},
+          'name': 'carNumber',
+          'x-designable-id': '51rqt56447n',
+          'x-index': 1,
+        },
+        '[startstatisticalDate, endstatisticalDate]': {
           'type': 'string[]',
           'title': '统计日期',
           'x-decorator': 'FormItem',
@@ -68,11 +80,11 @@ const schema = {
             type: 'daterange',
           },
           'x-decorator-props': {},
-          'name': 'statisticalDate',
+          'name': '[startstatisticalDate,endstatisticalDate]',
           'x-designable-id': '21vo4n34ft9',
-          'x-index': 1,
+          'x-index': 2,
         },
-        createTime: {
+        '[startcreateTime, endcreateTime]': {
           'type': 'string[]',
           'title': '入库日期',
           'x-decorator': 'FormItem',
@@ -82,9 +94,9 @@ const schema = {
             type: 'daterange',
           },
           'x-decorator-props': {},
-          'name': 'createTime',
+          'name': '[startcreateTime,endcreateTime]',
           'x-designable-id': '8zwqovbinio',
-          'x-index': 2,
+          'x-index': 3,
         },
       },
       'x-index': 0,
@@ -109,6 +121,10 @@ const columns = [
   {
     prop: 'driverName',
     label: '司机姓名',
+  },
+  {
+    prop: 'carNumber',
+    label: '车牌号',
   },
   {
     prop: 'managerName',
