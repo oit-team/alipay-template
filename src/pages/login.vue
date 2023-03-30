@@ -114,7 +114,7 @@ const onSubmit = async (form: any) => {
 
 <style scoped lang="scss">
 .login{
-  background: center / cover no-repeat url("../../public/image/login-bg.jpg");
+  background: center / cover no-repeat url("/image/login-bg.jpg");
 }
 
 .formily-element-plus-space-item{
