@@ -1,45 +1,65 @@
+<route lang="yaml">
+meta:
+  flowCode: CAR_RENTAL
+</route>
+
 <script setup lang="ts">
+import { workOrderInfoSymbol } from '../types'
+import Logs from '../components/Logs.vue'
 import Step1 from './components/step-1/index.vue'
 import Step2 from './components/step-2/index.vue'
-import { transformResponsePush } from '@/utils/helper'
 
-const route = useRoute()
+const workOrderInfo = inject(workOrderInfoSymbol)
 
-const step = ref(0)
+const view = computed(() => [
+  Step1,
+  Step2,
+][workOrderInfo?.value?.viewStep ?? -1])
 
-const view = computed(() => [Step1, Step2][step.value])
-
-const { data } = useAxios('/workFlow/workFlow/getWorkFlowSteps', {
-  method: 'POST',
+const {
+  data: workOrderReview,
+  execute: getReturnVehicleOrderMap,
+} = useAxios('/order/leaseOrder/getLeaseOrderByNo', {
   data: {
-    workCode: route.query.workCode || '',
-    flowCode: route.query.flowCode || 'CAR_RENTAL',
-    taskCode: '',
+    workCode: workOrderInfo?.value?.workCode,
   },
-  transformResponse: transformResponsePush(data => data),
-})
+}, { immediate: false })
 
-watch(() => data.value?.step, (newstep) => {
-  // 接口请求step一直是1 所以 有query在进行赋值
-  if (route.query.flowCode)
-    step.value = newstep
-})
+if (workOrderInfo?.value?.workCode)
+  getReturnVehicleOrderMap()
+
+provide('workOrderReview', workOrderReview)
 </script>
 
 <template>
   <div u-flex="~ col" u-h-full>
     <ElSteps
-      :active="step"
+      :active="workOrderInfo?.step"
       class="sticky top-0 z-10"
       finish-status="success"
       simple
-      :space="200"
     >
-      <ElStep v-for="item in data?.workFlowSteps" :key="item.id" :title="item.name" />
+      <ElStep
+        v-for="(item, index) of workOrderInfo?.workFlowSteps"
+        :key="item.id"
+        :class="{ 'step--active': workOrderInfo?.viewStep === index && workOrderInfo?.isReview }"
+        :title="item.name"
+        @click="workOrderInfo?.setViewStep(index)"
+      />
     </ElSteps>
 
-    <ElScrollbar>
-      <Component :is="view" />
-    </ElScrollbar>
+    <Component :is="view" class="flex-1" :class="{ 'formily-readonly': workOrderInfo?.isReview }" />
+
+    <Logs />
   </div>
 </template>
+
+<style>
+.el-step__title:not(.is-wait) {
+  cursor: pointer;
+}
+
+.step--active .el-step__title {
+  color: var(--el-color-primary);
+}
+</style>

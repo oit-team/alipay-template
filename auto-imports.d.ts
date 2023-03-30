@@ -227,6 +227,7 @@ declare global {
   const usePrevious: typeof import('@vueuse/core')['usePrevious']
   const useRafFn: typeof import('@vueuse/core')['useRafFn']
   const useRefHistory: typeof import('@vueuse/core')['useRefHistory']
+  const useReload: typeof import('./src/composables/useReload')['useReload']
   const useResizeObserver: typeof import('@vueuse/core')['useResizeObserver']
   const useRoute: typeof import('vue-router')['useRoute']
   const useRouter: typeof import('vue-router')['useRouter']
@@ -525,6 +526,7 @@ declare module 'vue' {
     readonly usePrevious: UnwrapRef<typeof import('@vueuse/core')['usePrevious']>
     readonly useRafFn: UnwrapRef<typeof import('@vueuse/core')['useRafFn']>
     readonly useRefHistory: UnwrapRef<typeof import('@vueuse/core')['useRefHistory']>
+    readonly useReload: UnwrapRef<typeof import('./src/composables/useReload')['useReload']>
     readonly useResizeObserver: UnwrapRef<typeof import('@vueuse/core')['useResizeObserver']>
     readonly useRoute: UnwrapRef<typeof import('vue-router')['useRoute']>
     readonly useRouter: UnwrapRef<typeof import('vue-router')['useRouter']>
