@@ -64,7 +64,7 @@ async function reject() {
   <div class="h-full flex flex-col">
     <FormProvider :form="form">
       <Form class="h-full" preview-text-placeholder="暂无">
-        <PageHeader title="申请退租">
+        <PageHeader :title="`申请退租-${$route.query?.workCode}`">
           <template v-if="!workOrderInfo?.isReview" #extra>
             <ElButton type="danger" @click="reject()">
               拒绝

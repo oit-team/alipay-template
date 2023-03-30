@@ -72,7 +72,7 @@ async function handleCancel() {
 
 <template>
   <div class="flex flex-col gap-2 p-2">
-    <PageHeader title="租车申请">
+    <PageHeader :title="`租车申请-${$route.query?.workCode}`">
       <template #extra>
         <ElButton type="danger" @click="dialogCancelReasonVisible = true">
           拒绝

@@ -20,7 +20,7 @@ onMounted(() => {
       @back="onBack ? onBack() : $router.back()"
     >
       <template #content>
-        <span class="text-lg">{{ title }}</span>
+        <span class="text-base">{{ title }}</span>
       </template>
       <template #extra>
         <slot name="extra" />
