@@ -1,5 +1,11 @@
+<script setup lang="ts">
+import { ElDivider } from 'element-plus'
+
+const spacer = h(ElDivider, { direction: 'vertical' })
+</script>
+
 <template>
-  <div class="query-toolbar">
+  <ElSpace class="query-toolbar" :size="3" :spacer="spacer">
     <slot />
-  </div>
+  </ElSpace>
 </template>
