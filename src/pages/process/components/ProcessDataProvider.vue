@@ -4,10 +4,16 @@ import { workOrderApplySymbol, workOrderInfoSymbol, workOrderSubmitSymbol } from
 import type { WorkOrderApply, WorkOrderInfo, WorkOrderSubmit } from '../types'
 
 const route = useRoute()
+const router = useRouter()
 const viewStep = ref<number>()
 const initParams = {
-  flowCode: 'CAR_RETURN',
+  flowCode: route.meta.flowCode,
   workCode: route.query.workCode || '',
+}
+
+if (!route.meta.flowCode) {
+  ElMessage.warning('无效流程')
+  router.back()
 }
 
 const {
