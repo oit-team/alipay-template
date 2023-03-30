@@ -52,9 +52,6 @@ export function useSelectAsyncDataSource(service: AsyncDataSourceSelectService, 
  * 获取城市列表
  */
 export const getCityList: AsyncDataSourceSelectService = async ({ keyword }) => {
-  if (!keyword)
-    return []
-
   const { data } = await axios.post('/order/scheme/getCitiesName', {
     keyWord: keyword,
   })
@@ -87,9 +84,6 @@ export const getVehicleBrandSeriesModel: AsyncDataSourceSelectService = async ({
  * 获取专属用户
  */
 export const getUserKeyWord: AsyncDataSourceSelectService = async ({ keyword }) => {
-  if (!keyword)
-    return []
-
   const { data } = await axios.post('/system/user/getUserByKeyword', {
     keyWord: keyword,
   })
