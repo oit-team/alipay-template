@@ -54,25 +54,24 @@ const schema = {
   properties: {
     userName: {
       'type': 'string',
-      'title': '用户名',
       'required': true,
       'x-decorator': 'FormItem',
       'x-component': 'Input',
       'x-component-props': {
+        placeholder: '用户名',
       },
     },
     passWord: {
       'type': 'string',
-      'title': '密码',
       'required': true,
       'x-decorator': 'FormItem',
       'x-component': 'Password',
       'x-component-props': {
+        placeholder: '密码',
       },
     },
     checkCode: {
       'type': 'string',
-      'title': '验证码',
       'required': true,
       'x-decorator': 'FormItem',
       'x-component': 'CheckCode',
@@ -93,32 +92,38 @@ const onSubmit = async (form: any) => {
 </script>
 
 <template>
-  <div class="grid place-content-center h-full ">
-    <ElCard class="w-780px box-border login ">
-      <div class="flex justify-between">
-        <div class="h-full w-1/2" />
-        <div class="h-[45vh] w-1/2 p-2 bg-white flex flex-col justify-center items-center">
-          <div class="mb-4 text-[#4860be] text-3xl">
-            浪 汛 车 行
-          </div>
-          <FormProvider :form="form">
-            <FormLayout label-col="5">
-              <SchemaField :schema="schema" />
-              <FormButtonGroup align-form-item class="w-full">
-                <Submit @submit="onSubmit">
-                  登录
-                </Submit>
-              </FormButtonGroup>
-            </FormLayout>
-          </FormProvider>
-        </div>
+  <div class="grid place-content-center h-full login">
+    <ElCard class="w-350px p-8 rounded-lg">
+      <div class="mb-4 text-[#6083cb] text-xl text-center w-full">
+        浪汛汽车租赁系统
       </div>
+      <div class="border-red border-bottom h-1" />
+      <FormProvider :form="form">
+        <FormLayout label-col="0">
+          <SchemaField :schema="schema" />
+          <FormButtonGroup align-form-item class="w-full">
+            <Submit class="w-full" @submit="onSubmit">
+              登录
+            </Submit>
+          </FormButtonGroup>
+        </FormLayout>
+      </FormProvider>
     </ElCard>
   </div>
 </template>
 
 <style scoped lang="scss">
 .login{
-  background: center / contain no-repeat url("../../public/image/login-bg.jpg");
+  background: center / cover no-repeat url("../../public/image/login-bg.jpg");
+}
+
+.formily-element-plus-space-item{
+  width: 100%;
+}
+.formily-element-plus-space-align-center{
+  width: 100%;
+}
+.formily-element-plus-form-item-label-align-right > .formily-element-plus-form-item-label{
+  display: none;
 }
 </style>
