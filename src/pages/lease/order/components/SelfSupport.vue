@@ -28,13 +28,13 @@ const schema
           'name': '94exvsf2iwc',
           'x-designable-id': 'yppd6g3e59z',
           'properties': {
-            leaseOrderNo: {
+            orderNo: {
               'type': 'string',
               'title': '订单编号',
               'x-decorator': 'FormItem',
               'x-component': 'Input',
               'x-index': 0,
-              'name': 'leaseOrderNo',
+              'name': 'orderNo',
               'x-designable-id': 'uwmt4p2jxkg',
               'x-validator': [],
               'x-component-props': {},
