@@ -4,7 +4,10 @@ meta:
 </route>
 
 <script setup lang="ts">
-const driverId = inject('driverId')
+import { driverParamsSymbol } from '../types'
+
+const driverParams = inject(driverParamsSymbol)
+const driverId = driverParams?.driverId
 
 const queryRef = ref()
 

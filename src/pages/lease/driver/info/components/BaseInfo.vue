@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { driverParamsSymbol } from '../types'
+
 const infoMap = [
   {
     prop: 'driverName',
@@ -159,7 +161,8 @@ const driverIdentityMap = [
 
 // 图片预览
 const srcList = ref<any>([])
-const driverId = inject('driverId')
+const driverParams = inject(driverParamsSymbol)
+const driverId = driverParams?.driverId
 
 const { data } = useAxios('/driverServer/driver/getDriverMap', {
   method: 'POST',
@@ -182,13 +185,13 @@ const { data } = useAxios('/driverServer/driver/getDriverMap', {
           :options="driverIdentityMap"
         >
           <template #identityImg="{ value }">
-            <ElImage class="all_img" :preview-src-list="srcList" :src="value[0]" @click="srcList = [value]" />
+            <ElImage class="all_img" :preview-src-list="srcList" :src="value?.[0]" @click="srcList = [value]" />
           </template>
           <template #identityStraight="{ value }">
-            <ElImage class="all_img" :preview-src-list="srcList" :src="value[0]" @click="srcList = [value]" />
+            <ElImage class="all_img" :preview-src-list="srcList" :src="value?.[0]" @click="srcList = [value]" />
           </template>
           <template #identityReverse="{ value }">
-            <ElImage class="all_img" :preview-src-list="srcList" :src="value[0]" @click="srcList = [value]" />
+            <ElImage class="all_img" :preview-src-list="srcList" :src="value?.[0]" @click="srcList = [value]" />
           </template>
         </Descriptions>
         <ElEmpty v-else />
@@ -202,10 +205,10 @@ const { data } = useAxios('/driverServer/driver/getDriverMap', {
           :options="driveLicenseMap"
         >
           <template #driveLicenseHost="{ value }">
-            <ElImage class="all_img" :preview-src-list="srcList" :src="value[0]" @click="srcList = [value]" />
+            <ElImage class="all_img" :preview-src-list="srcList" :src="value?.[0]" @click="srcList = [value]" />
           </template>
           <template #driveLicenseAssistant="{ value }">
-            <ElImage class="all_img" :preview-src-list="srcList" :src="value[0]" @click="srcList = [value]" />
+            <ElImage class="all_img" :preview-src-list="srcList" :src="value?.[0]" @click="srcList = [value]" />
           </template>
         </Descriptions>
         <ElEmpty v-else />
@@ -219,7 +222,7 @@ const { data } = useAxios('/driverServer/driver/getDriverMap', {
           :options="driverQualificaMap"
         >
           <template #certificateImg="{ value }">
-            <ElImage class="all_img" :preview-src-list="srcList" :src="value[0]" @click="srcList = [value]" />
+            <ElImage class="all_img" :preview-src-list="srcList" :src="value?.[0]" @click="srcList = [value]" />
           </template>
         </Descriptions>
         <ElEmpty v-else />

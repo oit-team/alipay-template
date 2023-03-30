@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { driverParamsSymbol } from '../types'
 import schema from './schema/extra.json'
 import { notSavedTips } from '@/utils/actions'
 
@@ -6,7 +7,8 @@ const route = useRoute()
 const { t } = useI18n()
 const type = ref(1)
 const showDrawer = ref(false)
-const driverId = inject('driverId')
+const driverParams = inject(driverParamsSymbol)
+const driverId = driverParams?.driverId
 
 const extraMap = [
   { prop: 't3DriverId', label: '司机id' },

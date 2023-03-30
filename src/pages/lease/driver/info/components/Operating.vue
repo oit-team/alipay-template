@@ -4,6 +4,8 @@ meta:
 </route>
 
 <script setup lang="ts">
+import { driverParamsSymbol } from '../types'
+
 const schema = {
   'type': 'object',
   'properties': {
@@ -108,7 +110,8 @@ const columns = [
 ]
 
 const queryRef = ref<any>()
-const driverId = inject('driverId')
+const driverParams = inject(driverParamsSymbol)
+const driverId = driverParams?.driverId
 
 onMounted(() => {
   queryRef.value?.query()
