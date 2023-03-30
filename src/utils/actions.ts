@@ -102,7 +102,7 @@ export function transformToUploadFiles(urls: string[] | string): UploadUserFile[
   urls = typeof urls === 'string' ? urls.split(',') : urls
   urls = Array.isArray(urls) ? urls : []
   return urls?.map?.((url, index) => ({
-    name: `${index}`,
+    name: '',
     url,
   }))
 }
