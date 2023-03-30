@@ -44,6 +44,7 @@ const workOrderSubmit: WorkOrderSubmit = async (params, options) => {
 }
 
 const currentLogs = computed(() => flowStepsData.value?.workFlowSteps?.[viewStep.value!]?.executeLogs)
+const currentStep = computed(() => flowStepsData.value?.workFlowSteps?.[viewStep.value!])
 
 const workOrderInfo = computed<WorkOrderInfo>(() => ({
   ...flowStepsData.value,
@@ -53,6 +54,7 @@ const workOrderInfo = computed<WorkOrderInfo>(() => ({
   isReview: viewStep.value! < flowStepsData.value?.step,
   setViewStep,
   currentLogs: currentLogs.value,
+  currentStep: currentStep.value,
 }))
 
 function setViewStep(step: number) {

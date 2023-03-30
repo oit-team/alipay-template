@@ -8,9 +8,10 @@ const workOrderInfo = inject(workOrderInfoSymbol)
 <template>
   <div v-if="workOrderInfo?.currentLogs?.[0]" class="p-2" v-bind="$attrs">
     <ElCard>
-      <div class="flex items-center p-2">
-        <div class="truncate flex-1">
-          {{ workOrderInfo?.currentLogs[0] }}
+      <div class="flex items-center justify-between p-2">
+        <div class="flex gap-10">
+          <span>确认人：{{ workOrderInfo?.currentStep.handleUser }}</span>
+          <span>确认时间：{{ workOrderInfo?.currentStep.handleTime }}</span>
         </div>
         <ElButton @click="showLogs = true">
           查看全部

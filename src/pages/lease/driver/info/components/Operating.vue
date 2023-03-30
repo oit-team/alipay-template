@@ -4,13 +4,7 @@ meta:
 </route>
 
 <script setup lang="ts">
-// import { useUserStore } from '@/store/user'
-
-// const { t } = useI18n()
-
-// const { files, open } = useFileDialog()
-
-const route = useRoute()
+import { driverParamsSymbol } from '../types'
 
 const schema = {
   'type': 'object',
@@ -116,6 +110,8 @@ const columns = [
 ]
 
 const queryRef = ref<any>()
+const driverParams = inject(driverParamsSymbol)
+const driverId = driverParams?.driverId
 
 onMounted(() => {
   queryRef.value?.query()
@@ -127,7 +123,7 @@ onMounted(() => {
     <UseQuery
       v-slot="attrs"
       :data="{
-        driverId: route.params.id,
+        driverId,
       }"
       :key-map="{ data: 'resultList', total: 'totalCount' }"
       url="/vehicle/vehicle/getT3OperationalDataList"

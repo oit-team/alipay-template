@@ -4,6 +4,8 @@ meta:
   </route>
 
 <script setup lang="ts">
+import { vehicleParamsSymbol } from '../types'
+
 const columns = [
   {
     prop: 'projectName',
@@ -108,6 +110,8 @@ const columnsConfig = {
 }
 
 const queryRef = ref()
+const vehicleParams = inject(vehicleParamsSymbol)
+const vehicleId = vehicleParams?.vehicleId
 
 onMounted(() => {
   queryRef.value?.query()
@@ -121,7 +125,7 @@ onMounted(() => {
       :columns="columns"
       :columns-config="columnsConfig"
       :data="{
-        vehicleId: $route.params.id,
+        vehicleId,
       }"
       :key-map="{ data: 'resultList', total: 'totalCount' }"
       url="/vehicle/vehicle/getViolationInfo"

@@ -4,9 +4,11 @@ meta:
     </route>
 
 <script setup lang="ts">
-const route = useRoute()
+import { vehicleParamsSymbol } from '../types'
 
 const queryRef = ref()
+const vehicleParams = inject(vehicleParamsSymbol)
+const vehicleId = vehicleParams?.vehicleId
 
 onMounted(() => {
   queryRef.value?.query()
@@ -115,7 +117,7 @@ const columnsConfig = {
       :columns="columns"
       :columns-config="columnsConfig"
       :data="{
-        vehicleId: route.params.id,
+        vehicleId,
       }"
       :key-map="{ data: 'resultList', total: 'totalCount' }"
       url="/order/leaseOrder/getLeaseOrderList"

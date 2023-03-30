@@ -12,6 +12,7 @@ const view = computed(() => [
   ApplyStep,
   ValidateCarStep,
   MaintainStep,
+  MaintainStep,
   FinanceStep,
 ][workOrderInfo?.value?.viewStep ?? -1])
 

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { driverParamsSymbol } from '../types'
 import schema from './schema/extra.json'
 import { notSavedTips } from '@/utils/actions'
 
@@ -6,6 +7,8 @@ const route = useRoute()
 const { t } = useI18n()
 const type = ref(1)
 const showDrawer = ref(false)
+const driverParams = inject(driverParamsSymbol)
+const driverId = driverParams?.driverId
 
 const extraMap = [
   { prop: 't3DriverId', label: '司机id' },
@@ -35,7 +38,7 @@ const form = createForm({
 const { data: typeList } = useAxios('/driverServer/replenish/getReplenishTypeList', {
   method: 'POST',
   data: {
-    driverId: route.params.id,
+    driverId,
   },
 })
 
@@ -49,7 +52,7 @@ watch(type, reload)
 function reload() {
   execute({
     data: {
-      driverId: route.params.id,
+      driverId,
       replenishType: type.value,
     },
   })
