@@ -7,6 +7,7 @@ export const workOrderApplySymbol = Symbol('workOrderApply') as InjectionKey<Wor
 export interface WorkOrderInfo {
   setViewStep: (step: number) => void
   currentLogs?: string[]
+  currentStep?: any
   workCode: string
   flowCode: string
   taskCode: string
