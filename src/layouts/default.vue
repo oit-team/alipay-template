@@ -1,10 +1,11 @@
 <script lang="ts" setup>
+import ChangePassWord from '@/components/ChangePassWord.vue'
 import { useUserStore } from '@/store/user'
 
 const { profile } = useUserStore()
 const router = useRouter()
 
-const resetPwdRef = ref()
+const drawer = ref()
 
 interface MenuItem {
   title: string
@@ -30,15 +31,16 @@ const menu = computed<MenuItem[]>(() => {
   return formatMenu(data.value?.resultList)
 })
 
-function logout() {
+async function logout() {
+  await ElMessageBox.confirm('确定退出登录吗', '提示')
   localStorage.clear()
   sessionStorage.clear()
   router.push('/login')
 }
 
-// function openCgPw() {
-//   console.log(555)
-// }
+function openCgPw() {
+  drawer.value.open()
+}
 </script>
 
 <template>
@@ -52,12 +54,13 @@ function logout() {
       </div>
       <div class="flex items-center gap-2">
         <ElDropdown v-if="profile?.userName">
-          <span class="el-dropdown-link">
+          <div class="el-dropdown-link flex items-center">
+            <ElAvatar class="mr-2" :size="40" src="/image/userAvatar.png" />
             {{ profile.userName }}
-          </span>
+          </div>
           <template #dropdown>
             <ElDropdownMenu>
-              <ElDropdownItem>
+              <ElDropdownItem @click="openCgPw">
                 修改密码
               </ElDropdownItem>
               <ElDropdownItem @click="logout()">
@@ -125,6 +128,6 @@ function logout() {
       </ElMain>
     </ElContainer>
 
-    <ResetPassword ref="resetPwdRef" />
+    <ChangePassWord ref="drawer" />
   </ElContainer>
 </template>
