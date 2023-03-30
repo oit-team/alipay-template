@@ -5,7 +5,6 @@ import { useUserStore } from '@/store/user'
 const { profile } = useUserStore()
 const router = useRouter()
 
-const showDrawer = ref(false)
 const drawer = ref()
 
 interface MenuItem {
@@ -32,14 +31,14 @@ const menu = computed<MenuItem[]>(() => {
   return formatMenu(data.value?.resultList)
 })
 
-function logout() {
+async function logout() {
+  await ElMessageBox.confirm('确定退出登录吗', '提示')
   localStorage.clear()
   sessionStorage.clear()
   router.push('/login')
 }
 
 function openCgPw() {
-  // showDrawer.value = true
   drawer.value.open()
 }
 </script>
@@ -55,9 +54,10 @@ function openCgPw() {
       </div>
       <div class="flex items-center gap-2">
         <ElDropdown v-if="profile?.userName">
-          <span class="el-dropdown-link">
+          <div class="el-dropdown-link flex items-center">
+            <ElAvatar class="mr-2" :size="40" src="/image/userAvatar.png" />
             {{ profile.userName }}
-          </span>
+          </div>
           <template #dropdown>
             <ElDropdownMenu>
               <ElDropdownItem @click="openCgPw">
@@ -128,6 +128,6 @@ function openCgPw() {
       </ElMain>
     </ElContainer>
 
-    <ChangePassWord ref="drawer" :drawer="showDrawer" />
+    <ChangePassWord ref="drawer" />
   </ElContainer>
 </template>
