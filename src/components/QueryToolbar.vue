@@ -9,3 +9,11 @@ const spacer = h(ElDivider, { direction: 'vertical' })
     <slot />
   </ElSpace>
 </template>
+
+<style lang="scss">
+.query-toolbar{
+  .el-button{
+    font-weight: bold;
+  }
+}
+</style>
