@@ -75,7 +75,7 @@ async function upOrDown(item: any) {
         <QueryTable>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" label="操作" width="350">
-              <ElButton :disabled="row.activityStatue === 1" size="small" type="primary" @click="$router.push(`./list/plan/${row.activityId}`)">
+              <ElButton size="small" type="primary" @click="$router.push(`./list/plan/${row.activityId}`)">
                 关联方案
               </ElButton>
               <ElButton size="small" :type="row.activityStatue === 1 ? '' : 'success'" @click="upOrDown(row)">

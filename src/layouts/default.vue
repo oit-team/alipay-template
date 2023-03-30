@@ -45,7 +45,7 @@ function logout() {
   <ElContainer class="h-full overflow-hidden">
     <ElHeader class="flex items-center justify-between border-b gap-3">
       <div class="flex items-center gap-3">
-        <ElAvatar class="bg-white" :size="24" src="/public/image/logo.jpg" />
+        <ElAvatar class="bg-white" :size="24" src="/image/logo.jpg" />
         <div class="font-bold text-lg">
           汽车租赁管理系统
         </div>
