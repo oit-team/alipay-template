@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { FormProvider } from '@formily/vue'
 import schema from './schema/form.json'
-import { handleSubmitFailed, setFieldDataSource } from '@/utils/actions'
+import { handleSubmitFailed } from '@/utils/actions'
 import { getCityList, getUserKeyWord } from '@/reactions'
 
 const route = useRoute()
@@ -17,19 +17,6 @@ const getData = async () => {
   const { data } = await axios.post('/driverServer/driver/getDriverMap', {
     driverId: isNew ? null : route.params.id,
   })
-
-  setFieldDataSource(form, 'exclusiveServiceId', [
-    {
-      label: data.exclusiveService,
-      value: data.exclusiveServiceId,
-    },
-  ])
-  setFieldDataSource(form, 'salesLeaderId', [
-    {
-      label: data.salesLeader,
-      value: data.salesLeaderId,
-    },
-  ])
 
   form.setInitialValues(data)
 }
