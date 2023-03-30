@@ -113,6 +113,12 @@ const columnsConfig = {
       >
         <QueryForm />
         <QueryTable>
+          <!-- 0 进行中 1已完成 -1 已作废 -->
+          <template #content:statusName="{ row }">
+            <div :class="row.status === 1 ? 'text-green-500' : ''">
+              {{ row.statusName }}
+            </div>
+          </template>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" fixed="right" label="操作" width="120px">
               <ElButton size="small" type="success" @click="goDetail(row)">

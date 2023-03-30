@@ -122,7 +122,7 @@ async function handleCancel() {
         default-text="无"
         label-width="130px"
         :options="[
-          { label: '品牌车系车型', prop: 'vehicleBrand', span: 2 },
+          { label: '品牌车系车型', prop: 'vehicleBrand' },
           { label: '租期（月）', prop: 'leaseTerm' },
           { label: '押金（元）', prop: 'cashPledge' },
           { label: '里程（km）', prop: 'mileage' },
@@ -132,7 +132,7 @@ async function handleCancel() {
           { label: '起租日期', prop: 'startTime' },
           { label: '原终止日期', prop: 'primaryEndTime' },
           { label: '终止日期', prop: 'endTime' },
-          { label: '备注', prop: 'remarks', span: 4 },
+          { label: '备注', prop: 'remarks' },
         ]"
       />
       <ElEmpty v-else />
