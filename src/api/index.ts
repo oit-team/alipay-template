@@ -65,15 +65,18 @@ Axios.interceptors.request.use((config) => {
 
 // 添加响应拦截器
 Axios.interceptors.response.use((response) => {
-  const status = response.data?.head?.status
-  if (typeof status === 'number' && status !== 0) {
-    return createApiError({
-      url: response?.config.url,
-      response,
-      message: response.data.head.msg,
-      code: response.data.head.status,
-      status: response?.status,
-    })
+  if (response.headers['content-type'] === 'application/json' && !response.data) {
+    const rawResponse = JSON.parse(response.request.response)
+    const status = rawResponse?.head?.status
+    if (typeof status === 'number' && status !== 0) {
+      return createApiError({
+        url: response?.config.url,
+        response,
+        message: rawResponse.head.msg,
+        code: rawResponse.head.status,
+        status: response?.status,
+      })
+    }
   }
   return response
 }, async (error) => {
