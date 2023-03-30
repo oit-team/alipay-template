@@ -28,13 +28,13 @@ const schema
           'name': '94exvsf2iwc',
           'x-designable-id': 'yppd6g3e59z',
           'properties': {
-            leaseOrderNo: {
+            orderNo: {
               'type': 'string',
               'title': '订单编号',
               'x-decorator': 'FormItem',
               'x-component': 'Input',
               'x-index': 0,
-              'name': 'leaseOrderNo',
+              'name': 'orderNo',
               'x-designable-id': 'uwmt4p2jxkg',
               'x-validator': [],
               'x-component-props': {},
@@ -149,6 +149,13 @@ const schema
 const { t } = useI18n()
 
 const queryRef = ref()
+
+enum statusColorMap {
+  '', // 审批中
+  'text-green-500', // 履约中
+  'text-yellow-500', // 已到期
+  'text-red-500', // '已作废'
+}
 
 // 订单作废
 async function onCancellation(row: any) {
@@ -388,11 +395,12 @@ const columnsConfig = {
           </ElButton>
         </QueryToolbar>
         <QueryTable>
-          <!-- <template #content:orderStatueName="{ row }">
-            <ElTag :type="row.orderStatue === 1 ? 'success' : 'info'">
-              {{ row.vehicleState }}
-            </ElTag>
-          </template> -->
+          <!-- 0 审批中 1 履约中  2 已到期 3 已作废 -->
+          <template #content:orderStatueName="{ row }">
+            <div :class="statusColorMap[row.orderStatue]">
+              {{ row.orderStatueName }}
+            </div>
+          </template>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" fixed="right" label="操作" width="240px">
               <ElButton size="small" type="success" @click="$router.push(`./order/info/self-support/${row.id}`)">
@@ -424,8 +432,11 @@ const columnsConfig = {
             <ElInput v-model="orderNo" placeholder="请输入T3订单编号" />
           </div>
         </template>
+        <div v-if="orderNo && !orderInfo" class="text-red-500 text-xs py-2 px-4">
+          *未找到相关订单,请重新输入
+        </div>
         <Descriptions
-          v-if="Object.keys(orderInfo).length > 0"
+          v-if="orderInfo && Object.keys(orderInfo).length > 0"
           border
           column="1"
           :data="orderInfo"

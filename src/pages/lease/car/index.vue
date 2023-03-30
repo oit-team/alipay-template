@@ -169,6 +169,12 @@ watch(files, async (value) => {
           </ElButton>
         </QueryToolbar>
         <QueryTable>
+          <!-- 0 待租 1 已租 -->
+          <template #content:vehicleState="{ row }">
+            <div :class="row.vehicleStateVal === 1 ? 'text-green' : ''">
+              {{ row.vehicleState }}
+            </div>
+          </template>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" fixed="right" label="操作" width="180px">
               <ElButton size="small" type="info" @click="$router.push(`./car/info/${row.vehicleId}`)">

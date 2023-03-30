@@ -142,6 +142,12 @@ const columnsConfig = {
           </ElButton>
         </QueryToolbar>
         <QueryTable>
+          <!-- 1 已上架 0 未上架 -->
+          <template #content:caseStateMsg="{ row }">
+            <div :class="row.caseState === 1 ? 'success' : 'info'">
+              {{ row.caseStateMsg }}
+            </div>
+          </template>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" fixed="right" label="操作" width="180px">
               <ElButton :disabled="row.caseState === 1" size="small" type="primary" @click="$router.push(`./scheme/${row.id}`)">

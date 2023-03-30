@@ -36,15 +36,11 @@ const columns = [
   },
   {
     prop: 'orderCode',
-    label: '订单名称',
+    label: '订单编号',
   },
   {
     prop: 'taskName',
-    label: '任务名称',
-  },
-  {
-    prop: 'flowCode',
-    label: '流程编号',
+    label: '当前任务',
   },
   {
     prop: 'statusName',
@@ -117,6 +113,11 @@ const columnsConfig = {
       >
         <QueryForm />
         <QueryTable>
+          <template #content:statusName="{ row }">
+            <div :class="row.status === 1 ? 'text-green-500' : ''">
+              {{ row.statusName }}
+            </div>
+          </template>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" fixed="right" label="操作" width="120px">
               <ElButton size="small" type="success" @click="goDetail(row)">
