@@ -4,7 +4,10 @@ meta:
   </route>
 
 <script setup lang="ts">
-const route = useRoute()
+import { vehicleParamsSymbol } from '../types'
+
+const vehicleParams = inject(vehicleParamsSymbol)
+const vehicleId = vehicleParams?.vehicleId
 
 const schema = {
   'type': 'object',
@@ -132,7 +135,7 @@ onMounted(() => {
       :columns="columns"
       :columns-config="columnsConfig"
       :data="{
-        vehicleId: route.params.id,
+        vehicleId,
       }"
       :key-map="{ data: 'resultList', total: 'totalCount' }"
       :schema="schema"

@@ -1,20 +1,17 @@
 <script setup lang="ts">
+import { vehicleParamsSymbol } from '../types'
 import schema from './schema/extra.json'
 import { notSavedTips } from '@/utils/actions'
 
-const route = useRoute()
 const { t } = useI18n()
 const type = ref()
 const showDrawer = ref(false)
+const vehicleParams = inject(vehicleParamsSymbol)
+const vehicleId = vehicleParams?.vehicleId
 
 const extraMap = [
-  // { prop: 'vehicleId', label: '车辆id' },
-  // { prop: 'transporteCardNumber', label: '运输证编号' },
   { prop: 'assetCompany', label: '资产公司' },
-  // { prop: 'operator', label: '运营商' },
-  // { prop: 'vehicleCreditGrantor', label: '车辆授信方' },
   { prop: 'vehicleHolder', label: '车辆持有方' },
-  // { prop: 'vehicleSupplier', label: '车辆供应商' },
   { prop: 'supplyMethod', label: '供应方式' },
   { prop: 'engineCode', label: '发动机/电机编号' },
   { prop: 'modelCode', label: '车型代码' },
@@ -36,7 +33,6 @@ const extraMap = [
   { prop: 'assetType', label: '资产类型' },
   { prop: 'invoiceImgs', label: '发票照片' },
   { prop: 'certificateImgs', label: '合格证照片' },
-  // { prop: 'replenishType', label: '补充类型' },
 ]
 
 const labelWidth = ref('180px')
@@ -49,7 +45,7 @@ const form = createForm({
 const { data: typeList } = useAxios('/driverServer/replenish/getReplenishTypeList', {
   method: 'POST',
   data: {
-    vehicleId: route.params.id,
+    vehicleId,
   },
 })
 
@@ -68,7 +64,7 @@ watch(type, reload)
 function reload() {
   execute({
     data: {
-      vehicleId: route.params.id,
+      vehicleId,
       replenishType: type.value,
     },
   })
@@ -95,7 +91,7 @@ async function submit(form: any) {
       : '/vehicle/vehicle/addVehicleReplenish',
     {
       ...form,
-      vehicleId: route.params.id,
+      vehicleId,
       replenishType: type.value,
     },
   )
