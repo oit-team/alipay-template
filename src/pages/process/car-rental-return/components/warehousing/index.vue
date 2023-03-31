@@ -3,6 +3,7 @@ import DriverInfo from '@/pages/lease/driver/info/[id].vue'
 import VehicleInfo from '@/pages/lease/car/info/[id].vue'
 import { workOrderInfoSymbol, workOrderSubmitSymbol } from '@/pages/process/types'
 
+const router = useRouter()
 const workOrderSubmit = inject(workOrderSubmitSymbol)
 const workOrderInfo = inject(workOrderInfoSymbol)
 
@@ -10,6 +11,7 @@ async function submit() {
   await workOrderSubmit?.({}, {
     approvalStatus: 1,
   })
+  router.back()
 }
 </script>
 
@@ -17,7 +19,9 @@ async function submit() {
   <div class="h-full flex flex-col">
     <PageHeader title="申请退租">
       <template v-if="!workOrderInfo?.isReview" #extra>
-        <Submit type="primary" @submit="submit" />
+        <ElButton type="primary" @click="submit">
+          提交
+        </ElButton>
       </template>
     </PageHeader>
 

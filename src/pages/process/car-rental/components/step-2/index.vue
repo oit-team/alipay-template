@@ -2,19 +2,11 @@
 import { workOrderInfoSymbol, workOrderSubmitSymbol } from '@/pages/process/types'
 
 const { t } = useI18n()
-
-const route = useRoute()
 const router = useRouter()
 const workOrderSubmit = inject(workOrderSubmitSymbol)
 const workOrderInfo = inject(workOrderInfoSymbol)
 const isReview = computed(() => workOrderInfo?.value?.isReview)
-
-const { data: detailInfo } = useAxios('/order/leaseOrder/getLeaseOrderByNo', {
-  method: 'POST',
-  data: {
-    workCode: route.query.workCode,
-  },
-})
+const workOrderReview = inject('workOrderReview') as Ref<any>
 
 async function handlePass() {
   await workOrderSubmit?.({
@@ -22,8 +14,9 @@ async function handlePass() {
   }, {
     approvalStatus: 1,
   })
-  ElMessage.success(t('handle.success'))
-  router.push('/lease/work-order')
+
+  ElMessage.success(t('submit.success'))
+  router.back()
 }
 
 async function handleCancel() {
@@ -33,7 +26,8 @@ async function handleCancel() {
     approvalStatus: 0,
   })
 
-  router.push('/lease/work-order')
+  ElMessage.success(t('submit.success'))
+  router.back()
 }
 </script>
 
@@ -52,9 +46,9 @@ async function handleCancel() {
 
     <ElCard header="基本信息">
       <Descriptions
-        v-if="detailInfo?.leaseOrderBasic"
+        v-if="workOrderReview?.leaseOrderBasic"
         border
-        :data="detailInfo?.leaseOrderBasic"
+        :data="workOrderReview?.leaseOrderBasic"
         default-text="无"
         label-width="130px"
         :options="[
@@ -81,9 +75,9 @@ async function handleCancel() {
 
     <ElCard header="租赁信息">
       <Descriptions
-        v-if="detailInfo?.leaseOrder"
+        v-if="workOrderReview?.leaseOrder"
         border
-        :data="detailInfo?.leaseOrder"
+        :data="workOrderReview?.leaseOrder"
         default-text="无"
         label-width="130px"
         :options="[
@@ -110,7 +104,7 @@ async function handleCancel() {
           { label: '账期', prop: 'accountingPeriod' },
           { label: '月租', prop: 'rent' },
         ]"
-        :data="detailInfo?.leaseOrderBill"
+        :data="workOrderReview?.leaseOrderBill"
       />
     </ElCard>
   </div>

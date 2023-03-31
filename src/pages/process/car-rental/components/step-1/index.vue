@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { pick } from 'lodash-es'
 import type { UploadUserFile } from 'element-plus'
 import { workOrderApplySymbol, workOrderInfoSymbol } from '@/pages/process/types'
 import { transformResponsePush } from '@/utils/helper'
@@ -15,10 +16,10 @@ const workOrderReview = inject('workOrderReview') as Ref<any>
 const isReview = computed(() => workOrderInfo?.value?.isReview)
 
 const state = reactive({
-  driverId: workOrderInfo?.value.mainParams?.driverId || '',
-  vehicleId: workOrderInfo?.value.mainParams?.vehicleId || '',
-  schemeId: workOrderInfo?.value.mainParams?.schemeId || '',
-  activityId: workOrderInfo?.value.mainParams?.activityId || '',
+  driverId: workOrderReview.value?.leaseOrderBasic?.driverId || '',
+  vehicleId: workOrderReview.value?.leaseOrderBasic?.vehicleId || '',
+  schemeId: workOrderReview.value?.leaseOrderBasic?.schemeId || '',
+  activityId: workOrderReview.value?.leaseOrderBasic?.activityId || '',
 })
 
 const schemeTypeId = ref(0)
@@ -61,6 +62,14 @@ const {
 const vehicleItem = computed(() => workOrderReview.value?.leaseOrderBasic ?? vehicleList.value?.find((item: any) => item.vehicleId === state.vehicleId))
 
 const {
+  data: schemeInfo,
+  execute: getSchemeInfo,
+} = useAxios(
+  '/order/scheme/getSchemeInfo',
+  { transformResponse: transformResponsePush(data => data.resultMap) },
+  { immediate: false },
+)
+const {
   data: schemeList,
   isLoading: schemeLoading,
   execute: getSchemeList,
@@ -69,7 +78,7 @@ const {
   { transformResponse: transformResponsePush(data => data.schemeList) },
   { immediate: false },
 )
-const schemeItem = computed(() => workOrderReview.value?.leaseOrderBasic ?? schemeList.value?.find((item: any) => item.id === state.schemeId))
+const schemeItem = computed(() => schemeInfo.value ?? schemeList.value?.find((item: any) => item.id === state.schemeId))
 
 const {
   data: activityList,
@@ -109,7 +118,12 @@ watch(() => state.vehicleId, () => {
   preferentialList.value = {}
 })
 
-watch(() => state.activityId, () => {
+watch(() => state.activityId, (value) => {
+  if (!value) {
+    activityData.value = undefined
+    return
+  }
+
   getActivityMap({
     data: {
       activityId: state.activityId,
@@ -152,24 +166,31 @@ async function submit() {
   const files = transformUploadData(fileList.value)
 
   const params = {
-    leaseTerm: schemeItem.value.leaseTerm,
-    primaryEndTime: preferentialList.value?.preferentialMap.primaryEndTime,
-    rent: schemeItem.value.rent,
-    preferentialRent: preferentialList.value?.preferentialMap.preferentialRent,
-    startTime: preferentialList.value?.preferentialMap.startTime,
-    endTime: vehicleItem.value.endTime,
-    remarks: preferentialList.value?.preferentialMap.remarks,
+    ...pick(schemeItem.value, [
+      'leaseTerm',
+      'rent',
+      'cashPledge',
+      'vehicleAge',
+    ]),
+    ...pick(preferentialList.value?.preferentialMap, [
+      'primaryEndTime',
+      'preferentialRent',
+      'startTime',
+      'remarks',
+    ]),
+    ...pick(vehicleItem.value, [
+      'endTime',
+      'mileage',
+    ]),
     contractName: files?.[0].name,
     contractUrl: files?.[0].url,
-    mileage: vehicleItem.value.mileage,
-    cashPledge: schemeItem.value.cashPledge,
-    vehicleAge: schemeItem.value.vehicleAge || '',
     ...state,
   }
 
   await workOrderApply?.(params)
-  ElMessage.success(t('handle.success'))
-  router.push('/lease/driver')
+
+  ElMessage.success(t('submit.success'))
+  router.back()
 }
 
 workOrderInfo?.value.isReview && init()
@@ -180,11 +201,22 @@ function init() {
       activityId: state.activityId,
     },
   })
-  getActivityMap({
+  state.activityId && getActivityMap({
     data: {
       activityId: state.activityId,
     },
   })
+  getSchemeInfo({
+    data: {
+      caseId: state.schemeId,
+    },
+  })
+  if (workOrderReview.value?.leaseOrderBasic?.contractUrl) {
+    fileList.value = [{
+      name: workOrderReview.value?.leaseOrderBasic?.contractName,
+      url: workOrderReview.value?.leaseOrderBasic?.contractUrl,
+    }]
+  }
 }
 </script>
 
@@ -289,41 +321,72 @@ function init() {
               <div v-if="isReview">
                 方案信息
               </div>
-              <div v-else>
-                <span>方案类型：</span>
-                <ElRadioGroup v-model="schemeTypeId" u-mr-6>
-                  <ElRadio :label="0">
-                    自营方案
-                  </ElRadio>
-                  <ElRadio :label="1">
-                    T3方案
-                  </ElRadio>
-                </ElRadioGroup>
-                <span>方案编号/名称：</span>
-                <ElSelect
-                  v-model="state.schemeId"
-                  default-first-option
-                  :disabled="isSchemeDisabled"
-                  filterable
-                  :loading="schemeLoading"
-                  placeholder="请输入内容搜索"
-                  remote
-                  :remote-method="(v: any) => v && executeQuery(getSchemeList, {
-                    keyWord: v,
-                    caseType: schemeTypeId,
-                    caseState: 1,
-                    vehicleModelId: vehicleItem.vehicleModelId,
-                  })"
-                  remote-show-suffix
-                  reserve-keyword
-                >
-                  <ElOption
-                    v-for="item in schemeList"
-                    :key="item.id"
-                    :label="`${item.caseName}/${item.caseCode}`"
-                    :value="item.id"
-                  />
-                </ElSelect>
+              <div v-else class="flex gap-4">
+                <div>
+                  <span>方案类型：</span>
+                  <ElRadioGroup v-model="schemeTypeId" u-mr-6>
+                    <ElRadio :label="0">
+                      自营方案
+                    </ElRadio>
+                    <ElRadio :label="1">
+                      T3方案
+                    </ElRadio>
+                  </ElRadioGroup>
+                </div>
+                <div>
+                  <span>方案编号/名称：</span>
+                  <ElSelect
+                    v-model="state.schemeId"
+                    default-first-option
+                    :disabled="isSchemeDisabled"
+                    filterable
+                    :loading="schemeLoading"
+                    placeholder="请输入内容搜索"
+                    remote
+                    :remote-method="(v: any) => v && executeQuery(getSchemeList, {
+                      keyWord: v,
+                      caseType: schemeTypeId,
+                      caseState: 1,
+                      vehicleModelId: vehicleItem.vehicleModelId,
+                    })"
+                    remote-show-suffix
+                    reserve-keyword
+                  >
+                    <ElOption
+                      v-for="item in schemeList"
+                      :key="item.id"
+                      :label="`${item.caseName}/${item.caseCode}`"
+                      :value="item.id"
+                    />
+                  </ElSelect>
+                </div>
+                <div>
+                  <span>活动名称：</span>
+                  <ElSelect
+                    v-model="state.activityId"
+                    clearable
+                    default-first-option
+                    :disabled="isActivityDisabled"
+                    filterable
+                    :loading="activityLoading"
+                    placeholder="请输入内容搜索"
+                    remote
+                    :remote-method="(v: any) => v && executeQuery(getActivityList, {
+                      activityName: v,
+                      activityStatue: 1,
+                      schemeId: state.schemeId,
+                    })"
+                    remote-show-suffix
+                    reserve-keyword
+                  >
+                    <ElOption
+                      v-for="item in activityList"
+                      :key="item.activityId"
+                      :label="`${item.activityName}`"
+                      :value="item.activityId"
+                    />
+                  </ElSelect>
+                </div>
               </div>
             </template>
             <Descriptions
@@ -341,36 +404,10 @@ function init() {
               ]"
             />
           </ElCard>
-          <ElCard>
+          <ElCard v-if="activityData">
             <template #header>
               <div v-if="isReview">
                 活动信息
-              </div>
-              <div v-else>
-                <span>活动名称：</span>
-                <ElSelect
-                  v-model="state.activityId"
-                  default-first-option
-                  :disabled="isActivityDisabled"
-                  filterable
-                  :loading="activityLoading"
-                  placeholder="请输入内容搜索"
-                  remote
-                  :remote-method="(v: any) => v && executeQuery(getActivityList, {
-                    activityName: v,
-                    activityStatue: 1,
-                    schemeId: state.schemeId,
-                  })"
-                  remote-show-suffix
-                  reserve-keyword
-                >
-                  <ElOption
-                    v-for="item in activityList"
-                    :key="item.activityId"
-                    :label="`${item.activityName}`"
-                    :value="item.activityId"
-                  />
-                </ElSelect>
               </div>
             </template>
             <Descriptions

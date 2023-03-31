@@ -38,6 +38,9 @@ async function submit(data: any, agree: 0 | 1) {
       ? 'CAR_RETURN_FINANCIAL_APPROVALS'
       : undefined,
   })
+
+  ElMessage.success(t('submit.success'))
+  router.back()
 }
 
 async function reject() {
