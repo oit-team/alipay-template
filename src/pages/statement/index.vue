@@ -10,6 +10,12 @@ const { t } = useI18n()
 
 const { files, open } = useFileDialog()
 
+const queryRef = ref()
+
+onMounted(() => {
+  queryRef.value?.query()
+})
+
 watch(files, async (value) => {
   if (!value || !value.length)
     return
@@ -151,15 +157,61 @@ const columns = [
     label: '行程流水(元)',
   },
 ]
+
+const columnsConfig = {
+  statisticalDate: {
+    width: 150,
+  },
+  createTime: {
+    width: 180,
+  },
+  t3DriverId: {
+    width: 150,
+  },
+  driverName: {
+    minWidth: 100,
+  },
+  carNumber: {
+    minWidth: 150,
+  },
+  managerName: {
+    minWidth: 100,
+  },
+  fleetName: {
+    minWidth: 150,
+  },
+  fleetLeaderName: {
+    minWidth: 150,
+  },
+  operatorName: {
+    minWidth: 150,
+  },
+  acceptedOrderNumber: {
+    minWidth: 100,
+  },
+  journeyFlow: {
+    minWidth: 120,
+  },
+}
 </script>
 
 <template>
   <div class="h-full p-3">
-    <UseQuery v-slot="attrs" url="/vehicle/vehicle/getT3OperationalDataList">
-      <QueryProvide v-bind="attrs" ref="query" auto-query="active" :columns="columns" :schema="schema">
+    <UseQuery
+      v-slot="attrs"
+      :columns="columns"
+      :columns-config="columnsConfig"
+      :schema="schema"
+      url="/vehicle/vehicle/getT3OperationalDataList"
+    >
+      <QueryProvide
+        v-bind="attrs"
+        ref="queryRef"
+        auto-query="active"
+      >
         <QueryForm />
         <QueryToolbar>
-          <ElButton type="info" @click="open({ multiple: false })">
+          <ElButton link @click="open({ multiple: false })">
             {{ $t('button.import') }}运营流水
           </ElButton>
         </QueryToolbar>

@@ -7,6 +7,13 @@ meta:
 import schema from './schema/self.json'
 import { getCityList, useSelectAsyncDataSource } from '@/reactions'
 
+enum statusColorMap {
+  '', // 审批中
+  'text-green-500', // 履约中
+  'text-yellow-500', // 已到期
+  'text-red-500', // '已作废'
+}
+
 const queryRef = ref()
 
 onMounted(() => {
@@ -73,6 +80,10 @@ const columns = [
     label: '失效日期',
   },
   {
+    prop: 'createTime',
+    label: '创建时间',
+  },
+  {
     prop: 'caseStateMsg',
     label: '状态',
   },
@@ -93,7 +104,7 @@ const columnsConfig = {
     width: 100,
   },
   brandCarModel: {
-    width: 150,
+    width: 180,
   },
   leaseTerm: {
     width: 100,
@@ -106,6 +117,9 @@ const columnsConfig = {
   },
   expirationDate: {
     width: 150,
+  },
+  createTime: {
+    width: 180,
   },
   caseStateMsg: {
     minWidth: 100,
@@ -138,16 +152,13 @@ const columnsConfig = {
         <QueryForm :scope="{ useSelectAsyncDataSource, getCityList }" />
         <QueryToolbar>
           <ElButton link @click="$router.push(`./scheme/new`)">
-            <template #icon>
-              <div class="i-material-symbols:add-circle" />
-            </template>
             新增方案
           </ElButton>
         </QueryToolbar>
         <QueryTable>
           <!-- 1 已上架 0 未上架 -->
           <template #content:caseStateMsg="{ row }">
-            <div :class="row.caseState === 1 ? 'success' : 'info'">
+            <div :class="statusColorMap[row.caseState]">
               {{ row.caseStateMsg }}
             </div>
           </template>

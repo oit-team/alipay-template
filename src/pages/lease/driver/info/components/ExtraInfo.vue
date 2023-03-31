@@ -49,6 +49,8 @@ const hasData = computed(() => !!desc.value)
 
 watch(type, reload)
 
+onMounted(() => reload())
+
 function reload() {
   execute({
     data: {

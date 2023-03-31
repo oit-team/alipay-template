@@ -9,32 +9,29 @@ import { useUserStore } from '@/store/user'
 const { t } = useI18n()
 
 const columnConfig = {
+  driverName: {
+    minWidth: 100,
+  },
   createTime: {
     width: 120,
   },
   driverOperate: {
     width: 200,
-    showOverflowTooltip: true,
   },
   driverPhone: {
     width: 150,
-    showOverflowTooltip: true,
   },
   identityCard: {
     width: 200,
-    showOverflowTooltip: true,
   },
   driverFleet: {
     width: 150,
-    showOverflowTooltip: true,
   },
   vehicleModel: {
     width: 200,
-    showOverflowTooltip: true,
   },
   licensePlateNumber: {
     width: 150,
-    showOverflowTooltip: true,
   },
 }
 
@@ -116,10 +113,10 @@ watch(files, async (value) => {
               <ElButton type="info" @click="$router.push(`./driver/info/${row.driverId}`)">
                 {{ $t('button.info') }}
               </ElButton>
-              <ElButton type="primary" @click="$router.push(`./driver/${row.driverId}`)">
+              <ElButton :disabled="row.statueKey === 1" type="primary" @click="$router.push(`./driver/${row.driverId}`)">
                 {{ $t('button.edit') }}
               </ElButton>
-              <ElButton type="danger" @click="onDelete(row)">
+              <ElButton :disabled="row.statueKey === 1" type="danger" @click="onDelete(row)">
                 {{ $t('button.delete') }}
               </ElButton>
             </QueryActionColumn>

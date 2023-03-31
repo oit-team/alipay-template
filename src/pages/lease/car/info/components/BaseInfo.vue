@@ -58,6 +58,29 @@ const driveLicenseMap = [
     label: '驾驶证副本',
   },
 ]
+const carDetailImgMap = [
+  {
+    prop: 'carFrontImg',
+    label: '汽车前部',
+  },
+  {
+    prop: 'carRearImg',
+    label: '汽车后部',
+  },
+  {
+    prop: 'carLeftImg',
+    label: '汽车左部',
+  },
+  {
+    prop: 'carRightImg',
+    label: '汽车右部',
+  },
+  {
+    prop: 'carOtherImg',
+    label: '汽车其他',
+  },
+]
+
 const carIdentityMap = [
   {
     prop: 'licensePlateNumber',
@@ -106,6 +129,84 @@ const { data } = useAxios('/vehicle/vehicle/getVehicleDetailed', {
           :label-width="labelWidth"
           :options="carIdentityMap"
         />
+        <ElEmpty v-else />
+      </ElCollapseItem>
+      <ElCollapseItem name="image" title="细节信息">
+        <Descriptions
+          v-if="data?.vehicleDetailed?.imgList"
+          border
+          :data="data?.vehicleDetailed?.imgList"
+          default-text="无"
+          :label-width="labelWidth"
+          :options="carDetailImgMap"
+        >
+          <template #carFrontImg="{ value }">
+            <ElImage
+              v-if="value"
+              fit="cover"
+              hide-on-click-modal
+              :preview-src-list="[value]"
+              :src="value"
+              style="width: 100px; height: 100px"
+            />
+            <div v-else>
+              无
+            </div>
+          </template>
+          <template #carRearImg="{ value }">
+            <ElImage
+              v-if="value"
+              fit="cover"
+              hide-on-click-modal
+              :preview-src-list="[value]"
+              :src="value"
+              style="width: 100px; height: 100px"
+            />
+            <div v-else>
+              无
+            </div>
+          </template>
+          <template #carLeftImg="{ value }">
+            <ElImage
+              v-if="value"
+              fit="cover"
+              hide-on-click-modal
+              :preview-src-list="[value]"
+              :src="value"
+              style="width: 100px; height: 100px"
+            />
+            <div v-else>
+              无
+            </div>
+          </template>
+          <template #carRightImg="{ value }">
+            <ElImage
+              v-if="value"
+              fit="cover"
+              hide-on-click-modal
+              :preview-src-list="[value]"
+              :src="value"
+              style="width: 100px; height: 100px"
+            />
+            <div v-else>
+              无
+            </div>
+          </template>
+          <template #carOtherImg="{ value }">
+            <ElImage
+              v-if="value"
+              fit="cover"
+              hide-on-click-modal
+              :preview-src-list="[value]"
+              :src="value"
+              style="width: 100px; height: 100px"
+            />
+            <div v-else>
+              无
+            </div>
+          </template>
+        </Descriptions>
+
         <ElEmpty v-else />
       </ElCollapseItem>
       <ElCollapseItem title="运输证信息">
