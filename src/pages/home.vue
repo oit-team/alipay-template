@@ -1,5 +1,5 @@
 <route>
-redirect: /system/role
+redirect: /lease/work-order
 </route>
 
 <template>
