@@ -358,10 +358,10 @@ const columnsConfig = {
     width: 150,
   },
   rentalWorkCode: {
-    width: 150,
+    width: 200,
   },
   returnWorkCode: {
-    width: 150,
+    width: 200,
   },
 }
 </script>
@@ -387,15 +387,9 @@ const columnsConfig = {
         <QueryForm />
         <QueryToolbar>
           <ElButton :auto-insert-space="false" link @click="$router.push('/process/car-rental')">
-            <template #icon>
-              <div class="i-ic:baseline-add-task" />
-            </template>
             {{ $t('button.apply') }}租车
           </ElButton>
           <ElButton :auto-insert-space="false" link @click="$router.push('/process/car-rental-return')">
-            <template #icon>
-              <div class="i-ic:baseline-add-task" />
-            </template>
             {{ $t('button.apply') }}退车
           </ElButton>
         </QueryToolbar>

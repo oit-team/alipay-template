@@ -5,11 +5,17 @@ meta:
 
 <script setup lang="ts">
 import { downloadFile } from '@oit/utils'
-import { Plus } from '@element-plus/icons-vue'
 import { useUserStore } from '@/store/user'
 import { getCityList, useSelectAsyncDataSource } from '@/reactions'
 
 const { t } = useI18n()
+
+enum statusColorMap {
+  '', // 审批中
+  'text-green-500', // 履约中
+  'text-yellow-500', // 已到期
+  'text-red-500', // '已作废'
+}
 // 搜索框json
 const schema = {
   'type': 'object',
@@ -205,6 +211,10 @@ const columns = [
     label: '失效日期',
   },
   {
+    prop: 'createTime',
+    label: '创建时间',
+  },
+  {
     prop: 'caseStateMsg',
     label: '状态',
   },
@@ -224,7 +234,7 @@ const columnsConfig = {
     width: 100,
   },
   brandCarModel: {
-    width: 150,
+    width: 180,
   },
   leaseTerm: {
     width: 100,
@@ -237,6 +247,9 @@ const columnsConfig = {
   },
   expirationDate: {
     width: 150,
+  },
+  createTime: {
+    width: 180,
   },
   caseStateMsg: {
     minWidth: 100,
@@ -305,13 +318,15 @@ watch(files, async (value) => {
         <QueryForm :scope="{ useSelectAsyncDataSource, getCityList }" />
         <QueryToolbar>
           <ElButton link @click="exportDialogVisible = true">
-            <template #icon>
-              <div class="i-raphael:import" />
-            </template>
             导入
           </ElButton>
         </QueryToolbar>
         <QueryTable>
+          <template #content:caseStateMsg="{ row }">
+            <div :class="statusColorMap[row.caseState]">
+              {{ row.caseStateMsg }}
+            </div>
+          </template>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" fixed="right" label="操作" width="180px">
               <ElButton :disabled="row.caseState === 1" size="small" type="primary" @click="$router.push(`./scheme/${row.id}`)">

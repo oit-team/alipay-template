@@ -43,6 +43,15 @@ const columns = [{
 },
 ]
 
+const columnsConfig = {
+  createTime: {
+    width: 190,
+  },
+  phoneNum: {
+    minWidth: 150,
+  },
+}
+
 const userTableRef = ref()
 
 const queryRef = ref<any>()
@@ -349,14 +358,17 @@ function toAdd() {
     <div class="flex-1">
       <UseQuery
         v-slot="attrs"
+        :columns="columns"
+        :columns-config="columnsConfig"
         :data="{ deptId }"
         :key-map="{
           data: 'result',
           total: 'totalCount',
         }"
+        :schema="indexSearchForm"
         url="/system/user/getUsers"
       >
-        <QueryProvide v-bind="attrs" ref="queryRef" auto-query="active" :columns="columns" :schema="indexSearchForm">
+        <QueryProvide v-bind="attrs" ref="queryRef" auto-query="active">
           <QueryForm />
           <QueryToolbar>
             <ElButton type="primary" @click="toAdd">
