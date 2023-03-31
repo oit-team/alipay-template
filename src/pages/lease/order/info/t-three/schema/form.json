@@ -22,9 +22,7 @@
               "x-component": "Upload",
               "x-component-props": {
                 "textContent": "Upload",
-                "limit": 1,
-                "format": "url",
-                "accept": "image/*"
+                "limit": 1
               },
               "x-validator": [],
               "x-decorator-props": {},
@@ -49,9 +47,7 @@
               "x-component": "Upload",
               "x-component-props": {
                 "textContent": "Upload",
-                "limit": 1,
-                "format": "url",
-                "accept": "image/*"
+                "limit": 1
               },
               "x-validator": [],
               "x-decorator-props": {},

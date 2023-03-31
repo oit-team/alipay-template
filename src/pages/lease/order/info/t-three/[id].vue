@@ -2,7 +2,8 @@
 import { FormProvider } from '@formily/vue'
 
 import schema from './schema/form.json'
-import { handleSubmitFailed } from '@/utils/actions'
+import type { UploadUserFile } from 'element-plus'
+import { handleSubmitFailed, transformUploadData } from '@/utils/actions'
 
 const { t } = useI18n()
 
@@ -136,6 +137,24 @@ const getDetailInfo = async () => {
   const info = detailInfo?.resultMap
   data.value = info
 
+  // 代扣合同模板
+  if (info.agreementName) {
+    info.agreementName = [{
+      name: info.agreementName,
+      url: info.agreementUrl || '',
+      status: 'success',
+    }] as UploadUserFile[]
+  }
+
+  // 合同模板
+  if (info.leaseContractName) {
+    info.leaseContractName = [{
+      name: info.leaseContractName,
+      url: info.leaseContractUrl || '',
+      status: 'success',
+    }] as UploadUserFile[]
+  }
+
   form.setInitialValues({
     ...info,
   })
@@ -150,7 +169,10 @@ async function submit(formData: any) {
   await axios.post('/order/leaseOrder/updateT3LeaseOrderInfo',
     {
       t3LeaseOrderId: route.params.id,
-      ...formData,
+      agreementUrl: transformUploadData(formData.agreementName)?.[0].url, // 代扣协议地址
+      agreementName: transformUploadData(formData.agreementName)?.[0].name, // 代扣协议名称
+      leaseContractName: transformUploadData(formData.leaseContractName)?.[0].name, // 租赁合同名称
+      leaseContractUrl: transformUploadData(formData.leaseContractName)?.[0].url, // 租赁合同地址
     },
   )
   ElMessage.success(t('save.success'))

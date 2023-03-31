@@ -130,7 +130,7 @@
       "title": "押金",
       "x-decorator": "FormItem",
       "x-component": "Input",
-      "x-validator": "number",
+      "x-validator": "integer",
       "x-component-props": {},
       "x-decorator-props": {
         "colon": false
@@ -209,8 +209,7 @@
       "x-component": "Upload",
       "x-component-props": {
         "textContent": "Upload",
-        "limit": 1,
-        "format": "url"
+        "limit": 1
       },
       "x-validator": [],
       "x-decorator-props": {
@@ -227,8 +226,7 @@
       "x-component": "Upload",
       "x-component-props": {
         "textContent": "Upload",
-        "limit": 1,
-        "format": "url"
+        "limit": 1
 
       },
       "x-validator": [],
