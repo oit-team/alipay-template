@@ -2,7 +2,7 @@
 import ChangePassWord from '@/components/ChangePassWord.vue'
 import { useUserStore } from '@/store/user'
 
-const { profile } = useUserStore()
+const user = useUserStore()
 const router = useRouter()
 
 const drawer = ref()
@@ -14,7 +14,11 @@ interface MenuItem {
   children?: MenuItem[]
 }
 
-const { data } = useAxios('/system/menu/getTreeMenuList')
+const { data, execute } = useAxios('/system/menu/getTreeMenuList')
+
+watch(() => user.profile, () => {
+  execute()
+})
 
 function formatMenu(data: any[]): MenuItem[] {
   return data?.map((item) => {
@@ -53,10 +57,10 @@ function openCgPw() {
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <ElDropdown v-if="profile?.userName">
+        <ElDropdown v-if="user.profile?.userName">
           <div class="el-dropdown-link flex items-center">
             <ElAvatar class="mr-2" :size="40" src="/image/userAvatar.png" />
-            {{ profile.userName }}
+            {{ user.profile.userName }}
           </div>
           <template #dropdown>
             <ElDropdownMenu>
