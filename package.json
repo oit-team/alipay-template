@@ -8,6 +8,7 @@
     "dev:staging": "vite --mode staging",
     "build": "vite build",
     "lint": "eslint . --fix",
+    "lint:prod": "cross-env NODE_ENV=production eslint . --fix",
     "typecheck": "vue-tsc --noEmit",
     "preview": "vite preview",
     "test": "vitest",
