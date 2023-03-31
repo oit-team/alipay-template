@@ -1,80 +1,47 @@
 <script setup lang="ts">
-import { transformResponsePush } from '@/utils/helper'
+import { workOrderInfoSymbol, workOrderSubmitSymbol } from '@/pages/process/types'
 
 const { t } = useI18n()
 
 const route = useRoute()
 const router = useRouter()
+const workOrderSubmit = inject(workOrderSubmitSymbol)
+const workOrderInfo = inject(workOrderInfoSymbol)
+const isReview = computed(() => workOrderInfo?.value?.isReview)
 
 const { data: detailInfo } = useAxios('/order/leaseOrder/getLeaseOrderByNo', {
   method: 'POST',
   data: {
     workCode: route.query.workCode,
   },
-  transformResponse: transformResponsePush(data => data),
-})
-
-const dialogCancelReasonVisible = ref(false)
-
-const form = reactive({
-  approvalNotes: '',
 })
 
 async function handlePass() {
-  const con = {
-    workCode: route.query?.workCode,
-    flowCode: route.query?.flowCode,
-    taskCode: route.query?.taskCode,
-    // nextTaskCode: '',
-    approvalStatus: 1, // 1 同意 0 不同意
-  }
-  await axios.post(
-    '/workFlow/workFlow/submit',
-    {
-      ...con,
-      approvalNotes: '',
-      params: {
-        statue: 1,
-      },
-    },
-  )
+  await workOrderSubmit?.({
+    statue: 1,
+  }, {
+    approvalStatus: 1,
+  })
   ElMessage.success(t('handle.success'))
   router.push('/lease/work-order')
 }
 
 async function handleCancel() {
-  const con = {
-    workCode: route.query?.workCode,
-    flowCode: route.query?.flowCode,
-    taskCode: route.query?.taskCode,
-    // nextTaskCode: '',
-    approvalStatus: 0, // 1 同意 0 不同意
-  }
-  if (form.approvalNotes) {
-    await axios.post(
-      '/workFlow/workFlow/submit',
-      {
-        ...con,
-        approvalNotes: form.approvalNotes,
-        params: {
-          statue: 3,
-        },
-      },
-    )
-    dialogCancelReasonVisible.value = false
-    router.push('/lease/work-order')
-  }
-  else {
-    ElMessage.warning('请先填写拒绝原因！')
-  }
+  await workOrderSubmit?.({
+    statue: 3,
+  }, {
+    approvalStatus: 0,
+  })
+
+  router.push('/lease/work-order')
 }
 </script>
 
 <template>
   <div class="flex flex-col gap-2 p-2">
     <PageHeader :title="`租车申请-${$route.query?.workCode}`">
-      <template #extra>
-        <ElButton type="danger" @click="dialogCancelReasonVisible = true">
+      <template v-if="!isReview" #extra>
+        <ElButton type="danger" @click="handleCancel()">
           拒绝
         </ElButton>
         <ElButton type="primary" @click="handlePass()">
@@ -87,7 +54,6 @@ async function handleCancel() {
       <Descriptions
         v-if="detailInfo?.leaseOrderBasic"
         border
-        column="4"
         :data="detailInfo?.leaseOrderBasic"
         default-text="无"
         label-width="130px"
@@ -117,7 +83,6 @@ async function handleCancel() {
       <Descriptions
         v-if="detailInfo?.leaseOrder"
         border
-        column="4"
         :data="detailInfo?.leaseOrder"
         default-text="无"
         label-width="130px"
@@ -149,25 +114,4 @@ async function handleCancel() {
       />
     </ElCard>
   </div>
-  <ElDialog v-model="dialogCancelReasonVisible" title="审批拒绝" width="40%">
-    <ElForm :model="form">
-      <ElFormItem label="原因" label-width="60px">
-        <ElInput
-          v-model="form.approvalNotes"
-          maxlength="30"
-          placeholder="请输入拒绝原因"
-          show-word-limit
-          type="textarea"
-        />
-      </ElFormItem>
-    </ElForm>
-    <template #footer>
-      <span class="dialog-footer">
-        <ElButton @click="dialogCancelReasonVisible = false">取消</ElButton>
-        <ElButton type="primary" @click="handleCancel()">
-          提交
-        </ElButton>
-      </span>
-    </template>
-  </ElDialog>
 </template>

@@ -74,10 +74,10 @@ export function handleSubmitFailed(
  * 转换上传数据
  * @param files 文件列表
  */
-export function transformUploadData(files: UploadFile[]): { name: string; url: string }[] | undefined
-export function transformUploadData(files: UploadFile[], mode: 'url'): string[] | undefined
-export function transformUploadData(files: UploadFile[], mode: 'url-array'): string | undefined
-export function transformUploadData(files: UploadFile[], mode?: 'url' | 'url-array'): any {
+export function transformUploadData(files: UploadFile[] | UploadUserFile[]): { name: string; url: string }[] | undefined
+export function transformUploadData(files: UploadFile[] | UploadUserFile[], mode: 'url'): string | undefined
+export function transformUploadData(files: UploadFile[] | UploadUserFile[], mode: 'url-array'): string[] | undefined
+export function transformUploadData(files: UploadFile[] | UploadUserFile[], mode?: 'url' | 'url-array'): any {
   const data = files?.map?.((file) => {
     const res = file.response as any
     return {
@@ -102,7 +102,7 @@ export function transformToUploadFiles(urls: string[] | string): UploadUserFile[
   urls = typeof urls === 'string' ? urls.split(',') : urls
   urls = Array.isArray(urls) ? urls : []
   return urls?.map?.((url, index) => ({
-    name: `${index}`,
+    name: '',
     url,
   }))
 }

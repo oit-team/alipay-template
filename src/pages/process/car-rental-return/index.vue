@@ -1,3 +1,8 @@
+<route lang="yaml">
+meta:
+  flowCode: CAR_RETURN
+</route>
+
 <script setup lang="ts">
 import { workOrderInfoSymbol } from '../types'
 import Logs from '../components/Logs.vue'
@@ -5,6 +10,7 @@ import ApplyStep from './components/apply/index.vue'
 import MaintainStep from './components/maintain/index.vue'
 import ValidateCarStep from './components/validate-car/index.vue'
 import FinanceStep from './components/finance/index.vue'
+import WarehousingStep from './components/warehousing/index.vue'
 
 const workOrderInfo = inject(workOrderInfoSymbol)
 
@@ -14,6 +20,7 @@ const view = computed(() => [
   MaintainStep,
   MaintainStep,
   FinanceStep,
+  WarehousingStep,
 ][workOrderInfo?.value?.viewStep ?? -1])
 
 const {

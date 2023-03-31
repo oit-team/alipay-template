@@ -84,16 +84,16 @@ async function reject() {
                       <div class="mt-1 w-5em">
                         {{ item.groupName }}：
                       </div>
-                      <div class="grid grid-cols-[200px_200px_200px_200px_1fr] flex-1 gap-2">
+                      <div class="grid grid-cols-[200px_200px_200px_1fr_200px] flex-1 gap-2">
                         <ObjectField :name="item.groupKey">
                           <Field
                             v-for="field of [
                               { name: '应收金额', key: 'receivable', validator: 'number' },
                               { name: '已收金额', key: 'netReceipts', validator: 'number' },
                               { name: '金额小计', key: 'subtotal' },
-                              { name: '负责人', key: 'subtotal' },
                               { name: '备注', key: 'remarks', required: false },
-                            ]"
+                              { name: '负责人', key: 'subtotal', hide: workOrderInfo?.currentStep.taskCode === 'CAR_RETURN_INSPECTION' },
+                            ].filter((item) => !item.hide)"
                             :key="field.name"
                             :component="[Input]"
                             :decorator="[FormItem]"
@@ -119,15 +119,15 @@ async function reject() {
                       <div class="mt-1 w-5em">
                         {{ item.groupName }}：
                       </div>
-                      <div class="grid grid-cols-[410px_200px_200px_1fr] flex-1 gap-2">
+                      <div class="grid grid-cols-[410px_200px_1fr_200px] flex-1 gap-2">
                         <ObjectField :name="item.groupKey">
                           <Field
                             v-for="field of [
                               { name: '信息', key: 'receivable' },
                               { name: '金额小计', key: 'subtotal' },
-                              { name: '负责人', key: 'subtotal' },
                               { name: '备注', key: 'remarks', required: false },
-                            ]"
+                              { name: '负责人', key: 'subtotal', hide: workOrderInfo?.currentStep.taskCode === 'CAR_RETURN_INSPECTION' },
+                            ].filter((item) => !item.hide)"
                             :key="field.name"
                             :component="[Input]"
                             :decorator="[FormItem]"
@@ -147,7 +147,7 @@ async function reject() {
                       <div class="mt-1 w-5em">
                         车辆证件：
                       </div>
-                      <div class="grid grid-cols-[410px_200px_200px_1fr] flex-1 gap-2">
+                      <div class="grid grid-cols-[410px_200px_1fr_200px] flex-1 gap-2">
                         <ObjectField name="vehicleCertificate">
                           <div class="flex gap-4">
                             <Field
@@ -168,9 +168,9 @@ async function reject() {
                           <Field
                             v-for="field of [
                               { name: '金额小计', key: 'subtotal' },
-                              { name: '负责人', key: 'subtotal' },
                               { name: '备注', key: 'remarks', required: false },
-                            ]"
+                              { name: '负责人', key: 'subtotal', hide: workOrderInfo?.currentStep.taskCode === 'CAR_RETURN_INSPECTION' },
+                            ].filter((item) => !item.hide)"
                             :key="field.name"
                             :component="[Input]"
                             :decorator="[FormItem]"

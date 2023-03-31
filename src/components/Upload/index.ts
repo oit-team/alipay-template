@@ -1,3 +1,5 @@
-export { default as Upload } from './Upload.vue'
+import Upload from './Upload.vue'
 export * from './upload'
 export * from './interface'
+export { Upload }
+export default Upload
