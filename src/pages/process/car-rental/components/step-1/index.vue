@@ -222,7 +222,7 @@ function init() {
 
 <template>
   <div class="flex flex-col">
-    <PageHeader title="申请租车">
+    <PageHeader :title="$route.query?.workCode ? `申请租车-${$route.query?.workCode}` : '申请租车'">
       <template v-if="!isReview" #extra>
         <ElButton type="primary" @click="submit">
           提交
