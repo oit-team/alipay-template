@@ -20,7 +20,7 @@ async function goDetail(row: any) {
     query: {
       workCode: row.workCode,
       flowCode: row.flowCode,
-      // taskCode: row.taskCode,
+      disabled: 1,
     },
   })
 }

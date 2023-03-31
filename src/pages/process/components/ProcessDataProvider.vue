@@ -57,14 +57,18 @@ const workOrderSubmit: WorkOrderSubmit = async (params, options) => {
 
 const currentLogs = computed(() => flowStepsData.value?.workFlowSteps?.[viewStep.value!]?.executeLogs)
 const currentStep = computed(() => flowStepsData.value?.workFlowSteps?.[viewStep.value!])
+const isReview = computed(() =>
+  [OrderStatus.Done, OrderStatus.Abandon].includes(flowStepsData.value?.status)
+  || viewStep.value! < flowStepsData.value?.step
+  || !!Number(route.query.disabled),
+)
 
 const workOrderInfo = computed<WorkOrderInfo>(() => ({
   ...flowStepsData.value,
   ...initParams,
   step: flowStepsData.value?.step,
   viewStep: viewStep.value,
-  isReview: [OrderStatus.Done, OrderStatus.Abandon].includes(flowStepsData.value?.status)
-            || viewStep.value! < flowStepsData.value?.step,
+  isReview: isReview.value,
   setViewStep,
   currentLogs: currentLogs.value,
   currentStep: currentStep.value,
