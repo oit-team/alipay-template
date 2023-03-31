@@ -22,6 +22,9 @@
               "x-component": "Input",
               "x-index": 0,
               "name": "licensePlateNumber",
+              "x-component-props": {
+                "maxLength": 20
+              },
               "x-decorator-props": {
                 "colon": false
               }
@@ -34,6 +37,9 @@
               "x-component": "Input",
               "x-index": 1,
               "name": "vehicleFrameNumber",
+              "x-component-props": {
+                "maxLength": 30
+              },
               "x-decorator-props": {
                 "colon": false
               }
@@ -67,6 +73,9 @@
               "x-component": "Input",
               "x-index": 6,
               "name": "bodyColor",
+              "x-component-props": {
+                "maxLength": 20
+              },
               "x-decorator-props": {
                 "colon": false
               }
@@ -240,7 +249,9 @@
               "x-decorator": "FormItem",
               "x-component": "Input",
               "x-validator": [],
-              "x-component-props": {},
+              "x-component-props": {
+                "maxLength": 30
+              },
               "x-decorator-props": {
                 "colon": false
               },
@@ -254,7 +265,9 @@
               "x-decorator": "FormItem",
               "x-component": "Input",
               "x-validator": "number",
-              "x-component-props": {},
+              "x-component-props": {
+                "maxLength": 30
+              },
               "x-decorator-props": {
                 "colon": false
               },
@@ -324,7 +337,9 @@
               "x-decorator": "FormItem",
               "x-component": "Input",
               "x-validator": [],
-              "x-component-props": {},
+              "x-component-props": {
+                "maxLength": 30
+              },
               "x-decorator-props": {
                 "colon": false
               },
@@ -339,7 +354,9 @@
               "x-decorator": "FormItem",
               "x-component": "Input",
               "x-validator": [],
-              "x-component-props": {},
+              "x-component-props": {
+                "maxLength": 30
+              },
               "x-decorator-props": {
                 "colon": false
               },
@@ -354,7 +371,9 @@
               "x-decorator": "FormItem",
               "x-component": "Input",
               "x-validator": [],
-              "x-component-props": {},
+              "x-component-props": {
+                "maxLength": 30
+              },
               "x-decorator-props": {
                 "colon": false
               },

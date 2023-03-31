@@ -125,6 +125,8 @@ const onSubmit = async (form: any) => {
   box-shadow: 0 0 30px 0 #c3d3ea;
 }
 .login{
+  width: 75%;
+  height: 75%;
   background: center / cover no-repeat url("/image/login-bg.jpg");
 }
 .width-3_5{
