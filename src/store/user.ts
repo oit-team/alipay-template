@@ -24,9 +24,14 @@ export const useUserStore = defineStore('user', () => {
     return profile.value
   }
 
+  const clearUserProfile = async () => {
+    profile.value = undefined
+  }
+
   return {
     profile,
     updateUserProfile,
     getUserProfile,
+    clearUserProfile,
   }
 })

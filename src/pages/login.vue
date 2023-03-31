@@ -10,6 +10,7 @@ import { ElImage, ElInput } from 'element-plus'
 import { FormItem, Input, Password } from '@formily/element-plus'
 import { setToken } from '@/utils/auth'
 import { encrypt } from '@/utils/crypto'
+import { useUserStore } from '@/store/user'
 
 const router = useRouter()
 
@@ -87,6 +88,8 @@ const onSubmit = async (form: any) => {
     passWord: encrypt(form.passWord),
   })
   setToken(data.accessToken)
+  const { clearUserProfile } = useUserStore()
+  clearUserProfile()
   router.push('/')
 }
 </script>
