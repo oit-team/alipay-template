@@ -24,7 +24,7 @@ const getDetailInfo = async () => {
     const info = data?.resultMap
 
     // 代扣合同模板
-    if (info.agencyDeductionTemplateUrl) {
+    if (info.agencyDeductionTemplateUrl && info.agencyDeductionTempName) {
       info.agencyDeductionTemplateUrl = [{
         name: info.agencyDeductionTempName,
         url: info.agencyDeductionTemplateUrl || '',
@@ -32,9 +32,9 @@ const getDetailInfo = async () => {
     }
 
     // 合同模板
-    if (info.contractTemplateUrl) {
+    if (info.contractTemplateUrl && info.contractTemplateName) {
       info.contractTemplateUrl = [{
-        name: info.contractTemplateName,
+        name: info.contractTemplateName || '',
         url: info.contractTemplateUrl || '',
       }] as UploadUserFile[]
     }
