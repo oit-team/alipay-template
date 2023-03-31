@@ -159,21 +159,12 @@ watch(files, async (value) => {
         <QueryForm :scope="{ useSelectAsyncDataSource, getCityList, vehicleServiceList }" />
         <QueryToolbar>
           <ElButton link @click="$router.push(`./car/new`)">
-            <template #icon>
-              <div class="i-material-symbols:add-circle" />
-            </template>
             {{ $t('button.new') }}
           </ElButton>
           <ElButton link @click="importCar">
-            <template #icon>
-              <div class="i-raphael:import" />
-            </template>
             车辆{{ $t('button.import') }}
           </ElButton>
           <ElButton link @click="importWei">
-            <template #icon>
-              <div class="i-raphael:import" />
-            </template>
             违章{{ $t('button.import') }}
           </ElButton>
         </QueryToolbar>
