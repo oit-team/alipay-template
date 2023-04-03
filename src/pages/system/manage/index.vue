@@ -400,7 +400,7 @@ function toAdd() {
     </div>
 
     <!-- 新增/编辑部门 -->
-    <ElDrawer v-model="divisionDrawer" :before-close="beforeClose" direction="rtl" title="部门信息">
+    <ElDrawer v-model="divisionDrawer" :before-close="beforeClose" direction="rtl" size="40%" title="部门信息">
       <div class="h-full flex flex-col p-4 justify-between box-border">
         <FormProvider ref="drawerFormRef" :form="drawerForm">
           <div class="flex flex-col h-full px-4 py-2">
