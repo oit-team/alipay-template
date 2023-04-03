@@ -104,6 +104,8 @@ function importWei() {
 const errDrawer = ref(false)
 const errObj = ref()
 
+const carLoading = ref(false)
+
 watch(files, async (value) => {
   if (!value || !value.length)
     return
@@ -116,6 +118,8 @@ watch(files, async (value) => {
   }
   const url = importUrl[importType.value]
 
+  carLoading.value = true
+
   axios.post(url, {
     file: value[0],
     userId: profile?.userId,
@@ -125,7 +129,9 @@ watch(files, async (value) => {
     },
   })
     .then((res) => {
-      ElMessage.success(t('import.success'))
+      if (res.data?.addCount || res.data?.failureCount)
+        ElMessage.success(`${t('import.success')}, ${res.data?.addCount ? res.data?.addCount : ''}, ${res.data?.failureCount ? res.data?.failureCount : ''}`)
+
       if (res.data.errorStr.length > 0) {
         errDrawer.value = true
         errObj.value = res.data
@@ -135,6 +141,8 @@ watch(files, async (value) => {
       ElMessageBox.alert(err.message, '警告', {
         type: 'warning',
       })
+    }).finally(() => {
+      carLoading.value = false
     })
 
   reset()
@@ -168,7 +176,7 @@ watch(files, async (value) => {
             违章{{ $t('button.import') }}
           </TButton>
         </QueryToolbar>
-        <QueryTable>
+        <QueryTable v-loading="carLoading" element-loading-text="数据正在导入...">
           <!-- 0 待租 1 已租 -->
           <template #content:vehicleState="{ row }">
             <div :class="row.vehicleStateVal === 1 ? 'text-green' : ''">

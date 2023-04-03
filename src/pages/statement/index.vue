@@ -16,12 +16,14 @@ onMounted(() => {
   queryRef.value?.query()
 })
 
+const statementLoading = ref(false)
 watch(files, async (value) => {
   if (!value || !value.length)
     return
 
   const { profile } = useUserStore()
 
+  statementLoading.value = true
   axios.post('/vehicle/vehicle/addT3OperationalData', {
     file: value[0],
     userId: profile?.userId,
@@ -30,13 +32,16 @@ watch(files, async (value) => {
       'Content-Type': 'multipart/form-data',
     },
   })
-    .then(() => {
-      ElMessage.success(t('import.success'))
+    .then((res) => {
+      if (res.data?.addCount || res.data?.failureCount)
+        ElMessage.success(`${t('import.success')}, ${res.data?.addCount ? res.data?.addCount : ''}, ${res.data?.failureCount ? res.data?.failureCount : ''}`)
     })
     .catch((err) => {
       ElMessageBox.alert(err.message, '警告', {
         type: 'warning',
       })
+    }).finally(() => {
+      statementLoading.value = false
     })
 })
 const schema = {
@@ -215,7 +220,7 @@ const columnsConfig = {
             {{ $t('button.import') }}运营流水
           </TButton>
         </QueryToolbar>
-        <QueryTable>
+        <QueryTable v-loading="statementLoading" element-loading-text="数据正在导入...">
           <template #actions>
             <QueryActionColumn v-slot="{ row }" label="操作" width="100px">
               <ElButton size="small" type="info" @click="$router.push(`./statement/info/${row.operatorId}`)">

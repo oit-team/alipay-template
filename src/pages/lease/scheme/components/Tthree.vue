@@ -270,12 +270,14 @@ async function downloadModel() {
 // 导入方案
 const { files, open, reset } = useFileDialog()
 
+const schemeT3Loading = ref(false)
 watch(files, async (value) => {
   if (!value || !value.length)
     return
 
   const { profile } = useUserStore()
 
+  schemeT3Loading.value = true
   axios.post('/order/scheme/importSchemeInfo', {
     file: value[0],
     userId: profile?.userId,
@@ -284,14 +286,17 @@ watch(files, async (value) => {
       'Content-Type': 'multipart/form-data',
     },
   })
-    .then(() => {
-      ElMessage.success(t('import.success'))
+    .then((res) => {
+      if (res.data?.addCount || res.data?.failureCount)
+        ElMessage.success(`${t('import.success')}, ${res.data?.addCount ? res.data?.addCount : ''}, ${res.data?.failureCount ? res.data?.failureCount : ''}`)
       exportDialogVisible.value = false
     })
     .catch((err) => {
       ElMessageBox.alert(err.message, '警告', {
         type: 'warning',
       })
+    }).finally(() => {
+      schemeT3Loading.value = false
     })
   reset()
 })
@@ -321,7 +326,7 @@ watch(files, async (value) => {
             导入
           </TButton>
         </QueryToolbar>
-        <QueryTable>
+        <QueryTable v-loading="schemeT3Loading" element-loading-text="数据正在导入...">
           <template #content:caseStateMsg="{ row }">
             <div :class="statusColorMap[row.caseState]">
               {{ row.caseStateMsg }}
