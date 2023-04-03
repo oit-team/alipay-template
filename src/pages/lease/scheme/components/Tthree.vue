@@ -317,9 +317,9 @@ watch(files, async (value) => {
       >
         <QueryForm :scope="{ useSelectAsyncDataSource, getCityList }" />
         <QueryToolbar>
-          <ElButton link @click="exportDialogVisible = true">
+          <TButton icon="import" @click="exportDialogVisible = true">
             导入
-          </ElButton>
+          </TButton>
         </QueryToolbar>
         <QueryTable>
           <template #content:caseStateMsg="{ row }">

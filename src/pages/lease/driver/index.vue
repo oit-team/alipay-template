@@ -89,18 +89,18 @@ watch(files, async (value) => {
       >
         <QueryForm />
         <QueryToolbar>
-          <ElButton type="primary" @click="$router.push('./driver/new')">
+          <TButton icon="add" @click="$router.push('./driver/new')">
             {{ $t('button.new') }}
-          </ElButton>
-          <ElButton type="info" @click="open({ multiple: false })">
+          </TButton>
+          <TButton icon="import" @click="open({ multiple: false })">
             {{ $t('button.import') }}
-          </ElButton>
-          <ElButton :auto-insert-space="false" type="info" @click="$router.push('/process/car-rental')">
+          </TButton>
+          <TButton icon="apply" @click="$router.push('/process/car-rental')">
             {{ $t('button.apply') }}租车
-          </ElButton>
-          <ElButton :auto-insert-space="false" type="info" @click="$router.push('/process/car-rental-return')">
+          </TButton>
+          <TButton icon="apply" @click="$router.push('/process/car-rental-return')">
             {{ $t('button.apply') }}退车
-          </ElButton>
+          </TButton>
         </QueryToolbar>
         <QueryTable>
           <template #content:statue="{ row }">

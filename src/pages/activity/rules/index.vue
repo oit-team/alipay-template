@@ -47,9 +47,9 @@ async function dltRules(id: string) {
       <QueryProvide v-bind="attrs" ref="query" auto-query="active" :columns="columns" :schema="schema">
         <QueryForm />
         <QueryToolbar>
-          <ElButton type="primary" @click="$router.push('./rules/new')">
+          <TButton icon="add" @click="$router.push('./rules/new')">
             {{ $t('button.add') }}
-          </ElButton>
+          </TButton>
         </QueryToolbar>
         <QueryTable>
           <template #actions>

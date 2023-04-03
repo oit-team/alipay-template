@@ -371,14 +371,9 @@ function toAdd() {
         <QueryProvide v-bind="attrs" ref="queryRef" auto-query="active">
           <QueryForm />
           <QueryToolbar>
-            <ElButton type="primary" @click="toAdd">
+            <TButton icon="add" @click="toAdd">
               {{ $t('button.new') }}
-            </ElButton>
-            <!-- <ElTooltip class="item" content="只有管家用户和APP及管家用户才可以授权" effect="dark" placement="top-start">
-              <ElButton type="warning" @click="showRolePower">
-                角色授权
-              </ElButton>
-            </ElTooltip> -->
+            </TButton>
           </QueryToolbar>
           <!-- :selection="{
               type: 'checkbox',

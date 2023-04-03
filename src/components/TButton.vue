@@ -17,11 +17,11 @@ const iconType: Record<string, string> = {
   // 删除
   delete: '',
   // 导入
-  import: '',
+  import: 'i-raphael:import',
   // 导出
   export: '',
   // 申请
-  apply: '',
+  apply: 'i-ic:baseline-add-task',
 }
 
 const isIconify = (icon: any) => {

@@ -161,10 +161,10 @@ watch(files, async (value) => {
           <TButton icon="add" @click="$router.push(`./car/new`)">
             {{ $t('button.new') }}
           </TButton>
-          <TButton @click="importCar">
+          <TButton icon="import" @click="importCar">
             车辆{{ $t('button.import') }}
           </TButton>
-          <TButton @click="importWei">
+          <TButton icon="import" @click="importWei">
             违章{{ $t('button.import') }}
           </TButton>
         </QueryToolbar>

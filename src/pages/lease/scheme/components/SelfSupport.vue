@@ -151,9 +151,9 @@ const columnsConfig = {
       >
         <QueryForm :scope="{ useSelectAsyncDataSource, getCityList }" />
         <QueryToolbar>
-          <ElButton link @click="$router.push(`./scheme/new`)">
+          <TButton icon="add" @click="$router.push(`./scheme/new`)">
             新增方案
-          </ElButton>
+          </TButton>
         </QueryToolbar>
         <QueryTable>
           <!-- 1 已上架 0 未上架 -->

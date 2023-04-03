@@ -52,9 +52,9 @@ function toAuthorize(id: number | string) {
       <QueryProvide v-bind="query" ref="queryRef" auto-query="active">
         <QueryForm />
         <QueryToolbar>
-          <ElButton type="primary" @click="$router.push('./role/new')">
+          <TButton icon="add" @click="$router.push('./role/new')">
             {{ $t('button.new') }}
-          </ElButton>
+          </TButton>
         </QueryToolbar>
         <QueryTable>
           <template #actions>

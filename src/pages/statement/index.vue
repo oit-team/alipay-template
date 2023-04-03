@@ -211,9 +211,9 @@ const columnsConfig = {
       >
         <QueryForm />
         <QueryToolbar>
-          <ElButton link @click="open({ multiple: false })">
+          <TButton icon="import" @click="open({ multiple: false })">
             {{ $t('button.import') }}运营流水
-          </ElButton>
+          </TButton>
         </QueryToolbar>
         <QueryTable>
           <template #actions>
