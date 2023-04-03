@@ -108,6 +108,13 @@ const carIdentityMap = [
   },
 ]
 
+const insuranceContractMap = [
+  {
+    prop: 'insuranceContractImg',
+    label: '图片',
+  },
+]
+
 const vehicleParams = inject(vehicleParamsSymbol)
 const vehicleId = vehicleParams?.vehicleId
 
@@ -257,6 +264,31 @@ const { data } = useAxios('/vehicle/vehicle/getVehicleDetailed', {
             </div>
           </template>
           <template #driveLicenceEctype="{ value }">
+            <ElImage
+              v-if="value"
+              fit="cover"
+              hide-on-click-modal
+              :preview-src-list="[value]"
+              :src="value"
+              style="width: 100px; height: 100px"
+            />
+            <div v-else>
+              无
+            </div>
+          </template>
+        </Descriptions>
+        <ElEmpty v-else />
+      </ElCollapseItem>
+      <ElCollapseItem title="保险信息">
+        <Descriptions
+          v-if="data?.vehicleDetailed?.insuranceContractImg"
+          border
+          :data="data?.vehicleDetailed"
+          default-text="无"
+          :label-width="labelWidth"
+          :options="insuranceContractMap"
+        >
+          <template #insuranceContractImg="{ value }">
             <ElImage
               v-if="value"
               fit="cover"
