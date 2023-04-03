@@ -65,7 +65,7 @@ Axios.interceptors.request.use((config) => {
 
 // 添加响应拦截器
 Axios.interceptors.response.use((response) => {
-  if (response.headers['content-type'] === 'application/json' && !response.data) {
+  if (response.headers['content-type'] === 'application/json') {
     const rawResponse = JSON.parse(response.request.response)
     const status = rawResponse?.head?.status
     if (typeof status === 'number' && status !== 0) {
