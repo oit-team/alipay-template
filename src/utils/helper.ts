@@ -29,6 +29,9 @@ export function transformResponsePush(transformer: AxiosResponseTransformer | Ax
  * 脱敏
  * @param value 值
  * @param options 配置
+ * @example
+ * numberMasking(12345678901) // 123****8901
+ * numberMasking(12345678901, { start: -8, end: -4 }) // 123****8901
  */
 export function numberMasking(
   value: number | string | undefined,
@@ -38,7 +41,8 @@ export function numberMasking(
     return value
   const str = String(value)
   const { start = 3, end = 7, symbol = '*' } = options
+  const _start = start < 0 ? str.length + start : start
   const _end = end < 0 ? str.length + end : end
-  const len = _end - start
-  return str.replace(str.substring(start, _end), len > 0 ? symbol.repeat(len) : '')
+  const len = _end - _start
+  return str.replace(str.substring(_start, _end), len > 0 ? symbol.repeat(len) : '')
 }
