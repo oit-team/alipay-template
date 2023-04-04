@@ -4,8 +4,10 @@ import { useUserStore } from '@/store/user'
 
 const user = useUserStore()
 const router = useRouter()
+const route = useRoute()
 
 const drawer = ref()
+const defaultActive = route.path
 
 interface MenuItem {
   title: string
@@ -82,7 +84,7 @@ function openCgPw() {
     <ElContainer class="overflow-hidden">
       <ElAside width="200px">
         <ElScrollbar class="border-r">
-          <ElMenu class="border-none" router unique-opened>
+          <ElMenu class="border-none" :default-active="defaultActive" router unique-opened>
             <ElSubMenu
               v-for="(item, index) of menu"
               :key="index"
