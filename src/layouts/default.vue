@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { PermissionData } from '@/store/permission'
 import ChangePassWord from '@/components/ChangePassWord.vue'
 import { useUserStore } from '@/store/user'
 
@@ -14,6 +15,7 @@ interface MenuItem {
   icon?: string
   path?: string
   children?: MenuItem[]
+  permission?: PermissionData // 😅
 }
 
 const { data, execute } = useAxios('/system/menu/getTreeMenuList')
@@ -22,6 +24,19 @@ watch(() => user.profile, () => {
   execute()
 })
 
+function formatPermission(data: any): PermissionData | undefined {
+  try {
+    data = data && JSON.parse(data)
+    return data?.reduce((prev: any, cur: any) => {
+      prev[cur.operationKey] = !!cur.statue
+      return prev
+    }, {})
+  }
+  catch {
+    console.error(data)
+  }
+}
+
 function formatMenu(data: any[]): MenuItem[] {
   return data?.map((item) => {
     return {
@@ -29,12 +44,32 @@ function formatMenu(data: any[]): MenuItem[] {
       icon: item.menuImg,
       path: item.menuUrl,
       children: formatMenu(item.childrenMenu),
+      permission: formatPermission(item.menuOperation),
     }
   })
 }
 
 const menu = computed<MenuItem[]>(() => {
   return formatMenu(data.value?.resultList)
+})
+
+const activeMenu = computed(() => {
+  if (!menu.value)
+    return
+  for (const item of menu.value) {
+    if (!item.children)
+      return
+    for (const child of item.children) {
+      if (child.path === route.path)
+        return child
+    }
+  }
+})
+
+watch(activeMenu, () => {
+  const { setPermissionData } = usePermission()
+  if (activeMenu.value?.permission)
+    setPermissionData(activeMenu.value.permission)
 })
 
 async function logout() {

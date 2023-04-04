@@ -4,6 +4,7 @@ import elementPlusQuery from '@uxuip/element-plus-query'
 import App from './App.vue'
 import { i18n } from '@/plugins/i18n'
 import router from '@/router'
+import { vPermission } from '@/directives/permission'
 
 import '@/api'
 import '@/plugins/formily'
@@ -21,4 +22,5 @@ app.use(pinia)
 app.use(router)
 app.use(elementPlusQuery)
 app.use(i18n)
+app.directive('permission', vPermission)
 app.mount('#app')
