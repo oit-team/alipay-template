@@ -130,7 +130,7 @@ watch(files, async (value) => {
           </template>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" fixed="right" width="180px">
-              <ElButton type="info" @click="$router.push(`./driver/info/${row.driverId}`)">
+              <ElButton type="info" @click="$router.push({ path: `./driver/info/${row.driverId}`, query: { carNumber: row.licensePlateNumber } })">
                 {{ $t('button.info') }}
               </ElButton>
               <ElButton type="primary" @click="$router.push(`./driver/${row.driverId}`)">
