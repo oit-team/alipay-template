@@ -32,9 +32,8 @@ watch(files, async (value) => {
       'Content-Type': 'multipart/form-data',
     },
   })
-    .then((res) => {
-      if (res.data?.addCount || res.data?.failureCount)
-        ElMessage.success(`${t('import.success')}, ${res.data?.addCount ? res.data?.addCount : ''}, ${res.data?.failureCount ? res.data?.failureCount : ''}`)
+    .then(() => {
+      ElMessage.success(t('import.success'))
     })
     .catch((err) => {
       ElMessageBox.alert(err.message, '警告', {

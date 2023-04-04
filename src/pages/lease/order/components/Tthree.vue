@@ -174,8 +174,8 @@ watch(files, async (value) => {
       'Content-Type': 'multipart/form-data',
     },
   })
-    .then(({ data }) => {
-      ElMessage.success(`${t('import.success')},${data.upDateCount},${data.addCount},${data.failureCount}`)
+    .then(() => {
+      ElMessage.success(t('import.success'))
     })
     .catch((err) => {
       ElMessageBox.alert(err.message, '警告', {
