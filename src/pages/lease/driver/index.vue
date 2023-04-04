@@ -107,6 +107,16 @@ watch(files, async (value) => {
           </TButton>
         </QueryToolbar>
         <QueryTable v-loading="driverLoading" element-loading-text="数据正在导入...">
+          <template #content:licensePlateNumber="{ row }">
+            <ElLink
+              @click=" $router.push({
+                path: `./car/info/${row.vehicleId}`,
+                query: { carNumber: row.licensePlateNumber },
+              }) "
+            >
+              {{ row.licensePlateNumber }}
+            </ElLink>
+          </template>
           <template #content:statue="{ row }">
             <span :class="row.statue === '签约' ? 'text-[#63c441]' : ''">
               {{ row.statue }}
