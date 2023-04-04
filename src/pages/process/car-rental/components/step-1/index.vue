@@ -74,7 +74,7 @@ const {
   isLoading: schemeLoading,
   execute: getSchemeList,
 } = useAxios(
-  '/order/scheme/getSchemeList',
+  '/order/scheme/getLeaseOrderSchemes',
   { transformResponse: transformResponsePush(data => data.schemeList) },
   { immediate: false },
 )
@@ -85,7 +85,7 @@ const {
   isLoading: activityLoading,
   execute: getActivityList,
 } = useAxios(
-  '/order/activity/getActivityList',
+  '/order/activity/getActivitys',
   { transformResponse: transformResponsePush(data => data.resultList) },
   { immediate: false },
 )
@@ -102,6 +102,13 @@ const {
 watch(schemeTypeId, () => {
   state.schemeId = ''
   schemeList.value = []
+  fileList.value = []
+  getSchemeList({
+    data: {
+      caseType: schemeTypeId.value,
+      caseState: 1,
+    },
+  })
 })
 
 // 优惠信息 账单信息
@@ -129,16 +136,20 @@ watch(() => state.activityId, (value) => {
       activityId: state.activityId,
     },
   })
-  getOrderPreferential({
-    data: {
-      schemeId: state.schemeId,
-      activityId: state.activityId,
-    },
-  })
 })
 
 watch(() => state.schemeId, () => {
   state.activityId = ''
+  getActivityList({
+    data: {
+      schemeId: state.schemeId,
+      activityStatue: 1,
+    },
+  })
+})
+
+watch(() => [state.activityId, state.schemeId], () => {
+  preferentialList.value = undefined
   getOrderPreferential({
     data: {
       schemeId: state.schemeId,
@@ -334,22 +345,15 @@ function init() {
                   </ElRadioGroup>
                 </div>
                 <div>
-                  <span>方案编号/名称：</span>
+                  <span>方案：</span>
                   <ElSelect
                     v-model="state.schemeId"
+                    clearable
                     default-first-option
                     :disabled="isSchemeDisabled"
                     filterable
                     :loading="schemeLoading"
-                    placeholder="请输入内容搜索"
-                    remote
-                    :remote-method="(v: any) => v && executeQuery(getSchemeList, {
-                      keyWord: v,
-                      caseType: schemeTypeId,
-                      caseState: 1,
-                      vehicleModelId: vehicleItem.vehicleModelId,
-                    })"
-                    remote-show-suffix
+                    placeholder="请选择方案"
                     reserve-keyword
                   >
                     <ElOption
@@ -361,7 +365,7 @@ function init() {
                   </ElSelect>
                 </div>
                 <div>
-                  <span>活动名称：</span>
+                  <span>活动：</span>
                   <ElSelect
                     v-model="state.activityId"
                     clearable
@@ -369,14 +373,7 @@ function init() {
                     :disabled="isActivityDisabled"
                     filterable
                     :loading="activityLoading"
-                    placeholder="请输入内容搜索"
-                    remote
-                    :remote-method="(v: any) => v && executeQuery(getActivityList, {
-                      activityName: v,
-                      activityStatue: 1,
-                      schemeId: state.schemeId,
-                    })"
-                    remote-show-suffix
+                    placeholder="请选择活动"
                     reserve-keyword
                   >
                     <ElOption
@@ -406,7 +403,7 @@ function init() {
           </ElCard>
           <ElCard v-if="activityData">
             <template #header>
-              <div v-if="isReview">
+              <div>
                 活动信息
               </div>
             </template>
@@ -436,7 +433,7 @@ function init() {
               </template>
             </Descriptions>
           </ElCard>
-          <ElCard header="租赁合同">
+          <ElCard v-if="schemeTypeId === 0" header="租赁合同">
             <div class="p-2">
               <Upload v-model:file-list="fileList" :limit="1" list-type="text">
                 <ElButton type="primary">

@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { set } from 'lodash-es'
 import { workOrderInfoSymbol, workOrderSubmitSymbol } from '../../../types'
+import Valuation from '../components/Valuation.vue'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -15,12 +17,16 @@ const { data: vehicleReturnNote } = useAxios('/order/leaseOrder/getVehicleReturn
   },
 })
 
-const supplementInfo = computed(() => vehicleReturnNote.value?.supplementInfo && JSON.parse(vehicleReturnNote.value.supplementInfo))
-
 watch(vehicleReturnNote, (data) => {
+  const supplementInfo = vehicleReturnNote.value?.supplementInfo && JSON.parse(vehicleReturnNote.value.supplementInfo)
+  set(
+    supplementInfo,
+    'vehicleAccessories.receivable',
+    supplementInfo?.vehicleAccessories?.receivable?.split(','),
+  )
   form.setInitialValues({
     ...data,
-    supplementInfo: supplementInfo.value,
+    supplementInfo,
   })
 })
 
@@ -83,117 +89,7 @@ async function reject() {
           </ElCard>
           <ElCard class="whitespace-nowrap">
             <FormLayout class="p-2">
-              <ObjectField name="supplementInfo">
-                <div
-                  v-for="item of [
-                    { groupKey: 'vehicleViolation', groupName: '车辆违章' },
-                    { groupKey: 'floatingFee', groupName: '上浮费' },
-                    { groupKey: 'depreciationCharge', groupName: '折旧费' },
-                    { groupKey: 'trailerFee', groupName: '拖车费' },
-                  ]"
-                  :key="item.groupKey"
-                  class="flex"
-                >
-                  <div class="mt-1 w-5em">
-                    {{ item.groupName }}：
-                  </div>
-                  <div class="grid grid-cols-[200px_200px_200px_200px_1fr] flex-1 gap-2">
-                    <ObjectField :name="item.groupKey">
-                      <Field
-                        v-for="field of [
-                          { name: '应收金额', key: 'receivable', validator: 'number' },
-                          { name: '已收金额', key: 'netReceipts', validator: 'number' },
-                          { name: '小计', key: 'subtotal' },
-                          { name: '负责人', key: 'confirmedBy' },
-                          { name: '备注', key: 'remarks', required: false },
-                        ]"
-                        :key="field.name"
-                        :component="[Input]"
-                        :decorator="[FormItem]"
-                        :name="field.key"
-                        :required="field.required ?? true"
-                        :validator="field.validator"
-                      >
-                        <template #prepend>
-                          {{ field.name }}
-                        </template>
-                      </Field>
-                    </ObjectField>
-                  </div>
-                </div>
-                <div
-                  v-for="item of [
-                    { groupKey: 'vehicleAccessories', groupName: '车辆配件' },
-                    { groupKey: 'liquidatedDamages', groupName: '违约金' },
-                  ]"
-                  :key="item.groupKey"
-                  class="flex"
-                >
-                  <div class="mt-1 w-5em">
-                    {{ item.groupName }}：
-                  </div>
-                  <div class="grid grid-cols-[410px_200px_200px_1fr] flex-1 gap-2">
-                    <ObjectField :name="item.groupKey">
-                      <Field
-                        v-for="field of [
-                          { name: '信息', key: 'receivable' },
-                          { name: '小计', key: 'subtotal' },
-                          { name: '负责人', key: 'confirmedBy' },
-                          { name: '备注', key: 'remarks', required: false },
-                        ]"
-                        :key="field.name"
-                        :component="[Input]"
-                        :decorator="[FormItem]"
-                        :name="field.key"
-                        :required="field.required ?? true"
-                      >
-                        <template #prepend>
-                          {{ field.name }}
-                        </template>
-                      </Field>
-                    </ObjectField>
-                  </div>
-                </div>
-                <div
-                  class="flex"
-                >
-                  <div class="mt-1 w-5em">
-                    车辆证件：
-                  </div>
-                  <div class="grid grid-cols-[410px_200px_200px_1fr] flex-1 gap-2">
-                    <ObjectField name="vehiclesCertificate">
-                      <div v-if="supplementInfo?.vehiclesCertificate" class="flex gap-4 pointer-events-none">
-                        <ElCheckbox
-                          v-for="field of [
-                            { name: '行驶证', key: 'drivingLicense' },
-                            { name: '车钥匙', key: 'carKeys' },
-                            { name: '运输证', key: 'transportCertificate' },
-                          ]"
-                          :key="field.name"
-                          :label="field.name"
-                          :model-value="supplementInfo.vehiclesCertificate[field.key]"
-                        />
-                      </div>
-                      <Field
-                        v-for="field of [
-                          { name: '小计', key: 'subtotal' },
-                          { name: '负责人', key: 'confirmedBy' },
-                          { name: '备注', key: 'remarks', required: false },
-                        ]"
-                        :key="field.name"
-                        :component="[Input]"
-                        :decorator="[FormItem]"
-                        :name="field.key"
-                        :required="field.required ?? true"
-                      >
-                        <template #prepend>
-                          {{ field.name }}
-                        </template>
-                      </Field>
-                    </ObjectField>
-                  </div>
-                </div>
-              </ObjectField>
+              <Valuation field-name="supplementInfo" />
             </FormLayout>
           </ElCard>
         </div>

@@ -202,7 +202,7 @@
       "x-index": 10,
       "required": true
     },
-    "agencyDeductionTemplateUrl": {
+    "[agencyDeductionTemplateUrl,agencyDeductionTempName]": {
       "type": "Array<object>",
       "title": "代扣模板",
       "x-decorator": "FormItem",
@@ -219,7 +219,7 @@
       "x-designable-id": "b0o5zb9n8ny",
       "x-index": 11
     },
-    "contractTemplateUrl": {
+    "[contractTemplateUrl,contractTemplateName]": {
       "type": "Array<object>",
       "title": "合同模板",
       "x-decorator": "FormItem",
