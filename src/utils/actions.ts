@@ -101,7 +101,7 @@ export function transformUploadData(files: UploadFile[] | UploadUserFile[], mode
 export function transformToUploadFiles(urls: string[] | string): UploadUserFile[] | undefined {
   urls = typeof urls === 'string' ? urls.split(',') : urls
   urls = Array.isArray(urls) ? urls : []
-  return urls?.map?.((url, index) => ({
+  return urls?.map?.(url => ({
     name: '',
     url,
   }))

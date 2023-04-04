@@ -31,11 +31,14 @@ export function transformResponsePush(transformer: AxiosResponseTransformer | Ax
  * @param options 配置
  */
 export function numberMasking(
-  value: number | string,
+  value: number | string | undefined,
   options: { start?: number; end?: number; symbol?: string } = {},
 ) {
+  if (value === undefined || value === '')
+    return value
   const str = String(value)
   const { start = 3, end = 7, symbol = '*' } = options
-  const len = end - start
-  return str.replace(str.substring(start, end), len > 0 ? symbol.repeat(len) : '')
+  const _end = end < 0 ? str.length + end : end
+  const len = _end - start
+  return str.replace(str.substring(start, _end), len > 0 ? symbol.repeat(len) : '')
 }

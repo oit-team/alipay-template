@@ -32,9 +32,8 @@ watch(files, async (value) => {
       'Content-Type': 'multipart/form-data',
     },
   })
-    .then((res) => {
-      if (res.data?.addCount || res.data?.failureCount)
-        ElMessage.success(`${t('import.success')}, ${res.data?.addCount ? res.data?.addCount : ''}, ${res.data?.failureCount ? res.data?.failureCount : ''}`)
+    .then(() => {
+      ElMessage.success(t('import.success'))
     })
     .catch((err) => {
       ElMessageBox.alert(err.message, '警告', {
@@ -97,7 +96,7 @@ const schema = {
         },
         '[startcreateTime, endcreateTime]': {
           'type': 'string[]',
-          'title': '入库日期',
+          'title': '导入日期',
           'x-decorator': 'FormItem',
           'x-component': 'DatePicker',
           'x-validator': [],

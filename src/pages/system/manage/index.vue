@@ -157,6 +157,7 @@ async function onSubmit(form: any) {
   await axios.post(isNew.value ? '/system/dept/addDeptInfo' : '/system/dept/updateDeptInfo', params)
 
   ElMessage.success('成功')
+  await drawerForm.reset()
   divisionDrawer.value = false
   await getDeptList()
 }

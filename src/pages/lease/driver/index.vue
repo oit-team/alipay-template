@@ -64,9 +64,8 @@ watch(files, async (value) => {
       'Content-Type': 'multipart/form-data',
     },
   })
-    .then((res) => {
-      if (res.data?.addCount || res.data?.failureCount)
-        ElMessage.success(`${t('import.success')}, ${res.data?.addCount ? res.data?.addCount : ''}, ${res.data?.failureCount ? res.data?.failureCount : ''}`)
+    .then(() => {
+      ElMessage.success(t('import.success'))
     })
     .catch((err) => {
       ElMessageBox.alert(err.message, '警告', {
@@ -108,6 +107,16 @@ watch(files, async (value) => {
           </TButton>
         </QueryToolbar>
         <QueryTable v-loading="driverLoading" element-loading-text="数据正在导入...">
+          <template #content:licensePlateNumber="{ row }">
+            <ElLink
+              @click=" $router.push({
+                path: `./car/info/${row.vehicleId}`,
+                query: { carNumber: row.licensePlateNumber },
+              }) "
+            >
+              {{ row.licensePlateNumber }}
+            </ElLink>
+          </template>
           <template #content:statue="{ row }">
             <span :class="row.statue === '签约' ? 'text-[#63c441]' : ''">
               {{ row.statue }}
@@ -118,7 +127,7 @@ watch(files, async (value) => {
               <ElButton type="info" @click="$router.push(`./driver/info/${row.driverId}`)">
                 {{ $t('button.info') }}
               </ElButton>
-              <ElButton :disabled="row.statueKey === 1" type="primary" @click="$router.push(`./driver/${row.driverId}`)">
+              <ElButton type="primary" @click="$router.push(`./driver/${row.driverId}`)">
                 {{ $t('button.edit') }}
               </ElButton>
               <ElButton :disabled="row.statueKey === 1" type="danger" @click="onDelete(row)">

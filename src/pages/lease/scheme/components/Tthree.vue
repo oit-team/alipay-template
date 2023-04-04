@@ -286,9 +286,8 @@ watch(files, async (value) => {
       'Content-Type': 'multipart/form-data',
     },
   })
-    .then((res) => {
-      if (res.data?.addCount || res.data?.failureCount)
-        ElMessage.success(`${t('import.success')}, ${res.data?.addCount ? res.data?.addCount : ''}, ${res.data?.failureCount ? res.data?.failureCount : ''}`)
+    .then(() => {
+      ElMessage.success(t('import.success'))
       exportDialogVisible.value = false
     })
     .catch((err) => {

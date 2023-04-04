@@ -14,7 +14,7 @@ const workOrderReview = inject('workOrderReview') as Ref<any>
 
 const readonly = ref(false)
 
-watch(workOrderReview, (data) => {
+watch(workOrderReview, () => {
   // review或维修确认时，表单只读
   readonly.value = !!workOrderInfo?.value.isReview || workOrderInfo?.value.taskCode === 'CAR_RETURN_VEHICLE_MAINTENANCE_SURE'
   form.readOnly = readonly.value

@@ -21,7 +21,7 @@ const props = defineProps({
       data: 'resultList',
     }),
   },
-  columnsConfig: Object as PropType<Record<string, any>>,
+  columnsConfig: Object as PropType<Record<string, Omit<TableColumn, 'prop'>>>,
   showOverflowTooltip: {
     type: Boolean,
     default: true,

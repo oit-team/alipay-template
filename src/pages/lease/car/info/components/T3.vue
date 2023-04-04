@@ -158,6 +158,9 @@ const columnsConfig = {
       v-slot="attrs"
       :columns="columns"
       :columns-config="columnsConfig"
+      :data="{
+        carNumber: $route.query.carNumber,
+      }"
       :key-map="{ data: 'resultList', total: 'totalCount' }"
       url="/order/leaseOrder/getT3LeaseOrderList"
     >
