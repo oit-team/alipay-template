@@ -148,7 +148,7 @@ function openCgPw() {
           <div id="page-header" />
           <div class="bg-white flex-1 overflow-hidden">
             <ElScrollbar>
-              <RouterView v-slot="{ Component, route }">
+              <RouterView v-slot="{ Component }">
                 <KeepAlive>
                   <Component
                     :is="Component"
