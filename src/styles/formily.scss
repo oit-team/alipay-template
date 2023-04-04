@@ -11,7 +11,9 @@
 }
 
 .formily-readonly {
-  [readonly], [readonly] * {
-    pointer-events: none!important;
+  [readonly]:not([readonly="false"]) {
+    &, & * {
+      pointer-events: none!important;
+    }
   }
 }

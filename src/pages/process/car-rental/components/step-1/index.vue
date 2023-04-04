@@ -109,6 +109,8 @@ watch(schemeTypeId, () => {
       caseState: 1,
     },
   })
+}, {
+  immediate: true,
 })
 
 // 优惠信息 账单信息
@@ -166,6 +168,7 @@ async function submit() {
     [state.driverId, '请选择司机'],
     [state.vehicleId, '请选择车辆'],
     [state.schemeId, '请选择方案'],
+    [schemeTypeId.value === 0 && fileList.value.length > 0, '请上传合同'],
     [uploadSuccessful, '请等待文件上传完成'],
   ]
   const checkResult = check.find(item => !item[0])
@@ -193,8 +196,8 @@ async function submit() {
       'endTime',
       'mileage',
     ]),
-    contractName: files?.[0].name,
-    contractUrl: files?.[0].url,
+    contractName: files?.[0]?.name,
+    contractUrl: files?.[0]?.url,
     ...state,
   }
 
