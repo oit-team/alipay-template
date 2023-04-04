@@ -14,7 +14,7 @@ specifiers:
   '@types/mime': ^3.0.1
   '@types/node': ^18.15.11
   '@unocss/reset': ^0.50.6
-  '@uxuip/element-plus-query': 0.0.11
+  '@uxuip/element-plus-query': 0.0.12
   '@uxuip/eslint-config': ^0.1.7
   '@vitejs/plugin-vue': ^4.1.0
   '@vitejs/plugin-vue-jsx': ^3.0.1
@@ -60,7 +60,7 @@ dependencies:
   '@formily/element-plus': 1.0.0-beta.8_fbiusmgbpedyibgqwr2yj4u2hy
   '@formily/vue': 2.2.21_fbiusmgbpedyibgqwr2yj4u2hy
   '@oit/utils': 0.1.0
-  '@uxuip/element-plus-query': 0.0.11_fimje5fbp73yiv4amscsas6eee
+  '@uxuip/element-plus-query': 0.0.12_fimje5fbp73yiv4amscsas6eee
   '@vue/composition-api': 1.7.1_vue@3.2.47
   '@vueuse/core': 9.13.0_nl35ja3bquglpolb4ogn4n6pq4
   '@vueuse/integrations': 9.13.0_rplmerq4sp57pfbyojdljwtjsy
@@ -1903,14 +1903,14 @@ packages:
       - rollup
     dev: true
 
-  /@uxuip/element-plus-query/0.0.11_fimje5fbp73yiv4amscsas6eee:
-    resolution: {integrity: sha512-/hx3DXbAfiIi7jJ/8MHBMTakYTOW2ijqIgbSVAHNdWNUxwLoaMLBWuTV6fJ1XAYiZmEWxZS/E7RvMRy9kflRsw==}
+  /@uxuip/element-plus-query/0.0.12_fimje5fbp73yiv4amscsas6eee:
+    resolution: {integrity: sha512-0djCIrnMg4m4WC5YnOH8WZmZZ0nh8yXx38aF8yFi+GbXZ8+vTmHmcPVuTVA6vLUibQHgmF3afVbAN/h/PDR9xQ==}
     dependencies:
       '@element-plus/icons-vue': 2.1.0_vue@3.2.47
       '@formily/core': 2.2.21
       '@formily/element-plus': 1.0.0-beta.8_fbiusmgbpedyibgqwr2yj4u2hy
       '@formily/vue': 2.2.21_fbiusmgbpedyibgqwr2yj4u2hy
-      element-plus: 2.3.1_nl35ja3bquglpolb4ogn4n6pq4
+      element-plus: 2.3.2_nl35ja3bquglpolb4ogn4n6pq4
       vue: 3.2.47
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -3198,6 +3198,31 @@ packages:
 
   /element-plus/2.3.1_nl35ja3bquglpolb4ogn4n6pq4:
     resolution: {integrity: sha512-IBS7ic1mRyDXpOreRkredV4ByZSuax5HPb0zNOHm4qwKC4wm927yQv+Is0JbzxPzCW5zWaV4PLy9/Gl3E3v59w==}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      '@ctrl/tinycolor': 3.6.0
+      '@element-plus/icons-vue': 2.1.0_vue@3.2.47
+      '@floating-ui/dom': 1.2.5
+      '@popperjs/core': /@sxzz/popperjs-es/2.11.7
+      '@types/lodash': 4.14.192
+      '@types/lodash-es': 4.17.7
+      '@vueuse/core': 9.13.0_nl35ja3bquglpolb4ogn4n6pq4
+      async-validator: 4.2.5
+      dayjs: 1.11.7
+      escape-html: 1.0.3
+      lodash: 4.17.21
+      lodash-es: 4.17.21
+      lodash-unified: 1.0.3_tknf7errc3xdqocd3ryzzla7vq
+      memoize-one: 6.0.0
+      normalize-wheel-es: 1.2.0
+      vue: 3.2.47
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+    dev: false
+
+  /element-plus/2.3.2_nl35ja3bquglpolb4ogn4n6pq4:
+    resolution: {integrity: sha512-NIK0QckKKagdlMm3eLoVoD4Lkfj5ECzpZAxwrRLdm1Yi5qiTU9Guor33+IbIa52z4gHMuhMxgSVS2xAGmjLHsw==}
     peerDependencies:
       vue: ^3.2.0
     dependencies:
