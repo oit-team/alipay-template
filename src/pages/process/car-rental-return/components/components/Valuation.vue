@@ -76,7 +76,6 @@ const hideSubtotal = computed(() => workOrderInfo?.value?.currentStep.taskCode =
               '脚垫',
               '紧急警示牌',
               '拖车钩',
-              '违约金',
             ]"
             :decorator="[FormItem]"
             name="receivable"
