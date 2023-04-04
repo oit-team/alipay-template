@@ -97,7 +97,7 @@ const schema = {
         },
         '[startcreateTime, endcreateTime]': {
           'type': 'string[]',
-          'title': '入库日期',
+          'title': '导入日期',
           'x-decorator': 'FormItem',
           'x-component': 'DatePicker',
           'x-validator': [],

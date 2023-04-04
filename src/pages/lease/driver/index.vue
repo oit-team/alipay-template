@@ -118,7 +118,7 @@ watch(files, async (value) => {
               <ElButton type="info" @click="$router.push(`./driver/info/${row.driverId}`)">
                 {{ $t('button.info') }}
               </ElButton>
-              <ElButton :disabled="row.statueKey === 1" type="primary" @click="$router.push(`./driver/${row.driverId}`)">
+              <ElButton type="primary" @click="$router.push(`./driver/${row.driverId}`)">
                 {{ $t('button.edit') }}
               </ElButton>
               <ElButton :disabled="row.statueKey === 1" type="danger" @click="onDelete(row)">

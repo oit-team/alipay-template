@@ -195,7 +195,7 @@ watch(files, async (value) => {
               >
                 {{ $t('button.info') }}
               </ElButton>
-              <ElButton :disabled="row.vehicleStateVal === 1" size="small" type="primary" @click="$router.push(`./car/${row.vehicleId}`)">
+              <ElButton size="small" type="primary" @click="$router.push(`./car/${row.vehicleId}`)">
                 {{ $t('button.edit') }}
               </ElButton>
               <ElButton :disabled="row.vehicleStateVal === 1" size="small" type="danger" @click="onDelete(row)">
