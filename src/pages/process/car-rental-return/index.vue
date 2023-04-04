@@ -49,24 +49,27 @@ provide('workOrderReview', workOrderReview)
       <ElStep
         v-for="(item, index) of workOrderInfo?.workFlowSteps"
         :key="item.id"
-        :class="{ 'step--active': workOrderInfo?.viewStep === index && workOrderInfo?.isReview }"
+        :class="{ 'step--active': workOrderInfo?.viewStep === index }"
         :title="item.name"
         @click="workOrderInfo?.setViewStep(index)"
       />
     </ElSteps>
 
-    <Component :is="view" class="flex-1" :class="{ 'formily-readonly': workOrderInfo?.isReview }" />
+    <Component :is="view" class="flex-1 formily-readonly" />
 
     <Logs />
   </div>
 </template>
 
-<style>
+<style lang="scss">
 .el-step__title:not(.is-wait) {
   cursor: pointer;
 }
 
-.step--active .el-step__title {
-  color: var(--el-color-primary);
+.step--active {
+  .el-step__title, .el-step__head {
+    border-color: var(--el-color-warning);
+    color: var(--el-color-warning);
+  }
 }
 </style>

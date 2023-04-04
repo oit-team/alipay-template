@@ -44,7 +44,7 @@ provide('workOrderReview', workOrderReview)
       <ElStep
         v-for="(item, index) of workOrderInfo?.workFlowSteps"
         :key="item.id"
-        :class="{ 'step--active': workOrderInfo?.viewStep === index && workOrderInfo?.isReview }"
+        :class="{ 'step--active': workOrderInfo?.viewStep === index }"
         :title="item.name"
         @click="workOrderInfo?.setViewStep(index)"
       />
@@ -62,6 +62,6 @@ provide('workOrderReview', workOrderReview)
 }
 
 .step--active .el-step__title {
-  color: var(--el-color-primary);
+  color: var(--el-color-warning);
 }
 </style>
