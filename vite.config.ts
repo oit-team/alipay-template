@@ -86,7 +86,14 @@ export default (mode: string) => {
           'vue',
           'vue-router',
           'vue-i18n',
-          '@vueuse/core',
+          {
+            '@vueuse/core': [
+              'useStorage',
+              'useVModel',
+              'useObjectUrl',
+              'useFileDialog',
+            ],
+          },
           {
             '@formily/core': [
               'createForm',
@@ -106,6 +113,7 @@ export default (mode: string) => {
         dts: true,
         dirs: [
           './src/composables',
+          './src/store',
         ],
         vueTemplate: true,
       }),

@@ -13,23 +13,26 @@ export const useUserStore = defineStore('user', () => {
     sex: string
   }>()
 
+  // 更新用户信息
   const updateUserProfile = async () => {
     const { data } = await axios.post('/system/login/getUserToken')
     profile.value = data
     setToken(data.accessToken)
   }
 
+  // 获取用户信息
   const getUserProfile = async () => {
     !profile.value && await updateUserProfile()
     return profile.value
   }
 
+  // 清除用户信息
   const clearUserProfile = async () => {
     profile.value = undefined
   }
 
   return {
-    profile,
+    profile: readonly(profile),
     updateUserProfile,
     getUserProfile,
     clearUserProfile,

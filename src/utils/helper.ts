@@ -24,3 +24,18 @@ export function transformResponsePush(transformer: AxiosResponseTransformer | Ax
     ...transformerArray,
   ]
 }
+
+/**
+ * 脱敏
+ * @param value 值
+ * @param options 配置
+ */
+export function numberMasking(
+  value: number | string,
+  options: { start?: number; end?: number; symbol?: string } = {},
+) {
+  const str = String(value)
+  const { start = 3, end = 7, symbol = '*' } = options
+  const len = end - start
+  return str.replace(str.substring(start, end), len > 0 ? symbol.repeat(len) : '')
+}
