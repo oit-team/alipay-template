@@ -5,8 +5,10 @@ meta:
 
 <script setup lang="ts">
 import { useUserStore } from '@/store/user'
+import { numberMasking } from '@/utils/helper'
 
 const { t } = useI18n()
+const { checkPermission } = usePermission()
 
 const columnConfig = {
   driverName: {
@@ -107,19 +109,23 @@ watch(files, async (value) => {
           </TButton>
         </QueryToolbar>
         <QueryTable v-loading="driverLoading" element-loading-text="数据正在导入...">
-          <template #content:licensePlateNumber="{ row }">
+          <!-- 手机号数据加密 -->
+          <template #content:driverPhone="{ value }">
+            {{ checkPermission('selectEncryption') ? numberMasking(value) : value }}
+          </template>
+          <template #content:licensePlateNumber="{ row, value }">
             <ElLink
               @click=" $router.push({
                 path: `./car/info/${row.vehicleId}`,
-                query: { carNumber: row.licensePlateNumber },
+                query: { carNumber: value },
               }) "
             >
-              {{ row.licensePlateNumber }}
+              {{ value }}
             </ElLink>
           </template>
-          <template #content:statue="{ row }">
-            <span :class="row.statue === '签约' ? 'text-[#63c441]' : ''">
-              {{ row.statue }}
+          <template #content:statue="{ value }">
+            <span :class="value === '签约' ? 'text-[#63c441]' : ''">
+              {{ value }}
             </span>
           </template>
           <template #actions>
