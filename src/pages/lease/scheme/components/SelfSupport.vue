@@ -7,6 +7,8 @@ meta:
 import schema from './schema/self.json'
 import { getCityList, useSelectAsyncDataSource } from '@/reactions'
 
+const { t } = useI18n()
+
 enum statusColorMap {
   '', // 审批中
   'text-green-500', // 履约中
@@ -21,18 +23,18 @@ onMounted(() => {
 })
 
 async function onDelete(row: any) {
-  await ElMessageBox.confirm('要删除该方案吗?', '提示', {
+  await ElMessageBox.confirm('确定要删除该方案吗?', '提示', {
     type: 'warning',
   })
   await axios.post('/order/scheme/delSchemeInfo', { caseId: row.id })
   await queryRef.value?.query()
-  ElMessage.success('操作成功')
+  ElMessage.success(t('handle.success'))
 }
 
 async function onPutaway(row: any) {
   // 0 下架 1 上架
   const casedescript = row.caseState === 1 ? '下架' : '上架'
-  await ElMessageBox.confirm(`要${casedescript}该方案吗?`, '提示', {
+  await ElMessageBox.confirm(`确定要${casedescript}该方案吗?`, '提示', {
     type: 'warning',
   })
   await axios.post('/order/scheme/updateSchemeStatus', {
@@ -40,7 +42,7 @@ async function onPutaway(row: any) {
     caseState: row.caseState === 1 ? 0 : 1,
   })
   await queryRef.value?.query()
-  ElMessage.success('操作成功')
+  ElMessage.success(t('handle.success'))
 }
 const columns = [
   {
