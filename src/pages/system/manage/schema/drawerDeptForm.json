@@ -8,7 +8,9 @@
       "x-component": "Input",
       "x-validator": [],
       "x-component-props": {},
-      "x-decorator-props": {},
+      "x-decorator-props": {
+        "colon": false
+      },
       "name": "deptName",
       "x-designable-id": "zcyefe3ov3l",
       "required": true,
@@ -21,7 +23,9 @@
       "x-component": "Input",
       "x-validator": [],
       "x-component-props": {},
-      "x-decorator-props": {},
+      "x-decorator-props": {
+        "colon": false
+      },
       "name": "describe",
       "x-designable-id": "fbul049kb8v",
       "x-index": 1

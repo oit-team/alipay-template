@@ -371,14 +371,9 @@ function toAdd() {
         <QueryProvide v-bind="attrs" ref="queryRef" auto-query="active">
           <QueryForm />
           <QueryToolbar>
-            <ElButton type="primary" @click="toAdd">
+            <TButton icon="add" @click="toAdd">
               {{ $t('button.new') }}
-            </ElButton>
-            <!-- <ElTooltip class="item" content="只有管家用户和APP及管家用户才可以授权" effect="dark" placement="top-start">
-              <ElButton type="warning" @click="showRolePower">
-                角色授权
-              </ElButton>
-            </ElTooltip> -->
+            </TButton>
           </QueryToolbar>
           <!-- :selection="{
               type: 'checkbox',
@@ -405,7 +400,7 @@ function toAdd() {
     </div>
 
     <!-- 新增/编辑部门 -->
-    <ElDrawer v-model="divisionDrawer" :before-close="beforeClose" direction="rtl" title="部门信息">
+    <ElDrawer v-model="divisionDrawer" :before-close="beforeClose" direction="rtl" size="40%" title="部门信息">
       <div class="h-full flex flex-col p-4 justify-between box-border">
         <FormProvider ref="drawerFormRef" :form="drawerForm">
           <div class="flex flex-col h-full px-4 py-2">

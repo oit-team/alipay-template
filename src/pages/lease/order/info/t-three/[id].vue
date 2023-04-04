@@ -115,16 +115,6 @@ const infoMap = [
     prop: 'brandCarModel',
     label: '品牌车系车型',
   },
-  {
-    prop: 'leaseContractName',
-    label: '租赁合同名称',
-    span: 4,
-  },
-  {
-    prop: 'agreementName',
-    label: '代扣协议名称',
-    span: 4,
-  },
 ]
 const labelWidth = ref('180px')
 const data = ref()
@@ -194,12 +184,12 @@ async function submit(formData: any) {
       >
         <template #leaseContractName="{ value }">
           <ElLink :href="data?.leaseContractUrl" target="_blank" type="primary">
-            {{ value[0].name }}
+            {{ value?.[0].name }}
           </ElLink>
         </template>
         <template #agreementName="{ value }">
           <ElLink :href="data?.agreementUrl" target="_blank" type="primary">
-            {{ value[0].name }}
+            {{ value?.[0].name }}
           </ElLink>
         </template>
       </Descriptions>

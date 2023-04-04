@@ -1,15 +1,9 @@
 <route lang="yaml">
 meta:
   cache: true
-  </route>
+    </route>
 
 <script setup lang="ts">
-import schema from './schema/t3.json'
-import { getCityList, useSelectAsyncDataSource } from '@/reactions'
-import { useUserStore } from '@/store/user'
-
-const { t } = useI18n()
-
 const queryRef = ref()
 
 onMounted(() => {
@@ -156,33 +150,6 @@ const columnsConfig = {
     width: 200,
   },
 }
-
-// 导入T3方案
-const { files, open } = useFileDialog()
-
-watch(files, async (value) => {
-  if (!value || !value.length)
-    return
-
-  const { profile } = useUserStore()
-
-  axios.post('/order/leaseOrder/importT3LeaseOrder', {
-    file: value[0],
-    userId: profile?.userId,
-  }, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  })
-    .then(({ data }) => {
-      ElMessage.success(`${t('import.success')},${data.upDateCount},${data.addCount},${data.failureCount}`)
-    })
-    .catch((err) => {
-      ElMessageBox.alert(err.message, '警告', {
-        type: 'warning',
-      })
-    })
-})
 </script>
 
 <template>
@@ -192,7 +159,6 @@ watch(files, async (value) => {
       :columns="columns"
       :columns-config="columnsConfig"
       :key-map="{ data: 'resultList', total: 'totalCount' }"
-      :schema="schema"
       url="/order/leaseOrder/getT3LeaseOrderList"
     >
       <QueryProvide
@@ -200,16 +166,11 @@ watch(files, async (value) => {
         ref="queryRef"
         auto-query="active"
       >
-        <QueryForm :scope="{ getCityList, useSelectAsyncDataSource }" />
-        <QueryToolbar>
-          <TButton icon="import" @click="open({ multiple: false })">
-            {{ $t('button.import') }}T3租赁订单
-          </TButton>
-        </QueryToolbar>
+        <QueryToolbar />
         <QueryTable>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" fixed="right" label="操作" width="100px">
-              <ElButton size="small" type="success" @click="$router.push(`./order/info/t-three/${row.id}`)">
+              <ElButton size="small" type="success" @click="$router.push(`/lease/order/info/t-three/${row.id}`)">
                 {{ $t('button.info') }}
               </ElButton>
             </QueryActionColumn>

@@ -147,6 +147,7 @@ const schema
 }
 
 const { t } = useI18n()
+const router = useRouter()
 
 const queryRef = ref()
 
@@ -249,14 +250,27 @@ function cancelRelevanceOrder() {
   orderNo.value = ''
 }
 
+// 点击单项关联订单
+function handleRowT3OrderNo(row: any) {
+  router.push(`/lease/order/info/t-three/${row.t3LeaseOrderId}`)
+}
+
+// 点击操作列工单编号
+function handleRowRentalWorkCode(row: any) {
+  const flowCode = 'CAR_RENTAL'
+  router.push(`/process/car-rental?workCode=${row.rentalWorkCode}&flowCode=${flowCode}&disabled=1`)
+}
+
+// 点击退租订单编号跳转详情
+function handleRowReturnWorkCode(row: any) {
+  const flowCode = 'CAR_RETURN'
+  router.push(`/process/car-rental-return?workCode=${row.returnWorkCode}&flowCode=${flowCode}&disabled=1`)
+}
+
 const columns = [
   {
     prop: 'leaseOrderNo',
     label: '订单编号',
-  },
-  {
-    prop: 'orderStatueName',
-    label: '订单状态',
   },
   {
     prop: 'driverName',
@@ -275,6 +289,22 @@ const columns = [
     label: '方案编号',
   },
   {
+    prop: 't3OrderNo',
+    label: '关联订单',
+  },
+  {
+    prop: 'rentalWorkCode',
+    label: '租赁工单编号',
+  },
+  {
+    prop: 'returnWorkCode',
+    label: '退租工单编号',
+  },
+  {
+    prop: 'orderStatueName',
+    label: '订单状态',
+  },
+  {
     prop: 'rent',
     label: '租金（元）',
   },
@@ -289,17 +319,6 @@ const columns = [
   {
     prop: 'endTime',
     label: '终止时间',
-  }, {
-    prop: 't3OrderNo',
-    label: '关联订单',
-  },
-  {
-    prop: 'rentalWorkCode',
-    label: '租赁工单编号',
-  },
-  {
-    prop: 'returnWorkCode',
-    label: '退租工单编号',
   },
   {
     prop: 'createTime',
@@ -386,14 +405,29 @@ const columnsConfig = {
       >
         <QueryForm />
         <QueryToolbar>
-          <ElButton :auto-insert-space="false" link @click="$router.push('/process/car-rental')">
+          <TButton icon="apply" link @click="$router.push('/process/car-rental')">
             {{ $t('button.apply') }}租车
-          </ElButton>
-          <ElButton :auto-insert-space="false" link @click="$router.push('/process/car-rental-return')">
+          </TButton>
+          <TButton icon="apply" link @click="$router.push('/process/car-rental-return')">
             {{ $t('button.apply') }}退车
-          </ElButton>
+          </TButton>
         </QueryToolbar>
         <QueryTable>
+          <template #content:t3OrderNo="{ row }">
+            <ElLink @click="handleRowT3OrderNo(row)">
+              {{ row.t3OrderNo }}
+            </ElLink>
+          </template>
+          <template #content:rentalWorkCode="{ row }">
+            <ElLink @click="handleRowRentalWorkCode(row)">
+              {{ row.rentalWorkCode }}
+            </ELLink>
+          </template>
+          <template #content:returnWorkCode="{ row }">
+            <ElLink @click="handleRowReturnWorkCode(row)">
+              {{ row.returnWorkCode }}
+            </ElLink>
+          </template>
           <!-- 0 审批中 1 履约中  2 已到期 3 已作废 -->
           <template #content:orderStatueName="{ row }">
             <div :class="statusColorMap[row.orderStatue]">
@@ -405,7 +439,7 @@ const columnsConfig = {
               <ElButton size="small" type="success" @click="$router.push(`./order/info/self-support/${row.id}`)">
                 {{ $t('button.info') }}
               </ElButton>
-              <ElButton size="small" type="warning" @click="onRelevanceOrder(row)">
+              <ElButton :disabled=" row.isAssociated === 0 && (row.orderStatue === 2 || row.orderStatue === 3)" size="small" type="warning" @click="onRelevanceOrder(row)">
                 {{ row.isAssociated === 0 ? '关联订单' : '解除订单' }}
               </ElButton>
               <ElButton :disabled="row.orderStatue === 2 || row.orderStatue === 3" size="small" type="danger" @click="onCancellation(row)">
@@ -431,7 +465,7 @@ const columnsConfig = {
             <ElInput v-model="orderNo" placeholder="请输入T3订单编号" />
           </div>
         </template>
-        <div v-if="orderNo && !orderInfo" class="text-red-500 text-xs py-2 px-4">
+        <div v-if="orderNo && Object.keys(orderInfo).length === 0" class="text-red-500 text-xs py-2 px-4">
           *未找到相关订单,请重新输入
         </div>
         <Descriptions

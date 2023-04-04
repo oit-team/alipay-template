@@ -68,9 +68,9 @@ async function upOrDown(item: any) {
       <QueryProvide v-bind="attrs" ref="query" auto-query="active" :columns="columns" :schema="schema">
         <QueryForm />
         <QueryToolbar>
-          <ElButton type="primary" @click="$router.push('./list/new')">
+          <TButton icon="add" @click="$router.push('./list/new')">
             {{ $t('button.add') }}
-          </ElButton>
+          </TButton>
         </QueryToolbar>
         <QueryTable>
           <template #actions>

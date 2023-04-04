@@ -48,12 +48,14 @@ async function onDelete(row: any) {
 
 const { files, open } = useFileDialog()
 
+const driverLoading = ref(false)
 watch(files, async (value) => {
   if (!value || !value.length)
     return
 
   const { profile } = useUserStore()
 
+  driverLoading.value = true
   axios.post('/driverServer/excel/addimporDriverInfo', {
     file: value[0],
     userId: profile?.userId,
@@ -62,13 +64,16 @@ watch(files, async (value) => {
       'Content-Type': 'multipart/form-data',
     },
   })
-    .then(() => {
-      ElMessage.success(t('import.success'))
+    .then((res) => {
+      if (res.data?.addCount || res.data?.failureCount)
+        ElMessage.success(`${t('import.success')}, ${res.data?.addCount ? res.data?.addCount : ''}, ${res.data?.failureCount ? res.data?.failureCount : ''}`)
     })
     .catch((err) => {
       ElMessageBox.alert(err.message, '警告', {
         type: 'warning',
       })
+    }).finally(() => {
+      driverLoading.value = false
     })
 })
 </script>
@@ -89,20 +94,20 @@ watch(files, async (value) => {
       >
         <QueryForm />
         <QueryToolbar>
-          <ElButton type="primary" @click="$router.push('./driver/new')">
+          <TButton icon="add" @click="$router.push('./driver/new')">
             {{ $t('button.new') }}
-          </ElButton>
-          <ElButton type="info" @click="open({ multiple: false })">
+          </TButton>
+          <TButton icon="import" @click="open({ multiple: false })">
             {{ $t('button.import') }}
-          </ElButton>
-          <ElButton :auto-insert-space="false" type="info" @click="$router.push('/process/car-rental')">
+          </TButton>
+          <TButton icon="apply" @click="$router.push('/process/car-rental')">
             {{ $t('button.apply') }}租车
-          </ElButton>
-          <ElButton :auto-insert-space="false" type="info" @click="$router.push('/process/car-rental-return')">
+          </TButton>
+          <TButton icon="apply" @click="$router.push('/process/car-rental-return')">
             {{ $t('button.apply') }}退车
-          </ElButton>
+          </TButton>
         </QueryToolbar>
-        <QueryTable>
+        <QueryTable v-loading="driverLoading" element-loading-text="数据正在导入...">
           <template #content:statue="{ row }">
             <span :class="row.statue === '签约' ? 'text-[#63c441]' : ''">
               {{ row.statue }}

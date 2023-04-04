@@ -51,10 +51,9 @@ async function dltList(id: string) {
       <QueryProvide v-bind="attrs" ref="query" auto-query="active" :columns="columns" :schema="schema">
         <QueryForm />
         <QueryToolbar>
-          <ElButton type="primary" @click="$router.push('./menu/new')">
+          <TButton icon="add" @click="$router.push('./menu/new')">
             {{ $t('button.add') }}
-          </ElButton>
-          <!-- <ElDivider direction="vertical" /> -->
+          </TButton>
         </QueryToolbar>
         <QueryTable>
           <template #actions>

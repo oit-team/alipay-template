@@ -471,6 +471,34 @@
               "x-index": 7
             }
           }
+        },
+        "hkc7zp5pgvt": {
+          "type": "void",
+          "x-component": "FormCollapse.Item",
+          "x-component-props": {
+            "title": "保险信息"
+          },
+          "x-index": 4,
+          "x-designable-id": "hkc7zp5pgvt",
+          "properties": {
+            "insuranceContractImg": {
+              "type": "Array<object>",
+              "title": "图片",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload",
+                "limit": 1,
+                "format": "url",
+                "accept": "image/*"
+              },
+              "x-validator": [],
+              "x-decorator-props": {},
+              "name": "insuranceContractImg",
+              "x-designable-id": "22xjbwc3njp",
+              "x-index": 0
+            }
+          }
         }
       }
     }
