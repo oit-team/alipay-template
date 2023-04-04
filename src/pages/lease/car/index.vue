@@ -110,9 +110,6 @@ function importWei() {
   importType.value = 2
 }
 
-const errDrawer = ref(false)
-const errObj = ref()
-
 const carLoading = ref(false)
 
 watch(files, async (value) => {
@@ -137,14 +134,8 @@ watch(files, async (value) => {
       'Content-Type': 'multipart/form-data',
     },
   })
-    .then((res) => {
-      if (res.data?.addCount || res.data?.failureCount)
-        ElMessage.success(`${t('import.success')}, ${res.data?.addCount ? res.data?.addCount : ''}, ${res.data?.failureCount ? res.data?.failureCount : ''}`)
-
-      if (res.data.errorStr.length > 0) {
-        errDrawer.value = true
-        errObj.value = res.data
-      }
+    .then(() => {
+      ElMessage.success(t('import.success'))
     })
     .catch((err) => {
       ElMessageBox.alert(err.message, '警告', {
@@ -218,26 +209,5 @@ watch(files, async (value) => {
         <QueryPagination />
       </QueryProvide>
     </UseQuery>
-    <ElDrawer v-model="errDrawer" direction="rtl">
-      <div class="demo-drawer__content p-3">
-        <h3 v-if="errObj.addCount">
-          {{ errObj.addCount }}
-        </h3>
-        <h3 v-if="errObj.failureCount">
-          {{ errObj.failureCount }}
-        </h3>
-        <h3 v-if="errObj.upDateCount">
-          {{ errObj.upDateCount }}
-        </h3>
-        <h3 class="mb-2">
-          失败数据如下:
-        </h3>
-        <div class="errDataBox" style="text-align:left;">
-          <div v-for="(item, index) in errObj.errorStr" :key="index" class="mb-2">
-            {{ item }}
-          </div>
-        </div>
-      </div>
-    </ElDrawer>
   </div>
 </template>
