@@ -7,6 +7,13 @@ meta:
 import querySchema from './schema/query.json'
 const router = useRouter()
 
+// 0 进行中 1已完成 -1 已作废
+const statusColorMap: Record<string, string> = {
+  '-1': 'text-red-500',
+  '1': 'text-green-500',
+  '2': '',
+}
+
 const routeMap: Record<string, string> = {
   CAR_RENTAL: '/process/car-rental',
   CAR_RETURN: '/process/car-rental-return',
@@ -114,7 +121,7 @@ const columnsConfig = {
         <QueryForm />
         <QueryTable>
           <template #content:statusName="{ row }">
-            <div :class="row.status === 1 ? 'text-green-500' : ''">
+            <div :class="statusColorMap[row.status]">
               {{ row.statusName }}
             </div>
           </template>
