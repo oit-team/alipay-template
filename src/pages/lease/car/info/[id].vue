@@ -29,7 +29,7 @@ provide(vehicleParamsSymbol, reactive({
 
 <template>
   <div u-h-full>
-    <PageHeader v-if="!inset" title="车辆详情" />
+    <PageHeader v-if="!inset" :title="$route.query?.carNumber ? `车辆详情-${$route.query?.carNumber}` : '车辆详情'" />
     <template v-if="vehicleId">
       <ElTabs v-if="rendered" model-value="baseInfo" type="border-card" u-h-full u-rounded-b-lg>
         <ElTabPane label="基本信息" lazy name="baseInfo">

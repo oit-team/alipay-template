@@ -10,8 +10,6 @@ import { getCityList, useSelectAsyncDataSource, vehicleServiceList } from '@/rea
 
 const { t } = useI18n()
 
-const router = useRouter()
-
 const queryRef = ref()
 
 async function onDelete(row: any) {
@@ -23,13 +21,6 @@ async function onDelete(row: any) {
   ElMessage.success(t('handle.success'))
 }
 
-// 点击车牌号去详情
-function goDetail(row: any) {
-  router.push({
-    path: `./car/info/${row.vehicleId}`,
-    query: { carNumber: row.licensePlateNumber },
-  })
-}
 const columns = [
   {
     prop: 'licensePlateNumber',
@@ -177,11 +168,6 @@ watch(files, async (value) => {
           </TButton>
         </QueryToolbar>
         <QueryTable v-loading="carLoading" element-loading-text="数据正在导入...">
-          <template #content:licensePlateNumber="{ row }">
-            <ElLink @click="goDetail(row)">
-              {{ row.licensePlateNumber }}
-            </ElLink>
-          </template>
           <!-- 0 待租 1 已租 -->
           <template #content:vehicleState="{ row }">
             <div :class="row.vehicleStateVal === 1 ? 'text-green' : ''">
@@ -193,7 +179,10 @@ watch(files, async (value) => {
               <ElButton
                 size="small"
                 type="info"
-                @click="goDetail(row)"
+                @click=" $router.push({
+                  path: `./car/info/${row.vehicleId}`,
+                  query: { carNumber: row.licensePlateNumber },
+                })"
               >
                 {{ $t('button.info') }}
               </ElButton>
