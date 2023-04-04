@@ -185,7 +185,14 @@ watch(files, async (value) => {
           </template>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" fixed="right" label="操作" width="180px">
-              <ElButton size="small" type="info" @click="$router.push(`./car/info/${row.vehicleId}`)">
+              <ElButton
+                size="small"
+                type="info"
+                @click="$router.push({
+                  path: `./car/info/${row.vehicleId}`,
+                  query: { carNumber: row.licensePlateNumber },
+                })"
+              >
                 {{ $t('button.info') }}
               </ElButton>
               <ElButton :disabled="row.vehicleStateVal === 1" size="small" type="primary" @click="$router.push(`./car/${row.vehicleId}`)">
