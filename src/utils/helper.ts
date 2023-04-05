@@ -44,5 +44,6 @@ export function numberMasking(
   const _start = start < 0 ? str.length + start : start
   const _end = end < 0 ? str.length + end : end
   const len = _end - _start
-  return str.replace(str.substring(_start, _end), len > 0 ? symbol.repeat(len) : '')
+  const mask = len > 0 ? symbol.repeat(len) : ''
+  return `${str.slice(0, _start)}${mask}${str.slice(_end)}`
 }
