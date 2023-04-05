@@ -100,7 +100,10 @@ const {
 )
 
 watch(schemeTypeId, () => {
+  // 单独执行重置
   state.schemeId = ''
+})
+watch(schemeTypeId, () => {
   schemeList.value = []
   fileList.value = []
   getSchemeList({
@@ -158,7 +161,7 @@ watch(() => [state.activityId, state.schemeId], () => {
       activityId: state.activityId,
     },
   })
-})
+}, { immediate: true })
 
 // 提交第一步
 async function submit() {
@@ -168,7 +171,7 @@ async function submit() {
     [state.driverId, '请选择司机'],
     [state.vehicleId, '请选择车辆'],
     [state.schemeId, '请选择方案'],
-    [schemeTypeId.value === 0 && fileList.value.length > 0, '请上传合同'],
+    [schemeTypeId.value !== 0 || fileList.value.length > 0, '请上传合同'],
     [uploadSuccessful, '请等待文件上传完成'],
   ]
   const checkResult = check.find(item => !item[0])
@@ -176,6 +179,10 @@ async function submit() {
     ElMessage.error(checkResult[1] as string)
     return
   }
+
+  await ElMessageBox.confirm(t('confirm.submit'), t('tip.info'), {
+    type: 'info',
+  })
 
   const files = transformUploadData(fileList.value)
 
@@ -438,7 +445,12 @@ function init() {
           </ElCard>
           <ElCard v-if="schemeTypeId === 0" header="租赁合同">
             <div class="p-2">
-              <Upload v-model:file-list="fileList" :limit="1" list-type="text">
+              <Upload
+                v-model:file-list="fileList"
+                :limit="1"
+                list-type="text"
+                :readonly="workOrderInfo?.isReview"
+              >
                 <ElButton type="primary">
                   上传
                 </ElButton>
