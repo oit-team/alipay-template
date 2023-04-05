@@ -56,12 +56,15 @@ provide('workOrderReview', workOrderReview)
   </div>
 </template>
 
-<style>
+<style lang="scss">
 .el-step__title:not(.is-wait) {
   cursor: pointer;
 }
 
-.step--active .el-step__title {
-  color: var(--el-color-warning);
+.step--active {
+  .el-step__title, .el-step__head {
+    border-color: var(--el-color-warning);
+    color: var(--el-color-warning);
+  }
 }
 </style>
