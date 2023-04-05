@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { pick } from 'lodash-es'
+import { onFieldReact } from '@formily/core'
 import { workOrderApplySymbol, workOrderInfoSymbol } from '../../../types'
 import schema from './schema/form.json'
+import type { Field as FieldType } from '@formily/core'
 import { transformResponsePush } from '@/utils/helper'
 import DriverInfo from '@/pages/lease/driver/info/[id].vue'
 import VehicleInfo from '@/pages/lease/car/info/[id].vue'
@@ -21,8 +23,18 @@ const {
 )
 
 const vehicleInfo = computed(() => vehicleList.value?.find((item: any) => item.vehicleId === vehicleId.value))
+const driverId = computed(() => vehicleInfo.value?.driverId)
 
-const form = createForm()
+const form = createForm({
+  effects() {
+    const key = '*.rent'
+    onFieldReact(`${key}.subtotal`, (field) => {
+      field = field as FieldType
+      const result = form.query(`${key}.receivable`).value() - form.query(`${key}.netReceipts`).value()
+      field.value = Math.floor(result * 100) / 100 || 0
+    })
+  },
+})
 const workOrderApply = inject(workOrderApplySymbol)
 const workOrderInfo = inject(workOrderInfoSymbol)
 const workOrderReview = inject('workOrderReview') as Ref<any>
@@ -40,6 +52,10 @@ watch(workOrderReview, (data) => {
 async function submit(data: any) {
   if (!vehicleInfo.value)
     return ElMessage.error('请选择车辆')
+
+  await ElMessageBox.confirm(t('confirm.submit'), t('tip.info'), {
+    type: 'info',
+  })
 
   await workOrderApply?.({
     ...data,
@@ -122,7 +138,7 @@ async function submit(data: any) {
                           v-for="field of [
                             { name: '应收金额', key: 'receivable', validator: 'number' },
                             { name: '已收金额', key: 'netReceipts', validator: 'number' },
-                            { name: '小计', key: 'subtotal' },
+                            { name: '金额小计', key: 'subtotal' },
                             { name: '备注', key: 'remarks', required: false },
                           ]"
                           :key="field.name"
@@ -154,7 +170,7 @@ async function submit(data: any) {
           </div>
         </ElTabPane>
         <ElTabPane label="司机信息">
-          <DriverInfo :driver-id="workOrderInfo?.mainParams.driverId" inset />
+          <DriverInfo :driver-id="driverId" inset />
         </ElTabPane>
         <ElTabPane label="车辆信息">
           <VehicleInfo inset :vehicle-id="vehicleId" />

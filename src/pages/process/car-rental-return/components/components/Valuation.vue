@@ -116,7 +116,7 @@ const hideSubtotal = computed(() => workOrderInfo?.value?.currentStep.taskCode =
               { name: '信息', key: 'receivable' },
               { name: '金额小计', key: 'subtotal', validator: 'number' },
               { name: '备注', key: 'remarks', required: false },
-              { name: '负责人', key: 'subtotal', hide: hideSubtotal },
+              { name: '负责人', key: 'confirmedBy', hide: hideSubtotal },
             ].filter((item) => !item.hide)"
             :key="field.name"
             :component="[Input]"
