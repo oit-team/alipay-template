@@ -111,7 +111,7 @@ watch(files, async (value) => {
         <QueryTable v-loading="driverLoading" element-loading-text="数据正在导入...">
           <!-- 手机号数据加密 -->
           <template #content:driverPhone="{ value }">
-            {{ checkPermission('selectEncryption') ? numberMasking(value) : value }}
+            {{ checkPermission('selectEncryption') ? numberMasking(value, { start: 3, end: -4 }) : value }}
           </template>
           <template #content:licensePlateNumber="{ row, value }">
             <ElLink
