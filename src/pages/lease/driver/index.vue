@@ -111,7 +111,7 @@ watch(files, async (value) => {
         <QueryTable v-loading="driverLoading" element-loading-text="数据正在导入...">
           <!-- 手机号数据加密 -->
           <template #content:driverPhone="{ value }">
-            {{ checkPermission('selectEncryption') ? numberMasking(value) : value }}
+            {{ checkPermission('selectEncryption') ? numberMasking(value, { start: 3, end: -4 }) : value }}
           </template>
           <template #content:licensePlateNumber="{ row, value }">
             <ElLink
@@ -130,7 +130,7 @@ watch(files, async (value) => {
           </template>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" fixed="right" width="180px">
-              <ElButton type="info" @click="$router.push(`./driver/info/${row.driverId}`)">
+              <ElButton type="info" @click="$router.push({ path: `./driver/info/${row.driverId}`, query: { carNumber: row.licensePlateNumber } })">
                 {{ $t('button.info') }}
               </ElButton>
               <ElButton type="primary" @click="$router.push(`./driver/${row.driverId}`)">

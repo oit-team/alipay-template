@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { driverParamsSymbol } from '../types'
 
+import { numberMasking } from '@/utils/helper'
+const { checkPermission } = usePermission()
+
 const infoMap = [
   {
     prop: 'driverName',
@@ -174,7 +177,14 @@ const { data } = useAxios('/driverServer/driver/getDriverMap', {
   <div class="flex flex-col gap-3 p-2">
     <ElCollapse class="border-x" model-value="base">
       <ElCollapseItem name="base" title="基本信息">
-        <Descriptions border :data="data" default-text="无" :options="infoMap" />
+        <Descriptions border :data="data" default-text="无" :options="infoMap">
+          <template #identityCard="{ value }">
+            {{ checkPermission('selectEncryption') ? numberMasking(value, { start: 4, end: -4 }) : value }}
+          </template>
+          <template #driverPhone="{ value }">
+            {{ checkPermission('selectEncryption') ? numberMasking(value, { start: 3, end: -4 }) : value }}
+          </template>
+        </Descriptions>
       </ElCollapseItem>
       <ElCollapseItem title="身份证信息">
         <Descriptions

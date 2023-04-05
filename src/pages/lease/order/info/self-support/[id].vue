@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { numberMasking } from '@/utils/helper'
+const { checkPermission } = usePermission()
 const route = useRoute()
 // const router = useRouter()
 
@@ -106,7 +108,14 @@ const { data } = useAxios('/order/leaseOrder/getLeaseOrderInfo', {
         default-text="无"
         :options="driverInfoMap"
         title="司机信息"
-      />
+      >
+        <template #identityCard="{ value }">
+          {{ checkPermission('selectEncryption') ? numberMasking(value, { start: 4, end: -4 }) : value }}
+        </template>
+        <template #driverPhone="{ value }">
+          {{ checkPermission('selectEncryption') ? numberMasking(value, { start: 3, end: -4 }) : value }}
+        </template>
+      </Descriptions>
       <Descriptions
         v-if="data?.vehicleInfo"
         border
