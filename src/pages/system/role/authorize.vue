@@ -43,7 +43,7 @@ async function submit(keys: any, id: number) {
         :data="allList"
         :props="{
           key: 'id',
-          label: 'userName',
+          label: 'nickName',
         }"
         :titles="['人员列表', '已关联人员']"
         @change="handleChange"
