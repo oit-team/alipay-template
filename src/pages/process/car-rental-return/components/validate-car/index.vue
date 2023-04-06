@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { set } from 'lodash-es'
+import { cloneDeep, set } from 'lodash-es'
 import { onFieldReact } from '@formily/core'
 import { workOrderInfoSymbol, workOrderSubmitSymbol } from '../../../types'
 import Valuation from '../components/Valuation.vue'
@@ -15,7 +15,7 @@ const form = createForm({
     calcKey.forEach((key) => {
       onFieldReact(`*.${key}.subtotal`, (field) => {
         field = field as FieldType
-        const result = form.query(`*.${key}.receivable`).value() * form.query(`*.${key}.netReceipts`).value()
+        const result = form.query(`*.${key}.receivable`).value() - form.query(`*.${key}.netReceipts`).value()
         field.value = Math.floor(result * 100) / 100 || ''
       })
     })
@@ -26,10 +26,10 @@ const workOrderInfo = inject(workOrderInfoSymbol)
 const workOrderReview = inject('workOrderReview') as Ref<any>
 
 watch(workOrderReview, (data) => {
-  const initData = {
+  const initData = cloneDeep({
     ...data?.vehicleInspectionMap,
     keepInRepair: data?.repairDetailedMap,
-  }
+  })
   set(
     initData,
     'vehicleInspectionDetailed.vehicleAccessories.receivable',
