@@ -16,7 +16,7 @@ const form = createForm({
       onFieldReact(`*.${key}.subtotal`, (field) => {
         field = field as FieldType
         const result = form.query(`*.${key}.receivable`).value() - form.query(`*.${key}.netReceipts`).value()
-        field.value = Math.floor(result * 100) / 100 || ''
+        field.value = Math.floor(result * 100) / 100 || 0
       })
     })
   },

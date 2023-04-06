@@ -9,6 +9,7 @@ import { useReload } from '@/composables/useReload'
 
 const props = defineProps({
   vehicleId: [String, Number],
+  carNumber: [String, Number],
   // 标记为组件模式
   inset: Boolean,
 })
@@ -17,19 +18,21 @@ const route = useRoute()
 
 const { rendered, reload } = useReload()
 const vehicleId = computed(() => +(props.vehicleId ?? route.params.id))
+const carNumber = computed(() => props.carNumber ?? route.query.carNumber)
 
-watch(vehicleId, () => {
+watch([vehicleId, carNumber], () => {
   reload()
 })
 
 provide(vehicleParamsSymbol, reactive({
   vehicleId,
+  carNumber,
 }))
 </script>
 
 <template>
   <div u-h-full>
-    <PageHeader v-if="!inset" :title="$route.query?.carNumber ? `车辆详情-${$route.query?.carNumber}` : '车辆详情'" />
+    <PageHeader v-if="!inset" :title="carNumber ? `车辆详情-${carNumber}` : '车辆详情'" />
     <template v-if="vehicleId">
       <ElTabs v-if="rendered" model-value="baseInfo" type="border-card" u-h-full u-rounded-b-lg>
         <ElTabPane label="基本信息" lazy name="baseInfo">

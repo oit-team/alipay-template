@@ -173,7 +173,7 @@ async function submit(data: any) {
           <DriverInfo :driver-id="driverId" inset />
         </ElTabPane>
         <ElTabPane label="车辆信息">
-          <VehicleInfo inset :vehicle-id="vehicleId" />
+          <VehicleInfo :car-number="vehicleInfo.licensePlateNumber" inset :vehicle-id="vehicleId" />
         </ElTabPane>
       </ElTabs>
     </FormProvider>
