@@ -113,7 +113,7 @@
           "x-validator": [],
           "x-component-props": {},
           "properties": {
-            "driverId": {
+            "t3DriverId": {
               "type": "string",
               "title": "司机id",
               "x-decorator": "FormItem",
@@ -123,7 +123,7 @@
               "x-decorator-props": {
                 "colon": false
               },
-              "name": "driverId",
+              "name": "t3DriverId",
               "x-designable-id": "s84scxt0wv5",
               "x-index": 0
             }

@@ -35,7 +35,7 @@ const columns = [
     label: '城市',
   },
   {
-    prop: 'leasingCity',
+    prop: 't3DriverId',
     label: '司机ID',
   },
   {
@@ -130,6 +130,9 @@ const columnsConfig = {
   },
   carNumber: {
     width: 150,
+  },
+  t3DriverId: {
+    minWidth: 150,
   },
   driverName: {
     minWidth: 100,
