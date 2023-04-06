@@ -117,7 +117,7 @@ function authBtn(data: { menuId: string | number; menuOperation: string; menuNam
   openDrawer.value = true
   const checkedKeys = treeRef.value.getCheckedKeys()
   btnDisable.value = checkedKeys.findIndex((item: any) => item === data.menuId) === -1
-  const checkedMenu = allMenuOperationList.value.findIndex((item: { menuId: string | number }) => item.menuId === data.menuId)
+  const checkedMenu = allMenuOperationList.value.findIndex((item: { menuId: string | number }) => Number(item.menuId) === data.menuId)
   if (checkedMenu !== -1)
     data.menuOperation = allMenuOperationList.value[checkedMenu].menuOperation
 
