@@ -171,6 +171,17 @@ const columnsConfig = {
       >
         <QueryToolbar />
         <QueryTable>
+          <!-- 点击车牌号跳转到车辆详情 -->
+          <template #content:carNumber="{ row, value }">
+            <ElLink
+              @click=" $router.push({
+                path: `/lease/car/info/${row.vehicleId}`,
+                query: { carNumber: value },
+              }) "
+            >
+              {{ value }}
+            </ElLink>
+          </template>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" fixed="right" label="操作" width="100px">
               <ElButton size="small" type="success" @click="$router.push(`/lease/order/info/t-three/${row.id}`)">

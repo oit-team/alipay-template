@@ -413,6 +413,17 @@ const columnsConfig = {
           </TButton>
         </QueryToolbar>
         <QueryTable>
+          <!-- 点击车牌号跳转到车辆详情 -->
+          <template #content:licensePlateNumber="{ row, value }">
+            <ElLink
+              @click=" $router.push({
+                path: `./car/info/${row.vehicleId}`,
+                query: { carNumber: value },
+              }) "
+            >
+              {{ value }}
+            </ElLink>
+          </template>
           <template #content:t3OrderNo="{ row }">
             <ElLink @click="handleRowT3OrderNo(row)">
               {{ row.t3OrderNo }}

@@ -207,6 +207,17 @@ watch(files, async (value) => {
           </TButton>
         </QueryToolbar>
         <QueryTable>
+          <!-- 点击车牌号跳转到车辆详情 -->
+          <template #content:carNumber="{ row, value }">
+            <ElLink
+              @click=" $router.push({
+                path: `./car/info/${row.vehicleId}`,
+                query: { carNumber: value },
+              }) "
+            >
+              {{ value }}
+            </ElLink>
+          </template>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" fixed="right" label="操作" width="100px">
               <ElButton size="small" type="success" @click="$router.push(`./order/info/t-three/${row.id}`)">
