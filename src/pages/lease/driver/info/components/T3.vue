@@ -159,7 +159,7 @@ const columnsConfig = {
       :columns="columns"
       :columns-config="columnsConfig"
       :data="{
-        carNumber: $route.query.carNumber,
+        driverId: $route.query.driverId,
       }"
       :key-map="{ data: 'resultList', total: 'totalCount' }"
       url="/order/leaseOrder/getT3LeaseOrderList"
@@ -171,6 +171,17 @@ const columnsConfig = {
       >
         <QueryToolbar />
         <QueryTable>
+          <!-- 点击车牌号跳转到车辆详情 (有的没有车辆Id 不做跳转处理) -->
+          <template v-if="row?.vehicleId" #content:carNumber="{ row, value }">
+            <ElLink
+              @click=" $router.push({
+                path: `/lease/car/info/${row.vehicleId}`,
+                query: { carNumber: value },
+              }) "
+            >
+              {{ value }}
+            </ElLink>
+          </template>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" fixed="right" label="操作" width="100px">
               <ElButton size="small" type="success" @click="$router.push(`/lease/order/info/t-three/${row.id}`)">

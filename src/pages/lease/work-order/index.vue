@@ -72,7 +72,7 @@ const columns = [
 ]
 const columnsConfig = {
   workCode: {
-    width: 180,
+    minWidth: 180,
   },
   workName: {
     minWidth: 100,
