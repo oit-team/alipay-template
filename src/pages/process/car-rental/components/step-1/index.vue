@@ -494,7 +494,7 @@ function init() {
         <DriverInfo :driver-id="state.driverId" inset />
       </ElTabPane>
       <ElTabPane label="车辆信息">
-        <VehicleInfo inset :vehicle-id="state.vehicleId" />
+        <VehicleInfo :car-number="vehicleItem?.licensePlateNumber" inset :vehicle-id="state.vehicleId" />
       </ElTabPane>
     </ElTabs>
   </div>

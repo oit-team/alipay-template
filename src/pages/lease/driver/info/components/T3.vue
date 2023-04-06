@@ -4,7 +4,11 @@ meta:
       </route>
 
 <script setup lang="ts">
+import { driverParamsSymbol } from '../types'
+
 const queryRef = ref()
+const driverParams = inject(driverParamsSymbol)
+const driverId = driverParams?.driverId
 
 onMounted(() => {
   queryRef.value?.query()
@@ -159,7 +163,7 @@ const columnsConfig = {
       :columns="columns"
       :columns-config="columnsConfig"
       :data="{
-        driverId: $route.query.driverId,
+        driverId,
       }"
       :key-map="{ data: 'resultList', total: 'totalCount' }"
       url="/order/leaseOrder/getT3LeaseOrderList"
