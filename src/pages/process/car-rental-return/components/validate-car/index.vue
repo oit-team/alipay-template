@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { set } from 'lodash-es'
+import { cloneDeep, set } from 'lodash-es'
 import { onFieldReact } from '@formily/core'
 import { workOrderInfoSymbol, workOrderSubmitSymbol } from '../../../types'
 import Valuation from '../components/Valuation.vue'
@@ -26,10 +26,10 @@ const workOrderInfo = inject(workOrderInfoSymbol)
 const workOrderReview = inject('workOrderReview') as Ref<any>
 
 watch(workOrderReview, (data) => {
-  const initData = {
+  const initData = cloneDeep({
     ...data?.vehicleInspectionMap,
     keepInRepair: data?.repairDetailedMap,
-  }
+  })
   set(
     initData,
     'vehicleInspectionDetailed.vehicleAccessories.receivable',
