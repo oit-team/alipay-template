@@ -73,7 +73,7 @@ const columns = [
   },
   {
     prop: 'createTime',
-    label: '入库日期',
+    label: '导入日期',
   },
   {
     prop: 't3DriverId',
