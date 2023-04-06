@@ -20,6 +20,10 @@ declare global {
   const ObjectField: typeof import('@formily/vue')['ObjectField']
   const Password: typeof import('@formily/element-plus')['Password']
   const PreviewText: typeof import('@formily/element-plus')['PreviewText']
+  const QueryForm: typeof import('@uxuip/element-plus-query')['QueryForm']
+  const QueryPagination: typeof import('@uxuip/element-plus-query')['QueryPagination']
+  const QueryProvide: typeof import('@uxuip/element-plus-query')['QueryProvide']
+  const QueryTable: typeof import('@uxuip/element-plus-query')['QueryTable']
   const Space: typeof import('@formily/element-plus')['Space']
   const Switch: typeof import('@formily/element-plus')['Switch']
   const VoidField: typeof import('@formily/vue')['VoidField']
@@ -116,6 +120,10 @@ declare module 'vue' {
     readonly ObjectField: UnwrapRef<typeof import('@formily/vue')['ObjectField']>
     readonly Password: UnwrapRef<typeof import('@formily/element-plus')['Password']>
     readonly PreviewText: UnwrapRef<typeof import('@formily/element-plus')['PreviewText']>
+    readonly QueryForm: UnwrapRef<typeof import('@uxuip/element-plus-query')['QueryForm']>
+    readonly QueryPagination: UnwrapRef<typeof import('@uxuip/element-plus-query')['QueryPagination']>
+    readonly QueryProvide: UnwrapRef<typeof import('@uxuip/element-plus-query')['QueryProvide']>
+    readonly QueryTable: UnwrapRef<typeof import('@uxuip/element-plus-query')['QueryTable']>
     readonly Space: UnwrapRef<typeof import('@formily/element-plus')['Space']>
     readonly Switch: UnwrapRef<typeof import('@formily/element-plus')['Switch']>
     readonly VoidField: UnwrapRef<typeof import('@formily/vue')['VoidField']>

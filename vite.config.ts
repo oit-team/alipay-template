@@ -36,6 +36,12 @@ const ComponentsImports = {
     'ArrayField',
     'VoidField',
   ],
+  '@uxuip/element-plus-query': [
+    'QueryProvide',
+    'QueryForm',
+    'QueryTable',
+    'QueryPagination',
+  ],
 }
 
 function ComponentsResolver() {
@@ -127,15 +133,6 @@ export default (mode: string) => {
           IconsResolver(),
           ComponentsResolver(),
         ],
-        types: [{
-          from: '@uxuip/element-plus-query',
-          names: [
-            'QueryProvide',
-            'QueryForm',
-            'QueryTable',
-            'QueryPagination',
-          ],
-        }],
         include: [/\.vue$/, /\.vue\?vue/, /\.tsx$/],
       }),
       // https://github.com/intlify/bundle-tools/tree/main/packages/unplugin-vue-i18n
