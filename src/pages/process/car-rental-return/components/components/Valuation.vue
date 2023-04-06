@@ -38,7 +38,7 @@ const hideSubtotal = computed(() => workOrderInfo?.value?.currentStep.taskCode =
               { name: '已收金额', key: 'netReceipts', validator: 'number' },
               { name: '金额小计', key: 'subtotal', validator: 'number' },
               { name: '备注', key: 'remarks', required: false },
-              { name: '负责人', key: 'subtotal', hide: hideSubtotal },
+              { name: '负责人', key: 'confirmedBy', hide: hideSubtotal },
             ].filter((item) => !item.hide)"
             :key="field.name"
             :component="[Input]"
@@ -158,7 +158,7 @@ const hideSubtotal = computed(() => workOrderInfo?.value?.currentStep.taskCode =
             v-for="field of [
               { name: '金额小计', key: 'subtotal', validator: 'number' },
               { name: '备注', key: 'remarks', required: false },
-              { name: '负责人', key: 'subtotal', hide: workOrderInfo?.currentStep.taskCode === 'CAR_RETURN_INSPECTION' },
+              { name: '负责人', key: 'confirmedBy', hide: workOrderInfo?.currentStep.taskCode === 'CAR_RETURN_INSPECTION' },
             ].filter((item) => !item.hide)"
             :key="field.name"
             :component="[Input]"
