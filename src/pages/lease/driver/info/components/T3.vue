@@ -159,7 +159,7 @@ const columnsConfig = {
       :columns="columns"
       :columns-config="columnsConfig"
       :data="{
-        driverId: $route.query.driverId,
+        driverId: $route.params?.id,
       }"
       :key-map="{ data: 'resultList', total: 'totalCount' }"
       url="/order/leaseOrder/getT3LeaseOrderList"
