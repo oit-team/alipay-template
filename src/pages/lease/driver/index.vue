@@ -48,7 +48,7 @@ async function onDelete(row: any) {
   ElMessage.success(t('handle.success'))
 }
 
-const { files, open } = useFileDialog()
+const { files, open, reset } = useFileDialog()
 
 const driverLoading = ref(false)
 watch(files, async (value) => {
@@ -76,6 +76,8 @@ watch(files, async (value) => {
     }).finally(() => {
       driverLoading.value = false
     })
+
+  reset()
 })
 </script>
 
