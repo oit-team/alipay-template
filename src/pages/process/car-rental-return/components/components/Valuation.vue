@@ -148,7 +148,6 @@ const hideSubtotal = computed(() => workOrderInfo?.value?.currentStep.taskCode =
               :key="field.name"
               :component="[Checkbox, {
                 label: field.name,
-                modelValue: vehicleCertificate?.[field.key],
               }]"
               :decorator="[FormItem]"
               :name="field.key"
@@ -160,7 +159,7 @@ const hideSubtotal = computed(() => workOrderInfo?.value?.currentStep.taskCode =
               { name: '备注', key: 'remarks', required: false },
               { name: '负责人', key: 'confirmedBy', hide: workOrderInfo?.currentStep.taskCode === 'CAR_RETURN_INSPECTION' },
             ].filter((item) => !item.hide)"
-            :key="field.name"
+            :key="field.key"
             :component="[Input]"
             :decorator="[FormItem]"
             :name="field.key"
