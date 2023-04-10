@@ -79,7 +79,7 @@ async function reject() {
                 { prop: 'licensePlateNumber', label: '车型/车牌号' },
                 { prop: 'returnApplicaDate', label: '退车申报日期' },
                 { prop: 'vehicleReturnDate', label: '车辆归还日期' },
-                { prop: 'licensePlateNumber', label: '身份证号码' },
+                { prop: 'identityCard', label: '身份证号码' },
                 { prop: 'cashPledge', label: '保证金' },
                 { prop: 'rentAndLeaseTerm', label: '租金/租期' },
                 { prop: 'refundAccount', label: '退款账号' },
