@@ -4,7 +4,6 @@ meta:
   </route>
 
 <script setup lang="ts">
-import schema from './schema/self.json'
 import { getCityList, useSelectAsyncDataSource } from '@/reactions'
 
 const { t } = useI18n()
@@ -44,56 +43,6 @@ async function onPutaway(row: any) {
   await queryRef.value?.query()
   ElMessage.success(t('handle.success'))
 }
-const columns = [
-  {
-    prop: 'caseCode',
-    label: '方案编号',
-  },
-  {
-    prop: 'caseName',
-    label: '方案名称',
-  },
-  {
-    prop: 'caseType',
-    label: '方案类型',
-  },
-  {
-    prop: 'brandCarModel',
-    label: '品牌车系车型',
-  },
-  {
-    prop: 'leasingCity',
-    label: '租赁城市',
-  },
-  {
-    prop: 'leaseTerm',
-    label: '租期（月）',
-  },
-  {
-    prop: 'rent',
-    label: '租金（元）',
-  },
-  {
-    prop: 'cashPledge',
-    label: '押金（元）',
-  },
-  {
-    prop: 'expirationDate',
-    label: '失效日期',
-  },
-  {
-    prop: 'createTime',
-    label: '创建时间',
-  },
-  {
-    prop: 'caseStateMsg',
-    label: '状态',
-  },
-  {
-    prop: 'operatorName',
-    label: '操作人',
-  },
-]
 
 const columnsConfig = {
   caseCode: {
@@ -136,14 +85,14 @@ const columnsConfig = {
   <div class="h-full p-2">
     <UseQuery
       v-slot="attrs"
-      :columns="columns"
       :columns-config="columnsConfig"
+      columns-key="1681103842609"
       :data="{
         caseType: 0, // 自营: 0 t3: 1
       }"
 
       :key-map="{ data: 'schemeList', total: 'totalCount' }"
-      :schema="schema"
+      schema-key="1681103889971"
       url="/order/scheme/getSchemeList"
     >
       <QueryProvide

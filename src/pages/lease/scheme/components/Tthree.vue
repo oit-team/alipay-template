@@ -16,132 +16,6 @@ enum statusColorMap {
   'text-yellow-500', // 已到期
   'text-red-500', // '已作废'
 }
-// 搜索框json
-const schema = {
-  'type': 'object',
-  'properties': {
-    '7t2oddolmd3': {
-      'type': 'void',
-      'x-component': 'FormGrid',
-      'x-index': 0,
-      'name': '7t2oddolmd3',
-      'x-designable-id': 'm2ujwvnd4n3',
-      'properties': {
-        '94exvsf2iwc': {
-          'type': 'void',
-          'x-component': 'FormGrid.GridColumn',
-          'x-index': 0,
-          'name': '94exvsf2iwc',
-          'x-designable-id': 'tjsj9rlcs6x',
-          'properties': {
-            caseCode: {
-              'type': 'string',
-              'title': '方案编号',
-              'x-decorator': 'FormItem',
-              'x-component': 'Input',
-              'x-index': 0,
-              'name': 'caseCode',
-              'x-designable-id': 'lua72g0jziq',
-              'x-validator': [],
-              'x-component-props': {},
-              'x-decorator-props': {
-                colon: false,
-              },
-            },
-          },
-        },
-        'xt9ff93t76p': {
-          'type': 'void',
-          'x-component': 'FormGrid.GridColumn',
-          'x-index': 1,
-          'name': 'xt9ff93t76p',
-          'x-designable-id': '3p0qr6sfqc1',
-          'properties': {
-            caseName: {
-              'title': '方案名称',
-              'x-decorator': 'FormItem',
-              'x-component': 'Input',
-              'x-index': 0,
-              'name': 'caseName',
-              'x-designable-id': 'n8es9vta59y',
-              'x-validator': [],
-              'x-component-props': {},
-              'x-decorator-props': {
-                colon: false,
-              },
-            },
-          },
-        },
-        'xl5ijh663zj': {
-          'type': 'void',
-          'x-component': 'FormGrid.GridColumn',
-          'x-index': 2,
-          'name': 'xl5ijh663zj',
-          'x-designable-id': 'umiatul0ot6',
-          'properties': {
-            leasingCity: {
-              'type': 'string',
-              'title': '租赁城市',
-              'x-decorator': 'FormItem',
-              'x-component': 'Select',
-              'x-index': 0,
-              'name': 'leasingCity',
-              'x-designable-id': '7atsa1nbj8w',
-              'x-validator': [],
-              'x-component-props': {
-                'filterable': true,
-                'remote': true,
-                'reserve-keyword': true,
-                'remote-show-suffix': true,
-                'placeholder': '请输入租赁城市',
-              },
-              'x-reactions': '{{useSelectAsyncDataSource(getCityList)}}',
-              'x-decorator-props': {
-                colon: false,
-              },
-            },
-          },
-        },
-        '8yncuhbvicl': {
-          'type': 'void',
-          'x-component': 'FormGrid.GridColumn',
-          'x-index': 3,
-          'name': '8yncuhbvicl',
-          'x-designable-id': '0gsa3kgh2ma',
-          'properties': {
-            caseState: {
-              'title': '状态',
-              'x-decorator': 'FormItem',
-              'x-component': 'Select',
-              'x-validator': [],
-              'x-component-props': {},
-              'x-decorator-props': {
-                colon: false,
-              },
-              'name': 'caseState',
-              'enum': [{
-                children: [],
-                label: '未上架',
-                value: '0',
-              }, {
-                children: [],
-                label: '已上架',
-                value: '1',
-              }, {
-                children: [],
-                label: '已失效',
-                value: '2',
-              }],
-              'x-designable-id': 'hf4x7n0xnvi',
-              'x-index': 0,
-            },
-          },
-        },
-      },
-    },
-  },
-  'x-designable-id': 'x3rigs4m5hd',
-}
 
 const queryRef = ref()
 
@@ -172,57 +46,6 @@ async function onPutaway(row: any) {
   ElMessage.success('操作成功')
 }
 
-// 表格的json
-const columns = [
-  {
-    prop: 'caseCode',
-    label: '方案编号',
-  },
-  {
-    prop: 'caseName',
-    label: '方案名称',
-  },
-  {
-    prop: 'caseType',
-    label: '方案类型',
-  },
-  {
-    prop: 'brandCarModel',
-    label: '品牌车系车型',
-  },
-  {
-    prop: 'leasingCity',
-    label: '租赁城市',
-  },
-  {
-    prop: 'leaseTerm',
-    label: '租期（月）',
-  },
-  {
-    prop: 'rent',
-    label: '租金（元）',
-  },
-  {
-    prop: 'cashPledge',
-    label: '押金（元）',
-  },
-  {
-    prop: 'expirationDate',
-    label: '失效日期',
-  },
-  {
-    prop: 'createTime',
-    label: '创建时间',
-  },
-  {
-    prop: 'caseStateMsg',
-    label: '状态',
-  },
-  {
-    prop: 'operatorName',
-    label: '操作人',
-  },
-]
 const columnsConfig = {
   caseCode: {
     width: 150,
@@ -305,13 +128,13 @@ watch(files, async (value) => {
   <div class="h-full p-2">
     <UseQuery
       v-slot="attrs"
-      :columns="columns"
       :columns-config="columnsConfig"
+      columns-key="1681104007968"
       :data="{
         caseType: 1,
       }"
       :key-map="{ data: 'schemeList', total: 'totalCount' }"
-      :schema="schema"
+      schema-key="1681104042616"
       url="/order/scheme/getSchemeList"
     >
       <QueryProvide

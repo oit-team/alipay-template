@@ -4,34 +4,9 @@ meta:
   </route>
 
 <script setup lang="ts">
-import schema from './schema/indexSearchForm.json'
-
 const { t } = useI18n()
 
 const query = ref<any>()
-
-const columns = [
-  {
-    prop: 'menuName',
-    label: '菜单名称',
-  },
-  {
-    prop: 'menuUrl',
-    label: '菜单路径',
-  },
-  {
-    prop: 'menuRemark',
-    label: '菜单描述',
-  },
-  {
-    prop: 'menuCode',
-    label: '菜单编码',
-  },
-  {
-    prop: 'createDate',
-    label: '创建时间',
-  },
-]
 
 async function dltList(id: string) {
   await ElMessageBox.confirm(t('confirm.delete'), t('tip.info'), {
@@ -48,7 +23,7 @@ async function dltList(id: string) {
 <template>
   <div class="h-full p-3">
     <UseQuery v-slot="attrs" url="/system/menu/getAllMenuList">
-      <QueryProvide v-bind="attrs" ref="query" auto-query="active" :columns="columns" :schema="schema">
+      <QueryProvide v-bind="attrs" ref="query" auto-query="active" columns-key="1681104850635" schema-key="1681104903607">
         <QueryForm />
         <QueryToolbar>
           <TButton icon="add" @click="$router.push('./menu/new')">

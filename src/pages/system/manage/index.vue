@@ -4,7 +4,6 @@ meta:
 </route>
 
 <script setup lang="ts">
-import indexSearchForm from './schema/indexSearchForm.json'
 import drawerDeptForm from './schema/drawerDeptForm.json'
 // import { drawerColumn } from './column/drawerRole.js'
 import type { FormInstance } from 'element-plus'
@@ -18,30 +17,6 @@ const drawerFormRef = ref<FormInstance>()
 const { t } = useI18n()
 
 const router = useRouter()
-
-const columns = [{
-  label: '真实姓名',
-  prop: 'nickName',
-}, {
-  label: '性别',
-  prop: 'sexName',
-}, {
-  label: '手机号',
-  prop: 'phoneNum',
-}, {
-  label: '用户名',
-  prop: 'userName',
-}, {
-  label: '部门名称',
-  prop: 'deptName',
-}, {
-  label: '区域名称',
-  prop: 'orgName',
-}, {
-  label: '创建时间',
-  prop: 'createTime',
-},
-]
 
 const columnsConfig = {
   createTime: {
@@ -359,14 +334,14 @@ function toAdd() {
     <div class="flex-1">
       <UseQuery
         v-slot="attrs"
-        :columns="columns"
         :columns-config="columnsConfig"
+        columns-key="1681104657841"
         :data="{ deptId }"
         :key-map="{
           data: 'result',
           total: 'totalCount',
         }"
-        :schema="indexSearchForm"
+        schema-key="1681104720025"
         url="/system/user/getUsers"
       >
         <QueryProvide v-bind="attrs" ref="queryRef" auto-query="active">

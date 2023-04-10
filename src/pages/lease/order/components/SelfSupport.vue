@@ -6,146 +6,6 @@ meta:
 <script setup lang="ts">
 import { transformResponsePush } from '@/utils/helper'
 
-const schema
-= {
-  'type': 'object',
-  'properties': {
-    '7t2oddolmd3': {
-      'type': 'void',
-      'x-component': 'FormGrid',
-      'x-index': 0,
-      'name': '7t2oddolmd3',
-      'x-designable-id': 'zbecpn3oyrz',
-      'x-validator': [],
-      'x-component-props': {
-        maxColumns: 3,
-      },
-      'properties': {
-        '94exvsf2iwc': {
-          'type': 'void',
-          'x-component': 'FormGrid.GridColumn',
-          'x-index': 0,
-          'name': '94exvsf2iwc',
-          'x-designable-id': 'yppd6g3e59z',
-          'properties': {
-            orderNo: {
-              'type': 'string',
-              'title': '订单编号',
-              'x-decorator': 'FormItem',
-              'x-component': 'Input',
-              'x-index': 0,
-              'name': 'orderNo',
-              'x-designable-id': 'uwmt4p2jxkg',
-              'x-validator': [],
-              'x-component-props': {},
-              'x-decorator-props': {
-                colon: false,
-              },
-            },
-          },
-        },
-        'xt9ff93t76p': {
-          'type': 'void',
-          'x-component': 'FormGrid.GridColumn',
-          'x-index': 1,
-          'name': 'xt9ff93t76p',
-          'x-designable-id': '2gepa9vm7hj',
-          'x-validator': [],
-          'x-component-props': {},
-          'properties': {
-            carNumber: {
-              'title': '车牌号',
-              'x-decorator': 'FormItem',
-              'x-component': 'Input',
-              'x-index': 0,
-              'name': 'carNumber',
-              'x-designable-id': 'h2ztdd8xho4',
-              'x-validator': [],
-              'x-component-props': {},
-              'x-decorator-props': {
-                colon: false,
-              },
-            },
-          },
-        },
-        '8yncuhbvicl': {
-          'type': 'void',
-          'x-component': 'FormGrid.GridColumn',
-          'x-index': 2,
-          'name': '8yncuhbvicl',
-          'x-designable-id': 'dhl2uc5dtei',
-          'properties': {
-            driverName: {
-              'type': 'string',
-              'title': '司机姓名',
-              'x-decorator': 'FormItem',
-              'x-component': 'Input',
-              'x-index': 0,
-              'name': 'driverName',
-              'x-designable-id': '3qswva5pmz8',
-              'x-validator': [],
-              'x-component-props': {},
-              'x-decorator-props': {
-                colon: false,
-              },
-            },
-          },
-        },
-        'wac1milvyta': {
-          'type': 'void',
-          'x-component': 'FormGrid.GridColumn',
-          'x-designable-id': 'wac1milvyta',
-          'x-index': 3,
-          'properties': {
-            schemeNo: {
-              'type': 'string',
-              'title': '方案编号',
-              'x-decorator': 'FormItem',
-              'x-component': 'Input',
-              'x-validator': [],
-              'x-component-props': {},
-              'x-decorator-props': {
-                colon: false,
-              },
-              'x-designable-id': '9t5dc851oyr',
-              'x-index': 0,
-              'name': 'schemeNo',
-            },
-          },
-        },
-        '3lox43bzr24': {
-          'type': 'void',
-          'x-component': 'FormGrid.GridColumn',
-          'x-validator': [],
-          'x-component-props': {},
-          'x-designable-id': '3lox43bzr24',
-          'x-index': 4,
-          'properties': {
-            '[startcreateTime,endcreateTime]': {
-              'type': 'string',
-              'title': '创建时间',
-              'x-decorator': 'FormItem',
-              'x-component': 'DatePicker',
-              'x-validator': [],
-              'x-component-props': {
-                type: 'daterange',
-                placeholder: '',
-              },
-              'x-decorator-props': {
-                colon: false,
-              },
-              'x-designable-id': 'ieg19fxsl6t',
-              'x-index': 0,
-              'name': '[startcreateTime,endcreateTime]',
-            },
-          },
-        },
-      },
-    },
-  },
-  'x-designable-id': 'x3rigs4m5hd',
-}
-
 const { t } = useI18n()
 const router = useRouter()
 
@@ -267,69 +127,6 @@ function handleRowReturnWorkCode(row: any) {
   router.push(`/process/car-rental-return?workCode=${row.returnWorkCode}&flowCode=${flowCode}&disabled=1`)
 }
 
-const columns = [
-  {
-    prop: 'leaseOrderNo',
-    label: '订单编号',
-  },
-  {
-    prop: 'driverName',
-    label: '司机姓名',
-  },
-  {
-    prop: 'licensePlateNumber',
-    label: '车牌号',
-  },
-  {
-    prop: 'vinNo',
-    label: '车架号',
-  },
-  {
-    prop: 'caseCode',
-    label: '方案编号',
-  },
-  {
-    prop: 't3OrderNo',
-    label: '关联订单',
-  },
-  {
-    prop: 'rentalWorkCode',
-    label: '租赁工单编号',
-  },
-  {
-    prop: 'returnWorkCode',
-    label: '退租工单编号',
-  },
-  {
-    prop: 'orderStatueName',
-    label: '订单状态',
-  },
-  {
-    prop: 'rent',
-    label: '租金（元）',
-  },
-  {
-    prop: 'cashPledge',
-    label: '押金（元）',
-  },
-  {
-    prop: 'startTime',
-    label: '起租日期',
-  },
-  {
-    prop: 'endTime',
-    label: '终止时间',
-  },
-  {
-    prop: 'createTime',
-    label: '创建时间',
-  },
-  {
-    prop: 'updateTime',
-    label: '更新时间',
-  },
-]
-
 const columnsConfig = {
   caseCode: {
     width: 150,
@@ -389,13 +186,13 @@ const columnsConfig = {
   <div class="h-full p-2">
     <UseQuery
       v-slot="attrs"
-      :columns="columns"
       :columns-config="columnsConfig"
+      columns-key="1681098160963"
       :data="{
         caseType: 0,
       }"
       :key-map="{ data: 'resultList', total: 'totalCount' }"
-      :schema="schema"
+      schema-key="1681098177002"
       url="/order/leaseOrder/getLeaseOrderList"
     >
       <QueryProvide
