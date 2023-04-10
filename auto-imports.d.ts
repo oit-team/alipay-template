@@ -7,6 +7,8 @@ declare global {
   const ArrayField: typeof import('@formily/vue')['ArrayField']
   const ArrayTable: typeof import('@formily/element-plus')['ArrayTable']
   const EffectScope: typeof import('vue')['EffectScope']
+  const ElMessage: typeof import('element-plus/es')['ElMessage']
+  const ElMessageBox: typeof import('element-plus/es')['ElMessageBox']
   const Field: typeof import('@formily/vue')['Field']
   const Form: typeof import('@formily/element-plus')['Form']
   const FormButtonGroup: typeof import('@formily/element-plus')['FormButtonGroup']
@@ -105,6 +107,8 @@ declare module 'vue' {
     readonly ArrayField: UnwrapRef<typeof import('@formily/vue')['ArrayField']>
     readonly ArrayTable: UnwrapRef<typeof import('@formily/element-plus')['ArrayTable']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
+    readonly ElMessage: UnwrapRef<typeof import('element-plus/es')['ElMessage']>
+    readonly ElMessageBox: UnwrapRef<typeof import('element-plus/es')['ElMessageBox']>
     readonly Field: UnwrapRef<typeof import('@formily/vue')['Field']>
     readonly Form: UnwrapRef<typeof import('@formily/element-plus')['Form']>
     readonly FormButtonGroup: UnwrapRef<typeof import('@formily/element-plus')['FormButtonGroup']>
