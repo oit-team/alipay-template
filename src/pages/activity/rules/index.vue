@@ -4,30 +4,9 @@ meta:
 </route>
 
 <script setup lang="ts">
-import schema from './schema/indexSearchForm.json'
-
 const { t } = useI18n()
 
 const query = ref<any>(null)
-
-const columns = [
-  {
-    prop: 'rulesName',
-    label: '规则名称',
-  },
-  {
-    prop: 'rulesUnit',
-    label: '规则单位',
-  },
-  {
-    prop: 'cashingMethod',
-    label: '兑现方式',
-  },
-  {
-    prop: 'createTime',
-    label: '创建时间',
-  },
-]
 
 async function dltRules(id: string) {
   await ElMessageBox.confirm(t('confirm.delete'), t('tip.info'), {
@@ -44,7 +23,7 @@ async function dltRules(id: string) {
 <template>
   <div class="h-full p-3">
     <UseQuery v-slot="attrs" url="/order/activityRules/getActivityRules">
-      <QueryProvide v-bind="attrs" ref="query" auto-query="active" :columns="columns" :schema="schema">
+      <QueryProvide v-bind="attrs" ref="query" auto-query="active" columns-key="1681104403593" schema-key="1681104442608">
         <QueryForm />
         <QueryToolbar>
           <TButton icon="add" @click="$router.push('./rules/new')">

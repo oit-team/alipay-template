@@ -4,7 +4,6 @@ meta:
 </route>
 
 <script setup lang="ts">
-import querySchema from './schema/query.json'
 const router = useRouter()
 
 // 0 进行中 1已完成 -1 已作废
@@ -32,44 +31,6 @@ async function goDetail(row: any) {
   })
 }
 
-const columns = [
-  {
-    prop: 'workCode',
-    label: '工单编号',
-  },
-  {
-    prop: 'workName',
-    label: '工单名称',
-  },
-  {
-    prop: 'orderCode',
-    label: '订单编号',
-  },
-  {
-    prop: 'taskName',
-    label: '当前任务',
-  },
-  {
-    prop: 'statusName',
-    label: '状态',
-  },
-  {
-    prop: 'licensePlateNumber',
-    label: '车牌号',
-  },
-  {
-    prop: 'driverName',
-    label: '司机姓名',
-  },
-  {
-    prop: 'city',
-    label: '所属城市',
-  },
-  {
-    prop: 'createDate',
-    label: '创建时间',
-  },
-]
 const columnsConfig = {
   workCode: {
     minWidth: 180,
@@ -108,10 +69,10 @@ const columnsConfig = {
   <div class="h-full p-2">
     <UseQuery
       v-slot="attrs"
-      :columns="columns"
       :columns-config="columnsConfig"
+      columns-key="1681097272956"
       :key-map="{ data: 'resultList', total: 'count' }"
-      :schema="querySchema"
+      schema-key="1681097566645"
       url="/workFlow/workFlow/workOrderList"
     >
       <QueryProvide

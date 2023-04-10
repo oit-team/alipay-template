@@ -4,7 +4,6 @@ meta:
 </route>
 
 <script setup lang="ts">
-import schema from './schema/list.json'
 import { useUserStore } from '@/store/user'
 import { getCityList, useSelectAsyncDataSource, vehicleServiceList } from '@/reactions'
 
@@ -21,44 +20,6 @@ async function onDelete(row: any) {
   ElMessage.success(t('handle.success'))
 }
 
-const columns = [
-  {
-    prop: 'licensePlateNumber',
-    label: '车牌号',
-  },
-  {
-    prop: 'vehicleFrameNumber',
-    label: '车架号',
-  },
-  {
-    prop: 'vehicleModel',
-    label: '品牌车系车型',
-  },
-  {
-    prop: 'bodyColor',
-    label: '车身颜色',
-  },
-  {
-    prop: 'vehicleState',
-    label: '车辆状态',
-  },
-  {
-    prop: 'city',
-    label: '所属城市',
-  },
-  {
-    prop: 'vehicleService',
-    label: '车务',
-  },
-  {
-    prop: 'createTime',
-    label: '创建时间',
-  },
-  {
-    prop: 'updateTime',
-    label: '更新时间',
-  },
-]
 const columnsConfig = {
   licensePlateNumber: {
     width: 150,
@@ -144,10 +105,10 @@ watch(files, async (value) => {
   <div class="h-full p-2">
     <UseQuery
       v-slot="attrs"
-      :columns="columns"
       :columns-config="columnsConfig"
+      columns-key="1681098926058"
       :key-map="{ data: 'vehicleList', total: 'count' }"
-      :schema="schema"
+      schema-key="1681098954972"
       url="/vehicle/vehicle/getVehicleList"
     >
       <QueryProvide

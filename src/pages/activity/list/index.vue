@@ -4,38 +4,9 @@ meta:
 </route>
 
 <script setup lang="ts">
-import schema from './schema/indexSearchForm.json'
-
 const { t } = useI18n()
 
 const query = ref<any>(null)
-
-const columns = [
-  {
-    prop: 'activityName',
-    label: '活动名称',
-  },
-  {
-    prop: 'activityStatueName',
-    label: '活动状态',
-  },
-  {
-    prop: 'activityDescription',
-    label: '活动说明',
-  },
-  {
-    prop: 'createTime',
-    label: '创建时间',
-  },
-  {
-    prop: 'startTime',
-    label: '生效时间',
-  },
-  {
-    prop: 'endTime',
-    label: '失效时间',
-  },
-]
 
 async function dltList(id: string) {
   await ElMessageBox.confirm(t('confirm.delete'), t('tip.info'), {
@@ -65,7 +36,7 @@ async function upOrDown(item: any) {
 <template>
   <div class="h-full p-3">
     <UseQuery v-slot="attrs" url="/order/activity/getActivityList">
-      <QueryProvide v-bind="attrs" ref="query" auto-query="active" :columns="columns" :schema="schema">
+      <QueryProvide v-bind="attrs" ref="query" auto-query="active" columns-key="1681104260564" schema-key="1681104292358">
         <QueryForm />
         <QueryToolbar>
           <TButton icon="add" @click="$router.push('./list/new')">

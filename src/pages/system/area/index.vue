@@ -4,26 +4,9 @@ meta:
 </route>
 
 <script setup lang="ts">
-import indexSearchForm from './schema/indexSearchForm.json'
-
 const queryRef = ref()
 
 const { t } = useI18n()
-
-const columns = [
-  {
-    label: '区域',
-    prop: 'orgName',
-  },
-  {
-    label: '地址',
-    prop: 'address',
-  },
-  {
-    label: '创建时间',
-    prop: 'createTime',
-  },
-]
 
 async function dltArea(id: number | string) {
   await ElMessageBox.confirm(
@@ -54,8 +37,8 @@ async function dltArea(id: number | string) {
         v-bind="query"
         ref="queryRef"
         auto-query="active"
-        :columns="columns"
-        :schema="indexSearchForm"
+        columns-key="1681104977767"
+        schema-key="1681104994725"
       >
         <QueryForm />
         <QueryToolbar>
