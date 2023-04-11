@@ -44,7 +44,8 @@ function httpRequest(options: UploadRequestOptions) {
         options.onError(err)
       }
       else {
-        console.error(e)
+        abort(options.file)
+        options.onError(e as any)
       }
     },
     onProgress: (e) => {
