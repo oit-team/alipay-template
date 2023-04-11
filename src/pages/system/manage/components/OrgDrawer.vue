@@ -87,12 +87,13 @@ async function submit(data: any) {
 function open(data?: any, isNewMode = false) {
   params.value = data
   isNew.value = isNewMode
+  orgForm.setValues({}, 'overwrite')
   if (!isNewMode && data) {
     switch (data.type) {
       // 公司初始值
       case OrganizationType.HeadOffice:
       case OrganizationType.Company:
-        orgForm.setInitialValues({
+        orgForm.setValues({
           orgId: data.id,
           orgName: data.label,
           orgCode: data.data.orgCode,
@@ -102,7 +103,7 @@ function open(data?: any, isNewMode = false) {
         break
       // 部门初始值
       case OrganizationType.Department:
-        orgForm.setInitialValues({
+        orgForm.setValues({
           deptId: data.id,
           deptName: data.label,
           describe: data.data.describe,

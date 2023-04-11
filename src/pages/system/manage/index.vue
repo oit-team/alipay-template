@@ -8,6 +8,7 @@ import { transformResponsePush } from '@/utils/helper'
 
 interface Tree {
   id: number
+  key: string
   label: string
   type: number
   data: any
@@ -40,22 +41,47 @@ const {
   data: deptList,
   isLoading: treeLoading,
   execute: getDeptList,
-} = useAxios('/system/dept/getDeptList', {
-  transformResponse: transformResponsePush(data => data.result),
+} = useAxios(
+  '/system/dept/getDeptList',
+  { transformResponse: transformResponsePush(data => data.result) },
+  {
+    immediate: true,
+    onSuccess: async () => {
+      setTreeChecked()
+    },
+  },
+)
+
+watch(activeTree, () => {
+  queryRef.value?.query()
 })
 
-const deptTree = computed<Tree[]>(() => {
+const treeData = computed<Tree[]>(() => {
   function formatTree(data: any) {
-    return data?.map((item: any) => ({
-      id: item.orgId ?? item.deptId,
-      label: item.orgName ?? item.deptName,
-      type: item.orgType,
-      data: item,
-      children: (item.childrenList ?? item.deptVOS) ? formatTree(item.childrenList ?? item.deptVOS) : undefined,
-    }))
+    return data?.map((item: any) => {
+      const id = item.orgId ?? item.deptId
+      return {
+        id,
+        key: `${id}-${item.orgType}`,
+        label: item.orgName ?? item.deptName,
+        type: item.orgType,
+        data: item,
+        children: (item.childrenList ?? item.deptVOS) ? formatTree(item.childrenList ?? item.deptVOS) : undefined,
+      }
+    })
   }
   return formatTree(deptList.value)
 })
+
+async function setTreeChecked() {
+  await nextTick()
+  if (!treeData.value)
+    return
+  if (!activeTree.value)
+    activeTree.value = treeData.value[0]
+
+  treeRef.value?.setCurrentKey(activeTree.value.key, true)
+}
 
 const filterNode = (value: string, data: any) => {
   if (!value)
@@ -68,7 +94,8 @@ function toAdd() {
     router.push({
       path: './manage/new',
       query: {
-        deptId: activeTree.value?.id,
+        orgId: activeTree.value?.id,
+        orgType: activeTree.value?.type,
       },
     })
   }
@@ -92,7 +119,15 @@ async function delUser(id: any) {
 
 async function delTreeItem() {
   await ElMessageBox.confirm(t('confirm.delete'), t('tip.warning'), { type: 'warning' })
-  await axios.post('/system/dept/delDeptInfo', { deptId: activeTree.value?.id })
+  switch (activeTree.value?.type) {
+    case OrganizationType.Company:
+    case OrganizationType.HeadOffice:
+      await axios.post('/system/org/delOrgInfo', { orgId: activeTree.value?.id })
+      break
+    case OrganizationType.Department:
+      await axios.post('/system/dept/delDeptInfo', { deptId: activeTree.value?.id })
+      break
+  }
   ElMessage.success('删除成功')
   await getDeptList()
 }
@@ -123,9 +158,12 @@ function handleCommand(command: string) {
         <ElTree
           ref="treeRef"
           class="tree"
-          :data="deptTree"
+          :data="treeData"
+          default-expand-all
           :expand-on-click-node="false"
           :filter-node-method="filterNode"
+          highlight-current
+          node-key="key"
           @node-click="activeTree = $event"
         >
           <template #default="{ data }">
@@ -165,7 +203,8 @@ function handleCommand(command: string) {
       :columns-config="columnsConfig"
       columns-key="1681104657841"
       :data="{
-        deptId: activeTree?.id,
+        orgId: activeTree?.id,
+        orgType: activeTree?.type,
       }"
       :key-map="{
         data: 'result',
@@ -207,10 +246,6 @@ function handleCommand(command: string) {
 .tree:deep() {
   .el-tree-node__content {
     height: 32px;
-  }
-
-  .is-current > .el-tree-node__content {
-    background-color: #ecf5ff
   }
 
   .tree-node-action {
