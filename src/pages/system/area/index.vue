@@ -28,17 +28,17 @@ async function dltArea(id: number | string) {
   <div class="h-full p-2">
     <UseQuery
       v-slot="query"
+      columns-key="1681104977767"
       :key-map="{
         data: 'result',
       }"
+      schema-key="1681104994725"
       url="/system/org/getTreeOrgList"
     >
       <QueryProvide
         v-bind="query"
         ref="queryRef"
         auto-query="active"
-        columns-key="1681104977767"
-        schema-key="1681104994725"
       >
         <QueryForm />
         <QueryToolbar>

@@ -22,8 +22,8 @@ async function dltList(id: string) {
 
 <template>
   <div class="h-full p-3">
-    <UseQuery v-slot="attrs" url="/system/menu/getAllMenuList">
-      <QueryProvide v-bind="attrs" ref="query" auto-query="active" columns-key="1681104850635" schema-key="1681104903607">
+    <UseQuery v-slot="attrs" columns-key="1681104850635" schema-key="1681104903607" url="/system/menu/getAllMenuList">
+      <QueryProvide v-bind="attrs" ref="query" auto-query="active">
         <QueryForm />
         <QueryToolbar>
           <TButton icon="add" @click="$router.push('./menu/new')">

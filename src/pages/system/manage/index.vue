@@ -114,14 +114,14 @@ function handleCommand(command: string) {
 
 <template>
   <div class="h-full flex p-2">
-    <div v-loading="treeLoading">
+    <div v-loading="treeLoading" class="flex flex-col h-full overflow-hidden">
       <div class="flex gap-2">
         <ElInput v-model.trim="filterText" clearable placeholder="关键字过滤" />
         <ElButton :icon="Refresh" :loading="treeLoading" @click="getDeptList()" />
       </div>
       <ElTree
         ref="treeRef"
-        class="tree w-220px mt-2"
+        class="tree w-220px mt-2 flex-1 overflow-auto"
         :data="deptTree"
         :expand-on-click-node="false"
         :filter-node-method="filterNode"

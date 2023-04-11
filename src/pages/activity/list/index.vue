@@ -35,8 +35,8 @@ async function upOrDown(item: any) {
 
 <template>
   <div class="h-full p-3">
-    <UseQuery v-slot="attrs" url="/order/activity/getActivityList">
-      <QueryProvide v-bind="attrs" ref="query" auto-query="active" columns-key="1681104260564" schema-key="1681104292358">
+    <UseQuery v-slot="attrs" columns-key="1681104260564" schema-key="1681104292358" url="/order/activity/getActivityList">
+      <QueryProvide v-bind="attrs" ref="query" auto-query="active">
         <QueryForm />
         <QueryToolbar>
           <TButton icon="add" @click="$router.push('./list/new')">

@@ -22,8 +22,8 @@ async function dltRules(id: string) {
 
 <template>
   <div class="h-full p-3">
-    <UseQuery v-slot="attrs" url="/order/activityRules/getActivityRules">
-      <QueryProvide v-bind="attrs" ref="query" auto-query="active" columns-key="1681104403593" schema-key="1681104442608">
+    <UseQuery v-slot="attrs" columns-key="1681104403593" schema-key="1681104442608" url="/order/activityRules/getActivityRules">
+      <QueryProvide v-bind="attrs" ref="query" auto-query="active">
         <QueryForm />
         <QueryToolbar>
           <TButton icon="add" @click="$router.push('./rules/new')">
