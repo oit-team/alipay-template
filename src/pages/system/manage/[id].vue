@@ -9,7 +9,7 @@ const router = useRouter()
 
 const { t } = useI18n()
 
-const isNew = !!route.query.deptId
+const isNew = route.params.id === 'new'
 
 const form = createForm({
   validateFirst: true,
@@ -39,14 +39,14 @@ const getTreeOrgList: AsyncDataSourceService = async () => {
 }
 
 async function submit(form: any) {
-  if (isNew)
-    form.deptId = route.query.deptId
-
   await axios.post(
     isNew
       ? '/system/user/addUserInfo'
       : '/system/user/updateUserById',
-    form,
+    {
+      ...form,
+      ...route.query,
+    },
   )
   ElMessage.success(t('save.success'))
   router.push('/system/manage')

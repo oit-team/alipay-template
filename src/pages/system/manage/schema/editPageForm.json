@@ -1,14 +1,13 @@
 {
   "type": "object",
   "properties": {
-    "headPortrait": {
+    "[headPortrait]": {
       "type": "Array<object>",
       "title": "头像",
       "x-decorator": "FormItem",
       "x-component": "Upload",
       "x-component-props": {
         "textContent": "Upload",
-        "format": "url",
         "limit": 1,
         "accept": "image/*"
       },
@@ -80,19 +79,6 @@
       "name": "passWord",
       "x-designable-id": "3wredc3pkac",
       "x-index": 4
-    },
-    "orgId": {
-      "title": "所属区域",
-      "x-decorator": "FormItem",
-      "x-component": "Select",
-      "x-validator": [],
-      "x-component-props": {},
-      "x-decorator-props": {},
-      "x-reactions": ["{{useAsyncDataSource(getTreeOrgList)}}"],
-      "name": "orgId",
-      "x-designable-id": "adpp3bk5az3",
-      "required": true,
-      "x-index": 5
     },
     "address": {
       "type": "string",
