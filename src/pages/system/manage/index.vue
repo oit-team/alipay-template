@@ -114,46 +114,48 @@ function handleCommand(command: string) {
 
 <template>
   <div class="h-full flex p-2">
-    <div v-loading="treeLoading" class="flex flex-col h-full overflow-hidden">
+    <div v-loading="treeLoading" class="flex flex-col h-full overflow-hidden w-250px">
       <div class="flex gap-2">
         <ElInput v-model.trim="filterText" clearable placeholder="关键字过滤" />
         <ElButton :icon="Refresh" :loading="treeLoading" @click="getDeptList()" />
       </div>
-      <ElTree
-        ref="treeRef"
-        class="tree w-220px mt-2 flex-1 overflow-auto"
-        :data="deptTree"
-        :expand-on-click-node="false"
-        :filter-node-method="filterNode"
-        @node-click="activeTree = $event"
-      >
-        <template #default="{ data }">
-          <div class="w-full flex items-center justify-between pr-2">
-            <span>{{ data.label }}</span>
-            <ElDropdown
-              trigger="click"
-              @command="handleCommand"
-            >
-              <span class="el-dropdown-link">
-                <div class="i-ic:outline-more-horiz tree-node-action text-lg" />
-              </span>
-              <template #dropdown>
-                <ElDropdownMenu>
-                  <ElDropdownItem v-if="data.type !== OrganizationType.Department" command="new">
-                    新增
-                  </ElDropdownItem>
-                  <ElDropdownItem command="edit">
-                    编辑
-                  </ElDropdownItem>
-                  <ElDropdownItem v-if="data.type !== OrganizationType.HeadOffice" command="delete">
-                    删除
-                  </ElDropdownItem>
-                </ElDropdownMenu>
-              </template>
-            </ElDropdown>
-          </div>
-        </template>
-      </ElTree>
+      <ElScrollbar class="flex-basis-0 flex-1 mt-2">
+        <ElTree
+          ref="treeRef"
+          class="tree"
+          :data="deptTree"
+          :expand-on-click-node="false"
+          :filter-node-method="filterNode"
+          @node-click="activeTree = $event"
+        >
+          <template #default="{ data }">
+            <div class="w-full flex items-center justify-between pr-2">
+              <span>{{ data.label }}</span>
+              <ElDropdown
+                trigger="click"
+                @command="handleCommand"
+              >
+                <span class="el-dropdown-link">
+                  <div class="i-ic:outline-more-horiz tree-node-action text-lg" />
+                </span>
+                <template #dropdown>
+                  <ElDropdownMenu>
+                    <ElDropdownItem v-if="data.type !== OrganizationType.Department" command="new">
+                      新增
+                    </ElDropdownItem>
+                    <ElDropdownItem command="edit">
+                      编辑
+                    </ElDropdownItem>
+                    <ElDropdownItem v-if="data.type !== OrganizationType.HeadOffice" command="delete">
+                      删除
+                    </ElDropdownItem>
+                  </ElDropdownMenu>
+                </template>
+              </ElDropdown>
+            </div>
+          </template>
+        </ElTree>
+      </ElScrollbar>
     </div>
 
     <ElDivider class="h-auto" direction="vertical" />

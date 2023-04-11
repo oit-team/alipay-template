@@ -3,11 +3,13 @@ import { FormButtonGroup, Reset } from '@formily/element-plus'
 import deptFormSchema from '../schema/drawerDeptForm.json'
 import orgFormSchema from '../schema/drawerOrgForm.json'
 import { OrganizationType } from '../enum'
+import { getCityList } from '@/reactions'
 
 const emit = defineEmits(['done'])
 
 const { t } = useI18n()
 
+const orgForm = createForm()
 const orgDrawer = ref(false)
 const isNew = ref(false)
 const params = ref()
@@ -40,9 +42,9 @@ const title = computed(() => {
       return `${pre}公司`
   }
 })
-
-const orgForm = createForm()
-
+watch(schema, () => {
+  orgForm.clearFormGraph()
+})
 async function submit(data: any) {
   if (isNew.value) {
     switch (params.value?.type) {
@@ -82,18 +84,15 @@ async function submit(data: any) {
   emit('done')
 }
 
-const instance = getCurrentInstance()
 function open(data?: any, isNewMode = false) {
-  instance?.proxy?.$forceUpdate()
   params.value = data
   isNew.value = isNewMode
-  orgForm.setValues({}, 'overwrite')
   if (!isNewMode && data) {
     switch (data.type) {
       // 公司初始值
       case OrganizationType.HeadOffice:
       case OrganizationType.Company:
-        orgForm.setValues({
+        orgForm.setInitialValues({
           orgId: data.id,
           orgName: data.label,
           orgCode: data.data.orgCode,
@@ -103,7 +102,7 @@ function open(data?: any, isNewMode = false) {
         break
       // 部门初始值
       case OrganizationType.Department:
-        orgForm.setValues({
+        orgForm.setInitialValues({
           deptId: data.id,
           deptName: data.label,
           describe: data.data.describe,
@@ -131,7 +130,7 @@ defineExpose({
         class="px-6"
         label-width="6em"
       >
-        <UseSchemaField v-if="schema" :schema="schema" />
+        <UseSchemaField v-if="schema" :schema="schema" :scope="{ getCityList }" />
         <FormButtonGroup align-form-item>
           <Submit @submit="submit">
             保存
