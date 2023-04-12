@@ -35,6 +35,12 @@ export default defineConfig({
   shortcuts: {
     'sticky-top': 'sticky top-0',
     'sticky-bottom': 'sticky bottom-0',
+    'flex-center': 'flex items-center justify-between',
+    // icons
+    'i-add': 'i-material-symbols:add-circle',
+    'i-edit': 'i-mdi:edit-circle',
+    'i-import': 'i-raphael:import',
+    'i-apply': 'i-ic:baseline-add-task',
   },
   safelist: [
     'i-system-uicons:grid-small',

@@ -9,154 +9,264 @@
       "x-component": "Input",
       "x-index": 0
     },
-    "studyRecord": {
+    "city": {
       "type": "string",
-      "title": "学历",
+      "title": "城市",
       "x-decorator": "FormItem",
       "x-component": "Input",
       "x-index": 1
     },
-    "entryTime": {
+    "t3DriverType": {
       "type": "string",
-      "title": "入职日期",
+      "title": "司机类型",
       "x-decorator": "FormItem",
-      "x-component": "DatePicker",
-      "x-index": 2
-    },
-    "isPatrol": {
-      "type": "string",
-      "title": "是否巡游",
-      "x-decorator": "FormItem",
-      "enum": [
-        {
-          "label": "是",
-          "value": "是"
-        },
-        {
-          "label": "否",
-          "value": "否"
-        }
+      "enum": [{
+        "label": "1",
+        "value": "UP-带车加盟"
+      },
+      {
+        "label": "2",
+        "value": "UP司机"
+      }
       ],
       "x-component": "Select",
+      "x-index": 2
+    },
+    "driverFleet": {
+      "type": "string",
+      "title": "所属车队",
+      "x-decorator": "FormItem",
+      "x-component": "DatePicker",
       "x-index": 3
     },
-    "driverGrade": {
+    "bindingTime": {
       "type": "string",
-      "title": "司机等级",
+      "title": "绑车时间",
       "x-decorator": "FormItem",
-      "x-component": "Input",
+      "x-component": "DatePicker",
       "x-index": 4
-    },
-    "urgentUserName": {
-      "type": "string",
-      "title": "紧急联系人姓名",
-      "x-decorator": "FormItem",
-      "x-component": "Input",
-      "x-index": 5
-    },
-    "urgentUserPhone": {
-      "type": "string",
-      "title": "紧急联系人电话",
-      "x-decorator": "FormItem",
-      "x-component": "Input",
-      "x-index": 6
-    },
-    "urgentUserAdd": {
-      "type": "string",
-      "title": "紧急联系人住址",
-      "x-decorator": "FormItem",
-      "x-component": "Input",
-      "x-index": 7
-    },
-    "politicalOutlook": {
-      "type": "string",
-      "title": "政治面貌",
-      "x-decorator": "FormItem",
-      "x-component": "Input",
-      "x-index": 8
-    },
-    "bloodGroup": {
-      "type": "string",
-      "title": "血型",
-      "x-decorator": "FormItem",
-      "x-component": "Input",
-      "x-index": 9
     },
     "operator": {
       "type": "string",
       "title": "所属运营商",
       "x-decorator": "FormItem",
       "x-component": "Input",
+      "x-index": 5
+    },
+    "entryTime": {
+      "type": "string",
+      "title": "入职日期",
+      "x-decorator": "FormItem",
+      "x-component": "DatePicker",
+      "x-index": 6
+    },
+    "resignationTime": {
+      "type": "string",
+      "title": "离职日期",
+      "x-decorator": "FormItem",
+      "x-component": "DatePicker",
+      "x-index": 7
+    },
+    "t3DriverStatus": {
+      "type": "string",
+      "title": "司机状态",
+      "x-decorator": "FormItem",
+      "enum": [{
+        "label": "1",
+        "value": "正常"
+      },
+      {
+        "label": "2",
+        "value": "短期封号"
+      },
+      {
+        "label": "3",
+        "value": "长期封号"
+      },
+      {
+        "label": "4",
+        "value": "未审核"
+      },
+      {
+        "label": "5",
+        "value": "删除"
+      },
+      {
+        "label": "6",
+        "value": "离职"
+      },
+      {
+        "label": "7",
+        "value": "黑名单"
+      },
+      {
+        "label": "8",
+        "value": "强制下线"
+      },
+      {
+        "label": "9",
+        "value": "注销申请中"
+      },
+      {
+        "label": "10",
+        "value": "长期冻结"
+      },
+      {
+        "label": "11",
+        "value": "短期冻结"
+      }
+      ],
+      "x-component": "Select",
+      "x-index": 8
+    },
+    "idCardStatus": {
+      "type": "string",
+      "title": "身份证状态",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-index": 9
+    },
+    "driversLicenseStatus": {
+      "type": "string",
+      "title": "驾驶证状态",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
       "x-index": 10
     },
-    "city": {
+    "onlineRideHailingStatus": {
       "type": "string",
-      "title": "所属区域",
+      "title": "司机网约车证",
       "x-decorator": "FormItem",
       "x-component": "Input",
       "x-index": 11
     },
+    "isPatrol": {
+      "type": "string",
+      "title": "是否巡游",
+      "x-decorator": "FormItem",
+      "enum": [{
+        "label": "是",
+        "value": "是"
+      },
+      {
+        "label": "否",
+        "value": "否"
+      }
+      ],
+      "x-component": "Select",
+      "x-index": 12
+    },
+    "driverGrade": {
+      "type": "string",
+      "title": "司机等级",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-index": 13
+    },
+
     "serviceType": {
       "type": "string",
       "title": "服务类型",
       "x-decorator": "FormItem",
       "x-component": "Input",
-      "x-index": 12
+      "x-index": 14
     },
     "driverSalaryType": {
       "type": "string",
       "title": "司机工资类别",
       "x-decorator": "FormItem",
       "x-component": "Input",
-      "x-index": 13
+      "x-index": 15
     },
     "soleDuty": {
       "type": "string",
       "title": "是否专职",
       "x-decorator": "FormItem",
-      "enum": [
-        {
-          "label": "是",
-          "value": "是"
-        },
-        {
-          "label": "否",
-          "value": "否"
-        }
+      "enum": [{
+        "label": "是",
+        "value": "是"
+      },
+      {
+        "label": "否",
+        "value": "否"
+      }
       ],
       "x-component": "Select",
-      "x-index": 14
+      "x-index": 16
     },
-    "maritalStatus": {
+    "urgentUserName": {
       "type": "string",
-      "title": "婚姻状态",
+      "title": "紧急联系人姓名",
       "x-decorator": "FormItem",
-      "enum": [
-        {
-          "label": "已婚",
-          "value": "已婚"
-        },
-        {
-          "label": "未婚",
-          "value": "未婚"
-        }
-      ],
-      "x-component": "Select",
-      "x-index": 15
+      "x-component": "Input",
+      "x-index": 17
+    },
+    "urgentUserPhone": {
+      "type": "string",
+      "title": "紧急联系人电话",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-index": 18
+    },
+    "urgentUserAdd": {
+      "type": "string",
+      "title": "紧急联系人住址",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-index": 19
     },
     "householdRegistraHierarchy": {
       "type": "string",
       "title": "户口等级机关",
       "x-decorator": "FormItem",
       "x-component": "Input",
-      "x-index": 16
+      "x-index": 20
     },
+    "maritalStatus": {
+      "type": "string",
+      "title": "婚姻状态",
+      "x-decorator": "FormItem",
+      "enum": [{
+        "label": "已婚",
+        "value": "已婚"
+      },
+      {
+        "label": "未婚",
+        "value": "未婚"
+      }
+      ],
+      "x-component": "Select",
+      "x-index": 21
+    },
+    "bloodGroup": {
+      "type": "string",
+      "title": "血型",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-index": 22
+    },
+    "studyRecord": {
+      "type": "string",
+      "title": "学历",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-index": 23
+    },
+
+    "politicalOutlook": {
+      "type": "string",
+      "title": "政治面貌",
+      "x-decorator": "FormItem",
+      "x-component": "Input",
+      "x-index": 24
+    },
+
     "vaccination": {
       "type": "string",
       "title": "疫苗接种情况",
       "x-decorator": "FormItem",
       "x-component": "Input",
-      "x-index": 17
+      "x-index": 25
     }
   }
 }

@@ -45,6 +45,7 @@ async function onQuery(options: QueryOptions) {
   if (!props.url)
     return ElMessage.warning('onQuery 未配置 url 参数')
 
+  await nextTick()
   const { formData } = options
   const { data: res } = await axios.post(props.url, {
     ...formData,
