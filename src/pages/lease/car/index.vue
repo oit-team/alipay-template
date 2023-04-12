@@ -21,6 +21,9 @@ async function onDelete(row: any) {
 }
 
 const columnsConfig = {
+  orgName: {
+    width: 200,
+  },
   licensePlateNumber: {
     width: 150,
   },
@@ -28,7 +31,7 @@ const columnsConfig = {
     width: 200,
   },
   vehicleFrameNumber: {
-    width: 150,
+    width: 200,
   },
   bodyColor: {
     minWidth: 100,
