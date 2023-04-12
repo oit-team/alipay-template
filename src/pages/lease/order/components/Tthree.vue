@@ -73,7 +73,7 @@ const columnsConfig = {
 }
 
 // 导入T3方案
-const { files, open } = useFileDialog()
+const { files, open, reset } = useFileDialog()
 
 watch(files, async (value) => {
   if (!value || !value.length)
@@ -97,6 +97,7 @@ watch(files, async (value) => {
         type: 'warning',
       })
     })
+  reset()
 })
 </script>
 
