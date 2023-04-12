@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cloneDeep, set } from 'lodash-es'
+import { cloneDeep } from 'lodash-es'
 import { onFieldReact } from '@formily/core'
 import { workOrderInfoSymbol, workOrderSubmitSymbol } from '../../../types'
 import Valuation from '../components/Valuation.vue'
@@ -27,14 +27,23 @@ const form = createForm({
   },
 })
 
+if (!workOrderInfo?.value.isReview) {
+  // 计算违约金
+  axios.post('/order/leaseOrder/liquidatedDamages', {
+    workCode: workOrderInfo?.value.workCode,
+  }).then(({ data }) => {
+    form.setValuesIn('vehicleInspectionDetailed.liquidatedDamages.subtotal', data.liquidatedDamages)
+  })
+}
+
 // 设置维修项初始值
 form.setValuesIn(
   'vehicleInspectionDetailed.vehicleAccessories',
   [
     '车钥匙',
     '灭火器',
-  ].map(() => ({
-    receivable: '',
+  ].map(item => ({
+    receivable: item,
     missing: false,
     subtotal: 0,
     remark: '',
