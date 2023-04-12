@@ -91,12 +91,13 @@ watch(files, async (value) => {
       },
     })
     ElMessage.success(t('import.success'))
-    reset()
-  } catch (err) {
-    ElMessageBox.alert(err.message, '警告', {
+  }
+  catch (err) {
+    ElMessageBox.alert((err as any).message, '警告', {
       type: 'warning',
     })
   }
+  reset()
 })
 </script>
 
