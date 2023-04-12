@@ -21,12 +21,12 @@
       "title": "司机类型",
       "x-decorator": "FormItem",
       "enum": [{
-        "label": "1",
-        "value": "UP-带车加盟"
+        "label": "UP-带车加盟",
+        "value": 1
       },
       {
-        "label": "2",
-        "value": "UP司机"
+        "label": "UP司机",
+        "value": 2
       }
       ],
       "x-component": "Select",
@@ -36,7 +36,7 @@
       "type": "string",
       "title": "所属车队",
       "x-decorator": "FormItem",
-      "x-component": "DatePicker",
+      "x-component": "Input",
       "x-index": 3
     },
     "bindingTime": {
@@ -72,48 +72,48 @@
       "title": "司机状态",
       "x-decorator": "FormItem",
       "enum": [{
-        "label": "1",
-        "value": "正常"
+        "label": "正常",
+        "value": 1
       },
       {
-        "label": "2",
-        "value": "短期封号"
+        "label": "短期封号",
+        "value": 2
       },
       {
-        "label": "3",
-        "value": "长期封号"
+        "label": "长期封号",
+        "value": 3
       },
       {
-        "label": "4",
-        "value": "未审核"
+        "label": "未审核",
+        "value": 4
       },
       {
-        "label": "5",
-        "value": "删除"
+        "label": "删除",
+        "value": 5
       },
       {
-        "label": "6",
-        "value": "离职"
+        "label": "离职",
+        "value": 6
       },
       {
-        "label": "7",
-        "value": "黑名单"
+        "label": "黑名单",
+        "value": 7
       },
       {
-        "label": "8",
-        "value": "强制下线"
+        "label": "强制下线",
+        "value": 8
       },
       {
-        "label": "9",
-        "value": "注销申请中"
+        "label": "注销申请中",
+        "value": 9
       },
       {
-        "label": "10",
-        "value": "长期冻结"
+        "label": "长期冻结",
+        "value": 10
       },
       {
-        "label": "11",
-        "value": "短期冻结"
+        "label": "短期冻结",
+        "value": 11
       }
       ],
       "x-component": "Select",
