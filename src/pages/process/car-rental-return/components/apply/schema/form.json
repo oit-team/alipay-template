@@ -11,6 +11,7 @@
           "properties": {
             "returnOrderType": {
               "type": "string | number",
+              "required": true,
               "title": "退车类型",
               "x-decorator": "FormItem",
               "x-component": "Radio.Group",
@@ -32,6 +33,7 @@
             },
             "returnTheCarTime": {
               "type": "string",
+              "required": true,
               "title": "申请退车日期",
               "x-decorator": "FormItem",
               "x-component": "DatePicker",
@@ -39,6 +41,7 @@
             },
             "driverRefundAccount": {
               "type": "string",
+              "required": true,
               "title": "退款银行账号",
               "x-decorator": "FormItem",
               "x-component": "Input",
@@ -46,6 +49,7 @@
             },
             "openingBank": {
               "type": "string",
+              "required": true,
               "title": "开户行",
               "x-decorator": "FormItem",
               "x-component": "Input",

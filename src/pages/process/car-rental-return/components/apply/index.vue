@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { pick } from 'lodash-es'
-import { onFieldReact } from '@formily/core'
+import { onFieldChange, onFieldReact } from '@formily/core'
 import { workOrderApplySymbol, workOrderInfoSymbol } from '../../../types'
 import schema from './schema/form.json'
 import type { Field as FieldType } from '@formily/core'
@@ -30,11 +30,18 @@ const form = createForm({
     const key = '*.rent'
     onFieldReact(`${key}.subtotal`, (field) => {
       field = field as FieldType
-      const result = form.query(`${key}.receivable`).value() - form.query(`${key}.netReceipts`).value()
+      const getValue = (target: string) => form.query(`${key}.${target}`).value()
+      const result = getValue('receivable') - getValue('t3Withholding') - getValue('offlineCollection') - getValue('otherAmount')
       field.value = Math.floor(result * 100) / 100 || 0
+    })
+
+    onFieldChange('returnTheCarTime', (field) => {
+      field = field as FieldType
+      rentReceivable(field.value)
     })
   },
 })
+
 const workOrderApply = inject(workOrderApplySymbol)
 const workOrderInfo = inject(workOrderInfoSymbol)
 const workOrderReview = inject('workOrderReview') as Ref<any>
@@ -48,6 +55,15 @@ watch(workOrderReview, (data) => {
   })
   form.readOnly = !!workOrderInfo?.value.isReview
 }, { immediate: true })
+
+// 计算应收金额
+async function rentReceivable(date?: string) {
+  const { data } = await axios.post('/order/leaseOrder/rentReceivable', {
+    orderNo: vehicleInfo.value?.leaseOrderNo,
+    terminationDate: date,
+  })
+  form.setValuesIn('supplementaryData.rent.receivable', data?.rentReceivable)
+}
 
 async function submit(data: any) {
   if (!vehicleInfo.value)
@@ -122,7 +138,7 @@ async function submit(data: any) {
                 ]"
               />
             </ElCard>
-            <ElCard class="whitespace-nowrap" header="租金">
+            <ElCard v-if="vehicleId" class="whitespace-nowrap" header="租金">
               <FormLayout class="p-2">
                 <ObjectField name="supplementaryData">
                   <div
@@ -132,13 +148,15 @@ async function submit(data: any) {
                     :key="item.groupKey"
                     class="flex"
                   >
-                    <div class="grid grid-cols-[200px_200px_200px_1fr] flex-1 gap-2">
+                    <div class="grid grid-cols-[200px_200px_200px_200px_200px_1fr] flex-1 gap-2">
                       <ObjectField :name="item.groupKey">
                         <Field
                           v-for="field of [
                             { name: '应收金额', key: 'receivable', validator: 'number' },
-                            { name: '已收金额', key: 'netReceipts', validator: 'number' },
-                            { name: '金额小计', key: 'subtotal' },
+                            { name: 'T3代扣', key: 't3Withholding', validator: 'number' },
+                            { name: '线下收取', key: 'offlineCollection', validator: 'number' },
+                            { name: '其它金额', key: 'otherAmount', validator: 'number' },
+                            { name: '金额小计', key: 'subtotal', validator: 'number' },
                             { name: '备注', key: 'remarks', required: false },
                           ]"
                           :key="field.name"
@@ -158,7 +176,7 @@ async function submit(data: any) {
                 </ObjectField>
               </FormLayout>
             </ElCard>
-            <ElCard header="退车信息">
+            <ElCard v-if="vehicleId" header="退车信息">
               <div class="pt-4">
                 <FormLayout
                   label-col="5"
@@ -173,7 +191,7 @@ async function submit(data: any) {
           <DriverInfo :driver-id="driverId" inset />
         </ElTabPane>
         <ElTabPane label="车辆信息">
-          <VehicleInfo :car-number="vehicleInfo.licensePlateNumber" inset :vehicle-id="vehicleId" />
+          <VehicleInfo :car-number="vehicleInfo?.licensePlateNumber" inset :vehicle-id="vehicleId" />
         </ElTabPane>
       </ElTabs>
     </FormProvider>
