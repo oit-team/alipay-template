@@ -12,6 +12,10 @@ const { t } = useI18n()
 const router = useRouter()
 const vehicleId = ref()
 
+const workOrderApply = inject(workOrderApplySymbol)
+const workOrderInfo = inject(workOrderInfoSymbol)
+const workOrderReview = inject('workOrderReview') as Ref<any>
+
 const {
   data: vehicleList,
   isLoading: vehicleLoading,
@@ -27,6 +31,9 @@ const driverId = computed(() => vehicleInfo.value?.driverId)
 
 const form = createForm({
   effects() {
+    if (workOrderInfo?.value.isReview)
+      return
+
     const key = '*.rent'
     onFieldReact(`${key}.subtotal`, (field) => {
       field = field as FieldType
@@ -42,10 +49,6 @@ const form = createForm({
   },
 })
 
-const workOrderApply = inject(workOrderApplySymbol)
-const workOrderInfo = inject(workOrderInfoSymbol)
-const workOrderReview = inject('workOrderReview') as Ref<any>
-
 watch(workOrderReview, (data) => {
   const initData = data?.returnVehicleOrderMap
   vehicleId.value = initData?.vehicleId
@@ -56,13 +59,14 @@ watch(workOrderReview, (data) => {
   form.readOnly = !!workOrderInfo?.value.isReview
 }, { immediate: true })
 
-// 计算应收金额
+// 计算租金
 async function rentReceivable(date?: string) {
   const { data } = await axios.post('/order/leaseOrder/rentReceivable', {
     orderNo: vehicleInfo.value?.leaseOrderNo,
     terminationDate: date,
   })
   form.setValuesIn('supplementaryData.rent.receivable', data?.rentReceivable)
+  form.setValuesIn('supplementaryData.rent.t3Withholding', data?.t3Withholding)
 }
 
 async function submit(data: any) {
