@@ -41,7 +41,12 @@ form.setValuesIn(
   'vehicleInspectionDetailed.vehicleAccessories',
   [
     '车钥匙',
+    '行驶证',
+    '运输证',
     '灭火器',
+    '脚垫',
+    '紧急警示牌',
+    '拖车钩',
   ].map(item => ({
     receivable: item,
     missing: false,
