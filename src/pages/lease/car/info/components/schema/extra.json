@@ -65,9 +65,9 @@
           "x-designable-id": "8vg1m4sjl9i",
           "x-index": 2,
           "properties": {
-            "transporteCardNumber": {
+            "certificateNumber": {
               "type": "string",
-              "title": "运输证编号",
+              "title": "合格证号",
               "x-decorator": "FormItem",
               "x-component": "Input",
               "x-validator": [],
@@ -75,25 +75,10 @@
               "x-decorator-props": {
                 "colon": false
               },
-              "name": "transporteCardNumber",
-              "x-designable-id": "9ojjyz63osi",
-              "x-index": 0
+              "name": "certificateNumber",
+              "x-designable-id": "hqbeadianub"
             }
           }
-        },
-        "certificateNumber": {
-          "type": "string",
-          "title": "合格证号",
-          "x-decorator": "FormItem",
-          "x-component": "Input",
-          "x-validator": [],
-          "x-component-props": {},
-          "x-decorator-props": {
-            "colon": false
-          },
-          "name": "certificateNumber",
-          "x-designable-id": "hqbeadianub",
-          "x-index": 3
         },
         "n4l0d4n40mb": {
           "type": "void",
@@ -187,28 +172,6 @@
             }
           }
         },
-        "q1zfgxs8ysw": {
-          "type": "void",
-          "x-component": "FormGrid.GridColumn",
-          "x-designable-id": "q1zfgxs8ysw",
-          "x-index": 8,
-          "properties": {
-            "vehicleCreditGrantor": {
-              "type": "string",
-              "title": "车辆授信方",
-              "x-decorator": "FormItem",
-              "x-component": "Input",
-              "x-validator": [],
-              "x-component-props": {},
-              "x-decorator-props": {
-                "colon": false
-              },
-              "name": "vehicleCreditGrantor",
-              "x-designable-id": "0a4z2fidox8",
-              "x-index": 0
-            }
-          }
-        },
         "x366vnnlqlo": {
           "type": "void",
           "x-component": "FormGrid.GridColumn",
@@ -277,28 +240,6 @@
             }
           }
         },
-        "deziz6kbrat": {
-          "type": "void",
-          "x-component": "FormGrid.GridColumn",
-          "x-designable-id": "deziz6kbrat",
-          "x-index": 12,
-          "properties": {
-            "vehicleSupplier": {
-              "type": "string",
-              "title": "车辆供应商",
-              "x-decorator": "FormItem",
-              "x-component": "Input",
-              "x-validator": [],
-              "x-component-props": {},
-              "x-decorator-props": {
-                "colon": false
-              },
-              "name": "vehicleSupplier",
-              "x-designable-id": "epw8b73ocm1",
-              "x-index": 0
-            }
-          }
-        },
         "s07yhxupte6": {
           "type": "void",
           "x-component": "FormGrid.GridColumn",
@@ -321,19 +262,27 @@
             }
           }
         },
-        "supplyMethod": {
-          "type": "string",
-          "title": "供应方式",
-          "x-decorator": "FormItem",
-          "x-component": "Input",
-          "x-validator": [],
-          "x-component-props": {},
-          "x-decorator-props": {
-            "colon": false
-          },
-          "name": "supplyMethod",
-          "x-designable-id": "1ql7fo4bg9j",
-          "x-index": 14
+        "s07yhxupte2": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "s07yhxupte6",
+          "x-index": 13,
+          "properties": {
+            "supplyMethod": {
+              "type": "string",
+              "title": "供应方式",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {
+                "colon": false
+              },
+              "name": "supplyMethod",
+              "x-designable-id": "1ql7fo4bg9j",
+              "x-index": 14
+            }
+          }
         },
         "vbomqllrl35": {
           "type": "void",
