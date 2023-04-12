@@ -73,7 +73,7 @@ const columnsConfig = {
 }
 
 // 导入T3方案
-const { files, open } = useFileDialog()
+const { files, open, reset } = useFileDialog()
 
 watch(files, async (value) => {
   if (!value || !value.length)
@@ -81,22 +81,22 @@ watch(files, async (value) => {
 
   const { profile } = useUserStore()
 
-  axios.post('/order/leaseOrder/importT3LeaseOrder', {
-    file: value[0],
-    userId: profile?.userId,
-  }, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  })
-    .then(() => {
-      ElMessage.success(t('import.success'))
+  try {
+    await axios.post('/order/leaseOrder/importT3LeaseOrder', {
+      file: value[0],
+      userId: profile?.userId,
+    }, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     })
-    .catch((err) => {
-      ElMessageBox.alert(err.message, '警告', {
-        type: 'warning',
-      })
+    ElMessage.success(t('import.success'))
+    reset()
+  } catch (err) {
+    ElMessageBox.alert(err.message, '警告', {
+      type: 'warning',
     })
+  }
 })
 </script>
 
