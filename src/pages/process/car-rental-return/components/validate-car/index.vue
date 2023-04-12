@@ -9,6 +9,11 @@ import Upload from '~/components/FUpload'
 
 const { t } = useI18n()
 const router = useRouter()
+
+const workOrderSubmit = inject(workOrderSubmitSymbol)
+const workOrderInfo = inject(workOrderInfoSymbol)
+const workOrderReview = inject('workOrderReview') as Ref<any>
+
 const form = createForm({
   effects() {
     const calcKey = ['vehicleViolation', 'floatingFee', 'depreciationCharge', 'trailerFee']
@@ -21,20 +26,27 @@ const form = createForm({
     })
   },
 })
-const workOrderSubmit = inject(workOrderSubmitSymbol)
-const workOrderInfo = inject(workOrderInfoSymbol)
-const workOrderReview = inject('workOrderReview') as Ref<any>
+
+// 设置维修项初始值
+form.setValuesIn(
+  'vehicleInspectionDetailed.vehicleAccessories',
+  [
+    '车钥匙',
+    '灭火器',
+  ].map(() => ({
+    receivable: '',
+    missing: false,
+    subtotal: 0,
+    remark: '',
+  })),
+)
 
 watch(workOrderReview, (data) => {
   const initData = cloneDeep({
     ...data?.vehicleInspectionMap,
+    // 维修项
     keepInRepair: data?.repairDetailedMap,
   })
-  set(
-    initData,
-    'vehicleInspectionDetailed.vehicleAccessories.receivable',
-    initData?.vehicleInspectionDetailed?.vehicleAccessories?.receivable?.split(','),
-  )
   form.setInitialValues(initData)
   form.readOnly = !!workOrderInfo?.value.isReview
 }, { immediate: true })
@@ -42,11 +54,6 @@ watch(workOrderReview, (data) => {
 async function submit(data: any, agree: 0 | 1) {
   const keepInRepair = !data.keepInRepair?.length
   const info = workOrderInfo?.value
-  set(
-    data,
-    'vehicleInspectionDetailed.vehicleAccessories.receivable',
-    data?.vehicleInspectionDetailed?.vehicleAccessories?.receivable?.join(),
-  )
 
   await workOrderSubmit?.(data, {
     approvalStatus: agree,
@@ -71,7 +78,7 @@ async function reject() {
 </script>
 
 <template>
-  <div class="h-full flex flex-col">
+  <div class="h-full flex flex-col validate-car">
     <FormProvider :form="form">
       <PageHeader :title="`申请退租-${$route.query?.workCode}`">
         <template v-if="!workOrderInfo?.isReview" #extra>
@@ -88,11 +95,7 @@ async function reject() {
         <ElTabPane label="信息补充">
           <FormLayout class="flex flex-col gap-2 p-2" label-col="2">
             <div class="flex-1 flex flex-col gap-2">
-              <ElCard class="whitespace-nowrap">
-                <FormLayout>
-                  <Valuation field-name="vehicleInspectionDetailed" />
-                </FormLayout>
-              </ElCard>
+              <Valuation field-name="vehicleInspectionDetailed" />
               <ElCard>
                 <UseSchemaField :schema="table" />
               </ElCard>
@@ -128,7 +131,7 @@ async function reject() {
 </template>
 
 <style lang="scss" scoped>
-.el-card :deep(.el-card__body) {
+.validate-car :deep(.el-card__body) {
   --el-card-padding: 12px;
 }
 </style>
