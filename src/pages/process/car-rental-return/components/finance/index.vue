@@ -54,7 +54,7 @@ async function reject() {
 </script>
 
 <template>
-  <div class="h-full flex flex-col">
+  <div class="h-full flex flex-col finance">
     <FormProvider :form="form">
       <PageHeader :title="`申请退租-${$route.query?.workCode}`">
         <template v-if="!workOrderInfo?.isReview" #extra>
@@ -87,13 +87,15 @@ async function reject() {
               ]"
             />
           </ElCard>
-          <ElCard class="whitespace-nowrap">
-            <FormLayout class="p-2">
-              <Valuation field-name="supplementInfo" />
-            </FormLayout>
-          </ElCard>
+          <Valuation field-name="supplementInfo" />
         </div>
       </FormLayout>
     </FormProvider>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.finance :deep(.el-card__body) {
+  --el-card-padding: 12px;
+}
+</style>
