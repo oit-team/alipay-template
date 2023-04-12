@@ -25,14 +25,8 @@ export const transformRequest: AxiosRequestTransformer = (data, headers) => {
     ? JSON.stringify({
       head: {
         aid: profile?.userId,
-        ver: '1.0',
-        ln: 'cn',
-        mod: 'app',
-        de: '2019-10-16',
-        sync: 1,
         cmd: headers.cmd,
         uuid: profile?.orgId,
-        chcode: 'ef19843298ae8f2134f',
       },
       con: data ?? {},
     })
