@@ -66,6 +66,11 @@ export default (mode: string) => {
           changeOrigin: true,
           rewrite: path => path.replace(/^\/api/, ''),
         },
+        '/mock': {
+          target: env.VITE_APP_MOCK_API,
+          changeOrigin: true,
+          rewrite: path => path.replace(/^\/mock/, ''),
+        },
       },
     },
     resolve: {
@@ -153,10 +158,5 @@ export default (mode: string) => {
       }),
       Eslint(),
     ],
-
-    // https://github.com/vitest-dev/vitest
-    test: {
-      environment: 'jsdom',
-    },
   })
 }

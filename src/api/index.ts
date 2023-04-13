@@ -1,11 +1,14 @@
 import Axios from 'axios'
 import { ElMessage } from 'element-plus'
 import ApiError from './ApiError'
+import { installMockService } from './mock'
 import type { AxiosRequestTransformer, AxiosResponseTransformer } from 'axios'
 import type { ApiErrorOptions } from './ApiError'
 import { getToken } from '@/utils/auth'
 import router from '@/router'
 import { useUserStore } from '@/store/user'
+
+installMockService(Axios)
 
 function createApiError(options: ApiErrorOptions) {
   return new ApiError(options).reject()
@@ -41,7 +44,7 @@ export const transformRequest: AxiosRequestTransformer = (data, headers) => {
 
 export const transformResponse: AxiosResponseTransformer = (data, headers) => {
   return (
-    headers['content-type'] === 'application/json'
+    (headers['content-type'] as string).includes('application/json')
     && data instanceof Object
     && (data.head || data.body)
       ? data.body
