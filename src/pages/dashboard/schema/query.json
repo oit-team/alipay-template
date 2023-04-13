@@ -1,0 +1,71 @@
+{
+  "type": "object",
+  "properties": {
+    "lvyoec9vti2": {
+      "type": "void",
+      "x-component": "FormGrid",
+      "x-validator": [],
+      "x-component-props": {},
+      "x-designable-id": "lvyoec9vti2",
+      "properties": {
+        "k5kkp0fynng": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "k5kkp0fynng",
+          "properties": {
+            "oz2lfo98qjb": {
+              "type": "string",
+              "title": "日期",
+              "x-decorator": "FormItem",
+              "x-component": "DatePicker",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "x-designable-id": "oz2lfo98qjb",
+              "x-index": 0
+            }
+          },
+          "x-index": 0
+        },
+        "3xhlg51lexr": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "3xhlg51lexr",
+          "properties": {
+            "5876q18lsh5": {
+              "title": "城市",
+              "x-decorator": "FormItem",
+              "x-component": "Select",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "x-designable-id": "5876q18lsh5",
+              "x-index": 0
+            }
+          },
+          "x-index": 1
+        },
+        "e3z33e0idev": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "e3z33e0idev",
+          "properties": {
+            "s2a5sx85iwo": {
+              "title": "司机类型",
+              "x-decorator": "FormItem",
+              "x-component": "Select",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "x-designable-id": "s2a5sx85iwo",
+              "x-index": 0
+            }
+          },
+          "x-index": 2
+        }
+      },
+      "x-index": 0
+    }
+  },
+  "x-designable-id": "iz54967546l"
+}

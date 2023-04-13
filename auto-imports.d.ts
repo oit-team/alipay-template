@@ -81,6 +81,7 @@ declare global {
   const useI18n: typeof import('vue-i18n')['useI18n']
   const useJsonData: typeof import('./src/composables/useJsonData')['useJsonData']
   const useLink: typeof import('vue-router')['useLink']
+  const useNumberAnime: typeof import('./src/composables/useNumberAnime')['useNumberAnime']
   const useObjectUrl: typeof import('@vueuse/core')['useObjectUrl']
   const usePermission: typeof import('./src/store/permission')['usePermission']
   const useReload: typeof import('./src/composables/useReload')['useReload']
@@ -181,6 +182,7 @@ declare module 'vue' {
     readonly useI18n: UnwrapRef<typeof import('vue-i18n')['useI18n']>
     readonly useJsonData: UnwrapRef<typeof import('./src/composables/useJsonData')['useJsonData']>
     readonly useLink: UnwrapRef<typeof import('vue-router')['useLink']>
+    readonly useNumberAnime: UnwrapRef<typeof import('./src/composables/useNumberAnime')['useNumberAnime']>
     readonly useObjectUrl: UnwrapRef<typeof import('@vueuse/core')['useObjectUrl']>
     readonly usePermission: UnwrapRef<typeof import('./src/store/permission')['usePermission']>
     readonly useReload: UnwrapRef<typeof import('./src/composables/useReload')['useReload']>
