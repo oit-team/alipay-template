@@ -4,6 +4,7 @@ import { ElTree } from 'element-plus'
 import { Refresh } from '@element-plus/icons-vue'
 import OrgDrawer from './components/OrgDrawer.vue'
 import { OrganizationType } from './enum'
+import AuthorizeDrawer from './components/AuthorizeroleDrawer.vue'
 import { transformResponsePush } from '@/utils/helper'
 
 interface Tree {
@@ -145,6 +146,30 @@ function handleCommand(command: string) {
       break
   }
 }
+
+const authorDrawerRef = ref<InstanceType<typeof AuthorizeDrawer>>()
+
+// 多选数据勾选事件
+const checkedUserArr = ref<any[]>()
+const checkUserIds = ref('') // 选中的用户ids
+const queryDrawerRef = ref<InstanceType<typeof QueryProvide>>()
+
+function handleSelectionListChange(val: any) {
+  checkedUserArr.value = val
+}
+
+// 点击角色授权按钮
+async function openToAuthorize() {
+  if (checkedUserArr.value && checkedUserArr.value.length > 0) {
+    await nextTick()
+    queryDrawerRef.value?.query()
+
+    const ids = checkedUserArr.value.map(item => item.userId)
+    checkUserIds.value = ids.join()
+    authorDrawerRef.value?.open(checkUserIds)
+  }
+  else { ElMessage.warning('请先选择要批量授权的用户') }
+}
 </script>
 
 <template>
@@ -219,9 +244,18 @@ function handleCommand(command: string) {
           <TButton icon="add" @click="toAdd">
             {{ $t('button.new') }}
           </TButton>
+          <ElTooltip class="item" content="只有管家用户和APP及管家用户才可以授权" effect="dark" placement="top-start">
+            <TButton icon="authorize" @click="openToAuthorize()">
+              角色授权
+            </TButton>
+          </ElTooltip>
         </QueryToolbar>
         <QueryTable
           ref="userTableRef"
+          :selection="{
+            type: 'checkbox',
+          }"
+          @selection-change="handleSelectionListChange"
         >
           <template #actions>
             <QueryActionColumn v-slot="{ row }" label="操作" width="180px">
@@ -239,6 +273,7 @@ function handleCommand(command: string) {
     </UseQuery>
 
     <OrgDrawer ref="orgDrawerRef" @done="getDeptList()" />
+    <AuthorizeDrawer ref="authorDrawerRef" />
   </div>
 </template>
 

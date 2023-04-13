@@ -22,6 +22,8 @@ const iconType: Record<string, string> = {
   export: '',
   // 申请
   apply: 'i-ic:baseline-add-task',
+  // 授权
+  authorize: 'i-mdi:user-check',
 }
 
 const isIconify = (icon: any) => {
