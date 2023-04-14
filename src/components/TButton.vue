@@ -24,6 +24,8 @@ const iconType: Record<string, string> = {
   apply: 'i-ic:baseline-add-task',
   // 授权
   authorize: 'i-mdi:user-check',
+  // 分配
+  assign: 'i-material-symbols:person-add-outline-rounded',
 }
 
 const isIconify = (icon: any) => {
