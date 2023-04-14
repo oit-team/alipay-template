@@ -170,6 +170,10 @@ async function openToAuthorize() {
   }
   else { ElMessage.warning('请先选择要批量授权的用户') }
 }
+
+async function updateTableList() {
+  await queryRef.value?.query()
+}
 </script>
 
 <template>
@@ -273,7 +277,7 @@ async function openToAuthorize() {
     </UseQuery>
 
     <OrgDrawer ref="orgDrawerRef" @done="getDeptList()" />
-    <AuthorizeDrawer ref="authorDrawerRef" />
+    <AuthorizeDrawer ref="authorDrawerRef" @authDone=" updateTableList()" />
   </div>
 </template>
 
