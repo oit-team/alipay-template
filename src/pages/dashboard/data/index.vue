@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { onFormValuesChange } from '@formily/core'
-import RatioData from '../components/RatioData.vue'
 import querySchema from '../schema/query.json'
+import RatioData from './components/RatioData.vue'
+import CategoryChart from './components/CategoryChart.vue'
+import DailyGrowthChart from './components/DailyGrowthChart.vue'
+import OrderAndTransactionChart from './components/OrderAndTransactionChart.vue'
 import type { DataBoardInfo } from './types'
 
 const { data, execute } = useAxios<DataBoardInfo>('/reportForm/getDataBoardInfo')
@@ -18,7 +21,7 @@ const form = createForm({
 </script>
 
 <template>
-  <div class="p-2 flex flex-col gap-3">
+  <div class="p-2 flex flex-col gap-3 h-full dashboard-data">
     <ElCard class="query-card p-2">
       <FormProvider :form="form">
         <FormLayout feedback-layout="none">
@@ -26,14 +29,34 @@ const form = createForm({
         </FormLayout>
       </FormProvider>
     </ElCard>
-    <RatioData :data="data?.bulletinBoard" />
+    <ElScrollbar class="flex-1 basis-0 h-auto">
+      <div class="grid grid-cols-5 gap-3">
+        <RatioData :data="data?.bulletinBoard" />
+        <ElCard class="col-start-[span_3] row-start-4 row-end-6" header="司机分类情况" shadow="hover">
+          <CategoryChart class="aspect-16/9" :data="data?.driverClassificaInfor" />
+        </ElCard>
+        <ElCard class="col-start-[span_2] row-start-5" header="司机分类日增长情况" shadow="hover">
+          <DailyGrowthChart class="aspect-16/9" :data="data?.driverClassificationGrowth" />
+        </ElCard>
+        <ElCard class="col-start-[span_5]" header="流水&订单趋势" shadow="hover">
+          <OrderAndTransactionChart class="aspect-5/1" :data="data?.flowAndOrderTrends" />
+        </ElCard>
+        <div />
+      </div>
+    </ElScrollbar>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.query-card:deep() {
+.dashboard-data:deep() {
+  text-align: center;
+
   .el-form-item {
     margin-bottom: 0;
+  }
+
+  .el-card__header {
+    @apply: text-primary font-bold;
   }
 }
 </style>
