@@ -96,7 +96,7 @@ defineExpose({
         <QueryProvide v-bind="attrs" ref="queryDrawerRef">
           <QueryTable
             ref="tableRef"
-            class="flex-1"
+            class="flex-basis-auto"
             :selection="{
               type: 'radio',
             }"
