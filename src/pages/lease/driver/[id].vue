@@ -2,7 +2,7 @@
 import { FormProvider } from '@formily/vue'
 import schema from './schema/form.json'
 import { handleSubmitFailed } from '@/utils/actions'
-import { getCityList, getUserKeyWord } from '@/reactions'
+import { getCityList } from '@/reactions'
 
 const route = useRoute()
 const router = useRouter()
@@ -43,7 +43,7 @@ async function submit(form: any) {
         u-px-2
         wrapper-col="10"
       >
-        <UseSchemaField :schema="schema" :scope="{ getCityList, getUserKeyWord }" />
+        <UseSchemaField :schema="schema" :scope="{ getCityList }" />
       </FormLayout>
       <div class="mt-auto flex justify-center py-2">
         <Submit size="large" @submit="submit" @submit-failed="handleSubmitFailed">

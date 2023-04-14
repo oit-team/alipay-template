@@ -4,8 +4,10 @@ meta:
 </route>
 
 <script setup lang="ts">
+import AssignDrawer from './components/AssignDrawer.vue'
 import { useUserStore } from '@/store/user'
 import { getCityList, useSelectAsyncDataSource, vehicleServiceList } from '@/reactions'
+const { checkPermission } = usePermission()
 
 const { t } = useI18n()
 
@@ -102,6 +104,29 @@ watch(files, async (value) => {
 
   reset()
 })
+
+const checkedUserArr = ref<any[]>()
+const checkUserIds = ref<any[]>() // 选中的用户ids
+const assignDrawerRef = ref<InstanceType<typeof AssignDrawer>>()
+
+function handleSelectionListChange(val: any) {
+  checkedUserArr.value = val
+}
+
+async function openAssignMan() {
+  if (checkedUserArr.value && checkedUserArr.value.length > 0) {
+    await nextTick()
+
+    const ids = checkedUserArr.value.map(item => item.vehicleId)
+    checkUserIds.value = ids
+    assignDrawerRef.value?.open(checkUserIds, 1)
+  }
+  else { ElMessage.warning('请先选择要批量分配的车辆') }
+}
+
+async function updateTableList() {
+  await queryRef.value?.query()
+}
 </script>
 
 <template>
@@ -130,8 +155,11 @@ watch(files, async (value) => {
           <TButton icon="import" @click="importWei">
             违章{{ $t('button.import') }}
           </TButton>
+          <TButton :disabled="checkPermission('assignResponsible') ? false : true" icon="assign" @click="openAssignMan()">
+            {{ $t('button.assign') }}负责人
+          </TButton>
         </QueryToolbar>
-        <QueryTable v-loading="carLoading" element-loading-text="数据正在导入...">
+        <QueryTable v-loading="carLoading" element-loading-text="数据正在导入..." :selection="{ type: 'checkbox' }" @selection-change="handleSelectionListChange">
           <!-- 0 待租 1 已租 -->
           <template #content:vehicleState="{ row }">
             <div :class="row.vehicleStateVal === 1 ? 'text-green' : ''">
@@ -162,5 +190,6 @@ watch(files, async (value) => {
         <QueryPagination />
       </QueryProvide>
     </UseQuery>
+    <AssignDrawer ref="assignDrawerRef" @done="updateTableList()" />
   </div>
 </template>

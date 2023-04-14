@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { QueryProvide } from '@uxuip/element-plus-query'
 import type { ElTable } from 'element-plus'
-const { t } = useI18n()
 
+const emit = defineEmits(['authDone'])
+const { t } = useI18n()
 const authDrawer = ref(false)
 const queryDrawerRef = ref<InstanceType<typeof QueryProvide>>()
 const tableRef = ref<InstanceType<typeof ElTable>>()
@@ -35,10 +36,14 @@ const addUserAndRole = async () => {
   ElMessage.success(t('handle.success'))
   tableRef.value!.setCurrentRow(selectedRow.value)
   close()
+  emit('authDone')
 }
 
-function authorizeSubmit() {
-  addUserAndRole()
+async function authorizeSubmit() {
+  await ElMessageBox.confirm('确定要提交吗?', '提示', {
+    type: 'warning',
+  })
+  await addUserAndRole()
 }
 
 function cancelAuthrize() {

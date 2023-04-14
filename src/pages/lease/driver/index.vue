@@ -4,6 +4,7 @@ meta:
 </route>
 
 <script setup lang="ts">
+import AssignDrawer from '../car/components/AssignDrawer.vue'
 import { useUserStore } from '@/store/user'
 import { numberMasking } from '@/utils/helper'
 
@@ -79,6 +80,28 @@ watch(files, async (value) => {
 
   reset()
 })
+
+const checkedUserArr = ref<any[]>()
+const checkUserIds = ref<any[]>() // 选中的用户ids
+const assignDrawerRef = ref<InstanceType<typeof AssignDrawer>>()
+
+function handleSelectionListChange(val: any) {
+  checkedUserArr.value = val
+}
+
+async function openAssignMan() {
+  if (checkedUserArr.value && checkedUserArr.value.length > 0) {
+    await nextTick()
+    const ids = checkedUserArr.value.map(item => item.driverId)
+    checkUserIds.value = ids
+    assignDrawerRef.value?.open(checkUserIds, 0)
+  }
+  else { ElMessage.warning('请先选择要批量分配的司机') }
+}
+
+async function updateTableList() {
+  await queryRef.value?.query()
+}
 </script>
 
 <template>
@@ -109,8 +132,11 @@ watch(files, async (value) => {
           <TButton icon="apply" @click="$router.push('/process/car-rental-return')">
             {{ $t('button.apply') }}退车
           </TButton>
+          <TButton :disabled="checkPermission('assignResponsible') ? false : true" icon="assign" @click="openAssignMan()">
+            {{ $t('button.assign') }}负责人
+          </TButton>
         </QueryToolbar>
-        <QueryTable v-loading="driverLoading" element-loading-text="数据正在导入...">
+        <QueryTable v-loading="driverLoading" element-loading-text="数据正在导入..." :selection="{ type: 'checkbox' }" @selection-change="handleSelectionListChange">
           <!-- 手机号数据加密 -->
           <template #content:driverPhone="{ value }">
             {{ checkPermission('selectEncryption') ? numberMasking(value, { start: 3, end: -4 }) : value }}
@@ -147,5 +173,6 @@ watch(files, async (value) => {
         <QueryPagination />
       </QueryProvide>
     </UseQuery>
+    <AssignDrawer ref="assignDrawerRef" @done="updateTableList()" />
   </div>
 </template>
