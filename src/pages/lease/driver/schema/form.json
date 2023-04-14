@@ -89,38 +89,6 @@
               "required": true,
               "x-reactions": "{{useSelectAsyncDataSource(getCityList, {init: true})}}",
               "name": "city"
-            },
-            "exclusiveServiceId": {
-              "title": "专属私服",
-              "required": true,
-              "x-decorator": "FormItem",
-              "x-component": "Select",
-              "x-component-props": {
-                "default-first-option": true,
-                "filterable": true,
-                "remote": true,
-                "remote-show-suffix": true,
-                "reserve-keyword": true
-              },
-              "x-reactions": "{{useSelectAsyncDataSource(getUserKeyWord, {init: true})}}",
-              "name": "exclusiveServiceId",
-              "x-index": 7
-            },
-            "salesLeaderId": {
-              "title": "销售负责人",
-              "x-decorator": "FormItem",
-              "x-component": "Select",
-              "required": true,
-              "x-component-props": {
-                "default-first-option": true,
-                "filterable": true,
-                "remote": true,
-                "remote-show-suffix": true,
-                "reserve-keyword": true
-              },
-              "x-reactions": "{{useSelectAsyncDataSource(getUserKeyWord, {init: true})}}",
-              "name": "salesLeaderId",
-              "x-index": 8
             }
           }
         },

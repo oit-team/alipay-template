@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { FormProvider } from '@formily/vue'
 import schema from './schema/form.json'
-import { getCityList, getVehicleBrandSeriesModel, useSelectAsyncDataSource, vehicleServiceList } from '@/reactions'
+import { getCityList, getVehicleBrandSeriesModel, useSelectAsyncDataSource } from '@/reactions'
 import { handleSubmitFailed } from '@/utils/actions'
 
 const { t } = useI18n()
@@ -55,7 +55,7 @@ async function submit(formData: any) {
         u-px-2
         wrapper-col="10"
       >
-        <UseSchemaField :schema="schema" :scope="{ useSelectAsyncDataSource, getCityList, vehicleServiceList, getVehicleBrandSeriesModel }" />
+        <UseSchemaField :schema="schema" :scope="{ useSelectAsyncDataSource, getCityList, getVehicleBrandSeriesModel }" />
       </FormLayout>
       <div class="mt-auto flex justify-center py-2">
         <Submit size="large" @submit="submit" @submit-failed="handleSubmitFailed">
