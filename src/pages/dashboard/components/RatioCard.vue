@@ -27,12 +27,7 @@ const color = (number: number) => {
 </script>
 
 <template>
-  <ElCard class="text-center" shadow="hover" style="--el-card-padding: 8px">
-    <template #header>
-      <div class="text-primary font-bold">
-        {{ header }}
-      </div>
-    </template>
+  <ElCard class="text-center" :header="header" shadow="hover" style="--el-card-padding: 8px">
     <div class="flex h-130px">
       <div class="flex-1 flex-center">
         <UseNumberAnime v-slot="{ value }" :value="value">

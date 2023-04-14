@@ -10,7 +10,7 @@ export interface DataBoardInfo {
   /**
    * 司机分类日增长情况
    */
-  driverClassificationGrowth: DriverClassificationGrowth
+  driverClassificationGrowth: DriverClassificationGrowth[]
   /**
    * 司机情况趋势
    */

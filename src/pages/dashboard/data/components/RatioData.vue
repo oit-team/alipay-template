@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import RatioCard from './RatioCard.vue'
-import type { DataBoardInfo } from '../data/types'
+import RatioCard from '../../components/RatioCard.vue'
+import type { DataBoardInfo } from '../types'
 import type { PropType } from 'vue'
 
 defineProps({
@@ -81,18 +81,16 @@ const cardItems: {
 </script>
 
 <template>
-  <div class="grid grid-cols-5 gap-3">
-    <template
-      v-for="item of cardItems"
-      :key="item.prop"
-    >
-      <RatioCard
-        :header="item.title"
-        :ratio1="data?.[item.prop]?.monthToMonth"
-        :ratio2="data?.[item.prop]?.yearToYear"
-        :value="data?.[item.prop]?.value"
-        :value-format="item?.valueFormat"
-      />
-    </template>
-  </div>
+  <template
+    v-for="item of cardItems"
+    :key="item.prop"
+  >
+    <RatioCard
+      :header="item.title"
+      :ratio1="data?.[item.prop]?.monthToMonth"
+      :ratio2="data?.[item.prop]?.yearToYear"
+      :value="data?.[item.prop]?.value"
+      :value-format="item?.valueFormat"
+    />
+  </template>
 </template>
