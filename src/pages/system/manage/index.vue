@@ -277,7 +277,7 @@ async function updateTableList() {
     </UseQuery>
 
     <OrgDrawer ref="orgDrawerRef" @done="getDeptList()" />
-    <AuthorizeDrawer ref="authorDrawerRef" @authDone=" updateTableList()" />
+    <AuthorizeDrawer ref="authorDrawerRef" @auth-done=" updateTableList()" />
   </div>
 </template>
 
