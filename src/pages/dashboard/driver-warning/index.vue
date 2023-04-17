@@ -9,8 +9,8 @@ const { data, execute } = useAxios('/reportForm/getDataBoardInfo')
   <div class="driver-warning p-2 flex flex-col gap-3 h-full">
     <Query @query="data => execute({ data })" />
     <ElScrollbar class="flex-1 basis-0 h-auto">
-      <div class="grid grid-cols-5 gap-3">
-        <RatioData :data="data" />
+      <div class="grid grid-cols-4 gap-3">
+        <RatioData :data="data?.bulletinBoard" />
       </div>
     </ElScrollbar>
   </div>

@@ -16,66 +16,62 @@ const cardItems: {
   valueFormat?: string
 }[] = [{
   prop: 'driveTotal',
-  title: '司机总数',
+  title: 'I级预警司机',
 }, {
   prop: 'newOnTheSameDay',
-  title: '当日新增',
+  title: 'II级预警司机',
 }, {
   prop: 'compliantDrivers',
-  title: '合规司机',
+  title: 'III级预警司机',
 }, {
   prop: 'complianceRate',
-  title: '合规率',
+  title: '连续未出车司机',
   valueFormat: ratioFormat,
 }, {
   prop: 'driverFlow',
-  title: '司机流水',
+  title: 'I级当月入职司机',
   valueFormat: moneyFormat,
 }, {
   prop: 'onlineDriver',
-  title: '出车司机',
+  title: 'II级当月入职司机',
 }, {
   prop: 'activeDriver',
-  title: '活跃司机',
+  title: 'III级当月入职司机',
 }, {
   prop: 'onlineRate',
-  title: '出车率',
+  title: '连续未出车当月入职司机',
   valueFormat: ratioFormat,
 }, {
   prop: 'activityRate',
-  title: '活跃率',
+  title: 'I级流水负增长司机',
   valueFormat: ratioFormat,
 }, {
   prop: 'completedQuantity',
-  title: '司机完单',
+  title: 'II级流水负增长司机',
 }, {
   prop: 'perCapitaTravelTime',
-  title: '人均出车时长',
+  title: 'III级流水负增长司机',
   valueFormat: doubleFormat,
 }, {
   prop: 'perCapitaServiceHours',
-  title: '人均服务时长',
+  title: '连续未出车流水负增长司机',
   valueFormat: doubleFormat,
 }, {
   prop: 'perCapitaPeakHours',
-  title: '人均高峰时长',
+  title: 'I级预警司机占比',
   valueFormat: doubleFormat,
 }, {
   prop: 'durationEfficiency',
-  title: '时长有效率',
+  title: 'II级预警司机占比',
   valueFormat: ratioFormat,
 }, {
   prop: 'perCapitaFlow',
-  title: '人均流水',
+  title: 'III级预警司机占比',
   valueFormat: moneyFormat,
 }, {
   prop: 'averageOrderPrice',
-  title: '订单均价',
+  title: '连续未出车司机占比',
   valueFormat: moneyFormat,
-}, {
-  prop: 'perCapitaCompletionOfOrders',
-  title: '人均完单',
-  valueFormat: doubleFormat,
 }]
 </script>
 
