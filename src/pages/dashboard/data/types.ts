@@ -6,7 +6,7 @@ export interface DataBoardInfo {
   /**
    * 司机分类情况
    */
-  driverClassificaInfor: DriverClassificaInfor[]
+  driverClassificaInfor: DriverClassificaInfor
   /**
    * 司机分类日增长情况
    */
@@ -256,15 +256,13 @@ export interface PerCapitaTravelTime {
   yearToYear: number
 }
 
+/**
+ * 司机分类情况
+ */
 export interface DriverClassificaInfor {
-  /**
-   * 司机分类
-   */
-  driverClassifica: DriverClassifica
-  /**
-   * 司机数量
-   */
-  driversNumber: number
+  [key: string]: {
+    driversNumber: number
+  }
 }
 
 /**
