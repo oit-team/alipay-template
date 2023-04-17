@@ -10,7 +10,7 @@ import type { PropType } from 'vue'
 import { useEcharts } from '@/composables/useEcharts'
 
 const props = defineProps({
-  data: Array as PropType<DataBoardInfo['flowAndOrderTrends']>,
+  data: Array as PropType<DataBoardInfo['driverSituationTrends']>,
 })
 
 echarts.use([
@@ -49,15 +49,30 @@ const option = computed<EChartsOption>(() => ({
   ],
   series: [
     {
-      name: '订单',
+      name: '出车司机',
       type: 'bar',
+      stack: '出车司机',
       barWidth: '50%',
-      data: props.data?.map(item => item.orderNum),
+      data: props.data?.map(item => item.trainDriver),
     },
     {
-      name: '流水',
+      name: '当日新增',
+      type: 'bar',
+      stack: '出车司机',
+      smooth: true,
+      data: props.data?.map(item => item.newOnTheSameDay),
+    },
+    {
+      name: '司机总数',
+      type: 'bar',
+      stack: '出车司机',
+      smooth: true,
+      data: props.data?.map(item => item.totalNumberOfDrivers),
+    },
+    {
+      name: '活跃司机',
       type: 'line',
-      data: props.data?.map(item => item.amounts.toFixed(2)),
+      data: props.data?.map(item => item.activeDriver),
       label: {
         show: true,
         position: 'top',
