@@ -85,5 +85,28 @@ useEcharts(chartRef, echarts, option)
 </script>
 
 <template>
-  <div ref="chartRef" />
+  <div ref="chartRef" v-bind="$attrs" />
+  <div>
+    <ElTable :data="['trainDriver', 'newOnTheSameDay', 'totalNumberOfDrivers', 'activeDriver']">
+      <ElTableColumn v-slot="{ row }">
+        {{ {
+          trainDriver: '出车司机',
+          newOnTheSameDay: '当日新增',
+          totalNumberOfDrivers: '司机总数',
+          activeDriver: '活跃司机',
+        }[row] }}
+      </ElTableColumn>
+      <ElTableColumn
+        v-for="(item, index) of props.data"
+        :key="index"
+        v-slot="{ row }"
+        align="center"
+        :label="dayjs(item.date).format('M月D日')"
+        :prop="`${index}`"
+        width="100"
+      >
+        {{ item[row] }}
+      </ElTableColumn>
+    </ElTable>
+  </div>
 </template>
