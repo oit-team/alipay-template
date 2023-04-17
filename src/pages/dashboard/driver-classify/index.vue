@@ -15,16 +15,14 @@ const selectVal = ref()
           <ClassifyPie class="aspect-5/2" :data="data?.driverClassificaInfor" />
         </ElCard>
         <ElCard class="w-3/5" header="分类司机月度趋势" shadow="hover">
-          <div class="flex">
-            <ElSelect v-model="selectVal" class="m-2" placeholder="请选择司机分类" size="small">
-              <ElOption
-                v-for="(item, index) in 5"
-                :key="index"
-                :label="item"
-                :value="item"
-              />
-            </ElSelect>
-          </div>
+          <ElSelect v-model="selectVal" class="m-2" placeholder="请选择司机分类" size="small">
+            <ElOption
+              v-for="(item, index) in 5"
+              :key="index"
+              :label="item"
+              :value="item"
+            />
+          </ElSelect>
           <MouthTrends class="aspect-5/1" :data="data?.driverSituationTrends" />
         </ElCard>
       </div>
