@@ -44,7 +44,7 @@ export const transformRequest: AxiosRequestTransformer = (data, headers) => {
 
 export const transformResponse: AxiosResponseTransformer = (data, headers) => {
   return (
-    (headers['content-type'] as string).includes('application/json')
+    (headers['content-type'] as string)?.includes('application/json')
     && data instanceof Object
     && (data.head || data.body)
       ? data.body
