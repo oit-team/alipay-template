@@ -4,6 +4,7 @@ import RatioData from './components/RatioData.vue'
 import CategoryChart from './components/CategoryChart.vue'
 import DailyGrowthChart from './components/DailyGrowthChart.vue'
 import OrderAndTransactionChart from './components/OrderAndTransactionChart.vue'
+import DriverSituationTrends from './components/DriverSituationTrends.vue'
 import type { DataBoardInfo } from './types'
 
 const { data, execute } = useAxios<DataBoardInfo>('/reportForm/getDataBoardInfo')
@@ -23,6 +24,9 @@ const { data, execute } = useAxios<DataBoardInfo>('/reportForm/getDataBoardInfo'
         </ElCard>
         <ElCard class="col-start-[span_5]" header="流水&订单趋势" shadow="hover">
           <OrderAndTransactionChart class="aspect-5/1" :data="data?.flowAndOrderTrends" />
+        </ElCard>
+        <ElCard class="col-start-[span_5]" header="司机情况趋势" shadow="hover">
+          <DriverSituationTrends class="aspect-5/1" :data="data?.driverSituationTrends" />
         </ElCard>
         <div />
       </div>

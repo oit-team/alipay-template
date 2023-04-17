@@ -31,7 +31,7 @@ const option = computed(() => {
   const option: EChartsOption = {
     xAxis: {
       type: 'category',
-      data: data?.map(item => item.name),
+      data: data?.map(item => item.name) ?? [],
     },
     yAxis: {
       type: 'value',
@@ -40,6 +40,10 @@ const option = computed(() => {
       {
         data: data?.map(item => item.value),
         type: 'bar',
+        label: {
+          show: true,
+          position: 'top',
+        },
       },
     ],
   }

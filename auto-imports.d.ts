@@ -77,6 +77,7 @@ declare global {
   const useAxios: typeof import('@vueuse/integrations/useAxios')['useAxios']
   const useCssModule: typeof import('vue')['useCssModule']
   const useCssVars: typeof import('vue')['useCssVars']
+  const useEcharts: typeof import('./src/composables/useEcharts')['useEcharts']
   const useFileDialog: typeof import('@vueuse/core')['useFileDialog']
   const useI18n: typeof import('vue-i18n')['useI18n']
   const useJsonData: typeof import('./src/composables/useJsonData')['useJsonData']
@@ -178,6 +179,7 @@ declare module 'vue' {
     readonly useAxios: UnwrapRef<typeof import('@vueuse/integrations/useAxios')['useAxios']>
     readonly useCssModule: UnwrapRef<typeof import('vue')['useCssModule']>
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
+    readonly useEcharts: UnwrapRef<typeof import('./src/composables/useEcharts')['useEcharts']>
     readonly useFileDialog: UnwrapRef<typeof import('@vueuse/core')['useFileDialog']>
     readonly useI18n: UnwrapRef<typeof import('vue-i18n')['useI18n']>
     readonly useJsonData: UnwrapRef<typeof import('./src/composables/useJsonData')['useJsonData']>
