@@ -1,69 +1,20 @@
 <script setup lang="ts">
-import numeral from 'numeral'
+import DataItem from './DataItem.vue'
+import type { ExtractPropTypes } from 'vue'
 
-defineProps({
-  header: String,
-  value: Number,
-  valueFormat: String,
-  // 环比
-  ratio1: Number,
-  // 同比
-  ratio2: Number,
-})
-
-const arrow = (number: number) => {
-  if (number > 0)
-    return '↑'
-  else if (number < 0)
-    return '↓'
+interface Props extends ExtractPropTypes<InstanceType<typeof DataItem>['$props']> {
+  header: string
 }
 
-const color = (number: number) => {
-  if (number > 0)
-    return 'text-green'
-  else if (number < 0)
-    return 'text-red'
-}
+defineProps<Props>()
 </script>
 
 <template>
-  <ElCard class="text-center" :header="header" shadow="hover" style="--el-card-padding: 8px">
-    <div class="flex h-130px">
-      <div class="flex-1 flex-center">
-        <UseNumberAnime v-slot="{ value }" :value="value">
-          <span class="text-4xl font-bold text-orange">
-            {{ numeral(value).format(valueFormat) }}
-          </span>
-        </UseNumberAnime>
-      </div>
-      <div class="w-2/5 flex flex-col items-center justify-around py-2">
-        <div>
-          <div class="text-blue-800 font-bold text-sm">
-            环比
-          </div>
-          <div>
-            <UseNumberAnime v-slot="{ value }" :value="ratio1">
-              <div class="font-bold" :class="color(value)">
-                <span>{{ arrow(value) }}</span>
-                <span>{{ value ? numeral(value).format('0[.]00%') : '-' }}</span>
-              </div>
-            </UseNumberAnime>
-          </div>
-        </div>
-        <div>
-          <div class="text-blue-800 font-bold text-sm">
-            同比
-          </div>
-          <div>
-            <UseNumberAnime v-slot="{ value }" :value="ratio2">
-              <div class="font-bold" :class="color(value)">
-                <span>{{ arrow(value) }}</span>
-                <span>{{ value ? numeral(value).format('0[.]00%') : '-' }}</span>
-              </div>
-            </UseNumberAnime>
-          </div>
-        </div>
-      </div>
-    </div>
+  <ElCard
+    :header="header"
+    shadow="hover"
+    style="--el-card-padding: 8px"
+  >
+    <DataItem v-bind="$attrs" class="h-130px" />
   </ElCard>
 </template>
