@@ -93,3 +93,26 @@ export const getUserKeyWord: AsyncDataSourceSelectService = async ({ keyword }) 
   }))
 }
 
+/**
+ * 获取司机类型
+ */
+export const getDriverTypeList: AsyncDataSourceSelectService = async () => {
+  const { data } = await axios.post('/order/activity/getDictitemList', {
+    dictCode: 'T3_DRIVER_TYPE',
+  })
+  return data.resultList.map((item: { nameKey: string }) => ({
+    label: item.nameKey,
+    value: item.nameKey,
+  }))
+}
+
+/**
+ * 获取公司列表
+ */
+export const getCompanyList: AsyncDataSourceSelectService = async () => {
+  const { data } = await axios.post('/system/org/getTreeOrg')
+  return data.result.map((item: { orgId: string; orgName: string }) => ({
+    label: item.orgName,
+    value: item.orgId,
+  }))
+}
