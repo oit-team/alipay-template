@@ -94,6 +94,7 @@ declare global {
   const useVModel: typeof import('@vueuse/core')['useVModel']
   const watch: typeof import('vue')['watch']
   const watchEffect: typeof import('vue')['watchEffect']
+  const watchImmediate: typeof import('@vueuse/core')['watchImmediate']
   const watchPostEffect: typeof import('vue')['watchPostEffect']
   const watchSyncEffect: typeof import('vue')['watchSyncEffect']
 }
@@ -196,6 +197,7 @@ declare module 'vue' {
     readonly useVModel: UnwrapRef<typeof import('@vueuse/core')['useVModel']>
     readonly watch: UnwrapRef<typeof import('vue')['watch']>
     readonly watchEffect: UnwrapRef<typeof import('vue')['watchEffect']>
+    readonly watchImmediate: UnwrapRef<typeof import('@vueuse/core')['watchImmediate']>
     readonly watchPostEffect: UnwrapRef<typeof import('vue')['watchPostEffect']>
     readonly watchSyncEffect: UnwrapRef<typeof import('vue')['watchSyncEffect']>
   }

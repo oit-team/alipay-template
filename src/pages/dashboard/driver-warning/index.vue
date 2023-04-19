@@ -1,19 +1,17 @@
 <script setup lang="ts">
-import Query from '../components/Query.vue'
 import RatioData from './components/RatioData.vue'
 
-const { data, execute } = useAxios('/vehicle/reportForm/getWarningDataPanel')
+const { data, execute, isLoading } = useAxios('/vehicle/reportForm/getWarningDataPanel', {}, { immediate: false })
+const queryData = inject('queryData') as Ref<any>
+watchImmediate(queryData, () => execute({ data: queryData.value }))
 </script>
 
 <template>
-  <div class="driver-warning p-2 flex flex-col gap-3 h-full">
-    <Query @query="data => execute({ data })" />
-    <ElScrollbar class="flex-1 basis-0 h-auto">
-      <div class="grid grid-cols-4 grid-rows-4 gap-3 grid-flow-col">
-        <RatioData :data="data" />
-      </div>
-    </ElScrollbar>
-  </div>
+  <ElScrollbar v-loading="isLoading" class="driver-warning">
+    <div class="grid grid-cols-4 grid-rows-4 gap-3 grid-flow-col">
+      <RatioData :data="data" />
+    </div>
+  </ElScrollbar>
 </template>
 
 <style lang="scss" scoped>

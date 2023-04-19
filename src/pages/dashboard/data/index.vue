@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Query from '../components/Query.vue'
 import RatioData from './components/RatioData.vue'
 import CategoryChart from './components/CategoryChart.vue'
 import DailyGrowthChart from './components/DailyGrowthChart.vue'
@@ -9,39 +8,37 @@ import DurationTrend from './components/DurationTrend.vue'
 import PerCapitaOrderTrend from './components/PerCapitaOrderTrend.vue'
 import type { DataBoardInfo } from './types'
 
-const { data, execute } = useAxios<DataBoardInfo>('/vehicle/reportForm/getDataBoardInfo')
+const { data, execute, isLoading } = useAxios<DataBoardInfo>('/vehicle/reportForm/getDataBoardInfo', {}, { immediate: false })
+const queryData = inject('queryData') as Ref<any>
+watchImmediate(queryData, () => execute({ data: queryData.value }))
 </script>
 
 <template>
-  <div class="p-2 flex flex-col gap-3 h-full dashboard-data">
-    <Query @query="(data) => execute({ data })" />
-    <ElScrollbar class="flex-1 basis-0 h-auto">
-      <div class="grid grid-cols-5 gap-3">
-        <RatioData :data="data?.bulletinBoard" />
-        <ElCard class="col-start-[span_3] row-start-4 row-end-6" header="司机分类情况" shadow="hover">
-          <CategoryChart v-if="data?.driverClassificaInfor" class="aspect-16/9" :data="data?.driverClassificaInfor" />
-          <ElEmpty v-else />
-        </ElCard>
-        <ElCard class="col-start-[span_2] row-start-5" header="司机分类日增长情况" shadow="hover">
-          <DailyGrowthChart v-if="data?.driverClassificaInfor" class="aspect-16/9" :data="data?.driverClassificationGrowth" />
-          <ElEmpty v-else />
-        </ElCard>
-        <ElCard class="col-start-[span_5]" header="流水&订单趋势" shadow="hover">
-          <OrderAndTransactionChart class="aspect-5/1" :data="data?.flowAndOrderTrends" />
-        </ElCard>
-        <ElCard class="col-start-[span_5]" header="司机情况趋势" shadow="hover">
-          <DriverSituationTrends class="aspect-5/1" :data="data?.driverSituationTrends" />
-        </ElCard>
-        <ElCard class="col-start-[span_5]" header="时长情况趋势" shadow="hover">
-          <DurationTrend class="aspect-5/1" :data="data?.durationTrend" />
-        </ElCard>
-        <ElCard class="col-start-[span_5]" header="人均订单情况趋势" shadow="hover">
-          <PerCapitaOrderTrend class="aspect-5/1" :data="data?.perCapitaOrderTrend" />
-        </ElCard>
-        <div />
-      </div>
-    </ElScrollbar>
-  </div>
+  <ElScrollbar v-loading="isLoading" class="dashboard-data">
+    <div class="grid grid-cols-5 gap-3">
+      <RatioData :data="data?.bulletinBoard" />
+      <ElCard class="col-start-[span_3] row-start-4 row-end-6" header="司机分类情况" shadow="hover">
+        <CategoryChart v-if="data?.driverClassificaInfor" class="aspect-16/9" :data="data?.driverClassificaInfor" />
+        <ElEmpty v-else />
+      </ElCard>
+      <ElCard class="col-start-[span_2] row-start-5" header="司机分类日增长情况" shadow="hover">
+        <DailyGrowthChart v-if="data?.driverClassificaInfor" class="aspect-16/9" :data="data?.driverClassificationGrowth" />
+        <ElEmpty v-else />
+      </ElCard>
+      <ElCard class="col-start-[span_5]" header="流水&订单趋势" shadow="hover">
+        <OrderAndTransactionChart class="aspect-5/1" :data="data?.flowAndOrderTrends" />
+      </ElCard>
+      <ElCard class="col-start-[span_5]" header="司机情况趋势" shadow="hover">
+        <DriverSituationTrends class="aspect-5/1" :data="data?.driverSituationTrends" />
+      </ElCard>
+      <ElCard class="col-start-[span_5]" header="时长情况趋势" shadow="hover">
+        <DurationTrend class="aspect-5/1" :data="data?.durationTrend" />
+      </ElCard>
+      <ElCard class="col-start-[span_5]" header="人均订单情况趋势" shadow="hover">
+        <PerCapitaOrderTrend class="aspect-5/1" :data="data?.perCapitaOrderTrend" />
+      </ElCard>
+    </div>
+  </ElScrollbar>
 </template>
 
 <style lang="scss" scoped>

@@ -59,5 +59,6 @@ export default defineConfig({
     'i-gridicons:reader-follow',
     'i-ic:baseline-car-rental',
     'i-mdi:file-document-check-outline',
+    'i-mdi:report-bar',
   ],
 })
