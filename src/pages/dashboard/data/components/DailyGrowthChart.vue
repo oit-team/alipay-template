@@ -24,10 +24,11 @@ echarts.use([
 const chartRef = ref()
 
 const option = computed(() => {
-  const data = props.data?.map(item => ({
-    name: item.driverClassifica,
-    value: item.driversNumber,
-  }))
+  const data = Object.entries(props.data ?? {})
+    .map(([name, { driversNumber }]) => ({
+      name: `${name}类司机`,
+      value: driversNumber ?? 0,
+    }))
   const option: EChartsOption = {
     xAxis: {
       type: 'category',

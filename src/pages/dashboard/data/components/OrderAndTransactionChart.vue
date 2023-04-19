@@ -52,12 +52,12 @@ const option = computed<EChartsOption>(() => ({
       name: '订单',
       type: 'bar',
       barWidth: '50%',
-      data: props.data?.map(item => item.orderNum),
+      data: props.data?.map(item => item.orderNum ?? 0),
     },
     {
       name: '流水',
       type: 'line',
-      data: props.data?.map(item => item.amounts.toFixed(2)),
+      data: props.data?.map(item => item.amounts ?? 0),
       label: {
         show: true,
         position: 'top',

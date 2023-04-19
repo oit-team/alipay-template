@@ -9,11 +9,14 @@
           "type": "void",
           "x-component": "FormGrid.GridColumn",
           "properties": {
-            "oz2lfo98qjb": {
+            "time": {
               "type": "string",
               "title": "日期",
               "x-decorator": "FormItem",
-              "x-component": "DatePicker"
+              "x-component": "DatePicker",
+              "x-component-props": {
+                "clearable": false
+              }
             }
           }
         },
@@ -21,11 +24,14 @@
           "type": "void",
           "x-component": "FormGrid.GridColumn",
           "properties": {
-            "5876q18lsh5": {
+            "orgId": {
               "title": "公司",
               "x-decorator": "FormItem",
               "x-component": "Select",
-              "x-reactions": "{{useSelectAsyncDataSource(getCompanyList, {init: true})}}"
+              "x-reactions": "{{useAsyncDataSource(getCompanyList, {init: true})}}",
+              "x-component-props": {
+                "clearable": true
+              }
             }
           }
         },
@@ -33,11 +39,14 @@
           "type": "void",
           "x-component": "FormGrid.GridColumn",
           "properties": {
-            "s2a5sx85iwo": {
+            "driverType": {
               "title": "司机类型",
               "x-decorator": "FormItem",
               "x-component": "Select",
-              "x-reactions": "{{useSelectAsyncDataSource(getDriverTypeList, {init: true})}}"
+              "x-reactions": "{{useAsyncDataSource(getDriverTypeList, {init: true})}}",
+              "x-component-props": {
+                "clearable": true
+              }
             }
           }
         }

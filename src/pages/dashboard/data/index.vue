@@ -7,7 +7,7 @@ import OrderAndTransactionChart from './components/OrderAndTransactionChart.vue'
 import DriverSituationTrends from './components/DriverSituationTrends.vue'
 import type { DataBoardInfo } from './types'
 
-const { data, execute } = useAxios<DataBoardInfo>('/reportForm/getDataBoardInfo')
+const { data, execute } = useAxios<DataBoardInfo>('/vehicle/reportForm/getDataBoardInfo')
 </script>
 
 <template>
@@ -17,10 +17,12 @@ const { data, execute } = useAxios<DataBoardInfo>('/reportForm/getDataBoardInfo'
       <div class="grid grid-cols-5 gap-3">
         <RatioData :data="data?.bulletinBoard" />
         <ElCard class="col-start-[span_3] row-start-4 row-end-6" header="司机分类情况" shadow="hover">
-          <CategoryChart class="aspect-16/9" :data="data?.driverClassificaInfor" />
+          <CategoryChart v-if="data?.driverClassificaInfor" class="aspect-16/9" :data="data?.driverClassificaInfor" />
+          <ElEmpty v-else />
         </ElCard>
         <ElCard class="col-start-[span_2] row-start-5" header="司机分类日增长情况" shadow="hover">
-          <DailyGrowthChart class="aspect-16/9" :data="data?.driverClassificationGrowth" />
+          <DailyGrowthChart v-if="data?.driverClassificaInfor" class="aspect-16/9" :data="data?.driverClassificationGrowth" />
+          <ElEmpty v-else />
         </ElCard>
         <ElCard class="col-start-[span_5]" header="流水&订单趋势" shadow="hover">
           <OrderAndTransactionChart class="aspect-5/1" :data="data?.flowAndOrderTrends" />

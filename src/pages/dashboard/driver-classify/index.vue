@@ -13,7 +13,7 @@ const selectVal = ref()
   <div class="p-2 flex flex-col gap-3 h-full">
     <Query />
 
-    <ElScrollbar class="flex-1 basis-0 h-auto">
+    <ElScrollbar class="flex-1 basis-0 h-auto text-center">
       <div class="grid grid-cols-5 gap-3">
         <ElCard v-for="i of 5" :key="i" class="col-start-[span_5]" shadow="hover">
           <template #header>
@@ -29,6 +29,9 @@ const selectVal = ref()
           </template>
           <div class="grid grid-cols-8 gap-5">
             <div v-for="i of 8" :key="i">
+              <div class="py-3">
+                司机总数
+              </div>
               <DataItem class="h-140px" column />
             </div>
           </div>

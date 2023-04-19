@@ -53,26 +53,26 @@ const option = computed<EChartsOption>(() => ({
       type: 'bar',
       stack: '出车司机',
       barWidth: '50%',
-      data: props.data?.map(item => item.trainDriver),
+      data: props.data?.map(item => item.trainDriver ?? 0),
     },
     {
       name: '当日新增',
       type: 'bar',
       stack: '出车司机',
       smooth: true,
-      data: props.data?.map(item => item.newOnTheSameDay),
+      data: props.data?.map(item => item.newOnTheSameDay ?? 0),
     },
     {
       name: '司机总数',
       type: 'bar',
       stack: '出车司机',
       smooth: true,
-      data: props.data?.map(item => item.totalNumberOfDrivers),
+      data: props.data?.map(item => item.totalNumberOfDrivers ?? 0),
     },
     {
       name: '活跃司机',
       type: 'line',
-      data: props.data?.map(item => item.activeDriver),
+      data: props.data?.map(item => item.activeDriver ?? 0),
       label: {
         show: true,
         position: 'top',
@@ -88,7 +88,7 @@ useEcharts(chartRef, echarts, option)
   <div ref="chartRef" v-bind="$attrs" />
   <div>
     <ElTable :data="['trainDriver', 'newOnTheSameDay', 'totalNumberOfDrivers', 'activeDriver']">
-      <ElTableColumn v-slot="{ row }">
+      <ElTableColumn v-slot="{ row }" width="100">
         {{ {
           trainDriver: '出车司机',
           newOnTheSameDay: '当日新增',
@@ -105,7 +105,7 @@ useEcharts(chartRef, echarts, option)
         :prop="`${index}`"
         width="100"
       >
-        {{ item[row] }}
+        {{ item[row] ?? '-' }}
       </ElTableColumn>
     </ElTable>
   </div>
