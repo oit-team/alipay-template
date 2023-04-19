@@ -5,87 +5,58 @@ import type { PropType } from 'vue'
 defineProps({
   data: Object as PropType<any>,
 })
+// 环比 monthToMonth
+// 同比 yearToYear
 
-const ratioFormat = '0[.]00%'
-const doubleFormat = '0[.]00'
-const moneyFormat = '0,0[.]00'
+const titleMap = {
+  L1: {
+    warningDrivers: 'I级预警司机',
+    newEmployeesNumber: 'I级当月入职司机',
+    negativeGrowth: 'I级流水负增长司机',
+    warningRatio: 'I级预警司机占比',
+  },
+  L2: {
+    warningDrivers: 'II级预警司机',
+    newEmployeesNumber: 'II级当月入职司机',
+    negativeGrowth: 'II级流水负增长司机',
+    warningRatio: 'II级预警司机占比',
+  },
+  L3: {
+    warningDrivers: 'III级预警司机',
+    newEmployeesNumber: 'III级当月入职司机',
+    negativeGrowth: 'III级流水负增长司机',
+    warningRatio: 'III级预警司机占比',
+  },
+  L4: {
+    warningDrivers: '连续未出车司机',
+    newEmployeesNumber: '连续未出车当月入职司机',
+    negativeGrowth: '连续未出车流水负增长司机',
+    warningRatio: '连续未出车司机占比',
+  },
+}
 
-const cardItems: {
-  prop: any
-  title: string
-  valueFormat?: string
-}[] = [{
-  prop: 'driveTotal',
-  title: 'I级预警司机',
-}, {
-  prop: 'newOnTheSameDay',
-  title: 'II级预警司机',
-}, {
-  prop: 'compliantDrivers',
-  title: 'III级预警司机',
-}, {
-  prop: 'complianceRate',
-  title: '连续未出车司机',
-  valueFormat: ratioFormat,
-}, {
-  prop: 'driverFlow',
-  title: 'I级当月入职司机',
-  valueFormat: moneyFormat,
-}, {
-  prop: 'onlineDriver',
-  title: 'II级当月入职司机',
-}, {
-  prop: 'activeDriver',
-  title: 'III级当月入职司机',
-}, {
-  prop: 'onlineRate',
-  title: '连续未出车当月入职司机',
-  valueFormat: ratioFormat,
-}, {
-  prop: 'activityRate',
-  title: 'I级流水负增长司机',
-  valueFormat: ratioFormat,
-}, {
-  prop: 'completedQuantity',
-  title: 'II级流水负增长司机',
-}, {
-  prop: 'perCapitaTravelTime',
-  title: 'III级流水负增长司机',
-  valueFormat: doubleFormat,
-}, {
-  prop: 'perCapitaServiceHours',
-  title: '连续未出车流水负增长司机',
-  valueFormat: doubleFormat,
-}, {
-  prop: 'perCapitaPeakHours',
-  title: 'I级预警司机占比',
-  valueFormat: doubleFormat,
-}, {
-  prop: 'durationEfficiency',
-  title: 'II级预警司机占比',
-  valueFormat: ratioFormat,
-}, {
-  prop: 'perCapitaFlow',
-  title: 'III级预警司机占比',
-  valueFormat: moneyFormat,
-}, {
-  prop: 'averageOrderPrice',
-  title: '连续未出车司机占比',
-  valueFormat: moneyFormat,
-}]
+// 对每列最后一项百分比格式化
+const format = {
+  warningRatio: '0[.]00%',
+}
 </script>
 
 <template>
   <template
-    v-for="item of cardItems"
-    :key="item.prop"
+    v-for="(group, groupKey) of titleMap"
+    :key="groupKey"
   >
-    <RatioCard
-      :header="item.title"
-      :ratio1="data?.[item.prop]?.monthToMonth"
-      :ratio2="data?.[item.prop]?.yearToYear"
-      :value="data?.[item.prop]?.value"
-      :value-format="item?.valueFormat"
-    />
+    <template
+      v-for="(title, key) of group"
+      :key="key"
+    >
+      <RatioCard
+        :header="title"
+        :ratio1="data?.[groupKey]?.[key]?.monthToMonth"
+        :ratio2="data?.[groupKey]?.[key]?.yearToYear"
+        :value="data?.[groupKey]?.[key]?.DriverNum"
+        :value-format="format[key]"
+      />
+    </template>
   </template>
 </template>

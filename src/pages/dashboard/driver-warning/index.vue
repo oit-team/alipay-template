@@ -2,15 +2,15 @@
 import Query from '../components/Query.vue'
 import RatioData from './components/RatioData.vue'
 
-const { data, execute } = useAxios('/reportForm/getDataBoardInfo')
+const { data, execute } = useAxios('/vehicle/reportForm/getWarningDataPanel')
 </script>
 
 <template>
   <div class="driver-warning p-2 flex flex-col gap-3 h-full">
     <Query @query="data => execute({ data })" />
     <ElScrollbar class="flex-1 basis-0 h-auto">
-      <div class="grid grid-cols-4 gap-3">
-        <RatioData :data="data?.bulletinBoard" />
+      <div class="grid grid-cols-4 grid-rows-4 gap-3 grid-flow-col">
+        <RatioData :data="data" />
       </div>
     </ElScrollbar>
   </div>
