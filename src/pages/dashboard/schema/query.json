@@ -24,7 +24,8 @@
             "5876q18lsh5": {
               "title": "公司",
               "x-decorator": "FormItem",
-              "x-component": "Select"
+              "x-component": "Select",
+              "x-reactions": "{{useSelectAsyncDataSource(getCompanyList, {init: true})}}"
             }
           }
         },
@@ -35,7 +36,8 @@
             "s2a5sx85iwo": {
               "title": "司机类型",
               "x-decorator": "FormItem",
-              "x-component": "Select"
+              "x-component": "Select",
+              "x-reactions": "{{useSelectAsyncDataSource(getDriverTypeList, {init: true})}}"
             }
           }
         }
