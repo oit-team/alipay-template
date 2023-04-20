@@ -26,7 +26,7 @@ const chartRef = ref()
 const option = computed(() => {
   const data = Object.entries(props.data ?? {})
     .map(([name, { driversNumber }]) => ({
-      name: `${name}类司机`,
+      name: `${name.toUpperCase()}类司机`,
       value: driversNumber ?? 0,
     }))
   const option: EChartsOption = {
