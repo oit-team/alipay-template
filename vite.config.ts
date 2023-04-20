@@ -103,6 +103,7 @@ export default (mode: string) => {
               'useVModel',
               'useObjectUrl',
               'useFileDialog',
+              'watchImmediate',
             ],
           },
           {

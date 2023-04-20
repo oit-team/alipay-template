@@ -18,7 +18,11 @@ interface MenuItem {
   permission?: PermissionData // 😅
 }
 
-const { data, execute } = useAxios('/system/menu/getTreeMenuList')
+const { data, execute } = useAxios(
+  '/system/menu/getTreeMenuList',
+  {},
+  { onFinish: redirect, immediate: true },
+)
 
 watch(() => user.profile, () => {
   execute()
@@ -72,6 +76,14 @@ watch(activeMenu, () => {
     setPermissionData(activeMenu.value.permission)
 })
 
+function redirect() {
+  if (route.path === '/') {
+    // 跳转到第一个菜单
+    const path = menu.value?.[0]?.path ?? menu.value?.[0].children?.[0]?.path
+    path && router.push(path)
+  }
+}
+
 async function logout() {
   await ElMessageBox.confirm('确定退出登录吗', '提示')
   localStorage.clear()
@@ -120,25 +132,33 @@ function openCgPw() {
       <ElAside width="200px">
         <ElScrollbar class="border-r">
           <ElMenu class="border-none" :default-active="defaultActive" router unique-opened>
-            <ElSubMenu
-              v-for="(item, index) of menu"
-              :key="index"
-              :index="`${index}`"
-            >
-              <template #title>
-                <div class="flex items-center gap-2">
-                  <div class="text-lg" :class="item.icon" />
-                  {{ item.title }}
-                </div>
+            <template v-for="(item, index) of menu" :key="index">
+              <template v-if="item.children">
+                <ElSubMenu :index="`${index}`">
+                  <template #title>
+                    <div class="flex items-center gap-2">
+                      <div class="text-lg" :class="item.icon" />
+                      {{ item.title }}
+                    </div>
+                  </template>
+                  <ElMenuItem
+                    v-for="(child, childIndex) of item.children"
+                    :key="`${index}-${childIndex}`"
+                    :index="child.path"
+                  >
+                    {{ child.title }}
+                  </ElMenuItem>
+                </ElSubMenu>
               </template>
-              <ElMenuItem
-                v-for="(child, childIndex) of item.children"
-                :key="`${index}-${childIndex}`"
-                :index="child.path"
-              >
-                {{ child.title }}
-              </ElMenuItem>
-            </ElSubMenu>
+              <template v-else>
+                <ElMenuItem :index="item.path">
+                  <div class="flex items-center gap-2">
+                    <div class="text-lg" :class="item.icon" />
+                    {{ item.title }}
+                  </div>
+                </ElMenuItem>
+              </template>
+            </template>
           </ElMenu>
         </ElScrollbar>
       </ElAside>
