@@ -5,6 +5,8 @@ import CategoryChart from './components/CategoryChart.vue'
 import DailyGrowthChart from './components/DailyGrowthChart.vue'
 import OrderAndTransactionChart from './components/OrderAndTransactionChart.vue'
 import DriverSituationTrends from './components/DriverSituationTrends.vue'
+import DurationTrend from './components/DurationTrend.vue'
+import PerCapitaOrderTrend from './components/PerCapitaOrderTrend.vue'
 import type { DataBoardInfo } from './types'
 
 const { data, execute } = useAxios<DataBoardInfo>('/vehicle/reportForm/getDataBoardInfo')
@@ -29,6 +31,12 @@ const { data, execute } = useAxios<DataBoardInfo>('/vehicle/reportForm/getDataBo
         </ElCard>
         <ElCard class="col-start-[span_5]" header="司机情况趋势" shadow="hover">
           <DriverSituationTrends class="aspect-5/1" :data="data?.driverSituationTrends" />
+        </ElCard>
+        <ElCard class="col-start-[span_5]" header="时长情况趋势" shadow="hover">
+          <DurationTrend class="aspect-5/1" :data="data?.durationTrend" />
+        </ElCard>
+        <ElCard class="col-start-[span_5]" header="人均订单情况趋势" shadow="hover">
+          <PerCapitaOrderTrend class="aspect-5/1" :data="data?.perCapitaOrderTrend" />
         </ElCard>
         <div />
       </div>
