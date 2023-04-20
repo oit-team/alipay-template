@@ -11,6 +11,12 @@ watch(tab, () => {
 
 const queryData = ref()
 provide('queryData', queryData)
+
+const ready = computed(() =>
+  queryData.value
+    ? Object.values(queryData.value).every(item => item !== undefined)
+    : false,
+)
 </script>
 
 <template>
@@ -30,6 +36,6 @@ provide('queryData', queryData)
       <Query class="w-full" @query="queryData = $event" />
     </div>
 
-    <RouterView class="flex-1 basis-0" view-class="p-2" />
+    <RouterView v-if="ready" class="flex-1 basis-0" view-class="p-2" />
   </div>
 </template>
