@@ -29,9 +29,7 @@
               "x-decorator": "FormItem",
               "x-component": "Select",
               "x-reactions": "{{useAsyncDataSource(getCompanyList, {init: true})}}",
-              "x-component-props": {
-                "clearable": true
-              }
+              "x-component-props": {}
             }
           }
         },
@@ -44,9 +42,7 @@
               "x-decorator": "FormItem",
               "x-component": "Select",
               "x-reactions": "{{useAsyncDataSource(getDriverTypeList, {init: true})}}",
-              "x-component-props": {
-                "clearable": true
-              }
+              "x-component-props": {}
             }
           }
         }

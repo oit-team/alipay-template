@@ -14,8 +14,8 @@ const form = createForm({
       const data = form.values
       emit('query', {
         ...data,
-        orgId: data.orgId || 0,
-        driverType: data.driverType || 0,
+        orgId: data.orgId,
+        driverType: data.driverType,
       })
     }),
   ],

@@ -96,23 +96,27 @@ export const getUserKeyWord: AsyncDataSourceSelectService = async ({ keyword }) 
 /**
  * 获取司机类型
  */
-export const getDriverTypeList: AsyncDataSourceService = async () => {
+export const getDriverTypeList: AsyncDataSourceService = async ({ field }) => {
   const { data } = await axios.post('/system/menu/getDictitemList', {
     dictCode: 'T3_DRIVER_TYPE',
   })
-  return data.result?.map((item: any) => ({
+  const result = data.result?.map((item: any) => ({
     label: item.nameValues,
     value: item.nameKey,
   }))
+  result[0] && field.setValue(result[0].value)
+  return result
 }
 
 /**
  * 获取公司列表
  */
-export const getCompanyList: AsyncDataSourceService = async () => {
+export const getCompanyList: AsyncDataSourceService = async ({ field }) => {
   const { data } = await axios.post('/system/org/getTreeOrg')
-  return data.result?.map((item: any) => ({
+  const result = data.result?.map((item: any) => ({
     label: item.orgName,
     value: item.orgId,
   }))
+  result[0] && field.setValue(result[0].value)
+  return result
 }
