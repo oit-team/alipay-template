@@ -54,7 +54,7 @@ const format = {
         :header="title"
         :ratio1="data?.[groupKey]?.[key]?.monthToMonth"
         :ratio2="data?.[groupKey]?.[key]?.yearToYear"
-        :value="data?.[groupKey]?.[key]?.DriverNum"
+        :value="data?.[groupKey]?.[key]?.driverNum"
         :value-format="format[key]"
       />
     </template>
