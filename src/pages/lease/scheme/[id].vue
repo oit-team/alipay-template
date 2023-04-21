@@ -18,7 +18,10 @@ const getDetailInfo = async () => {
     const { data } = await axios.post('/order/scheme/getSchemeInfo', {
       caseId: route.params.id,
     })
-    form.setInitialValues(data?.resultMap)
+    form.setInitialValues({
+      ...data?.resultMap,
+      brandCarModelId: data?.resultMap?.brandCarModelId || undefined,
+    })
   }
 }
 getDetailInfo()

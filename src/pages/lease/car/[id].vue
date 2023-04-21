@@ -22,6 +22,7 @@ const getDetailInfo = async () => {
 
     form.setInitialValues({
       ...data.vehicleDetailed,
+      vehicleModelId: data?.vehicleDetailed?.vehicleModelId || undefined,
     })
   }
 }
