@@ -40,6 +40,7 @@ export default defineConfig({
     'i-add': 'i-material-symbols:add-circle',
     'i-edit': 'i-mdi:edit-circle',
     'i-import': 'i-raphael:import',
+    'i-export': 'i-raphael:export',
     'i-apply': 'i-ic:baseline-add-task',
   },
   rules: [

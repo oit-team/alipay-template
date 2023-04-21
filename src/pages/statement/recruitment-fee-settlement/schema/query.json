@@ -1,0 +1,148 @@
+{
+  "type": "object",
+  "properties": {
+    "gmkhkkbwp0g": {
+      "type": "void",
+      "x-component": "FormGrid",
+      "x-component-props": {
+        "maxColumns": 4
+      },
+      "properties": {
+        "to3kday0cm0": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "properties": {
+            "driverNo": {
+              "type": "string",
+              "title": "司机ID",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "name": "driverNo"
+            }
+          }
+        },
+        "t83r3ynicaq": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "properties": {
+            "driverName": {
+              "type": "string",
+              "title": "司机名称",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "name": "driverName"
+            }
+          }
+        },
+        "zvpzm9ri1q1": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "properties": {
+            "licensePlateNumber": {
+              "type": "string",
+              "title": "车牌号",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "name": "licensePlateNumber"
+            }
+          }
+        },
+        "uw5t5p8tybn": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "properties": {
+            "contactNumber": {
+              "type": "string",
+              "title": "联系电话",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "name": "contactNumber"
+            }
+          }
+        },
+        "yju7krb3jq2": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "properties": {
+            "leaseTerm": {
+              "type": "string",
+              "title": "期数",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "name": "leaseTerm"
+            }
+          }
+        },
+        "orwvzdqcex8": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "properties": {
+            "vehicleType": {
+              "type": "string",
+              "title": "车型",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "name": "vehicleType"
+            }
+          }
+        },
+        "lxlh72qen55": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "properties": {
+            "pickUpDate": {
+              "type": "string",
+              "title": "提车日期",
+              "x-decorator": "FormItem",
+              "x-component": "DatePicker",
+              "x-component-props": {
+                "type": "month"
+              },
+              "name": "pickUpDate"
+            }
+          }
+        },
+        "fckgewsf4ab": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "properties": {
+            "driverNatureName": {
+              "type": "string",
+              "title": "司机性质",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "name": "driverNatureName"
+            }
+          }
+        },
+        "69v4l8sg6du": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "properties": {
+            "driverAttribute": {
+              "type": "string",
+              "title": "司机属性",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "name": "driverAttribute"
+            }
+          }
+        },
+        "g5lv59j9yvl": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "properties": {
+            "witnessSituationName": {
+              "type": "string",
+              "title": "人证情况",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "name": "witnessSituationName",
+              "description": ""
+            }
+          }
+        }
+      }
+    }
+  }
+}

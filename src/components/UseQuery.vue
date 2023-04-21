@@ -28,6 +28,8 @@ const props = defineProps({
   },
 })
 
+const emit = defineEmits(['query'])
+
 const total = ref(0)
 const data = ref([])
 
@@ -47,10 +49,12 @@ async function onQuery(options: QueryOptions) {
 
   await nextTick()
   const { formData } = options
-  const { data: res } = await axios.post(props.url, {
+  const params = {
     ...formData,
     ...props.data,
-  })
+  }
+  emit('query', params)
+  const { data: res } = await axios.post(props.url, params)
   data.value = res?.[props.keyMap.data]
   total.value = res?.[props.keyMap.total]
 }

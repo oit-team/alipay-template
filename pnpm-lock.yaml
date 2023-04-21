@@ -14,8 +14,8 @@ dependencies:
     specifier: ^2.2.22
     version: 2.2.22(@vue/composition-api@1.7.1)(typescript@4.9.5)(vue@3.2.47)
   '@oit/utils':
-    specifier: ^0.1.0
-    version: 0.1.0
+    specifier: ^0.1.1
+    version: 0.1.1
   '@uxuip/element-plus-query':
     specifier: 0.0.13
     version: 0.0.13(@vue/composition-api@1.7.1)(typescript@4.9.5)
@@ -23,7 +23,7 @@ dependencies:
     specifier: ^1.7.1
     version: 1.7.1(vue@3.2.47)
   '@vueuse/core':
-    specifier: 10.0.2
+    specifier: ^10.0.2
     version: 10.0.2(@vue/composition-api@1.7.1)(vue@3.2.47)
   '@vueuse/integrations':
     specifier: ^10.0.2
@@ -1495,8 +1495,8 @@ packages:
       - typescript
     dev: true
 
-  /@oit/utils@0.1.0:
-    resolution: {integrity: sha512-5zelnQW7cMrBWiv/b+WG94b285hV8yFZwrgFUlK4Z8Ysnyq28jrHpsVR+LysxiHxzTC1aLdseJNIEP+Iz+ELzQ==}
+  /@oit/utils@0.1.1:
+    resolution: {integrity: sha512-FyewfQscYfxjRpKO4zaCvLDFFIYLENTU7lQWA5eroj78ziPJ9g0H4eBQU/odCLTOFf+z2TQkpVE9Y+9VHk6RwA==}
     dev: false
 
   /@polka/url@1.0.0-next.21:

@@ -20,7 +20,7 @@
     "@formily/core": "^2.2.22",
     "@formily/element-plus": "1.0.0-beta.8",
     "@formily/vue": "^2.2.22",
-    "@oit/utils": "^0.1.0",
+    "@oit/utils": "^0.1.1",
     "@uxuip/element-plus-query": "0.0.13",
     "@vue/composition-api": "^1.7.1",
     "@vueuse/core": "^10.0.2",
