@@ -1,0 +1,180 @@
+{
+  "type": "object",
+  "properties": {
+    "gmkhkkbwp0g": {
+      "type": "void",
+      "x-component": "FormGrid",
+      "x-component-props": {
+        "maxColumns": 4
+      },
+      "properties": {
+        "to3kday0cm0": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "properties": {
+            "licensePlateNumber": {
+              "type": "string",
+              "title": "车牌",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "name": "licensePlateNumber"
+            }
+          }
+        },
+        "t83r3ynicaq": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "properties": {
+            "driverName": {
+              "type": "string",
+              "title": "司机名称",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "name": "driverName"
+            }
+          }
+        },
+        "zvpzm9ri1q1": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "properties": {
+            "leaseTerm": {
+              "type": "string",
+              "title": "租期",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "name": "licensePlateNumber"
+            }
+          }
+        },
+        "uw5t5p8tybn": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "properties": {
+            "rent": {
+              "type": "string",
+              "title": "租金",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "name": "contactNumber"
+            }
+          }
+        },
+        "yju7krb3jq2": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "properties": {
+            "bindingDate": {
+              "type": "string",
+              "title": "绑车",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "name": "leaseTerm"
+            }
+          }
+        },
+        "orwvzdqcex8": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "properties": {
+            "startDate": {
+              "type": "string",
+              "title": "起租日期",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "name": "vehicleType"
+            }
+          }
+        },
+        "lxlh72qen55": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "properties": {
+            "endDate": {
+              "type": "string",
+              "title": "到期日期",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "name": "pickUpDate"
+            }
+          }
+        },
+        "fckgewsf4ab": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "properties": {
+            "returnDate": {
+              "type": "string",
+              "title": "退车日期",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "name": "driverNatureName"
+            }
+          }
+        },
+        "69v4l8sg6du": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "properties": {
+            "numberOfDays": {
+              "type": "string",
+              "title": "天数",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "name": "driverAttribute"
+            }
+          }
+        },
+        "g5lv59j9yvl": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "properties": {
+            "dailyRent": {
+              "type": "string",
+              "title": "日租金",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "name": "witnessSituationName"
+            }
+          }
+        },
+        "55cy0wgjjl7": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "properties": {
+            "rentReceivable": {
+              "type": "string",
+              "title": "应收租金",
+              "x-decorator": "FormItem",
+              "x-component": "Input"
+            }
+          }
+        },
+        "9zww7xqgeer": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "properties": {
+            "t3Withholding": {
+              "type": "string",
+              "title": "T3代扣",
+              "x-decorator": "FormItem",
+              "x-component": "Input"
+            }
+          }
+        },
+        "cqpf51ic4hd": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "properties": {
+            "driverNo": {
+              "type": "string",
+              "title": "司机ID",
+              "x-decorator": "FormItem",
+              "x-component": "Input"
+            }
+          }
+        }
+      }
+    }
+  }
+}
