@@ -38,7 +38,7 @@ const color = (number: number) => {
     </div>
     <div class="flex items-center justify-around py-2" :class="column ? '' : 'w-2/5 flex-col'">
       <div>
-        <div class="text-blue-800 font-bold text-sm">
+        <div class="text-blue-800 font-bold text-xs">
           环比
         </div>
         <div>
@@ -51,7 +51,7 @@ const color = (number: number) => {
         </div>
       </div>
       <div>
-        <div class="text-blue-800 font-bold text-sm">
+        <div class="text-blue-800 font-bold text-xs">
           同比
         </div>
         <div>
