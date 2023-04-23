@@ -34,13 +34,13 @@ async function onDelete(row: any) {
 
 async function onPutaway(row: any) {
   // 0 下架 1 上架
-  const casedescript = row.caseState === 1 ? '下架' : '上架'
+  const casedescript = row.caseState === 1 ? '下架' : '提交'
   await ElMessageBox.confirm(`要${casedescript}该方案吗?`, '提示', {
     type: 'warning',
   })
   await axios.post('/order/scheme/updateSchemeStatus', {
     caseId: row.id,
-    caseState: row.caseState === 1 ? 0 : 1,
+    caseState: row.caseState === 1 ? 0 : 2,
   })
   await queryRef.value?.query()
   ElMessage.success('操作成功')
@@ -87,7 +87,7 @@ const exportDialogVisible = ref(false)
 // 下载模板
 async function downloadModel() {
   const { data } = await axios.get('/order/scheme/getImportTemplate', { responseType: 'arraybuffer' })
-  downloadFile(data, 'T3方案导入模板.xls')
+  await downloadFile(data, 'T3方案导入模板.xls')
 }
 
 // 导入方案
@@ -155,15 +155,27 @@ watch(files, async (value) => {
             </div>
           </template>
           <template #actions>
-            <QueryActionColumn v-slot="{ row }" fixed="right" label="操作" width="180px">
-              <ElButton :disabled="row.caseState === 1" size="small" type="primary" @click="$router.push(`./scheme/${row.id}`)">
+            <QueryActionColumn v-slot="{ row }" fixed="right" label="操作" width="260px">
+              <!--              <ElButton size="small" type="info" @click="$router.push(`./scheme/info/${row.id}?is=${row.isHeadquarters}`)"> -->
+              <!--                {{ row.isHeadquarters === 1 ? '审核' : $t('button.info') }} -->
+              <!--              </ElButton> -->
+              <ElButton v-if="row.caseState === 2 && row.isHeadquarters === 1" size="small" type="success" @click="$router.push(`./scheme/info/${row.id}?is=${row.isHeadquarters}`)">
+                审核
+              </ElButton>
+              <ElButton v-else size="small" type="info" @click="$router.push(`./scheme/info/${row.id}`)">
+                {{ $t('button.info') }}
+              </ElButton>
+              <ElButton v-if="row.isHeadquarters === 0" :disabled="row.caseState === 1" size="small" type="primary" @click="$router.push(`./scheme/${row.id}`)">
                 {{ $t('button.edit') }}
               </ElButton>
-              <ElButton :disabled="row.caseState === 1" size="small" type="danger" @click="onDelete(row)">
+              <ElButton v-if="row.isHeadquarters === 0" :disabled="row.caseState === 1" size="small" type="danger" @click="onDelete(row)">
                 {{ $t('button.delete') }}
               </ElButton>
-              <ElButton size="small" type="warning" @click="onPutaway(row)">
-                {{ row.caseState === 1 ? '下架' : '上架' }}
+              <ElButton v-if="row.caseState === 0 && row.isHeadquarters === 0" size="small" type="warning" @click="onPutaway(row)">
+                提交审核
+              </ElButton>
+              <ElButton v-if="row.caseState === 1 && row.isHeadquarters === 0" size="small" type="warning" @click="onPutaway(row)">
+                下架
               </ElButton>
             </QueryActionColumn>
           </template>

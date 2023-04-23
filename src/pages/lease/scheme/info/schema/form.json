@@ -7,6 +7,7 @@
       "x-decorator": "FormItem",
       "x-component": "Input",
       "x-validator": [],
+      "x-pattern": "disabled",
       "x-component-props": {
         "maxLength": 50
       },
@@ -29,6 +30,7 @@
       "x-component-props": {
         "maxLength": 50
       },
+      "x-pattern": "disabled",
       "x-decorator-props": {
         "colon": false
       },
@@ -42,6 +44,7 @@
       "x-decorator": "FormItem",
       "x-component": "Select",
       "x-validator": [],
+      "x-pattern": "disabled",
       "x-component-props": {
         "placeholder": "请选择方案类型"
       },
@@ -70,6 +73,7 @@
       "x-decorator": "FormItem",
       "x-component": "Select",
       "x-validator": [],
+      "x-pattern": "disabled",
       "x-component-props": {
         "placeholder": "请输入品牌车系车型",
         "allowClear": true,
@@ -102,6 +106,7 @@
       "x-decorator-props": {
         "colon": false
       },
+      "x-pattern": "disabled",
       "name": "leasingCity",
       "x-designable-id": "2nlwc2j6a8t",
       "x-reactions": "{{useSelectAsyncDataSource(loadData, {init: true})}}",
@@ -118,6 +123,7 @@
       "x-decorator-props": {
         "colon": false
       },
+      "x-pattern": "disabled",
       "name": "rent",
       "x-designable-id": "1bhthaijp8z",
       "x-index": 5,
@@ -133,6 +139,7 @@
       "x-decorator-props": {
         "colon": false
       },
+      "x-pattern": "disabled",
       "required": true,
       "name": "cashPledge",
       "x-designable-id": "sqbqreqe5s3",
@@ -145,6 +152,7 @@
       "x-component": "Input",
       "x-validator": [],
       "x-component-props": {},
+      "x-pattern": "disabled",
       "x-decorator-props": {
         "colon": false
       },
@@ -156,6 +164,7 @@
     "vehicleAge": {
       "type": "string",
       "title": "车龄（年）",
+      "x-pattern": "disabled",
       "x-decorator": "FormItem",
       "x-component": "Input",
       "x-validator": "number",
@@ -172,6 +181,7 @@
       "type": "string",
       "title": "里程（km）",
       "x-decorator": "FormItem",
+      "x-pattern": "disabled",
       "x-component": "Input",
       "x-validator": "number",
       "x-component-props": {},
@@ -187,6 +197,7 @@
       "type": "string",
       "title": "方案截止时间",
       "x-decorator": "FormItem",
+      "x-pattern": "disabled",
       "x-component": "DatePicker",
       "x-validator": "date",
       "x-component-props": {
@@ -203,6 +214,7 @@
     "[agencyDeductionTemplateUrl,agencyDeductionTempName]": {
       "type": "Array<object>",
       "title": "代扣模板",
+      "x-pattern": "disabled",
       "x-decorator": "FormItem",
       "x-component": "Upload",
       "x-component-props": {
@@ -220,6 +232,7 @@
     "[contractTemplateUrl,contractTemplateName]": {
       "type": "Array<object>",
       "title": "合同模板",
+      "x-pattern": "disabled",
       "x-decorator": "FormItem",
       "x-component": "Upload",
       "x-component-props": {
