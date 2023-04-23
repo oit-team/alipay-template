@@ -36,7 +36,7 @@ const color = (number: number) => {
         </span>
       </UseNumberAnime>
     </div>
-    <div class="flex items-center justify-around py-2" :class="column ? '' : 'w-2/5 flex-col'">
+    <div class="flex items-center justify-around py-2" :class="column ? '' : 'w-1/4 flex-col'">
       <div>
         <div class="text-blue-800 font-bold text-xs">
           环比

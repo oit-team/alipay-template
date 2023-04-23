@@ -87,8 +87,8 @@ useEcharts(chartRef, echarts, option)
 <template>
   <div ref="chartRef" v-bind="$attrs" />
   <div>
-    <ElTable :data="['trainDriver', 'newOnTheSameDay', 'totalNumberOfDrivers', 'activeDriver']">
-      <ElTableColumn v-slot="{ row }" width="100">
+    <ElTable border :data="['trainDriver', 'newOnTheSameDay', 'totalNumberOfDrivers', 'activeDriver']">
+      <ElTableColumn v-slot="{ row }" fixed width="100">
         {{ {
           trainDriver: '出车司机',
           newOnTheSameDay: '当日新增',

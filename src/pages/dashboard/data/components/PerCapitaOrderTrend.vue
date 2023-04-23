@@ -76,8 +76,8 @@ useEcharts(chartRef, echarts, option)
 <template>
   <div ref="chartRef" v-bind="$attrs" />
   <div>
-    <ElTable :data="['perCapitaOrders', 'averageOrderPrice', 'perCapitaFlow']">
-      <ElTableColumn v-slot="{ row }" width="100">
+    <ElTable border :data="['perCapitaOrders', 'averageOrderPrice', 'perCapitaFlow']">
+      <ElTableColumn v-slot="{ row }" fixed width="100">
         {{ {
           perCapitaOrders: '人均完单',
           averageOrderPrice: '单均价',

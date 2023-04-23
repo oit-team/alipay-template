@@ -36,5 +36,6 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'warn',
     'no-debugger': 'warn',
     'no-restricted-syntax': 'warn',
+    'vue/no-template-shadow': 'off',
   },
 }
