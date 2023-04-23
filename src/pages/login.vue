@@ -5,7 +5,7 @@ meta:
 </route>
 
 <script setup lang="tsx">
-import { connect, createSchemaField } from '@formily/vue'
+import { connect, createSchemaField, useForm } from '@formily/vue'
 import { ElImage, ElInput } from 'element-plus'
 import { FormItem, Input, Password } from '@formily/element-plus'
 import { setToken } from '@/utils/auth'
@@ -17,6 +17,7 @@ const router = useRouter()
 const CheckCode = connect(
   defineComponent({
     setup(props, { attrs }) {
+      const formRef = useForm()
       const { data, execute } = useAxios('/system/login/checkCodeImg', {
         responseType: 'blob',
       })
@@ -29,6 +30,9 @@ const CheckCode = connect(
             onInput={attrs.onChange as any}
             placeholder="请输入验证码"
             class="flex-1 mr-2"
+            onKeyup={(e: any) => {
+              e.keyCode === 13 && formRef.value.submit()
+            }}
           />
           <ElImage src={img.value} class="h-40px" onClick={execute}/>
         </div>
@@ -104,16 +108,16 @@ const onSubmit = async (form: any) => {
             浪汛汽车租赁系统
           </div>
           <div class="border-red border-bottom h-1" />
-          <FormProvider :form="form">
+          <Form :form="form" @auto-submit="onSubmit">
             <FormLayout label-col="0">
               <SchemaField :schema="schema" />
               <FormButtonGroup align-form-item class="w-full">
-                <Submit class="w-full" @submit="onSubmit">
+                <Submit class="w-full">
                   登录
                 </Submit>
               </FormButtonGroup>
             </FormLayout>
-          </FormProvider>
+          </Form>
         </div>
       </div>
     </div>
