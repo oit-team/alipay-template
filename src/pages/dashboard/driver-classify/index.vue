@@ -50,12 +50,15 @@ watchImmediate(queryData, () => execute({ data: queryData.value }))
             }, {
               label: '人均在线时长',
               prop: 'perCapitaOnlineDuration',
+              format: Format.Double,
             }, {
               label: '人均服务时长',
               prop: 'perCapitaServiceHours',
+              format: Format.Double,
             }, {
               label: '人均高峰时长',
               prop: 'perCapitaPeakHours',
+              format: Format.Double,
             }, {
               label: '服务时长有效率',
               prop: 'serviceDurationEffectiveRatio',

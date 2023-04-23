@@ -31,14 +31,14 @@ const color = (number: number) => {
   <div class="flex text-center" :class="{ 'flex-col': column }">
     <div class="flex-1 flex-center">
       <UseNumberAnime v-slot="{ value }" :value="value">
-        <span class="text-4xl font-bold text-orange">
+        <span class="text-2xl font-bold text-orange">
           {{ numeral(value).format(valueFormat) }}
         </span>
       </UseNumberAnime>
     </div>
     <div class="flex items-center justify-around py-2" :class="column ? '' : 'w-2/5 flex-col'">
       <div>
-        <div class="text-blue-800 font-bold text-sm">
+        <div class="text-blue-800 font-bold text-xs">
           环比
         </div>
         <div>
@@ -51,7 +51,7 @@ const color = (number: number) => {
         </div>
       </div>
       <div>
-        <div class="text-blue-800 font-bold text-sm">
+        <div class="text-blue-800 font-bold text-xs">
           同比
         </div>
         <div>
