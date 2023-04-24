@@ -4,6 +4,9 @@ export interface WorkOrderApply {
 
 export const workOrderApplySymbol = Symbol('workOrderApply') as InjectionKey<WorkOrderApply>
 
+/**
+ * @deprecated 改用 FlowOption
+ */
 export interface WorkOrderInfo {
   setViewStep: (item: WorkOrderInfo['workFlowSteps'][number]) => void
   currentLogs?: string[]
@@ -31,6 +34,9 @@ export interface WorkOrderInfo {
   }[]
 }
 
+/**
+ * @deprecated 改用 flowOptionSymbol
+ */
 export const workOrderInfoSymbol = Symbol('workOrderInfo') as InjectionKey<Ref<WorkOrderInfo>>
 
 export interface WorkOrderSubmit {
@@ -54,6 +60,7 @@ export interface FlowOption {
   stepActive?: number
   stepCodeActive?: string
   currentLogs?: string[]
+  currentStep?: any
   isReview: boolean
   mainParams: Record<string, any>
   setViewStep: (item: FlowOption['workFlowSteps'][number]) => void
