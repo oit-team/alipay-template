@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { pick } from 'lodash-es'
-import { workOrderApplySymbol, workOrderInfoSymbol, workOrderSubmitSymbol } from '../types'
-import type { WorkOrderApply, WorkOrderInfo, WorkOrderSubmit } from '../types'
+import { flowOptionSymbol, workOrderApplySymbol, workOrderInfoSymbol, workOrderSubmitSymbol } from '../types'
+import type { FlowOption, WorkOrderApply, WorkOrderInfo, WorkOrderSubmit } from '../types'
 
 enum OrderStatus {
   Abandon = -1,
@@ -11,10 +11,11 @@ enum OrderStatus {
 
 const route = useRoute()
 const router = useRouter()
-const viewStep = ref<number>()
+const stepActive = ref<number>()
+const stepCodeActive = ref<string>()
 const initParams = {
-  flowCode: route.meta.flowCode,
-  workCode: route.query.workCode || '',
+  flowCode: route.meta.flowCode as string,
+  workCode: route.query.workCode as string,
 }
 
 if (!route.meta.flowCode) {
@@ -26,9 +27,12 @@ const {
   data: flowStepsData,
   isLoading,
 } = useAxios('/workFlow/workFlow/getWorkFlowSteps', {
-  data: {
-    ...initParams,
-  },
+  data: initParams,
+})
+
+watch(flowStepsData, (data) => {
+  stepActive.value = data?.step
+  stepCodeActive.value = data?.taskCode
 })
 
 const workOrderApply: WorkOrderApply = (params) => {
@@ -55,34 +59,53 @@ const workOrderSubmit: WorkOrderSubmit = async (params, options) => {
   })
 }
 
-const currentLogs = computed(() => flowStepsData.value?.workFlowSteps?.[viewStep.value!]?.executeLogs)
-const currentStep = computed(() => flowStepsData.value?.workFlowSteps?.[viewStep.value!])
+const currentLogs = computed(() => flowStepsData.value?.workFlowSteps?.[stepActive.value!]?.executeLogs)
+const currentStep = computed(() => flowStepsData.value?.workFlowSteps?.[stepActive.value!])
 const isReview = computed(() =>
   [OrderStatus.Done, OrderStatus.Abandon].includes(flowStepsData.value?.status)
-  || viewStep.value! < flowStepsData.value?.step
+  || stepActive.value! < flowStepsData.value?.step
   || !!Number(route.query.disabled),
 )
 
-const workOrderInfo = computed<WorkOrderInfo>(() => ({
+const workOrderInfo = computed<WorkOrderInfo>(() => reactive({
   ...flowStepsData.value,
   ...initParams,
   step: flowStepsData.value?.step,
-  viewStep: viewStep.value,
-  isReview: isReview.value,
+  viewStep: stepActive,
+  viewStepCode: stepCodeActive,
+  isReview,
   setViewStep,
-  currentLogs: currentLogs.value,
-  currentStep: currentStep.value,
+  currentLogs,
+  currentStep,
 }))
 
-function setViewStep(step: number) {
-  if (step <= workOrderInfo.value.step)
-    viewStep.value = step
+function setViewStep(item: WorkOrderInfo['workFlowSteps'][number]) {
+  if (item.step <= workOrderInfo.value.step) {
+    stepActive.value = item.step
+    stepCodeActive.value = item.taskCode
+  }
 }
 
 watch(() => workOrderInfo.value.step, (step) => {
-  viewStep.value = step
+  stepActive.value = step
 })
 
+const flowOption = computed<FlowOption>(() => reactive({
+  ...initParams,
+  workFlowSteps: flowStepsData.value?.workFlowSteps,
+  taskCode: flowStepsData.value?.taskCode,
+  step: flowStepsData.value?.step,
+  mainParams: flowStepsData.value?.mainParams,
+  isReview,
+  setViewStep,
+  currentLogs,
+  stepActive,
+  stepCodeActive,
+  apply: workOrderApply,
+  submit: workOrderSubmit,
+}))
+
+provide(flowOptionSymbol, flowOption)
 provide(workOrderInfoSymbol, workOrderInfo)
 provide(workOrderApplySymbol, workOrderApply)
 provide(workOrderSubmitSymbol, workOrderSubmit)

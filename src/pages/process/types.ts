@@ -5,7 +5,7 @@ export interface WorkOrderApply {
 export const workOrderApplySymbol = Symbol('workOrderApply') as InjectionKey<WorkOrderApply>
 
 export interface WorkOrderInfo {
-  setViewStep: (step: number) => void
+  setViewStep: (item: WorkOrderInfo['workFlowSteps'][number]) => void
   currentLogs?: string[]
   currentStep?: any
   workCode: string
@@ -13,6 +13,7 @@ export interface WorkOrderInfo {
   taskCode: string
   step: number
   viewStep: number
+  viewStepCode: string
   isReview: boolean
   mainParams: Record<string, any>
   workFlowSteps: {
@@ -26,9 +27,7 @@ export interface WorkOrderInfo {
     role: number
     pageUrl: string
     postUrl: string
-    parameter: null
-    updateTime: null
-    createDate: null
+    clickEnable: number
   }[]
 }
 
@@ -45,4 +44,34 @@ export interface WorkOrderSubmit {
   }): Promise<any>
 }
 
-export const workOrderSubmitSymbol = Symbol('workOrderInfo') as InjectionKey<WorkOrderSubmit>
+export const workOrderSubmitSymbol = Symbol('workOrderSubmit') as InjectionKey<WorkOrderSubmit>
+
+export interface FlowOption {
+  workCode: string
+  flowCode: string
+  taskCode: string
+  step: number
+  stepActive?: number
+  stepCodeActive?: string
+  currentLogs?: string[]
+  isReview: boolean
+  mainParams: Record<string, any>
+  setViewStep: (item: FlowOption['workFlowSteps'][number]) => void
+  submit: WorkOrderSubmit
+  apply: WorkOrderApply
+  workFlowSteps: {
+    id: number
+    name: string
+    taskCode: string
+    flowCode: string
+    preId: number
+    nextId: number
+    step: number
+    role: number
+    pageUrl: string
+    postUrl: string
+    clickEnable: number
+  }[]
+}
+
+export const flowOptionSymbol = Symbol('flowOptionSymbol') as InjectionKey<Ref<FlowOption>>

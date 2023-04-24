@@ -4,35 +4,36 @@ meta:
 </route>
 
 <script setup lang="ts">
-import { workOrderInfoSymbol } from '../types'
 import Logs from '../components/Logs.vue'
+import { useFlowOption } from '../hooks/useFlowOption'
 import ApplyStep from './components/apply/index.vue'
 import MaintainStep from './components/maintain/index.vue'
+import MaintainConfirmStep from './components/maintain-confirm/index.vue'
 import ValidateCarStep from './components/validate-car/index.vue'
 import FinanceStep from './components/finance/index.vue'
 import WarehousingStep from './components/warehousing/index.vue'
 
-const workOrderInfo = inject(workOrderInfoSymbol)
+const flowOption = useFlowOption()
 
-const view = computed(() => [
-  ApplyStep,
-  ValidateCarStep,
-  MaintainStep,
-  MaintainStep,
-  FinanceStep,
-  WarehousingStep,
-][workOrderInfo?.value?.viewStep ?? -1])
+const view = computed(() => ({
+  CAR_RETURN_APPLICATION: ApplyStep,
+  CAR_RETURN_INSPECTION: ValidateCarStep,
+  CAR_RETURN_VEHICLE_MAINTENANCE: MaintainStep,
+  CAR_RETURN_VEHICLE_MAINTENANCE_SURE: MaintainConfirmStep,
+  CAR_RETURN_FINANCIAL_APPROVALS: FinanceStep,
+  CAR_RETURN_SURE: WarehousingStep,
+}[flowOption?.stepCodeActive as string]))
 
 const {
   data: workOrderReview,
   execute: getReturnVehicleOrderMap,
 } = useAxios('/order/returnVehicleOrder/getReturnVehicleOrderMap', {
   data: {
-    workCode: workOrderInfo?.value?.workCode,
+    workCode: flowOption?.workCode,
   },
 }, { immediate: false })
 
-if (workOrderInfo?.value?.workCode)
+if (flowOption?.workCode)
   getReturnVehicleOrderMap()
 
 provide('workOrderReview', workOrderReview)
@@ -41,17 +42,17 @@ provide('workOrderReview', workOrderReview)
 <template>
   <div u-flex="~ col" u-h-full>
     <ElSteps
-      :active="workOrderInfo?.step"
+      :active="flowOption?.step"
       class="sticky top-0 z-10"
       finish-status="success"
       simple
     >
       <ElStep
-        v-for="(item, index) of workOrderInfo?.workFlowSteps"
+        v-for="(item) of flowOption?.workFlowSteps"
         :key="item.id"
-        :class="{ 'step--active': workOrderInfo?.viewStep === index }"
+        :class="{ 'step--active': flowOption?.stepCodeActive === item.taskCode }"
         :title="item.name"
-        @click="workOrderInfo?.setViewStep(index)"
+        @click="flowOption?.setViewStep(item)"
       />
     </ElSteps>
 
