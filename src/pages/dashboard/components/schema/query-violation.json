@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "properties": {
+    "tegk0oh1ajf": {
+      "type": "void",
+      "x-component": "FormGrid",
+      "x-validator": [],
+      "x-component-props": {},
+      "x-designable-id": "tegk0oh1ajf",
+      "x-index": 0,
+      "properties": {
+        "[startTime,endTime]": {
+          "type": "string[]",
+          "title": "有效期",
+          "x-decorator": "FormItem",
+          "x-component": "DatePicker",
+          "required": true,
+          "x-component-props": {
+            "type": "daterange"
+          },
+          "x-index": 0
+        },
+        "orgId": {
+          "title": "公司",
+          "x-decorator": "FormItem",
+          "x-component": "Select",
+          "x-reactions": "{{useAsyncDataSource(getCompanyList, {init: true})}}",
+          "x-component-props": {},
+          "x-index": 1
+        }
+      }
+    }
+  },
+  "x-designable-id": "klphb42qn0j"
+}

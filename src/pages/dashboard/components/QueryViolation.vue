@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onFormValuesChange } from '@formily/core'
 import dayjs from 'dayjs'
-import querySchema from './schema/query.json'
+import querySchema from './schema/query-violation.json'
 import { getCompanyList, getDriverTypeList } from '@/reactions'
 
 const emit = defineEmits<{
@@ -15,7 +15,6 @@ const form = createForm({
       emit('query', {
         ...data,
         orgId: data.orgId,
-        driverType: data.driverType,
       })
     }),
   ],

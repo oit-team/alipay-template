@@ -10,27 +10,27 @@ defineProps({
 
 const titleMap = {
   L1: {
-    warningDrivers: 'I级预警司机',
-    newEmployeesNumber: 'I级当月入职司机',
-    negativeGrowth: 'I级流水负增长司机',
+    warningDrivers: 'I级预警司机（人）',
+    newEmployeesNumber: 'I级当月入职司机（人）',
+    negativeGrowth: 'I级流水负增长司机（人）',
     warningRatio: 'I级预警司机占比',
   },
   L2: {
-    warningDrivers: 'II级预警司机',
-    newEmployeesNumber: 'II级当月入职司机',
-    negativeGrowth: 'II级流水负增长司机',
+    warningDrivers: 'II级预警司机（人）',
+    newEmployeesNumber: 'II级当月入职司机（人）',
+    negativeGrowth: 'II级流水负增长司机（人）',
     warningRatio: 'II级预警司机占比',
   },
   L3: {
-    warningDrivers: 'III级预警司机',
-    newEmployeesNumber: 'III级当月入职司机',
-    negativeGrowth: 'III级流水负增长司机',
+    warningDrivers: 'III级预警司机（人）',
+    newEmployeesNumber: 'III级当月入职司机（人）',
+    negativeGrowth: 'III级流水负增长司机（人）',
     warningRatio: 'III级预警司机占比',
   },
   L4: {
-    warningDrivers: '连续未出车司机',
-    newEmployeesNumber: '连续未出车当月入职司机',
-    negativeGrowth: '连续未出车流水负增长司机',
+    warningDrivers: '连续未出车司机（人）',
+    newEmployeesNumber: '连续未出车当月入职司机（人）',
+    negativeGrowth: '连续未出车流水负增长司机（人）',
     warningRatio: '连续未出车司机占比',
   },
 }

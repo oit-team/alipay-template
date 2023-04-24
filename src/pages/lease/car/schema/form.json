@@ -70,15 +70,39 @@
               "title": "车身颜色",
               "required": true,
               "x-decorator": "FormItem",
-              "x-component": "Input",
+              "x-component": "Select",
+              "enum": [
+                {
+                  "label": "红色",
+                  "value": "红色"
+                },
+                {
+                  "label": "黑色",
+                  "value": "黑色"
+                },
+                {
+                  "label": "白色",
+                  "value": "白色"
+                },
+                {
+                  "label": "银色",
+                  "value": "银色"
+                },
+                {
+                  "label": "金色",
+                  "value": "金色"
+                },
+                {
+                  "label": "灰色",
+                  "value": "灰色"
+                },
+                {
+                  "label": "其他",
+                  "value": "其他"
+                }
+              ],
               "x-index": 6,
-              "name": "bodyColor",
-              "x-component-props": {
-                "maxLength": 20
-              },
-              "x-decorator-props": {
-                "colon": false
-              }
+              "name": "bodyColor"
             },
             "city": {
               "title": "所属城市",

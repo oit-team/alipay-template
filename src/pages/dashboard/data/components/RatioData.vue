@@ -17,27 +17,27 @@ const cardItems: {
   valueFormat?: string
 }[] = [{
   prop: 'driveTotal',
-  title: '司机总数',
+  title: '司机总数（人）',
 }, {
   prop: 'newOnTheSameDay',
-  title: '当日新增',
+  title: '当日新增（人）',
 }, {
   prop: 'compliantDrivers',
-  title: '合规司机',
+  title: '合规司机（人）',
 }, {
   prop: 'complianceRate',
   title: '合规率',
   valueFormat: ratioFormat,
 }, {
   prop: 'driverFlow',
-  title: '司机流水',
+  title: '司机流水（元）',
   valueFormat: moneyFormat,
 }, {
   prop: 'onlineDriver',
-  title: '出车司机',
+  title: '出车司机（人）',
 }, {
   prop: 'activeDriver',
-  title: '活跃司机',
+  title: '活跃司机（人）',
 }, {
   prop: 'onlineRate',
   title: '出车率',
@@ -51,15 +51,15 @@ const cardItems: {
   title: '司机完单',
 }, {
   prop: 'perCapitaTravelTime',
-  title: '人均出车时长',
+  title: '人均出车时长（小时）',
   valueFormat: doubleFormat,
 }, {
   prop: 'perCapitaServiceHours',
-  title: '人均服务时长',
+  title: '人均服务时长（小时）',
   valueFormat: doubleFormat,
 }, {
   prop: 'perCapitaPeakHours',
-  title: '人均高峰时长',
+  title: '人均高峰时长（小时）',
   valueFormat: doubleFormat,
 }, {
   prop: 'durationEfficiency',
@@ -67,11 +67,11 @@ const cardItems: {
   valueFormat: ratioFormat,
 }, {
   prop: 'perCapitaFlow',
-  title: '人均流水',
+  title: '人均流水（元）',
   valueFormat: moneyFormat,
 }, {
   prop: 'averageOrderPrice',
-  title: '订单均价',
+  title: '订单均价（元）',
   valueFormat: moneyFormat,
 }, {
   prop: 'perCapitaCompletionOfOrders',
