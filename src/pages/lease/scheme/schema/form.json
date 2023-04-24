@@ -128,7 +128,7 @@
       "title": "押金",
       "x-decorator": "FormItem",
       "x-component": "Input",
-      "x-validator": "integer",
+      "x-validator": "number",
       "x-component-props": {},
       "x-decorator-props": {
         "colon": false
@@ -153,52 +153,16 @@
       "x-designable-id": "wheij0ufoc7",
       "x-index": 7
     },
-    "vehicleAge": {
-      "type": "string",
-      "title": "车龄（年）",
-      "x-decorator": "FormItem",
-      "x-component": "Input",
-      "x-validator": "number",
-      "x-component-props": {},
-      "x-decorator-props": {
-        "colon": false
-      },
-      "name": "vehicleAge",
-      "x-designable-id": "9hf0sdzk8y6",
-      "x-index": 8,
-      "required": true
-    },
-    "mileage": {
-      "type": "string",
-      "title": "里程（km）",
-      "x-decorator": "FormItem",
-      "x-component": "Input",
-      "x-validator": "number",
-      "x-component-props": {},
-      "x-decorator-props": {
-        "colon": false
-      },
-      "name": "mileage",
-      "x-designable-id": "m6oy6qgtlnz",
-      "x-index": 9,
-      "required": true
-    },
-    "expirationDate": {
-      "type": "string",
-      "title": "方案截止时间",
+    "[startDate,expirationDate]": {
+      "type": "string[]",
+      "title": "有效期",
       "x-decorator": "FormItem",
       "x-component": "DatePicker",
-      "x-validator": "date",
+      "required": true,
       "x-component-props": {
-        "placeholder": "选择方案截止时间"
+        "type": "daterange"
       },
-      "x-decorator-props": {
-        "colon": false
-      },
-      "name": "expirationDate",
-      "x-designable-id": "obn3q704om6",
-      "x-index": 10,
-      "required": true
+      "x-index": 8
     },
     "[agencyDeductionTemplateUrl,agencyDeductionTempName]": {
       "type": "Array<object>",
@@ -215,7 +179,7 @@
       },
       "name": "agencyDeductionTemplateUrl",
       "x-designable-id": "b0o5zb9n8ny",
-      "x-index": 11
+      "x-index": 9
     },
     "[contractTemplateUrl,contractTemplateName]": {
       "type": "Array<object>",
@@ -233,7 +197,7 @@
       },
       "name": "contractTemplateUrl",
       "x-designable-id": "toyuh0vvtfw",
-      "x-index": 12
+      "x-index": 10
     }
   },
   "x-designable-id": "609ucp7429v"
