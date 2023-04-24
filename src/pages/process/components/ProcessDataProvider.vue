@@ -63,7 +63,7 @@ const currentLogs = computed(() => flowStepsData.value?.workFlowSteps?.[stepActi
 const currentStep = computed(() => flowStepsData.value?.workFlowSteps?.[stepActive.value!])
 const isReview = computed(() =>
   [OrderStatus.Done, OrderStatus.Abandon].includes(flowStepsData.value?.status)
-  || stepActive.value! < flowStepsData.value?.step
+  || flowStepsData.value?.taskCode !== stepCodeActive.value
   || !!Number(route.query.disabled),
 )
 
@@ -99,6 +99,7 @@ const flowOption = computed<FlowOption>(() => reactive({
   isReview,
   setViewStep,
   currentLogs,
+  currentStep,
   stepActive,
   stepCodeActive,
   apply: workOrderApply,
