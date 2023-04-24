@@ -188,7 +188,7 @@ async function updateTableList() {
           ref="treeRef"
           class="tree"
           :data="treeData"
-          default-expand-all
+          :default-expanded-keys="activeTree ? [activeTree.key] : []"
           :expand-on-click-node="false"
           :filter-node-method="filterNode"
           highlight-current
