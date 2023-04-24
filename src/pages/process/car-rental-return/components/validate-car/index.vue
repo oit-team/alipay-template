@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { cloneDeep } from 'lodash-es'
-import { onFieldReact } from '@formily/core'
+import { onFieldReact, onFieldValueChange } from '@formily/core'
+import numeral from 'numeral'
 import { workOrderInfoSymbol, workOrderSubmitSymbol } from '../../../types'
 import Valuation from '../components/Valuation.vue'
 import table from './schema/table.json'
@@ -23,6 +24,35 @@ const form = createForm({
         const result = form.query(`*.${key}.receivable`).value() - form.query(`*.${key}.netReceipts`).value()
         field.value = Math.floor(result * 100) / 100 || 0
       })
+    })
+
+    // 切换配件是否存在
+    onFieldValueChange('vehicleInspectionDetailed.vehicleAccessories.*.missing', (field) => {
+      field = field as FieldType
+      const path = field.path.entire as string
+      const parent = path.replace(/\.missing$/, '')
+      const subtotal = form.query(`${parent}.subtotal`).take()! as FieldType
+      const remark = form.query(`${parent}.remarks`).take()! as FieldType
+      if (field.value) {
+        subtotal.disabled = false
+        remark.disabled = false
+      }
+      else {
+        subtotal.disabled = true
+        subtotal.value = 0
+        remark.disabled = true
+        remark.value = ''
+      }
+    })
+
+    // 计算车辆配件小计
+    onFieldReact('*.vehicleCertificate.subtotal', (field) => {
+      field = field as FieldType
+      const result = form
+        .query('vehicleInspectionDetailed.vehicleAccessories.*.subtotal')
+        .reduce((acc, cur) => acc + (cur as FieldType).value, 0)
+
+      field.value = numeral(result).format('0[.]00')
     })
   },
 })
@@ -51,7 +81,6 @@ form.setValuesIn(
     receivable: item,
     missing: false,
     subtotal: 0,
-    remark: '',
   })),
 )
 

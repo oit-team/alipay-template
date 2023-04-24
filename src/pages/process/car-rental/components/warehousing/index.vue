@@ -21,7 +21,7 @@ async function submit() {
 
 <template>
   <div class="h-full flex flex-col">
-    <PageHeader title="申请退租">
+    <PageHeader :title="`申请租车-${$route.query?.workCode}`">
       <template v-if="!isReview" #extra>
         <ElButton type="primary" @click="submit">
           提交
