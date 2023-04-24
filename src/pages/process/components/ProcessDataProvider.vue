@@ -80,7 +80,7 @@ const workOrderInfo = computed<WorkOrderInfo>(() => reactive({
 }))
 
 function setViewStep(item: WorkOrderInfo['workFlowSteps'][number]) {
-  if (item.step <= workOrderInfo.value.step) {
+  if (item.clickEnable) {
     stepActive.value = item.step
     stepCodeActive.value = item.taskCode
   }
