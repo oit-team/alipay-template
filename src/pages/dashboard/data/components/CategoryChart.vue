@@ -35,8 +35,8 @@ const option = computed(() => {
   const option: EChartsOption = {
     tooltip: {
       trigger: 'item',
-      formatter: (param) => {
-        return `${param.name} ${param.value}（${Number.parseFloat((param.value / allDriverNumber * 100).toString()).toFixed(2)}%）`
+      formatter: (param: any) => {
+        return `${param.name} ${Number.parseFloat((param.value / allDriverNumber * 100).toString()).toFixed(2)}%（${param.value}）`
       },
     },
     series: [
@@ -47,7 +47,7 @@ const option = computed(() => {
         universalTransition: true,
         label: {
           show: true,
-          formatter: (param) => {
+          formatter: (param: any) => {
             return `${param.name} ${Number.parseFloat((param.value / allDriverNumber * 100).toString()).toFixed(2)}%（${param.value}）`
           },
         },

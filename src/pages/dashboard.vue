@@ -1,11 +1,19 @@
 <script setup lang="ts">
 import Query from './dashboard/components/Query.vue'
+import QueryViolation from './dashboard/components/QueryViolation.vue'
 
 const route = useRoute()
 const router = useRouter()
 
 const tab = ref(route.path)
+const showQuery = ref<Boolean>(false)
+
 watch(tab, () => {
+  if (tab.value === '/dashboard/driver-violation')
+    showQuery.value = true
+  else
+    showQuery.value = false
+
   router.replace(tab.value)
 })
 
@@ -32,8 +40,16 @@ const ready = computed(() =>
         <ElRadioButton label="/dashboard/driver-warning">
           司机预警看板
         </ElRadioButton>
+        <ElRadioButton label="/dashboard/driver-violation">
+          违规看板
+        </ElRadioButton>
       </ElRadioGroup>
-      <Query class="w-full" @query="queryData = $event" />
+      <template v-if="showQuery">
+        <QueryViolation class="w-full" @query="queryData = $event" />
+      </template>
+      <template v-else>
+        <Query class="w-full" @query="queryData = $event" />
+      </template>
     </div>
 
     <RouterView v-if="ready" class="flex-1 basis-0" view-class="p-2" />
