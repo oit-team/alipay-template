@@ -15,7 +15,7 @@ const stepActive = ref<number>()
 const stepCodeActive = ref<string>()
 const initParams = {
   flowCode: route.meta.flowCode as string,
-  workCode: route.query.workCode as string,
+  workCode: route.query.workCode as string ?? '',
 }
 
 if (!route.meta.flowCode) {
