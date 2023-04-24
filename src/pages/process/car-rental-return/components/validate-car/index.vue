@@ -77,6 +77,7 @@ form.setValuesIn(
     '脚垫',
     '紧急警示牌',
     '拖车钩',
+    '其它',
   ].map(item => ({
     receivable: item,
     missing: false,

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { pick } from 'lodash-es'
 import { workOrderInfoSymbol, workOrderSubmitSymbol } from '../../../types'
-import table from './schema/table.json'
+import table from '../maintain/schema/table.json'
 import Upload from '@/components/FUpload'
 
 const { t } = useI18n()
@@ -10,6 +10,9 @@ const route = useRoute()
 const form = createForm()
 const workOrderSubmit = inject(workOrderSubmitSymbol)
 const workOrderInfo = inject(workOrderInfoSymbol)
+
+// review或维修确认时，表单只读
+// form.readOnly = !!workOrderInfo?.value.isReview || workOrderInfo?.value.taskCode === 'CAR_RETURN_VEHICLE_MAINTENANCE_SURE'
 
 const { data: repairOrderInfo } = useAxios('/order/leaseOrder/getRepairOrderInfo', {
   data: {
@@ -67,22 +70,35 @@ async function reject() {
           <ElTabPane label="维修补充">
             <FormLayout label-col="3">
               <div class="grid grid-cols-1 p-2 gap-2">
-                <ElCard>
+                <ElCard readonly>
                   <UseSchemaField :schema="table" />
                 </ElCard>
                 <div class="grid grid-cols-2 gap-2">
                   <ElCard header="车辆情况">
-                    <Field
-                      :component="[Upload, {
-                        multiple: true,
-                        accept: 'image/*',
-                        format: 'url',
-                      }]"
-                      :decorator="[FormItem]"
-                      name="vehicleCondition"
-                    />
+                    <ObjectField name="vehicleDetailCondition">
+                      <Field
+                        :component="[Upload, {
+                          multiple: true,
+                          accept: 'image/*',
+                          format: 'url',
+                        }]"
+                        :decorator="[FormItem]"
+                        name="left"
+                        title="左前"
+                      />
+                      <Field
+                        :component="[Upload, {
+                          multiple: true,
+                          accept: 'image/*',
+                          format: 'url',
+                        }]"
+                        :decorator="[FormItem]"
+                        name="right"
+                        title="右前"
+                      />
+                    </ObjectField>
                   </ElCard>
-                  <ElCard header="其他附件">
+                  <ElCard header="其他附件" readonly>
                     <Field
                       :component="[Upload, {
                         multiple: true,

@@ -41,6 +41,18 @@
               }
             }
           },
+          "column6": {
+            "type": "void",
+            "x-component": "ArrayTable.Column",
+            "x-component-props": { "title": "维修金额" },
+            "properties": {
+              "repairAmount": {
+                "type": "number",
+                "x-decorator": "FormItem",
+                "x-component": "InputNumber"
+              }
+            }
+          },
           "column3": {
             "type": "void",
             "x-component": "ArrayTable.Column",

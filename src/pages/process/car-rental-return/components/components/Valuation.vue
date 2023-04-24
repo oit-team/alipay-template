@@ -199,7 +199,7 @@ const accessoriesSchema = {
       </div>
     </ElCard>
 
-    <ElCard title="车辆配件">
+    <ElCard header="车辆配件">
       <UseSchemaField :schema="accessoriesSchema" />
     </ElCard>
   </ObjectField>
