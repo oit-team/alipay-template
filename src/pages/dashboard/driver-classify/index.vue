@@ -34,29 +34,29 @@ watchImmediate(queryData, () => execute({ data: queryData.value }))
         <div class="grid grid-cols-8 gap-5">
           <div
             v-for="item of [{
-              label: '司机总数',
+              label: '司机总数（人）',
               prop: 'totalNumberOfDrivers',
             }, {
-              label: '合规司机',
+              label: '合规司机（人）',
               prop: 'compliantDrivers',
             }, {
-              label: '司机流水',
+              label: '司机流水（元）',
               prop: 'driverFlow',
               format: Format.Money,
             }, {
-              label: '人均流水',
+              label: '人均流水（元）',
               prop: 'perCapitaFlow',
               format: Format.Money,
             }, {
-              label: '人均在线时长',
+              label: '人均在线时长（小时）',
               prop: 'perCapitaOnlineDuration',
               format: Format.Double,
             }, {
-              label: '人均服务时长',
+              label: '人均服务时长（小时）',
               prop: 'perCapitaServiceHours',
               format: Format.Double,
             }, {
-              label: '人均高峰时长',
+              label: '人均高峰时长（小时）',
               prop: 'perCapitaPeakHours',
               format: Format.Double,
             }, {
