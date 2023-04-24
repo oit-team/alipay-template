@@ -83,6 +83,22 @@
                 {
                   "label": "白色",
                   "value": "白色"
+                },
+                {
+                  "label": "银色",
+                  "value": "银色"
+                },
+                {
+                  "label": "金色",
+                  "value": "金色"
+                },
+                {
+                  "label": "灰色",
+                  "value": "灰色"
+                },
+                {
+                  "label": "其他",
+                  "value": "其他"
                 }
               ],
               "x-index": 6,

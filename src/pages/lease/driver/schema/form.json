@@ -191,66 +191,50 @@
               "x-decorator": "FormItem",
               "enum": [
                 {
-                  "children": [
-                    {
-                      "label": "A1",
-                      "value": "A1"
-                    },
-                    {
-                      "label": "A2",
-                      "value": "A2"
-                    },
-                    {
-                      "label": "A3",
-                      "value": "A3"
-                    }],
-                  "label": "A",
-                  "value": "A"
+                  "label": "A1",
+                  "value": "A1"
                 },
                 {
-                  "children": [
-                    {
-                      "label": "B1",
-                      "value": "B1"
-                    },
-                    {
-                      "label": "B2",
-                      "value": "B2"
-                    }],
-                  "label": "B",
-                  "value": "B"
+                  "label": "A2",
+                  "value": "A2"
                 },
                 {
-                  "children": [
-                    {
-                      "label": "C1",
-                      "value": "C1"
-                    },
-                    {
-                      "label": "C2",
-                      "value": "C2"
-                    },
-                    {
-                      "label": "C3",
-                      "value": "C3"
-                    },
-                    {
-                      "label": "C4",
-                      "value": "C4"
-                    },
-                    {
-                      "label": "C5",
-                      "value": "C5"
-                    }
-                  ],
-                  "label": "C",
-                  "value": "C"
+                  "label": "A3",
+                  "value": "A3"
+                },
+                {
+                  "label": "B1",
+                  "value": "B1"
+                },
+                {
+                  "label": "B2",
+                  "value": "B2"
+                },
+                {
+                  "label": "C1",
+                  "value": "C1"
+                },
+                {
+                  "label": "C2",
+                  "value": "C2"
+                },
+                {
+                  "label": "C3",
+                  "value": "C3"
+                },
+                {
+                  "label": "C4",
+                  "value": "C4"
+                },
+                {
+                  "label": "C5",
+                  "value": "C5"
                 }
               ],
               "x-component-props": {
                 "show-all-levels": false
               },
-              "x-component": "Cascader",
+              "x-component": "Select",
               "x-index": 1
             },
             "[startTime,endTime]": {
