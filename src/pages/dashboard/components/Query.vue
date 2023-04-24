@@ -22,7 +22,7 @@ const form = createForm({
 })
 
 form.setInitialValues({
-  time: dayjs().format('YYYY-MM-DD'),
+  time: dayjs().subtract(1, 'day').format('YYYY-MM-DD'),
 })
 </script>
 
