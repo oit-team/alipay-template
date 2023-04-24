@@ -9,10 +9,11 @@ import { getCityList, useSelectAsyncDataSource } from '@/reactions'
 const { t } = useI18n()
 
 enum statusColorMap {
-  '', // 审批中
-  'text-green-500', // 履约中
+  '', // 未上架
+  'text-green-500', // 已上架
   'text-yellow-500', // 已到期
-  'text-red-500', // '已作废'
+  'text-blue-500', // 已通过
+  'text-red-500', // 已作废
 }
 
 const queryRef = ref()
@@ -31,14 +32,28 @@ async function onDelete(row: any) {
 }
 
 async function onPutaway(row: any) {
+  let casedescript = ''
+  let state = 0
   // 0 下架 1 上架
-  const casedescript = row.caseState === 1 ? '下架' : '提交'
+  if (row.caseState === 1) {
+    state = 0
+    casedescript = '下架'
+  }
+  else if (row.caseState === 3) {
+    casedescript = '撤回'
+    state = 0
+  }
+  else if (row.caseState === 0) {
+    casedescript = '提交'
+    state = 2
+  }
+
   await ElMessageBox.confirm(`确定要${casedescript}该方案吗?`, '提示', {
     type: 'warning',
   })
   await axios.post('/order/scheme/updateSchemeStatus', {
     caseId: row.id,
-    caseState: row.caseState === 1 ? 0 : 2,
+    caseState: state,
   })
   await queryRef.value?.query()
   ElMessage.success(t('handle.success'))
@@ -69,6 +84,9 @@ const columnsConfig = {
   expirationDate: {
     width: 150,
   },
+  startDate: {
+    width: 150,
+  },
   createTime: {
     width: 180,
   },
@@ -90,16 +108,11 @@ const columnsConfig = {
       :data="{
         caseType: 0, // 自营: 0 t3: 1
       }"
-
       :key-map="{ data: 'schemeList', total: 'totalCount' }"
       schema-key="1681103889971"
       url="/order/scheme/getSchemeList"
     >
-      <QueryProvide
-        v-bind="attrs"
-        ref="queryRef"
-        auto-query="active"
-      >
+      <QueryProvide v-bind="attrs" ref="queryRef" auto-query="active">
         <QueryForm :scope="{ useSelectAsyncDataSource, getCityList }" />
         <QueryToolbar>
           <TButton icon="add" @click="$router.push(`./scheme/new`)">
@@ -115,22 +128,62 @@ const columnsConfig = {
           </template>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" fixed="right" label="操作" width="260px">
-              <ElButton v-if="row.caseState === 2 && row.isHeadquarters === 1" size="small" type="success" @click="$router.push(`./scheme/info/${row.id}?is=${row.isHeadquarters}`)">
+              <ElButton
+                v-if="row.caseState === 2 && row.isHeadquarters === 1"
+                size="small"
+                type="success"
+                @click="$router.push(`./scheme/info/${row.id}?is=${row.isHeadquarters}`)"
+              >
                 审核
               </ElButton>
-              <ElButton v-else size="small" type="info" @click="$router.push(`./scheme/info/${row.id}`)">
+              <ElButton
+                v-else
+                size="small"
+                type="info"
+                @click="$router.push(`./scheme/info/${row.id}`)"
+              >
                 {{ $t('button.info') }}
               </ElButton>
-              <ElButton v-if="row.isHeadquarters === 0" :disabled="row.caseState === 1" size="small" type="primary" @click="$router.push(`./scheme/${row.id}`)">
+              <ElButton
+                v-if="row.isHeadquarters === 0"
+                :disabled="row.caseState !== 0"
+                size="small"
+                type="primary"
+                @click="$router.push(`./scheme/${row.id}`)"
+              >
                 {{ $t('button.edit') }}
               </ElButton>
-              <ElButton v-if="row.isHeadquarters === 0" :disabled="row.caseState === 1" size="small" type="danger" @click="onDelete(row)">
+              <ElButton
+                v-if="row.isHeadquarters === 0"
+                :disabled="row.caseState !== 0"
+                size="small"
+                type="danger"
+                @click="onDelete(row)"
+              >
                 {{ $t('button.delete') }}
               </ElButton>
-              <ElButton v-if="row.caseState === 0 && row.isHeadquarters === 0" size="small" type="warning" @click="onPutaway(row)">
+              <ElButton
+                v-if="row.caseState === 0 && row.isHeadquarters === 0"
+                size="small"
+                type="warning"
+                @click="onPutaway(row)"
+              >
                 提交审核
               </ElButton>
-              <ElButton v-if="row.caseState === 1 && row.isHeadquarters === 0" size="small" type="warning" @click="onPutaway(row)">
+              <ElButton
+                v-if="(row.caseState === 3 || row.caseState === 2) && row.isHeadquarters === 0"
+                size="small"
+                type="warning"
+                @click="onPutaway(row)"
+              >
+                撤回
+              </ElButton>
+              <ElButton
+                v-if="row.caseState === 1 && row.isHeadquarters === 0"
+                size="small"
+                type="warning"
+                @click="onPutaway(row)"
+              >
                 下架
               </ElButton>
             </QueryActionColumn>

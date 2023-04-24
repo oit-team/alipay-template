@@ -161,38 +161,6 @@
       "x-designable-id": "wheij0ufoc7",
       "x-index": 7
     },
-    "vehicleAge": {
-      "type": "string",
-      "title": "车龄（年）",
-      "x-pattern": "disabled",
-      "x-decorator": "FormItem",
-      "x-component": "Input",
-      "x-validator": "number",
-      "x-component-props": {},
-      "x-decorator-props": {
-        "colon": false
-      },
-      "name": "vehicleAge",
-      "x-designable-id": "9hf0sdzk8y6",
-      "x-index": 8,
-      "required": true
-    },
-    "mileage": {
-      "type": "string",
-      "title": "里程（km）",
-      "x-decorator": "FormItem",
-      "x-pattern": "disabled",
-      "x-component": "Input",
-      "x-validator": "number",
-      "x-component-props": {},
-      "x-decorator-props": {
-        "colon": false
-      },
-      "name": "mileage",
-      "x-designable-id": "m6oy6qgtlnz",
-      "x-index": 9,
-      "required": true
-    },
     "expirationDate": {
       "type": "string",
       "title": "方案截止时间",

@@ -90,10 +90,10 @@ function refuse() {
         </FormLayout>
         <div v-if="route.query.is && route.query.is === '1'" class="mt-auto flex justify-center py-2">
           <div class="w-full flex justify-around">
-            <ElButton type="primary" @click="submit('1')">
+            <ElButton type="primary" @click="submit('3')">
               通过
             </ElButton>
-            <ElButton type="warning" @click="dialogFormVisible = true">
+            <ElButton type="warning" @click="submit('0')">
               拒绝
             </ElButton>
           </div>
