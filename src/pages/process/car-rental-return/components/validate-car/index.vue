@@ -91,6 +91,7 @@ watch(workOrderReview, (data) => {
     ...data?.vehicleInspectionMap,
     // 维修项
     keepInRepair: data?.repairDetailedMap,
+    vehicleSupplementary: data?.vehicleSupplementary,
   })
   form.setInitialValues(initData)
   form.readOnly = !!workOrderInfo?.value.isReview
