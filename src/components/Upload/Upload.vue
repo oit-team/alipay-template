@@ -26,8 +26,8 @@ const props = withDefaults(defineProps<UploadProps>(), {
   limit: 9,
 })
 const emit = defineEmits(['update:fileList'])
-const uploadRef = ref<UploadInstance>()
 const fileList = useVModel(props, 'fileList', emit)
+const uploadRef = ref<UploadInstance>()
 
 function httpRequest(options: UploadRequestOptions) {
   return upload({
@@ -97,6 +97,20 @@ const exposes = keys.reduce((cur, next) => {
 function handleRemove(file: UploadFile | UploadRawFile, rawFile?: UploadRawFile) {
   uploadRef.value?.handleRemove(file, rawFile)
 }
+
+onMounted(() => {
+  const instance = getCurrentInstance()
+  const el = instance?.proxy?.$el as HTMLElement
+  // 超出上传数据限制时隐藏上传按钮
+  if (props.listType === 'picture-card') {
+    const uploadCard = el?.querySelector('.el-upload--picture-card') as HTMLElement
+    watch(() => props.fileList?.length, async (fileCount) => {
+      if (!uploadCard)
+        return
+      uploadCard.style.display = fileCount! >= props.limit ? 'none' : ''
+    }, { immediate: true })
+  }
+})
 
 defineExpose({
   abort,
