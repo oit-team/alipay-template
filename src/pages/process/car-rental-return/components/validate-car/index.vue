@@ -7,6 +7,7 @@ import Valuation from '../components/Valuation.vue'
 import table from './schema/table.json'
 import type { Field as FieldType } from '@formily/core'
 import Upload from '~/components/FUpload'
+import vehicleCondition from '~/pages/process/schema/vehicleCondition.json'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -137,7 +138,7 @@ async function reject() {
 
       <ElTabs class="flex-1 rounded-b-lg" type="border-card">
         <ElTabPane label="信息补充">
-          <FormLayout class="flex flex-col gap-2 p-2" label-col="2">
+          <FormLayout class="flex flex-col gap-2 p-2" label-width="6em">
             <div class="flex-1 flex flex-col gap-2">
               <Valuation field-name="vehicleInspectionDetailed" />
               <ElCard>
@@ -146,16 +147,9 @@ async function reject() {
             </div>
             <div class="flex-1 flex flex-col gap-2">
               <ElCard header="车辆情况">
-                <Field
-                  :component="[Upload, {
-                    multiple: true,
-                    accept: 'image/*',
-                    format: 'url',
-                    limit: 1,
-                  }]"
-                  name="vehicleCondition"
-                  title="车辆信息"
-                />
+                <ObjectField name="vehicleSupplementary">
+                  <UseSchemaField :schema="vehicleCondition" />
+                </ObjectField>
               </ElCard>
               <ElCard header="其他附件">
                 <Field

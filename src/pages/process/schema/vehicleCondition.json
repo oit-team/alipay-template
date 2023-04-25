@@ -1,0 +1,212 @@
+{
+  "type": "object",
+  "properties": {
+    "xmgcgupg47p": {
+      "type": "void",
+      "x-component": "FormGrid",
+      "x-validator": [],
+      "x-component-props": {
+        "maxColumns": 4
+      },
+      "x-designable-id": "xmgcgupg47p",
+      "x-index": 0,
+      "properties": {
+        "ze6fbrg2c4s": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "ze6fbrg2c4s",
+          "x-index": 0,
+          "x-validator": [],
+          "x-component-props": {},
+          "properties": {
+            "front": {
+              "type": "Array<object>",
+              "title": "正前方",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload",
+                "limit": 1,
+                "format": "url"
+              },
+              "x-validator": [],
+              "x-decorator-props": {},
+              "x-designable-id": "fgbmqplu7cj",
+              "x-index": 0,
+              "name": "front"
+            }
+          }
+        },
+        "3dpkm9pv6c4": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "3dpkm9pv6c4",
+          "x-index": 1,
+          "properties": {
+            "rear": {
+              "type": "Array<object>",
+              "title": "正后方",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload",
+                "limit": 1,
+                "format": "url"
+              },
+              "x-validator": [],
+              "x-decorator-props": {},
+              "x-designable-id": "cfgfy78l8tx",
+              "x-index": 0,
+              "name": "rear"
+            }
+          }
+        },
+        "4287y2lbm1y": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "4287y2lbm1y",
+          "x-index": 2,
+          "properties": {
+            "left": {
+              "type": "Array<object>",
+              "title": "左侧",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload",
+                "limit": 1,
+                "format": "url"
+              },
+              "x-validator": [],
+              "x-decorator-props": {},
+              "x-designable-id": "9zgkzgqdddj",
+              "x-index": 0,
+              "name": "left"
+            }
+          }
+        },
+        "uehvywcqg05": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "uehvywcqg05",
+          "x-index": 3,
+          "properties": {
+            "right": {
+              "type": "Array<object>",
+              "title": "右侧",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload",
+                "limit": 1,
+                "format": "url"
+              },
+              "x-validator": [],
+              "x-decorator-props": {},
+              "x-designable-id": "83zvl9uinnl",
+              "x-index": 0,
+              "name": "right"
+            }
+          }
+        },
+        "9ocge0gy09g": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "9ocge0gy09g",
+          "x-index": 4,
+          "properties": {
+            "backRow": {
+              "type": "Array<object>",
+              "title": "后排",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload",
+                "limit": 1,
+                "format": "url"
+              },
+              "x-validator": [],
+              "x-decorator-props": {},
+              "x-designable-id": "0p6uwddi7wo",
+              "x-index": 0,
+              "name": "backRow"
+            }
+          }
+        },
+        "4lcjpszbxym": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "4lcjpszbxym",
+          "x-index": 5,
+          "properties": {
+            "frontRow": {
+              "type": "Array<object>",
+              "title": "前排",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload",
+                "limit": 1,
+                "format": "url"
+              },
+              "x-validator": [],
+              "x-decorator-props": {},
+              "x-designable-id": "6bearkve8r5",
+              "x-index": 0,
+              "name": "frontRow"
+            }
+          }
+        },
+        "0mjtcaenawg": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "0mjtcaenawg",
+          "x-index": 6,
+          "properties": {
+            "dashboard": {
+              "type": "Array<object>",
+              "title": "仪表盘",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload",
+                "limit": 1,
+                "format": "url"
+              },
+              "x-validator": [],
+              "x-decorator-props": {},
+              "x-designable-id": "pizc5ayn4l1",
+              "x-index": 0,
+              "name": "dashboard"
+            }
+          }
+        },
+        "s9khecly4yd": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "s9khecly4yd",
+          "x-index": 7,
+          "properties": {
+            "chassis": {
+              "type": "Array<object>",
+              "title": "底盘",
+              "x-decorator": "FormItem",
+              "x-component": "Upload",
+              "x-component-props": {
+                "textContent": "Upload",
+                "limit": 1,
+                "format": "url"
+              },
+              "x-validator": [],
+              "x-decorator-props": {},
+              "x-designable-id": "x7j7tnj0hgh",
+              "x-index": 0,
+              "name": "chassis"
+            }
+          }
+        }
+      }
+    }
+  },
+  "x-designable-id": "ocur00frog5"
+}

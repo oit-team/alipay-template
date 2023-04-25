@@ -32,7 +32,7 @@ const {
 
 watch(flowStepsData, (data) => {
   stepActive.value = data?.step
-  stepCodeActive.value = data?.taskCode
+  stepCodeActive.value = data?.taskCode || data?.workFlowSteps?.[0]?.taskCode
 })
 
 const workOrderApply: WorkOrderApply = (params) => {
@@ -63,7 +63,7 @@ const currentLogs = computed(() => flowStepsData.value?.workFlowSteps?.[stepActi
 const currentStep = computed(() => flowStepsData.value?.workFlowSteps?.[stepActive.value!])
 const isReview = computed(() =>
   [OrderStatus.Done, OrderStatus.Abandon].includes(flowStepsData.value?.status)
-  || flowStepsData.value?.taskCode !== stepCodeActive.value
+  || (flowStepsData.value?.taskCode && flowStepsData.value?.taskCode !== stepCodeActive.value)
   || !!Number(route.query.disabled),
 )
 
