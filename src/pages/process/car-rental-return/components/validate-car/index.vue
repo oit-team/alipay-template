@@ -17,7 +17,7 @@ const workOrderReview = inject('workOrderReview') as Ref<any>
 
 const form = createForm({
   effects() {
-    const calcKey = ['vehicleViolation', 'floatingFee', 'depreciationCharge', 'trailerFee']
+    const calcKey = ['vehicleViolation', 'floatingFee', 'depreciationCharge', 'trailerFee', 'vehicleLossAssessment']
     calcKey.forEach((key) => {
       onFieldReact(`*.${key}.subtotal`, (field) => {
         field = field as FieldType
@@ -151,6 +151,7 @@ async function reject() {
                     multiple: true,
                     accept: 'image/*',
                     format: 'url',
+                    limit: 1,
                   }]"
                   name="vehicleCondition"
                   title="车辆信息"

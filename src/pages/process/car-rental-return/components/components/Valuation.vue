@@ -1,15 +1,11 @@
 <script setup lang="ts">
-import { Input, Checkbox as _Checkbox } from '@formily/element-plus'
-import { ObjectField, connect, mapProps } from '@formily/vue'
+import { Input } from '@formily/element-plus'
+import { ObjectField } from '@formily/vue'
 import { workOrderInfoSymbol } from '@/pages/process/types'
 
 defineProps({
   fieldName: String,
 })
-
-const Checkbox = connect(_Checkbox, mapProps({
-  value: 'modelValue',
-}))
 
 const workOrderInfo = inject(workOrderInfoSymbol)
 const hideSubtotal = computed(() => workOrderInfo?.value?.currentStep.taskCode === 'CAR_RETURN_INSPECTION')
@@ -138,7 +134,7 @@ const accessoriesSchema = {
               <Field
                 v-for="field of [
                   { name: '信息', key: 'receivable' },
-                  { name: '金额小计', key: 'subtotal', validator: 'number' },
+                  { name: '金额小计', key: 'subtotal', validator: 'number', readonly: true },
                   { name: '备注', key: 'remarks', required: false },
                   { name: '负责人', key: 'confirmedBy', hide: hideSubtotal },
                 ].filter((item) => !item.hide)"
@@ -146,6 +142,7 @@ const accessoriesSchema = {
                 :component="[Input]"
                 :decorator="[FormItem]"
                 :name="field.key"
+                :readonly="field.readonly"
                 :required="field.required ?? true"
               >
                 <template #prepend>
@@ -156,37 +153,31 @@ const accessoriesSchema = {
           </div>
         </div>
         <div
-          class="flex -order-1"
+          v-for="item of [
+            { groupKey: 'vehicleLossAssessment', groupName: '车辆定损' },
+          ]"
+          :key="item.groupKey"
+          class="flex"
         >
           <div class="mt-1 w-5em">
-            车辆证件：
+            {{ item.groupName }}：
           </div>
-          <div class="grid grid-cols-[410px_200px_1fr_200px] flex-1 gap-2">
-            <ObjectField name="vehicleCertificate">
-              <div class="flex gap-4">
-                <Field
-                  v-for="field of [
-                    { name: '行驶证', key: 'drivingLicense' },
-                    { name: '运输证', key: 'transportCertificate' },
-                  ]"
-                  :key="field.name"
-                  :component="[Checkbox, {
-                    label: field.name,
-                  }]"
-                  :decorator="[FormItem]"
-                  :name="field.key"
-                />
-              </div>
+          <div class="grid grid-cols-[200px_200px_200px_200px_1fr_200px] flex-1 gap-2">
+            <ObjectField :name="item.groupKey">
               <Field
                 v-for="field of [
-                  { name: '金额小计', key: 'subtotal', validator: 'number' },
+                  { name: '维修时长', key: 'workingHours' },
+                  { name: '定损金额', key: 'receivable' },
+                  { name: '已收金额', key: 'netReceipts' },
+                  { name: '金额小计', key: 'subtotal', validator: 'number', readonly: true },
                   { name: '备注', key: 'remarks', required: false },
-                  { name: '负责人', key: 'confirmedBy', hide: workOrderInfo?.currentStep.taskCode === 'CAR_RETURN_INSPECTION' },
+                  { name: '负责人', key: 'confirmedBy', hide: hideSubtotal },
                 ].filter((item) => !item.hide)"
-                :key="field.key"
+                :key="field.name"
                 :component="[Input]"
                 :decorator="[FormItem]"
                 :name="field.key"
+                :readonly="field.readonly"
                 :required="field.required ?? true"
               >
                 <template #prepend>
@@ -201,6 +192,27 @@ const accessoriesSchema = {
 
     <ElCard header="车辆配件">
       <UseSchemaField :schema="accessoriesSchema" />
+      <div class="grid grid-cols-[200px_1fr_200px] flex-1 gap-2">
+        <ObjectField name="vehicleCertificate">
+          <Field
+            v-for="field of [
+              { name: '金额总计', key: 'subtotal', validator: 'number', readonly: true },
+              { name: '备注', key: 'remarks', required: false },
+              { name: '负责人', key: 'confirmedBy', hide: workOrderInfo?.currentStep.taskCode === 'CAR_RETURN_INSPECTION' },
+            ].filter((item) => !item.hide)"
+            :key="field.key"
+            :component="[Input]"
+            :decorator="[FormItem]"
+            :name="field.key"
+            :readonly="field.readonly"
+            :required="field.required ?? true"
+          >
+            <template #prepend>
+              {{ field.name }}
+            </template>
+          </Field>
+        </ObjectField>
+      </div>
     </ElCard>
   </ObjectField>
 </template>
