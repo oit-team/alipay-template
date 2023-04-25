@@ -176,8 +176,9 @@ const columnsConfig = {
         <QueryToolbar />
         <QueryTable>
           <!-- 点击车牌号跳转到车辆详情 (有的没有车辆Id 不做跳转处理) -->
-          <template v-if="row?.vehicleId" #content:carNumber="{ row, value }">
+          <template #content:carNumber="{ row, value }">
             <ElLink
+              v-if="row?.vehicleId"
               @click=" $router.push({
                 path: `/lease/car/info/${row.vehicleId}`,
                 query: { carNumber: value },
