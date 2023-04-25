@@ -7,7 +7,7 @@
       "properties": {
         "nuknq4k4d9d": {
           "type": "void",
-          "x-component": "FormGrid.Item",
+          "x-component": "FormGrid.GridColumn",
           "properties": {
             "returnOrderType": {
               "type": "string | number",
@@ -60,7 +60,7 @@
         },
         "0wkr8mtl3gh": {
           "type": "void",
-          "x-component": "FormGrid.Item",
+          "x-component": "FormGrid.GridColumn",
           "properties": {
             "appendix": {
               "type": "Array<object>",
