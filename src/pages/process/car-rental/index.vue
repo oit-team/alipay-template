@@ -6,17 +6,20 @@ meta:
 <script setup lang="ts">
 import { workOrderInfoSymbol } from '../types'
 import Logs from '../components/Logs.vue'
+import Steps from '../components/Steps.vue'
+import { useFlowOption } from '../hooks/useFlowOption'
 import Step1 from './components/step-1/index.vue'
 import Step2 from './components/step-2/index.vue'
 import WarehousingStep from './components/warehousing/index.vue'
 
 const workOrderInfo = inject(workOrderInfoSymbol)
+const flowOption = useFlowOption()
 
-const view = computed(() => [
-  Step1,
-  Step2,
-  WarehousingStep,
-][workOrderInfo?.value?.viewStep ?? -1])
+const view = computed(() => ({
+  CAR_RENTAL_APPLICATION: Step1,
+  CAR_RENTAL_FINANCIAL_APPROVALS: Step2,
+  CAR_RENTAL_SURE: WarehousingStep,
+}[flowOption?.stepCodeActive as string]))
 
 const {
   data: workOrderReview,
@@ -35,20 +38,7 @@ provide('workOrderReview', workOrderReview)
 
 <template>
   <div u-flex="~ col" u-h-full>
-    <ElSteps
-      :active="workOrderInfo?.step"
-      class="sticky top-0 z-10"
-      finish-status="success"
-      simple
-    >
-      <ElStep
-        v-for="(item, index) of workOrderInfo?.workFlowSteps"
-        :key="item.id"
-        :class="{ 'step--active': workOrderInfo?.viewStep === index }"
-        :title="item.name"
-        @click="workOrderInfo?.setViewStep(index)"
-      />
-    </ElSteps>
+    <Steps />
 
     <Component :is="view" class="flex-1" :class="{ 'formily-readonly': workOrderInfo?.isReview }" />
 
