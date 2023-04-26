@@ -19,6 +19,7 @@ const getUserByKeyword = async () => {
 
 async function open(checkUserIds: any, t = 0) {
   assignDrawer.value = true
+  form.person = ''
   ids.value = checkUserIds.value
   type.value = t
   await nextTick()
