@@ -29,6 +29,7 @@ watch(repairOrderInfo, (data) => {
       'repairOrderNumber',
       'vehicleCondition',
       'appendix',
+      'vehicleDetailCondition',
     ]),
   })
 })
