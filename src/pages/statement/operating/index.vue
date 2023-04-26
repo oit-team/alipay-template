@@ -104,7 +104,7 @@ const columnsConfig = {
         <QueryTable v-loading="statementLoading" element-loading-text="数据正在导入...">
           <template #actions>
             <QueryActionColumn v-slot="{ row }" label="操作" width="100px">
-              <ElButton size="small" type="info" @click="$router.push(`./statement/info/${row.operatorId}`)">
+              <ElButton size="small" type="info" @click="$router.push(`./operating/info/${row.operatorId}`)">
                 详情
               </ElButton>
             </QueryActionColumn>
