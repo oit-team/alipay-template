@@ -148,9 +148,11 @@ async function reject() {
             </div>
             <div class="flex-1 flex flex-col gap-2">
               <ElCard header="车辆情况">
-                <ObjectField name="vehicleSupplementary">
-                  <UseSchemaField :schema="vehicleCondition" />
-                </ObjectField>
+                <div class="grid grid-cols-4">
+                  <ObjectField name="vehicleSupplementary">
+                    <UseSchemaField :schema="vehicleCondition" />
+                  </ObjectField>
+                </div>
               </ElCard>
               <ElCard header="其他附件">
                 <Field

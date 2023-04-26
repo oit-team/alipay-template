@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import { pick } from 'lodash-es'
-import type { UploadUserFile } from 'element-plus'
 import { workOrderApplySymbol, workOrderInfoSymbol } from '@/pages/process/types'
 import { transformResponsePush } from '@/utils/helper'
 import DriverInfo from '@/pages/lease/driver/info/[id].vue'
 import VehicleInfo from '@/pages/lease/car/info/[id].vue'
-import Upload from '@/components/Upload'
-import { transformUploadData } from '@/utils/actions'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -26,8 +23,6 @@ const schemeTypeId = ref(0)
 
 const isSchemeDisabled = computed(() => !state.vehicleId)
 const isActivityDisabled = computed(() => !state.schemeId)
-
-const fileList = ref<UploadUserFile[]>([])
 
 function executeQuery(fn: any, data: any) {
   fn({
@@ -105,7 +100,6 @@ watch(schemeTypeId, () => {
 })
 watch(schemeTypeId, () => {
   schemeList.value = []
-  fileList.value = []
   getSchemeList({
     data: {
       caseType: schemeTypeId.value,
@@ -165,14 +159,10 @@ watch(() => [state.activityId, state.schemeId], () => {
 
 // 提交第一步
 async function submit() {
-  const uploadSuccessful = fileList.value?.every?.(file => file.status === 'success')
-
   const check = [
     [state.driverId, '请选择司机'],
     [state.vehicleId, '请选择车辆'],
     [state.schemeId, '请选择方案'],
-    [schemeTypeId.value !== 0 || fileList.value.length > 0, '请上传合同'],
-    [uploadSuccessful, '请等待文件上传完成'],
   ]
   const checkResult = check.find(item => !item[0])
   if (checkResult) {
@@ -183,8 +173,6 @@ async function submit() {
   await ElMessageBox.confirm(t('confirm.submit'), t('tip.info'), {
     type: 'info',
   })
-
-  const files = transformUploadData(fileList.value)
 
   const params = {
     ...pick(schemeItem.value, [
@@ -203,8 +191,6 @@ async function submit() {
       'endTime',
       'mileage',
     ]),
-    contractName: files?.[0]?.name,
-    contractUrl: files?.[0]?.url,
     ...state,
   }
 
@@ -232,12 +218,6 @@ function init() {
       caseId: state.schemeId,
     },
   })
-  if (workOrderReview.value?.leaseOrderBasic?.contractUrl) {
-    fileList.value = [{
-      name: workOrderReview.value?.leaseOrderBasic?.contractName,
-      url: workOrderReview.value?.leaseOrderBasic?.contractUrl,
-    }]
-  }
 }
 </script>
 
@@ -442,20 +422,6 @@ function init() {
                 />
               </template>
             </Descriptions>
-          </ElCard>
-          <ElCard v-if="schemeTypeId === 0" header="租赁合同">
-            <div class="p-2">
-              <Upload
-                v-model:file-list="fileList"
-                :limit="1"
-                list-type="text"
-                :readonly="workOrderInfo?.isReview"
-              >
-                <ElButton type="primary">
-                  上传
-                </ElButton>
-              </Upload>
-            </div>
           </ElCard>
           <ElCard header="租赁信息">
             <Descriptions

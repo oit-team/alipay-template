@@ -71,10 +71,21 @@ onMounted(async () => {
                 </div>
               </ElCard>
               <ElCard header="车辆情况">
-                <div class="p-2">
+                <div class="p-2 grid grid-cols-4">
                   <ObjectField name="vehicleSupplementary">
                     <UseSchemaField :schema="vehicleCondition" />
                   </ObjectField>
+                </div>
+              </ElCard>
+              <ElCard header="租赁合同">
+                <div class="p-2">
+                  <Field
+                    :component="[Upload, {
+                      'list-type': 'text',
+                    }]"
+                    :decorator="[FormItem]"
+                    name="[contractUrl,contractName]"
+                  />
                 </div>
               </ElCard>
             </div>

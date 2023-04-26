@@ -57,7 +57,7 @@ const loadData: AsyncDataSourceSelectService = async ({ keyword }) => {
 }
 
 async function submit(type: any) {
-  const msg = type === '1' ? '通过' : '拒绝'
+  const msg = type === '3' ? '通过' : '拒绝'
 
   await ElMessageBox.confirm(`确定${msg}吗?`, '提示', {
     type: 'warning',
