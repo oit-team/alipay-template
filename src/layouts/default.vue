@@ -57,23 +57,24 @@ const menu = computed<MenuItem[]>(() => {
   return formatMenu(data.value?.resultList)
 })
 
-const activeMenu = computed(() => {
-  if (!menu.value)
-    return
-  for (const item of menu.value) {
-    if (!item.children)
-      return
-    for (const child of item.children) {
-      if (child.path === route.path)
-        return child
+const getActiveMenu = (menuItem: MenuItem[], path: string): MenuItem | undefined => {
+  for (const item of menuItem) {
+    if (item.path === path) {
+      return item
+    }
+    else if (item.children) {
+      const activeMenu = getActiveMenu(item.children, path)
+      if (activeMenu)
+        return activeMenu
     }
   }
-})
+}
 
-watch(activeMenu, () => {
+watch(() => route.path, () => {
+  const activeMenu = getActiveMenu(menu.value, route.path)
   const { setPermissionData } = usePermission()
-  if (activeMenu.value?.permission)
-    setPermissionData(activeMenu.value.permission)
+  if (activeMenu?.permission)
+    setPermissionData(activeMenu.permission)
 })
 
 function redirect() {

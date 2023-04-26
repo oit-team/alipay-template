@@ -155,7 +155,7 @@ async function updateTableList() {
           <TButton icon="import" @click="importWei">
             违章{{ $t('button.import') }}
           </TButton>
-          <TButton :disabled="checkPermission('assignResponsible') ? false : true" icon="assign" @click="openAssignMan()">
+          <TButton :disabled="!checkPermission('assignResponsible')" icon="assign" @click="openAssignMan()">
             {{ $t('button.assign') }}负责人
           </TButton>
         </QueryToolbar>
