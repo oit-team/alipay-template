@@ -32,6 +32,9 @@ const userFormRules = reactive<FormRules>({
   roleName: [
     { required: true, message: '必填项不能为空', trigger: 'blur' },
   ],
+  roleRemark: [
+    { required: true, message: '必填项不能为空', trigger: 'blur' },
+  ],
 })
 
 const menuIds = ref<{
