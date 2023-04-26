@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { Input } from '@formily/element-plus'
 import { ObjectField } from '@formily/vue'
-import { workOrderInfoSymbol } from '@/pages/process/types'
+import { flowOptionSymbol } from '@/pages/process/types'
 
 defineProps({
   fieldName: String,
 })
 
-const workOrderInfo = inject(workOrderInfoSymbol)
-const hideSubtotal = computed(() => workOrderInfo?.value?.currentStep.taskCode === 'CAR_RETURN_INSPECTION')
+const flowOption = inject(flowOptionSymbol)
+const showConfirmedBy = computed(() => flowOption?.value.stepCodeActive === 'CAR_RETURN_FINANCIAL_APPROVALS')
 
 // 车辆配件表格
 const accessoriesSchema = {
@@ -103,7 +103,7 @@ const accessoriesSchema = {
                   { name: '已收金额', key: 'netReceipts', validator: 'number' },
                   { name: '金额小计', key: 'subtotal', validator: 'number' },
                   { name: '备注', key: 'remarks', required: false },
-                  { name: '负责人', key: 'confirmedBy', hide: hideSubtotal },
+                  { name: '负责人', key: 'confirmedBy', hide: !showConfirmedBy },
                 ].filter((item) => !item.hide)"
                 :key="field.name"
                 :component="[Input]"
@@ -136,7 +136,7 @@ const accessoriesSchema = {
                   { name: '信息', key: 'receivable' },
                   { name: '金额小计', key: 'subtotal', validator: 'number', readonly: true },
                   { name: '备注', key: 'remarks', required: false },
-                  { name: '负责人', key: 'confirmedBy', hide: hideSubtotal },
+                  { name: '负责人', key: 'confirmedBy', hide: !showConfirmedBy },
                 ].filter((item) => !item.hide)"
                 :key="field.name"
                 :component="[Input]"
@@ -171,14 +171,13 @@ const accessoriesSchema = {
                   { name: '已收金额', key: 'netReceipts' },
                   { name: '金额小计', key: 'subtotal', validator: 'number', readonly: true },
                   { name: '备注', key: 'remarks', required: false },
-                  { name: '负责人', key: 'confirmedBy', hide: hideSubtotal },
+                  { name: '负责人', key: 'confirmedBy', hide: !showConfirmedBy },
                 ].filter((item) => !item.hide)"
                 :key="field.name"
                 :component="[Input]"
                 :decorator="[FormItem]"
                 :name="field.key"
                 :readonly="field.readonly"
-                :required="field.required ?? true"
               >
                 <template #prepend>
                   {{ field.name }}
@@ -198,7 +197,7 @@ const accessoriesSchema = {
             v-for="field of [
               { name: '金额总计', key: 'subtotal', validator: 'number', readonly: true },
               { name: '备注', key: 'remarks', required: false },
-              { name: '负责人', key: 'confirmedBy', hide: workOrderInfo?.currentStep.taskCode === 'CAR_RETURN_INSPECTION' },
+              { name: '负责人', key: 'confirmedBy', hide: !showConfirmedBy },
             ].filter((item) => !item.hide)"
             :key="field.key"
             :component="[Input]"
