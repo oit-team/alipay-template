@@ -24,6 +24,7 @@ const props = withDefaults(defineProps<UploadProps>(), {
   action: '/system/file/uploadFile',
   chunkSize: 1024 * 5,
   limit: 9,
+  transformRequest: () => transformRequest,
 })
 const emit = defineEmits(['update:fileList'])
 const fileList = useVModel(props, 'fileList', emit)
@@ -33,6 +34,7 @@ function httpRequest(options: UploadRequestOptions) {
   return upload({
     ...options,
     onError: (e) => {
+      abort(options.file)
       if (e instanceof AxiosError) {
         const err = new UploadAjaxError(
           e.message,
@@ -40,11 +42,9 @@ function httpRequest(options: UploadRequestOptions) {
           e.config!.method!,
           e.config!.url!,
         )
-        abort(options.file)
         options.onError(err)
       }
       else {
-        abort(options.file)
         options.onError(e as any)
       }
     },
@@ -60,7 +60,7 @@ function httpRequest(options: UploadRequestOptions) {
     },
     onSuccess: options.onSuccess,
     chunkSize: props.chunkSize,
-    transformRequest: props.transformRequest ?? transformRequest,
+    transformRequest: props.transformRequest,
     transformResponse: props.transformResponse,
   })
 }
@@ -82,10 +82,6 @@ function matchType(file: UploadFile, type: string) {
   return fileType && fileType.startsWith(type)
 }
 
-// TODO: 预览
-// function handlePictureCardPreview(file: UploadFile) {
-// }
-
 const keys = ['handleRemove', 'handleStart', 'clearFiles', 'submit'] as const
 
 const exposes = keys.reduce((cur, next) => {
@@ -97,6 +93,14 @@ const exposes = keys.reduce((cur, next) => {
 function handleRemove(file: UploadFile | UploadRawFile, rawFile?: UploadRawFile) {
   uploadRef.value?.handleRemove(file, rawFile)
 }
+
+// TODO: 预览
+// function handlePictureCardPreview(file: UploadFile) {
+// }
+
+// TODO: 上传前处理
+// function handleBeforeUpload(rawFile: UploadRawFile) {
+// }
 
 onMounted(() => {
   const instance = getCurrentInstance()
@@ -124,6 +128,7 @@ defineExpose({
     ref="uploadRef"
     v-model:file-list="fileList"
     :action="action"
+    :before-upload="handleBeforeUpload"
     class="vc-upload"
     :http-request="httpRequest"
     :limit="limit"

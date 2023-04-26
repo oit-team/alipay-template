@@ -81,7 +81,7 @@ onMounted(async () => {
                 <div class="p-2">
                   <Field
                     :component="[Upload, {
-                      'list-type': 'text',
+                      listType: 'text',
                     }]"
                     :decorator="[FormItem]"
                     name="[contractUrl,contractName]"

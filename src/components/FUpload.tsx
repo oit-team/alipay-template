@@ -1,8 +1,9 @@
 import { connect, mapProps, useField } from '@formily/vue'
 import { autorun } from '@formily/reactive'
+import { ElButton } from 'element-plus'
 import { Upload } from './Upload'
-import type { Field } from '@formily/core'
 import type { UploadFile, UploadProps } from 'element-plus'
+import type { Field } from '@formily/core'
 import { transformToUploadFiles, transformUploadData } from '@/utils/actions'
 
 type Fn = (...args: any[]) => any
@@ -25,6 +26,7 @@ const UploadWrapper = defineComponent({
       type: [String, Array] as PropType<UploadProps['fileList'] | string | string[]>,
     },
     format: String as PropType<'url'>,
+    listType: String as PropType<UploadProps['listType']>,
   },
   emits: ['change'],
   setup(props, { attrs, emit }) {
@@ -93,6 +95,7 @@ const UploadWrapper = defineComponent({
 
     const data = {
       ...attrs,
+      listType: props.listType,
       limit: isDestructor ? 1 : attrs.limit as any,
       onChange(file: UploadFile, fileList: UploadFile[]) {
         fileListRef.value = fileList
@@ -108,7 +111,9 @@ const UploadWrapper = defineComponent({
     }
 
     return () => (
-      <Upload {...data} file-list={fileListRef.value} />
+      <Upload {...data} file-list={fileListRef.value}>
+        {props.listType === 'text' && <ElButton type="primary">{props.textContent || '上传'}</ElButton>}
+      </Upload>
     )
   },
 })
