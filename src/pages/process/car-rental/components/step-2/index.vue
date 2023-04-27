@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { workOrderInfoSymbol, workOrderSubmitSymbol } from '@/pages/process/types'
 
-const { t } = useI18n()
-const router = useRouter()
 const workOrderSubmit = inject(workOrderSubmitSymbol)
 const workOrderInfo = inject(workOrderInfoSymbol)
 const isReview = computed(() => workOrderInfo?.value?.isReview)
@@ -14,9 +12,6 @@ async function handlePass() {
   }, {
     approvalStatus: 1,
   })
-
-  ElMessage.success(t('submit.success'))
-  router.back()
 }
 
 async function handleCancel() {
@@ -25,9 +20,6 @@ async function handleCancel() {
   }, {
     approvalStatus: 0,
   })
-
-  ElMessage.success(t('submit.success'))
-  router.back()
 }
 </script>
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Input } from '@formily/element-plus'
-import { ObjectField } from '@formily/vue'
+import { ObjectField, VoidField } from '@formily/vue'
 import { flowOptionSymbol } from '@/pages/process/types'
 
 defineProps({
@@ -81,7 +81,7 @@ const accessoriesSchema = {
   <ObjectField :name="fieldName">
     <ElCard>
       <div class="flex flex-col">
-        <div
+        <ObjectField
           v-for="item of [
             { groupKey: 'vehicleViolation', groupName: '车辆违章', order: '-order-1' },
             { groupKey: 'floatingFee', groupName: '上浮费' },
@@ -89,14 +89,14 @@ const accessoriesSchema = {
             { groupKey: 'trailerFee', groupName: '拖车费' },
           ]"
           :key="item.groupKey"
-          class="flex"
           :class="item.order"
+          :name="item.groupKey"
         >
-          <div class="mt-1 w-5em">
-            {{ item.groupName }}：
-          </div>
-          <div class="grid grid-cols-[200px_200px_200px_1fr_200px] flex-1 gap-2">
-            <ObjectField :name="item.groupKey">
+          <div class="flex">
+            <div class="mt-1 w-5em">
+              {{ item.groupName }}：
+            </div>
+            <div class="grid grid-cols-[200px_200px_200px_1fr_200px] flex-1 gap-2">
               <Field
                 v-for="field of [
                   { name: '应收金额', key: 'receivable', validator: 'number' },
@@ -116,21 +116,21 @@ const accessoriesSchema = {
                   {{ field.name }}
                 </template>
               </Field>
-            </ObjectField>
+            </div>
           </div>
-        </div>
-        <div
+        </ObjectField>
+        <ObjectField
           v-for="item of [
             { groupKey: 'liquidatedDamages', groupName: '违约金' },
           ]"
           :key="item.groupKey"
-          class="flex"
+          :name="item.groupKey"
         >
-          <div class="mt-1 w-5em">
-            {{ item.groupName }}：
-          </div>
-          <div class="grid grid-cols-[410px_200px_1fr_200px] flex-1 gap-2">
-            <ObjectField :name="item.groupKey">
+          <div class="flex">
+            <div class="mt-1 w-5em">
+              {{ item.groupName }}：
+            </div>
+            <div class="grid grid-cols-[410px_200px_1fr_200px] flex-1 gap-2">
               <Field
                 v-for="field of [
                   { name: '信息', key: 'receivable' },
@@ -149,21 +149,21 @@ const accessoriesSchema = {
                   {{ field.name }}
                 </template>
               </Field>
-            </ObjectField>
+            </div>
           </div>
-        </div>
-        <div
+        </ObjectField>
+        <ObjectField
           v-for="item of [
             { groupKey: 'vehicleLossAssessment', groupName: '车辆定损' },
           ]"
           :key="item.groupKey"
-          class="flex"
+          :name="item.groupKey"
         >
-          <div class="mt-1 w-5em">
-            {{ item.groupName }}：
-          </div>
-          <div class="grid grid-cols-[200px_200px_200px_200px_1fr_200px] flex-1 gap-2">
-            <ObjectField :name="item.groupKey">
+          <div class="flex">
+            <div class="mt-1 w-5em">
+              {{ item.groupName }}：
+            </div>
+            <div class="grid grid-cols-[200px_200px_200px_200px_1fr_200px] flex-1 gap-2">
               <Field
                 v-for="field of [
                   { name: '维修时长', key: 'workingHours' },
@@ -183,35 +183,37 @@ const accessoriesSchema = {
                   {{ field.name }}
                 </template>
               </Field>
-            </ObjectField>
+            </div>
           </div>
-        </div>
-      </div>
-    </ElCard>
-
-    <ElCard header="车辆配件">
-      <UseSchemaField :schema="accessoriesSchema" />
-      <div class="grid grid-cols-[200px_1fr_200px] flex-1 gap-2">
-        <ObjectField name="vehicleCertificate">
-          <Field
-            v-for="field of [
-              { name: '金额总计', key: 'subtotal', validator: 'number', readonly: true },
-              { name: '备注', key: 'remarks', required: false },
-              { name: '负责人', key: 'confirmedBy', hide: !showConfirmedBy },
-            ].filter((item) => !item.hide)"
-            :key="field.key"
-            :component="[Input]"
-            :decorator="[FormItem]"
-            :name="field.key"
-            :readonly="field.readonly"
-            :required="field.required ?? true"
-          >
-            <template #prepend>
-              {{ field.name }}
-            </template>
-          </Field>
         </ObjectField>
       </div>
     </ElCard>
+
+    <VoidField name="vehicleCertificate">
+      <ElCard header="车辆配件">
+        <UseSchemaField :schema="accessoriesSchema" />
+        <div class="grid grid-cols-[200px_1fr_200px] flex-1 gap-2">
+          <ObjectField name="vehicleCertificate">
+            <Field
+              v-for="field of [
+                { name: '金额总计', key: 'subtotal', validator: 'number', readonly: true },
+                { name: '备注', key: 'remarks', required: false },
+                { name: '负责人', key: 'confirmedBy', hide: !showConfirmedBy },
+              ].filter((item) => !item.hide)"
+              :key="field.key"
+              :component="[Input]"
+              :decorator="[FormItem]"
+              :name="field.key"
+              :readonly="field.readonly"
+              :required="field.required ?? true"
+            >
+              <template #prepend>
+                {{ field.name }}
+              </template>
+            </Field>
+          </ObjectField>
+        </div>
+      </ElCard>
+    </VoidField>
   </ObjectField>
 </template>

@@ -9,9 +9,6 @@ import type { Field as FieldType } from '@formily/core'
 import Upload from '~/components/FUpload'
 import vehicleCondition from '~/pages/process/schema/vehicleCondition.json'
 
-const { t } = useI18n()
-const router = useRouter()
-
 const workOrderSubmit = inject(workOrderSubmitSymbol)
 const workOrderInfo = inject(workOrderInfoSymbol)
 const workOrderReview = inject('workOrderReview') as Ref<any>
@@ -58,15 +55,6 @@ const form = createForm({
   },
 })
 
-if (!workOrderInfo?.value.isReview) {
-  // 计算违约金
-  axios.post('/order/leaseOrder/liquidatedDamages', {
-    workCode: workOrderInfo?.value.workCode,
-  }).then(({ data }) => {
-    form.setValuesIn('vehicleInspectionDetailed.liquidatedDamages.subtotal', data.liquidatedDamages)
-  })
-}
-
 // 设置维修项初始值
 form.setValuesIn(
   'vehicleInspectionDetailed.vehicleAccessories',
@@ -85,6 +73,20 @@ form.setValuesIn(
     subtotal: 0,
   })),
 )
+
+// 隐藏项
+form.setFieldState('vehicleInspectionDetailed.*(vehicleViolation,floatingFee,depreciationCharge)', {
+  visible: false,
+})
+
+if (!workOrderInfo?.value.isReview) {
+  // 计算违约金
+  axios.post('/order/leaseOrder/liquidatedDamages', {
+    workCode: workOrderInfo?.value.workCode,
+  }).then(({ data }) => {
+    form.setValuesIn('vehicleInspectionDetailed.liquidatedDamages.subtotal', data.liquidatedDamages)
+  })
+}
 
 watch(workOrderReview, (data) => {
   const initData = cloneDeep({
@@ -105,21 +107,15 @@ async function submit(data: any, agree: 0 | 1) {
     approvalStatus: agree,
     // 没有维修项时跳到下一个流程
     nextTaskCode: keepInRepair && info
-      ? 'CAR_RETURN_FINANCIAL_APPROVALS'
+      ? 'CAR_RETURN_SURE'
       : undefined,
   })
-
-  ElMessage.success(t('submit.success'))
-  router.back()
 }
 
 async function reject() {
   await workOrderSubmit?.({}, {
     approvalStatus: 0,
   })
-
-  ElMessage.success(t('submit.success'))
-  router.back()
 }
 </script>
 
@@ -171,9 +167,3 @@ async function reject() {
     </FormProvider>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.validate-car :deep(.el-card__body) {
-  --el-card-padding: 12px;
-}
-</style>

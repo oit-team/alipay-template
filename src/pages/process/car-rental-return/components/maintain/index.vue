@@ -4,8 +4,6 @@ import { workOrderInfoSymbol, workOrderSubmitSymbol } from '../../../types'
 import table from './schema/table.json'
 import Upload from '@/components/FUpload'
 
-const { t } = useI18n()
-const router = useRouter()
 const route = useRoute()
 const form = createForm()
 const workOrderSubmit = inject(workOrderSubmitSymbol)
@@ -34,18 +32,12 @@ async function submit(data: any, agree: 0 | 1) {
   await workOrderSubmit?.(data, {
     approvalStatus: agree,
   })
-
-  ElMessage.success(t('submit.success'))
-  router.back()
 }
 
 async function reject() {
   await workOrderSubmit?.({}, {
     approvalStatus: 0,
   })
-
-  ElMessage.success(t('submit.success'))
-  router.back()
 }
 </script>
 
@@ -101,9 +93,3 @@ async function reject() {
     </FormProvider>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.el-card :deep(.el-card__body) {
-  --el-card-padding: 12px;
-}
-</style>

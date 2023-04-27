@@ -9,6 +9,7 @@ enum OrderStatus {
   Done = 1,
 }
 
+const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
 const stepActive = ref<number>()
@@ -43,6 +44,8 @@ const workOrderApply: WorkOrderApply = (params) => {
 }
 
 const workOrderSubmit: WorkOrderSubmit = async (params, options) => {
+  options = typeof options === 'number' ? { approvalStatus: options } : options
+
   if (options.approvalStatus === 0 && !options.approvalNotes) {
     const { value } = await ElMessageBox.prompt('填写拒绝原因', '提示')
     options.approvalNotes = value
@@ -52,10 +55,19 @@ const workOrderSubmit: WorkOrderSubmit = async (params, options) => {
     type: 'info',
   })
 
-  return axios.post('/workFlow/workFlow/submit', {
+  await axios.post('/workFlow/workFlow/submit', {
     ...initParams,
     ...options,
     params,
+  })
+
+  ElMessage.success(t('submit.success'))
+  router.back()
+}
+
+async function reject(data = {}) {
+  await workOrderSubmit?.(data, {
+    approvalStatus: 0,
   })
 }
 
@@ -104,6 +116,7 @@ const flowOption = computed<FlowOption>(() => reactive({
   stepCodeActive,
   apply: workOrderApply,
   submit: workOrderSubmit,
+  reject,
 }))
 
 provide(flowOptionSymbol, flowOption)

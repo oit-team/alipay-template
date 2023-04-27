@@ -39,15 +39,16 @@ export interface WorkOrderInfo {
  */
 export const workOrderInfoSymbol = Symbol('workOrderInfo') as InjectionKey<Ref<WorkOrderInfo>>
 
+type AcceptStatus = 0 | 1
 export interface WorkOrderSubmit {
   (params: any, options: {
     // 下一个任务编号
     nextTaskCode?: string
     // 0：不同意 1：同意
-    approvalStatus: 0 | 1
+    approvalStatus: AcceptStatus
     // 备注
     approvalNotes?: string
-  }): Promise<any>
+  } | AcceptStatus): Promise<any>
 }
 
 export const workOrderSubmitSymbol = Symbol('workOrderSubmit') as InjectionKey<WorkOrderSubmit>
@@ -66,6 +67,7 @@ export interface FlowOption {
   setViewStep: (item: FlowOption['workFlowSteps'][number]) => void
   submit: WorkOrderSubmit
   apply: WorkOrderApply
+  reject: (data?: Record<string, any>) => Promise<any>
   workFlowSteps: {
     id: number
     name: string

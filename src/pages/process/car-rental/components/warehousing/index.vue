@@ -6,8 +6,6 @@ import vehicleCondition from '~/pages/process/schema/vehicleCondition.json'
 import Upload from '~/components/FUpload'
 import { useFlowOption } from '@/pages/process/hooks/useFlowOption'
 
-const { t } = useI18n()
-const router = useRouter()
 const flowOption = useFlowOption()
 const workOrderSubmit = inject(workOrderSubmitSymbol)
 const workOrderInfo = inject(workOrderInfoSymbol)
@@ -18,9 +16,6 @@ async function submit(formData: any) {
   await workOrderSubmit?.(formData, {
     approvalStatus: 1,
   })
-
-  ElMessage.success(t('submit.success'))
-  router.back()
 }
 
 onMounted(async () => {

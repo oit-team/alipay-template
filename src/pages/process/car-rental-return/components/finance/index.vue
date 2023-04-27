@@ -3,8 +3,6 @@ import { set } from 'lodash-es'
 import { workOrderInfoSymbol, workOrderSubmitSymbol } from '../../../types'
 import Valuation from '../components/Valuation.vue'
 
-const { t } = useI18n()
-const router = useRouter()
 const form = createForm({
   readOnly: true,
 })
@@ -38,18 +36,12 @@ async function submit() {
   }, {
     approvalStatus: 1,
   })
-
-  ElMessage.success(t('submit.success'))
-  router.back()
 }
 
 async function reject() {
   await workOrderSubmit?.({}, {
     approvalStatus: 0,
   })
-
-  ElMessage.success(t('submit.success'))
-  router.back()
 }
 </script>
 
@@ -93,9 +85,3 @@ async function reject() {
     </FormProvider>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.finance :deep(.el-card__body) {
-  --el-card-padding: 12px;
-}
-</style>

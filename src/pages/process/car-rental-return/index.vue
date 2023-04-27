@@ -13,6 +13,8 @@ import MaintainConfirmStep from './components/maintain-confirm/index.vue'
 import ValidateCarStep from './components/validate-car/index.vue'
 import FinanceStep from './components/finance/index.vue'
 import WarehousingStep from './components/warehousing/index.vue'
+import VehicleServiceConfirmStep from './components/vehicle-service-confirm/index.vue'
+import VexclusiveServiceSureStep from './components/exclusive-service-sure/index.vue'
 
 const flowOption = useFlowOption()
 
@@ -23,10 +25,13 @@ const view = computed(() => ({
   CAR_RETURN_VEHICLE_MAINTENANCE_SURE: MaintainConfirmStep,
   CAR_RETURN_FINANCIAL_APPROVALS: FinanceStep,
   CAR_RETURN_SURE: WarehousingStep,
+  CAR_RETURN_VEHICLE_SERVICE_SURE: VehicleServiceConfirmStep,
+  CAR_RETURN_EXCLUSIVE_SERVICE_SURE: VexclusiveServiceSureStep,
 }[flowOption?.stepCodeActive as string]))
 
 const {
   data: workOrderReview,
+  isLoading: isWorkOrderReviewLoading,
   execute: getReturnVehicleOrderMap,
 } = useAxios('/order/returnVehicleOrder/getReturnVehicleOrderMap', {
   data: {
@@ -44,8 +49,14 @@ provide('workOrderReview', workOrderReview)
   <div u-flex="~ col" u-h-full>
     <Steps />
 
-    <Component :is="view" class="flex-1 formily-readonly" />
+    <Component :is="view" v-if="!isWorkOrderReviewLoading" class="flex-1 formily-readonly car-rental-return" />
 
     <Logs />
   </div>
 </template>
+
+<style lang="scss" scoped>
+.car-rental-return :deep(.el-card__body) {
+  --el-card-padding: 12px;
+}
+</style>

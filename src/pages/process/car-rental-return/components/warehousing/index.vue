@@ -3,7 +3,6 @@ import DriverInfo from '@/pages/lease/driver/info/[id].vue'
 import VehicleInfo from '@/pages/lease/car/info/[id].vue'
 import { workOrderInfoSymbol, workOrderSubmitSymbol } from '@/pages/process/types'
 
-const router = useRouter()
 const workOrderSubmit = inject(workOrderSubmitSymbol)
 const workOrderInfo = inject(workOrderInfoSymbol)
 
@@ -11,7 +10,6 @@ async function submit() {
   await workOrderSubmit?.({}, {
     approvalStatus: 1,
   })
-  router.back()
 }
 </script>
 

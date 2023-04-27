@@ -29,25 +29,7 @@ const {
 const vehicleInfo = computed(() => vehicleList.value?.find((item: any) => item.vehicleId === vehicleId.value))
 const driverId = computed(() => vehicleInfo.value?.driverId)
 
-const form = createForm({
-  effects() {
-    if (workOrderInfo?.value.isReview)
-      return
-
-    const key = '*.rent'
-    onFieldReact(`${key}.subtotal`, (field) => {
-      field = field as FieldType
-      const getValue = (target: string) => form.query(`${key}.${target}`).value()
-      const result = getValue('receivable') - getValue('t3Withholding') - getValue('offlineCollection') - getValue('otherAmount')
-      field.value = Math.floor(result * 100) / 100 || 0
-    })
-
-    onFieldChange('returnTheCarTime', (field) => {
-      field = field as FieldType
-      rentReceivable(field.value)
-    })
-  },
-})
+const form = createForm()
 
 watch(workOrderReview, (data) => {
   const initData = data?.returnVehicleOrderMap
@@ -58,16 +40,6 @@ watch(workOrderReview, (data) => {
   })
   form.readOnly = !!workOrderInfo?.value.isReview
 }, { immediate: true })
-
-// 计算租金
-async function rentReceivable(date?: string) {
-  const { data } = await axios.post('/order/leaseOrder/rentReceivable', {
-    orderNo: vehicleInfo.value?.leaseOrderNo,
-    terminationDate: date,
-  })
-  form.setValuesIn('supplementaryData.rent.receivable', data?.rentReceivable)
-  form.setValuesIn('supplementaryData.rent.t3Withholding', data?.t3Withholding)
-}
 
 async function submit(data: any) {
   if (!vehicleInfo.value)
@@ -141,44 +113,6 @@ async function submit(data: any) {
                   { label: '到租日期', prop: 'endTime' },
                 ]"
               />
-            </ElCard>
-            <ElCard v-if="vehicleId" class="whitespace-nowrap" header="租金">
-              <FormLayout class="p-2">
-                <ObjectField name="supplementaryData">
-                  <div
-                    v-for="item of [
-                      { groupKey: 'rent', groupName: '租金' },
-                    ]"
-                    :key="item.groupKey"
-                    class="flex"
-                  >
-                    <div class="grid grid-cols-[200px_200px_200px_200px_200px_1fr] flex-1 gap-2">
-                      <ObjectField :name="item.groupKey">
-                        <Field
-                          v-for="field of [
-                            { name: '应收金额', key: 'receivable', validator: 'number' },
-                            { name: 'T3代扣', key: 't3Withholding', validator: 'number' },
-                            { name: '线下收取', key: 'offlineCollection', validator: 'number' },
-                            { name: '其它金额', key: 'otherAmount', validator: 'number' },
-                            { name: '金额小计', key: 'subtotal', validator: 'number' },
-                            { name: '备注', key: 'remarks', required: false },
-                          ]"
-                          :key="field.name"
-                          :component="[Input]"
-                          :decorator="[FormItem]"
-                          :name="field.key"
-                          :required="field.required ?? true"
-                          :validator="field.validator"
-                        >
-                          <template #prepend>
-                            {{ field.name }}
-                          </template>
-                        </Field>
-                      </ObjectField>
-                    </div>
-                  </div>
-                </ObjectField>
-              </FormLayout>
             </ElCard>
             <ElCard v-if="vehicleId" header="退车信息">
               <div class="pt-4">
