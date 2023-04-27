@@ -7,6 +7,7 @@
       "properties": {
         "k5kkp0fynng": {
           "type": "void",
+          "name": "time",
           "x-component": "FormGrid.GridColumn",
           "properties": {
             "time": {
@@ -15,6 +16,22 @@
               "x-decorator": "FormItem",
               "x-component": "DatePicker",
               "x-component-props": {
+                "clearable": false
+              }
+            }
+          }
+        },
+        "k55600dang": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "properties": {
+            "[startTime,endTime]": {
+              "type": "string[]",
+              "title": "时间范围",
+              "x-decorator": "FormItem",
+              "x-component": "DatePicker",
+              "x-component-props": {
+                "type": "daterange",
                 "clearable": false
               }
             }
@@ -35,6 +52,7 @@
         },
         "e3z33e0idev": {
           "type": "void",
+          "name": "driverType",
           "x-component": "FormGrid.GridColumn",
           "properties": {
             "driverType": {

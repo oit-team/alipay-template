@@ -1,20 +1,19 @@
 {
   "type": "object",
   "properties": {
-    "tegk0oh1ajf": {
+    "ztysj1mzc30": {
       "type": "void",
       "x-component": "FormGrid",
       "x-validator": [],
       "x-component-props": {},
-      "x-designable-id": "tegk0oh1ajf",
+      "x-designable-id": "ztysj1mzc30",
       "x-index": 0,
       "properties": {
         "[startTime,endTime]": {
           "type": "string[]",
-          "title": "有效期",
+          "title": "时间范围",
           "x-decorator": "FormItem",
           "x-component": "DatePicker",
-          "required": true,
           "x-component-props": {
             "type": "daterange"
           },
@@ -27,9 +26,15 @@
           "x-reactions": "{{useAsyncDataSource(getCompanyList, {init: true})}}",
           "x-component-props": {},
           "x-index": 1
+        },
+        "xo5r57zgh3u": {
+          "type": "void",
+          "x-component": "FormGrid",
+          "x-designable-id": "xo5r57zgh3u",
+          "x-index": 2
         }
       }
     }
   },
-  "x-designable-id": "klphb42qn0j"
+  "x-designable-id": "gjocuewcorj"
 }
