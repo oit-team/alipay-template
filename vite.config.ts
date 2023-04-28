@@ -83,7 +83,9 @@ export default (mode: string) => {
       Vue({
         reactivityTransform: true,
       }),
-      VueJsx(),
+      VueJsx({
+        transformOn: true,
+      }),
       // https://github.com/hannoeru/vite-plugin-pages
       Pages({
         exclude: ['**/components/*.*'],
