@@ -56,7 +56,7 @@ const getSummaries = (param: SummaryMethodProps) => {
       sums[index] = '总计'
       return
     }
-    const values = data.map(item => Number(item[column.property]))
+    const values = data.map((item: any) => Number(item[column.property]))
     if (!values.every(value => Number.isNaN(value))) {
       sums[index] = `${values.reduce((prev, curr) => {
         const value = Number(curr)
@@ -66,9 +66,12 @@ const getSummaries = (param: SummaryMethodProps) => {
           return prev
       }, 0)}`
       if (index === columns.length - 1) {
-        const n3 = sums[columns.length - 3] || 0
-        const n2 = sums[columns.length - 2] || 0
-        sums[index] = `${Number.parseFloat((Number(n3) / Number(n2) * 100).toString()).toFixed(2)}%`
+        const n3 = Number(sums[columns.length - 3])
+        const n2 = Number(sums[columns.length - 2])
+        if (n3 > 0 || n2 > 0)
+          sums[index] = `${Number.parseFloat((n3 / n2 * 100).toString()).toFixed(0)}%`
+        else
+          sums[index] = '0%'
       }
     }
     else {
@@ -92,5 +95,4 @@ const getSummaries = (param: SummaryMethodProps) => {
   </div>
 </template>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
