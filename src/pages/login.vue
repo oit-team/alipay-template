@@ -34,7 +34,9 @@ const CheckCode = connect(
               e.keyCode === 13 && formRef.value.submit()
             }}
           />
-          <ElImage src={img.value} class="h-40px" on-click={execute}/>
+          <span class="flex" onClick={() => execute()}>
+            <ElImage src={img.value} class="h-40px"/>
+          </span>
         </div>
       )
     },
