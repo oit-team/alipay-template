@@ -34,7 +34,7 @@ watch(workOrderReview, (data) => {
         </template>
       </PageHeader>
 
-      <Valuation effects field-name="vehicleInspectionDetailed" />
+      <Valuation :effects="!flowOption?.isReview" field-name="vehicleInspectionDetailed" />
     </FormProvider>
   </div>
 </template>
