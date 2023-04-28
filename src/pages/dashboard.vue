@@ -1,30 +1,19 @@
 <script setup lang="ts">
 import Query from './dashboard/components/Query.vue'
-import QueryViolation from './dashboard/components/QueryViolation.vue'
 
 const route = useRoute()
 const router = useRouter()
 
 const tab = ref(route.path)
-const showQuery = ref<Boolean>(false)
+const loading = ref(true)
 
 watch(tab, () => {
-  if (tab.value === '/dashboard/driver-violation')
-    showQuery.value = true
-  else
-    showQuery.value = false
-
   router.replace(tab.value)
 })
 
 const queryData = ref()
 provide('queryData', queryData)
-
-const ready = computed(() =>
-  queryData.value
-    ? Object.values(queryData.value).every(item => item !== undefined)
-    : false,
-)
+provide('loading', loading)
 </script>
 
 <template>
@@ -41,17 +30,15 @@ const ready = computed(() =>
           司机预警看板
         </ElRadioButton>
         <ElRadioButton label="/dashboard/driver-violation">
-          违规看板
+          违章看板
+        </ElRadioButton>
+        <ElRadioButton label="/dashboard/vehicle-rental">
+          车辆出租率看板
         </ElRadioButton>
       </ElRadioGroup>
-      <template v-if="showQuery">
-        <QueryViolation class="w-full" @query="queryData = $event" />
-      </template>
-      <template v-else>
-        <Query class="w-full" @query="queryData = $event" />
-      </template>
+      <Query ref="queryRef" class="w-full" :tab="tab" @query="queryData = $event" />
     </div>
 
-    <RouterView v-if="ready" class="flex-1 basis-0" view-class="p-2" />
+    <RouterView v-if="!loading" class="flex-1 basis-0" view-class="p-2" />
   </div>
 </template>
