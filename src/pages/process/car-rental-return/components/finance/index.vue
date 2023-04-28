@@ -81,6 +81,42 @@ async function reject() {
             />
           </ElCard>
           <Valuation field-name="supplementInfo">
+            <ObjectField
+              v-for="item of [
+                { groupKey: 'rent', groupName: '租金' },
+              ]"
+              :key="item.groupKey"
+              :name="item.groupKey"
+            >
+              <div class="flex">
+                <div class="mt-1 w-5em">
+                  {{ item.groupName }}：
+                </div>
+                <div class="grid grid-cols-[200px_200px_200px_200px_200px_1fr_200px] flex-1 gap-2">
+                  <Field
+                    v-for="field of [
+                      { name: '应收金额', key: 'receivable', validator: 'number' },
+                      { name: 'T3代扣', key: 't3Withholding', validator: 'number' },
+                      { name: '线下收取', key: 'offlineCollection', validator: 'number' },
+                      { name: '其它金额', key: 'otherAmount', validator: 'number' },
+                      { name: '金额小计', key: 'subtotal', validator: 'number' },
+                      { name: '备注', key: 'remarks', required: false },
+                      { name: '负责人', key: 'confirmedBy' },
+                    ]"
+                    :key="field.name"
+                    :component="[Input]"
+                    :decorator="[FormItem]"
+                    :name="field.key"
+                    :required="field.required ?? true"
+                    :validator="field.validator"
+                  >
+                    <template #prepend>
+                      {{ field.name }}
+                    </template>
+                  </Field>
+                </div>
+              </div>
+            </ObjectField>
             <div class="flex justify-end w-full gap-2 ">
               <div class="w-1/6 flex items-center whitespace-nowrap">
                 扣除金额：
