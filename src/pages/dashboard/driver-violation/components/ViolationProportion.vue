@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import numeral from 'numeral'
 import type { TableColumnCtx } from 'element-plus'
 
 defineProps({
@@ -34,13 +35,13 @@ const columns = [
 ]
 
 interface Product {
-  total: Number
-  orgName: String
-  violationsProportion: Number
-  vehicleNum: Number
-  totalFines: Number
-  totalDeductionPoints: Number
-  orgId: Number
+  total: number
+  orgName: string
+  violationsProportion: number
+  vehicleNum: number
+  totalFines: number
+  totalDeductionPoints: number
+  orgId: number
 }
 
 interface SummaryMethodProps<T = Product> {
@@ -69,7 +70,7 @@ const getSummaries = (param: SummaryMethodProps) => {
         const n3 = Number(sums[columns.length - 3])
         const n2 = Number(sums[columns.length - 2])
         if (n3 > 0 || n2 > 0)
-          sums[index] = `${Number.parseFloat((n3 / n2 * 100).toString()).toFixed(0)}%`
+          sums[index] = numeral(n3 / n2).format('0%')
         else
           sums[index] = '0%'
       }
