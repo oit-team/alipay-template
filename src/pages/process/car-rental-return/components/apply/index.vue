@@ -39,6 +39,19 @@ watch(workOrderReview, (data) => {
   form.readOnly = !!workOrderInfo?.value.isReview
 }, { immediate: true })
 
+watch(vehicleInfo, async (data) => {
+  form.setFieldState('returnTheCarTime', {
+    validator: [
+      { required: true },
+      (value) => {
+        return new Date(vehicleInfo.value.startTime) > new Date(value)
+          ? '退车时间不能小于租车时间'
+          : true
+      },
+    ],
+  })
+})
+
 async function submit(data: any) {
   if (!vehicleInfo.value)
     return ElMessage.error('请选择车辆')
@@ -112,7 +125,7 @@ async function submit(data: any) {
                 ]"
               />
             </ElCard>
-            <ElCard v-if="vehicleId" header="退车信息">
+            <ElCard v-if="vehicleInfo" header="退车信息">
               <div class="pt-4">
                 <FormLayout
                   label-col="5"
