@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { pick } from 'lodash-es'
-import { onFieldChange, onFieldReact } from '@formily/core'
 import { workOrderApplySymbol, workOrderInfoSymbol } from '../../../types'
 import schema from './schema/form.json'
-import type { Field as FieldType } from '@formily/core'
 import { transformResponsePush } from '@/utils/helper'
 import DriverInfo from '@/pages/lease/driver/info/[id].vue'
 import VehicleInfo from '@/pages/lease/car/info/[id].vue'

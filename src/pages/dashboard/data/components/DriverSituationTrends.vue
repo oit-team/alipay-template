@@ -89,12 +89,12 @@ useEcharts(chartRef, echarts, option)
   <div>
     <ElTable border :data="['trainDriver', 'newOnTheSameDay', 'totalNumberOfDrivers', 'activeDriver']">
       <ElTableColumn v-slot="{ row }" fixed width="100">
-        {{ {
+        {{ ({
           trainDriver: '出车司机',
           newOnTheSameDay: '当日新增',
           totalNumberOfDrivers: '司机总数',
           activeDriver: '活跃司机',
-        }[row] }}
+        } as any)[row] }}
       </ElTableColumn>
       <ElTableColumn
         v-for="(item, index) of props.data"
@@ -105,7 +105,7 @@ useEcharts(chartRef, echarts, option)
         :prop="`${index}`"
         width="100"
       >
-        {{ item[row] ?? '-' }}
+        {{ (item as any)[row] ?? '-' }}
       </ElTableColumn>
     </ElTable>
   </div>

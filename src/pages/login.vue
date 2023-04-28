@@ -30,11 +30,11 @@ const CheckCode = connect(
             onInput={attrs.onChange as any}
             placeholder="请输入验证码"
             class="flex-1 mr-2"
-            onKeyup={(e: any) => {
+            on-keyup={(e: any) => {
               e.keyCode === 13 && formRef.value.submit()
             }}
           />
-          <ElImage src={img.value} class="h-40px" onClick={execute}/>
+          <ElImage src={img.value} class="h-40px" on-click={execute}/>
         </div>
       )
     },

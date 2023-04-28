@@ -128,7 +128,6 @@ defineExpose({
     ref="uploadRef"
     v-model:file-list="fileList"
     :action="action"
-    :before-upload="handleBeforeUpload"
     class="vc-upload"
     :http-request="httpRequest"
     :limit="limit"

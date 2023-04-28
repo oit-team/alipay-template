@@ -36,7 +36,7 @@ const titleMap = {
 }
 
 // 对每列最后一项百分比格式化
-const format = {
+const format: Record<string, string> = {
   warningRatio: '0[.]00%',
 }
 </script>

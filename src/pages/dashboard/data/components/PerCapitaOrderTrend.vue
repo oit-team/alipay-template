@@ -78,11 +78,11 @@ useEcharts(chartRef, echarts, option)
   <div>
     <ElTable border :data="['perCapitaOrders', 'averageOrderPrice', 'perCapitaFlow']">
       <ElTableColumn v-slot="{ row }" fixed width="100">
-        {{ {
+        {{ ({
           perCapitaOrders: '人均完单',
           averageOrderPrice: '单均价',
           perCapitaFlow: '人均流水',
-        }[row] }}
+        } as any)[row] }}
       </ElTableColumn>
       <ElTableColumn
         v-for="(item, index) of props.data"
@@ -93,7 +93,7 @@ useEcharts(chartRef, echarts, option)
         :prop="`${index}`"
         width="100"
       >
-        {{ item[row] ?? '-' }}
+        {{ (item as any)[row] ?? '-' }}
       </ElTableColumn>
     </ElTable>
   </div>
