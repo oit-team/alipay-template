@@ -23,6 +23,7 @@ const view = computed(() => ({
 
 const {
   data: workOrderReview,
+  isLoading: workOrderReviewLoading,
   execute: getReturnVehicleOrderMap,
 } = useAxios('/order/leaseOrder/getLeaseOrderByNo', {
   data: {
@@ -37,10 +38,10 @@ provide('workOrderReview', workOrderReview)
 </script>
 
 <template>
-  <div u-flex="~ col" u-h-full>
+  <div v-loading="workOrderReviewLoading" u-flex="~ col" u-h-full>
     <Steps />
 
-    <Component :is="view" class="flex-1" :class="{ 'formily-readonly': workOrderInfo?.isReview }" />
+    <Component :is="view" v-if="!workOrderReviewLoading" class="flex-1" :class="{ 'formily-readonly': workOrderInfo?.isReview }" />
 
     <Logs />
   </div>
