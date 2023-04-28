@@ -16,7 +16,7 @@ const columns = [
     label: '扣分',
   },
   {
-    prop: 'countNum',
+    prop: 'totalFines',
     label: '罚款',
   },
   {
