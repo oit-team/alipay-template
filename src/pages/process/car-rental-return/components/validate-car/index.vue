@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import { cloneDeep } from 'lodash-es'
-import { onFieldReact, onFieldValueChange } from '@formily/core'
-import numeral from 'numeral'
 import { workOrderInfoSymbol, workOrderSubmitSymbol } from '../../../types'
 import Valuation from '../components/Valuation.vue'
 import table from './schema/table.json'
-import type { Field as FieldType } from '@formily/core'
 import Upload from '~/components/FUpload'
 import vehicleCondition from '~/pages/process/schema/vehicleCondition.json'
 
@@ -13,47 +10,7 @@ const workOrderSubmit = inject(workOrderSubmitSymbol)
 const workOrderInfo = inject(workOrderInfoSymbol)
 const workOrderReview = inject('workOrderReview') as Ref<any>
 
-const form = createForm({
-  effects() {
-    const calcKey = ['vehicleViolation', 'floatingFee', 'depreciationCharge', 'trailerFee', 'vehicleLossAssessment']
-    calcKey.forEach((key) => {
-      onFieldReact(`*.${key}.subtotal`, (field) => {
-        field = field as FieldType
-        const result = form.query(`*.${key}.receivable`).value() - form.query(`*.${key}.netReceipts`).value()
-        field.value = Math.floor(result * 100) / 100 || 0
-      })
-    })
-
-    // 切换配件是否存在
-    onFieldValueChange('vehicleInspectionDetailed.vehicleAccessories.*.missing', (field) => {
-      field = field as FieldType
-      const path = field.path.entire as string
-      const parent = path.replace(/\.missing$/, '')
-      const subtotal = form.query(`${parent}.subtotal`).take()! as FieldType
-      const remark = form.query(`${parent}.remarks`).take()! as FieldType
-      if (field.value) {
-        subtotal.disabled = false
-        remark.disabled = false
-      }
-      else {
-        subtotal.disabled = true
-        subtotal.value = 0
-        remark.disabled = true
-        remark.value = ''
-      }
-    })
-
-    // 计算车辆配件小计
-    onFieldReact('*.vehicleCertificate.subtotal', (field) => {
-      field = field as FieldType
-      const result = form
-        .query('vehicleInspectionDetailed.vehicleAccessories.*.subtotal')
-        .reduce((acc, cur) => acc + (cur as FieldType).value, 0)
-
-      field.value = numeral(result).format('0[.]00')
-    })
-  },
-})
+const form = createForm()
 
 // 设置维修项初始值
 form.setValuesIn(
@@ -137,7 +94,7 @@ async function reject() {
         <ElTabPane label="信息补充">
           <FormLayout class="flex flex-col gap-2 p-2" label-width="6em">
             <div class="flex-1 flex flex-col gap-2">
-              <Valuation field-name="vehicleInspectionDetailed" />
+              <Valuation effects field-name="vehicleInspectionDetailed" />
               <ElCard>
                 <UseSchemaField :schema="table" />
               </ElCard>

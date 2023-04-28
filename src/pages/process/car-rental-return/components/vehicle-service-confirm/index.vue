@@ -34,7 +34,7 @@ watch(workOrderReview, (data) => {
         </template>
       </PageHeader>
 
-      <Valuation field-name="vehicleInspectionDetailed" />
+      <Valuation effects field-name="vehicleInspectionDetailed" />
     </FormProvider>
   </div>
 </template>
