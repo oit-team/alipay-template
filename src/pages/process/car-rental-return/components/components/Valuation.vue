@@ -233,6 +233,7 @@ const accessoriesSchema = {
             </div>
           </div>
         </ObjectField>
+        <slot />
       </div>
     </ElCard>
 

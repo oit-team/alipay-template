@@ -94,7 +94,7 @@ async function reject() {
         <ElTabPane label="信息补充">
           <FormLayout class="flex flex-col gap-2 p-2" label-width="6em">
             <div class="flex-1 flex flex-col gap-2">
-              <Valuation effects field-name="vehicleInspectionDetailed" />
+              <Valuation :effects="!workOrderInfo?.isReview" field-name="vehicleInspectionDetailed" />
               <ElCard>
                 <UseSchemaField :schema="table" />
               </ElCard>
