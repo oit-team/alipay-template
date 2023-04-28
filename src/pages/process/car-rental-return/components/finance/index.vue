@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ElInput } from 'element-plus'
 import { set } from 'lodash-es'
 import { workOrderInfoSymbol, workOrderSubmitSymbol } from '../../../types'
 import Valuation from '../components/Valuation.vue'
@@ -79,7 +80,18 @@ async function reject() {
               ]"
             />
           </ElCard>
-          <Valuation field-name="supplementInfo" />
+          <Valuation field-name="supplementInfo">
+            <div class="flex justify-end w-full gap-2 ">
+              <div class="w-1/6 flex items-center whitespace-nowrap">
+                扣除金额：
+                <ElInput readonly :value="vehicleReturnNote?.deductAmountTotal" />
+              </div>
+              <div class="w-1/6 flex items-center whitespace-nowrap">
+                退款金额：
+                <ElInput readonly :value="vehicleReturnNote?.refundAmountTotal" />
+              </div>
+            </div>
+          </Valuation>
         </div>
       </FormLayout>
     </FormProvider>
