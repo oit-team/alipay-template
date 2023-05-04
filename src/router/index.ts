@@ -15,7 +15,6 @@ router.beforeEach(async (to, from, next) => {
     try {
       if (!isLogin()) {
         next('/login')
-        ElMessage.error('请先登录')
         return
       }
       await getUserProfile()

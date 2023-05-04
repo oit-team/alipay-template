@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { toLower, toUpper } from 'lodash'
+import { toLower, toUpper } from 'lodash-es'
 import DataItem from '../components/DataItem.vue'
 import ClassifyPie from './components/ClassifyPie.vue'
 import MouthTrends from './components/DriverMonthlyTrends.vue'
