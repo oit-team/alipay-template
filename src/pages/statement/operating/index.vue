@@ -5,8 +5,7 @@ meta:
 
 <script setup lang="ts">
 import { useUserStore } from '@/store/user'
-
-const { t } = useI18n()
+import { importNotice } from '@/utils/importNotice'
 
 const { files, open } = useFileDialog()
 
@@ -16,32 +15,29 @@ onMounted(() => {
   queryRef.value?.query()
 })
 
-const statementLoading = ref(false)
 watch(files, async (value) => {
   if (!value || !value.length)
     return
 
   const { profile } = useUserStore()
 
-  statementLoading.value = true
-  axios.post('/vehicle/vehicle/addT3OperationalData', {
-    file: value[0],
-    userId: profile?.userId,
-  }, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  })
-    .then(() => {
-      ElMessage.success(t('import.success'))
+  try {
+    const { data } = await axios.post('/vehicle/vehicle/addT3OperationalData', {
+      file: value[0],
+      userId: profile?.userId,
+    }, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     })
-    .catch((err) => {
-      ElMessageBox.alert(err.message, '警告', {
-        type: 'warning',
-      })
-    }).finally(() => {
-      statementLoading.value = false
+
+    importNotice(data.importIndex)
+  }
+  catch (error) {
+    ElMessageBox.alert((error as any).message, '警告', {
+      type: 'warning',
     })
+  }
 })
 
 const columnsConfig = {
@@ -101,7 +97,7 @@ const columnsConfig = {
             {{ $t('button.import') }}运营流水
           </TButton>
         </QueryToolbar>
-        <QueryTable v-loading="statementLoading" element-loading-text="数据正在导入...">
+        <QueryTable>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" label="操作" width="100px">
               <ElButton size="small" type="info" @click="$router.push(`./operating/info/${row.operatorId}`)">

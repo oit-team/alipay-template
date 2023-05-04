@@ -6,6 +6,7 @@ meta:
 <script setup lang="ts">
 import { getCityList, useSelectAsyncDataSource } from '@/reactions'
 import { useUserStore } from '@/store/user'
+import { importNotice } from '@/utils/importNotice'
 
 const { t } = useI18n()
 
@@ -82,7 +83,7 @@ watch(files, async (value) => {
   const { profile } = useUserStore()
 
   try {
-    await axios.post('/order/leaseOrder/importT3LeaseOrder', {
+    const { data } = await axios.post('/order/leaseOrder/importT3LeaseOrder', {
       file: value[0],
       userId: profile?.userId,
     }, {
@@ -90,7 +91,8 @@ watch(files, async (value) => {
         'Content-Type': 'multipart/form-data',
       },
     })
-    ElMessage.success(t('import.success'))
+
+    importNotice(data.importIndex)
   }
   catch (err) {
     ElMessageBox.alert((err as any).message, '警告', {

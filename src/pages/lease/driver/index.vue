@@ -7,6 +7,7 @@ meta:
 import AssignDrawer from '../car/components/AssignDrawer.vue'
 import { useUserStore } from '@/store/user'
 import { numberMasking } from '@/utils/helper'
+import { importNotice } from '@/utils/importNotice'
 
 const { t } = useI18n()
 const { checkPermission } = usePermission()
@@ -51,32 +52,29 @@ async function onDelete(row: any) {
 
 const { files, open, reset } = useFileDialog()
 
-const driverLoading = ref(false)
 watch(files, async (value) => {
   if (!value || !value.length)
     return
 
   const { profile } = useUserStore()
 
-  driverLoading.value = true
-  axios.post('/driverServer/excel/addimporDriverInfo', {
-    file: value[0],
-    userId: profile?.userId,
-  }, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  })
-    .then(() => {
-      ElMessage.success(t('import.success'))
+  try {
+    const { data } = await axios.post('/driverServer/excel/addimporDriverInfo', {
+      file: value[0],
+      userId: profile?.userId,
+    }, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     })
-    .catch((err) => {
-      ElMessageBox.alert(err.message, '警告', {
-        type: 'warning',
-      })
-    }).finally(() => {
-      driverLoading.value = false
+
+    importNotice(data.importIndex)
+  }
+  catch (error) {
+    ElMessageBox.alert((error as any).message, '警告', {
+      type: 'warning',
     })
+  }
 
   reset()
 })
@@ -136,7 +134,7 @@ async function updateTableList() {
             {{ $t('button.assign') }}负责人
           </TButton>
         </QueryToolbar>
-        <QueryTable v-loading="driverLoading" element-loading-text="数据正在导入..." :selection="{ type: 'checkbox' }" @selection-change="handleSelectionListChange">
+        <QueryTable :selection="{ type: 'checkbox' }" @selection-change="handleSelectionListChange">
           <!-- 手机号数据加密 -->
           <template #content:driverPhone="{ value }">
             {{ checkPermission('selectEncryption') ? numberMasking(value, { start: 3, end: -4 }) : value }}

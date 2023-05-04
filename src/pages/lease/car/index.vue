@@ -7,6 +7,7 @@ meta:
 import AssignDrawer from './components/AssignDrawer.vue'
 import { useUserStore } from '@/store/user'
 import { getCityList, useSelectAsyncDataSource, vehicleServiceList } from '@/reactions'
+import { importNotice } from '@/utils/importNotice'
 const { checkPermission } = usePermission()
 
 const { t } = useI18n()
@@ -67,8 +68,6 @@ function importWei() {
   importType.value = 2
 }
 
-const carLoading = ref(false)
-
 watch(files, async (value) => {
   if (!value || !value.length)
     return
@@ -81,26 +80,23 @@ watch(files, async (value) => {
   }
   const url = importUrl[importType.value]
 
-  carLoading.value = true
+  try {
+    const { data } = await axios.post(url, {
+      file: value[0],
+      userId: profile?.userId,
+    }, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
 
-  axios.post(url, {
-    file: value[0],
-    userId: profile?.userId,
-  }, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  })
-    .then(() => {
-      ElMessage.success(t('import.success'))
+    importNotice(data.importIndex)
+  }
+  catch (error) {
+    ElMessageBox.alert((error as any).message, '警告', {
+      type: 'warning',
     })
-    .catch((err) => {
-      ElMessageBox.alert(err.message, '警告', {
-        type: 'warning',
-      })
-    }).finally(() => {
-      carLoading.value = false
-    })
+  }
 
   reset()
 })
@@ -159,7 +155,7 @@ async function updateTableList() {
             {{ $t('button.assign') }}负责人
           </TButton>
         </QueryToolbar>
-        <QueryTable v-loading="carLoading" element-loading-text="数据正在导入..." :selection="{ type: 'checkbox' }" @selection-change="handleSelectionListChange">
+        <QueryTable :selection="{ type: 'checkbox' }" @selection-change="handleSelectionListChange">
           <!-- 0 待租 1 已租 -->
           <template #content:vehicleState="{ row }">
             <div :class="row.vehicleStateVal === 1 ? 'text-green' : ''">

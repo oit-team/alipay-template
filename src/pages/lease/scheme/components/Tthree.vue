@@ -7,6 +7,7 @@ meta:
 import { downloadFile } from '@oit/utils'
 import { useUserStore } from '@/store/user'
 import { getCityList, useSelectAsyncDataSource } from '@/reactions'
+import { importNotice } from '@/utils/importNotice'
 
 const { t } = useI18n()
 
@@ -112,33 +113,31 @@ async function downloadModel() {
 // 导入方案
 const { files, open, reset } = useFileDialog()
 
-const schemeT3Loading = ref(false)
 watch(files, async (value) => {
   if (!value || !value.length)
     return
 
   const { profile } = useUserStore()
 
-  schemeT3Loading.value = true
-  axios.post('/order/scheme/importSchemeInfo', {
-    file: value[0],
-    userId: profile?.userId,
-  }, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  })
-    .then(() => {
-      ElMessage.success(t('import.success'))
-      exportDialogVisible.value = false
+  try {
+    const { data } = await axios.post('/order/scheme/importSchemeInfo', {
+      file: value[0],
+      userId: profile?.userId,
+    }, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     })
-    .catch((err) => {
-      ElMessageBox.alert(err.message, '警告', {
-        type: 'warning',
-      })
-    }).finally(() => {
-      schemeT3Loading.value = false
+
+    importNotice(data.importIndex)
+    exportDialogVisible.value = false
+  }
+  catch (error) {
+    ElMessageBox.alert((error as any).message, '警告', {
+      type: 'warning',
     })
+  }
+
   reset()
 })
 </script>
@@ -167,7 +166,7 @@ watch(files, async (value) => {
             导入
           </TButton>
         </QueryToolbar>
-        <QueryTable v-loading="schemeT3Loading" element-loading-text="数据正在导入...">
+        <QueryTable>
           <template #content:caseStateMsg="{ row }">
             <div :class="statusColorMap[row.caseState]">
               {{ row.caseStateMsg }}

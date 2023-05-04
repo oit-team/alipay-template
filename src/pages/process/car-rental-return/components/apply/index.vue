@@ -39,7 +39,7 @@ watch(workOrderReview, (data) => {
   form.readOnly = !!workOrderInfo?.value.isReview
 }, { immediate: true })
 
-watch(vehicleInfo, async (data) => {
+watch(vehicleInfo, async () => {
   form.setFieldState('returnTheCarTime', {
     validator: [
       { required: true },
