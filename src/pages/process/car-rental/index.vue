@@ -1,5 +1,6 @@
 <route lang="yaml">
 meta:
+  title: 租车申请
   flowCode: CAR_RENTAL
 </route>
 
