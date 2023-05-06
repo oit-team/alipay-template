@@ -67,7 +67,7 @@ export interface FlowOption {
   currentLogs?: string[]
   // 当前步骤详细数据
   currentStep?: any
-  // 当前步骤是否时回显
+  // 当前步骤是否是回显
   isReview: boolean
   // 主要参数
   mainParams: Record<string, any>
