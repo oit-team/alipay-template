@@ -5,6 +5,7 @@ import Valuation from '@/pages/process/car-rental-return/components/components/V
 
 const { t } = useI18n()
 const route = useRoute()
+const router = useRouter()
 const form = createForm()
 const vehicleId = ref()
 
@@ -60,6 +61,8 @@ async function submit(formData: any) {
     currentVehicleId: vehicleId.value,
     ...formData,
   })
+  ElMessage.success('提交成功')
+  router.back()
 }
 </script>
 

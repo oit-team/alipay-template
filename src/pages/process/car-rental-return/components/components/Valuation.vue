@@ -27,7 +27,7 @@ useFormEffects(() => {
     })
 
     // 切换配件是否存在
-    onFieldValueChange('vehicleInspectionDetailed.vehicleAccessories.*.missing', (field, form) => {
+    onFieldValueChange('*.vehicleAccessories.*.missing', (field, form) => {
       field = field as FieldType
       const path = field.path.entire as string
       const parent = path.replace(/\.missing$/, '')
@@ -49,7 +49,7 @@ useFormEffects(() => {
     onFieldReact('*.vehicleCertificate.subtotal', (field, form) => {
       field = field as FieldType
       const result = form
-        .query('vehicleInspectionDetailed.vehicleAccessories.*.subtotal')
+        .query('*.vehicleAccessories.*.subtotal')
         .reduce((acc, cur) => acc + (cur as FieldType).value, 0)
 
       field.value = numeral(result).format('0[.]00')
@@ -244,7 +244,7 @@ const accessoriesSchema = {
           <ObjectField name="vehicleCertificate">
             <Field
               v-for="field of [
-                { name: '金额总计', key: 'subtotal', validator: 'number', readonly: true },
+                { name: '金额总计', key: 'subtotal', validator: 'number', readonly: true, required: false },
                 { name: '备注', key: 'remarks', required: false },
                 { name: '负责人', key: 'confirmedBy', hide: !showConfirmedBy },
               ].filter((item) => !item.hide)"
