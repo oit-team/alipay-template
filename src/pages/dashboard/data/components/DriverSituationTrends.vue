@@ -74,10 +74,6 @@ const option = computed<EChartsOption>(() => ({
       name: '活跃司机',
       type: 'line',
       data: props.data?.map(item => item.activeDriver ?? 0),
-      label: {
-        show: true,
-        position: 'top',
-      },
     },
   ],
 }))

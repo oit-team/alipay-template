@@ -5,6 +5,7 @@ import { AxisPointerComponent, GridComponent, LegendComponent, TooltipComponent 
 import { CanvasRenderer } from 'echarts/renderers'
 import dayjs from 'dayjs'
 import { UniversalTransition } from 'echarts/features'
+import numeral from 'numeral'
 import type { EChartsOption } from 'echarts'
 import type { DataBoardInfo } from '../types'
 
@@ -99,11 +100,10 @@ const option = computed<EChartsOption>(() => {
         emphasis: {
           focus: 'series',
         },
-        label: {
-          show: true,
-          position: 'top',
-        },
         data: props.data?.map((item: any) => item?.effectiveDurationRate?.value ?? 0),
+        tooltip: {
+          valueFormatter: (value: number) => numeral(value).format('0[.]00%'),
+        },
       },
     ],
   }

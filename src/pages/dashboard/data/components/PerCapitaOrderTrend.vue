@@ -63,10 +63,6 @@ const option = computed<EChartsOption>(() => ({
       name: '人均流水',
       type: 'line',
       data: props.data?.map(item => item?.perCapitaFlow ?? 0),
-      label: {
-        show: true,
-        position: 'top',
-      },
     },
   ],
 }))
