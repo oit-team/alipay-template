@@ -4,6 +4,7 @@ import { BarChart, LineChart } from 'echarts/charts'
 import { AxisPointerComponent, GridComponent, LegendComponent, TooltipComponent } from 'echarts/components'
 import { CanvasRenderer } from 'echarts/renderers'
 import dayjs from 'dayjs'
+import { watchDeep } from '@vueuse/core'
 import type { EChartsOption } from 'echarts'
 import type { DataBoardInfo } from '../types'
 import type { PropType } from 'vue'
@@ -71,12 +72,17 @@ const option = computed<EChartsOption>(() => ({
 }))
 
 useEcharts(chartRef, echarts, option)
+
+const { reload, rendered } = useReload()
+watchDeep(() => props.data, () => {
+  reload()
+})
 </script>
 
 <template>
   <div ref="chartRef" v-bind="$attrs" />
-  <div>
-    <ElTable border :data="['perCapitaOrders', 'averageOrderPrice', 'perCapitaFlow']">
+  <div v-if="rendered">
+    <ElTable border :data="['perCapitaFlow', 'perCapitaOrders', 'averageOrderPrice']">
       <ElTableColumn v-slot="{ row }" fixed width="100">
         {{ ({
           perCapitaOrders: '人均完单',
