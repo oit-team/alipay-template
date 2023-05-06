@@ -3,7 +3,7 @@ export function useReload() {
 
   function reload() {
     rendered.value = false
-    setTimeout(() => {
+    nextTick(() => {
       rendered.value = true
     })
   }
