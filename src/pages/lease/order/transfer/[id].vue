@@ -8,6 +8,15 @@ const route = useRoute()
 const router = useRouter()
 const form = createForm()
 const vehicleId = ref()
+const changeInfo = ref()
+const hideSearches = route.query?.hide === '1'
+
+const vehicleItemNow = ref()
+
+if (hideSearches) {
+  form.readOnly = true
+  getinfo()
+}
 
 // 隐藏项
 form.setFieldState('*.*(floatingFee,depreciationCharge,trailerFee,liquidatedDamages)', {
@@ -32,6 +41,16 @@ form.setValuesIn(
     subtotal: 0,
   })),
 )
+
+// 获取换车记录详情
+async function getinfo() {
+  const res = await axios.post('/order/leaseOrder/getVehicleChangeInfo', {
+    recordsId: route.params?.id,
+  })
+  changeInfo.value = res.data
+  vehicleItemNow.value = changeInfo.value?.currentVehicleInfo
+  form.setValues(changeInfo.value)
+}
 
 function executeQuery(fn: any, data: any) {
   fn({
@@ -77,7 +96,7 @@ async function submit(formData: any) {
         </template>
       </PageHeader>
       <ElCard>
-        <template #header>
+        <template v-if="!hideSearches" #header>
           <div>
             <span>车牌号：</span>
             <ElSelect
@@ -102,7 +121,7 @@ async function submit(formData: any) {
         </template>
         <Descriptions
           border
-          :data="vehicleItem"
+          :data="hideSearches ? vehicleItemNow : vehicleItem"
           default-text="暂无"
           label-width="130px"
           :options="[
@@ -117,19 +136,29 @@ async function submit(formData: any) {
         />
       </ElCard>
 
-      <template v-if="vehicleItem">
+      <template v-if="vehicleItem || vehicleItemNow">
         <Valuation effects field-name="vehicleInspection" />
 
         <ElCard header="换车原因">
-          <Field
-            :component="[Input.TextArea, {
-              'show-word-limit': true,
-              'maxlength': 50,
-            }]"
-            :decorator="[FormItem]"
-            name="vehicleChangeInstruc"
-            required
-          />
+          <div>
+            <Field
+              :component="[Input.TextArea, {
+                'show-word-limit': true,
+                'maxlength': 50,
+              }]"
+              :decorator="[FormItem]"
+              name="vehicleChangeInstruc"
+              required
+            />
+            <div v-if="route.query.hide" class="flex justify-between items-center">
+              <div>
+                处理人：{{ changeInfo.createName || '暂无' }}
+              </div>
+              <div>
+                处理时间：{{ changeInfo.createTime }}
+              </div>
+            </div>
+          </div>
         </ElCard>
       </template>
     </FormProvider>
