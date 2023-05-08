@@ -2,6 +2,9 @@ export interface WorkOrderApply {
   (params: Record<string, any>): Promise<any>
 }
 
+/**
+ * @deprecated 改用 flowOptionSymbol 的 apply
+ */
 export const workOrderApplySymbol = Symbol('workOrderApply') as InjectionKey<WorkOrderApply>
 
 /**
@@ -51,6 +54,9 @@ export interface WorkOrderSubmit {
   } | AcceptStatus): Promise<any>
 }
 
+/**
+ * @deprecated 改用 flowOptionSymbol 的 submit
+ */
 export const workOrderSubmitSymbol = Symbol('workOrderSubmit') as InjectionKey<WorkOrderSubmit>
 
 export interface FlowOption {
