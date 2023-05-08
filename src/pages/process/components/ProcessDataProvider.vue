@@ -43,7 +43,7 @@ const workOrderApply: WorkOrderApply = (params) => {
   })
 }
 
-const workOrderSubmit: WorkOrderSubmit = async (params, options) => {
+const workOrderSubmit: WorkOrderSubmit = async (params, options = 1) => {
   options = typeof options === 'number' ? { approvalStatus: options } : options
 
   if (options.approvalStatus === 0 && !options.approvalNotes) {

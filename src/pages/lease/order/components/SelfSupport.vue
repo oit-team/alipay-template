@@ -243,7 +243,10 @@ const columnsConfig = {
             </div>
           </template>
           <template #actions>
-            <QueryActionColumn v-slot="{ row }" width="300px">
+            <QueryActionColumn v-slot="{ row }" width="350px">
+              <ElButton @click="$router.push(`/process/car-renewal?orderNo=${row.leaseOrderNo}`)">
+                续租
+              </ElButton>
               <ElButton @click="$router.push(`/lease/order/transfer/${row.id}`)">
                 换车
               </ElButton>

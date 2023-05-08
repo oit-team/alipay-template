@@ -44,7 +44,7 @@ export const workOrderInfoSymbol = Symbol('workOrderInfo') as InjectionKey<Ref<W
 
 type AcceptStatus = 0 | 1
 export interface WorkOrderSubmit {
-  (params: any, options: {
+  (params: any, options?: {
     // 下一个任务编号
     nextTaskCode?: string
     // 0：不同意 1：同意

@@ -16,7 +16,9 @@ const statusColorMap: Record<string, string> = {
 const routeMap: Record<string, string> = {
   CAR_RENTAL: '/process/car-rental',
   CAR_RETURN: '/process/car-rental-return',
+  CAR_RENEWAL: '/process/car-renewal',
 }
+
 async function goDetail(row: any) {
   const path = routeMap[row.flowCode]
   if (!path)
@@ -26,7 +28,6 @@ async function goDetail(row: any) {
     query: {
       workCode: row.workCode,
       flowCode: row.flowCode,
-      // taskCode: row.taskCode,
     },
   })
 }
