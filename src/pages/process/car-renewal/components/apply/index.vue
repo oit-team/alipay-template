@@ -6,6 +6,9 @@ import type { Field as FieldType } from '@formily/core'
 import { useFlowOption } from '@/pages/process/hooks/useFlowOption'
 import { transformResponsePush } from '@/utils/helper'
 
+// 预览组件
+const PreviewText = (props: any) => props.value
+
 const route = useRoute()
 const router = useRouter()
 const { t } = useI18n()
@@ -92,11 +95,22 @@ const {
 function onCalcRent() {
   onFieldReact('*.unpaidRent', (field) => {
     field = field as FieldType
-    field.value = orderInfo.value?.rentInspection?.rentReceivable
-       - field.query('*.t3Withholding').value()
-        - field.query('*.offlinePay').value()
+    const rentReceivable = field.query('*.rentReceivable').value()
+    const t3Withholding = field.query('*.t3Withholding').value()
+    const offlinePay = field.query('*.offlinePay').value()
+    field.value = rentReceivable - t3Withholding - offlinePay
   })
 }
+
+// 租金信息
+const rentInspection = computed(() => {
+  return flowOption.isReview
+    ? reviewData.value?.leaseOrderBasic?.appendix
+    : orderInfo.value?.rentInspection
+})
+watch(rentInspection, () => {
+  form.setValues({ appendix: rentInspection.value })
+})
 
 watch(() => state.activityId, (value) => {
   if (!value) {
@@ -241,29 +255,27 @@ async function submit(formData: any) {
           </ElCard>
           <ElCard header="租金查验">
             <ObjectField name="appendix">
-              <Descriptions
+              <ElDescriptions
                 border
-                :data="orderInfo?.rentInspection ?? {}"
-                default-text="暂无"
-                label-width="130px"
-                :options="[
-                  { label: '总租金', prop: 'totalBillRent' },
-                  { label: '应交租金', prop: 'rentReceivable' },
-                  { label: 'T3代扣', prop: 't3Withholding' },
-                  { label: '线下收取', prop: 'offlinePay' },
-                  { label: '欠缴租金', prop: 'unpaidRent' },
-                ]"
+                :column="5"
+                style="--el-descriptions-label-width: 130px"
               >
-                <template #t3Withholding>
+                <ElDescriptionsItem label="总租金">
+                  <Field :component="[PreviewText]" name="totalBillRent" />
+                </ElDescriptionsItem>
+                <ElDescriptionsItem label="应交租金">
+                  <Field :component="[PreviewText]" name="rentReceivable" />
+                </ElDescriptionsItem>
+                <ElDescriptionsItem label="T3代扣">
                   <Field :component="[InputNumber]" :decorator="[FormItem]" name="t3Withholding" required />
-                </template>
-                <template #offlinePay>
+                </ElDescriptionsItem>
+                <ElDescriptionsItem label="线下收取">
                   <Field :component="[InputNumber]" :decorator="[FormItem]" name="offlinePay" required />
-                </template>
-                <template #unpaidRent>
+                </ElDescriptionsItem>
+                <ElDescriptionsItem label="欠缴租金">
                   <Field :component="[InputNumber]" :decorator="[FormItem]" name="unpaidRent" readonly />
-                </template>
-              </Descriptions>
+                </ElDescriptionsItem>
+              </ElDescriptions>
             </ObjectField>
           </ElCard>
           <ElCard>

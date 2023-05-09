@@ -24,6 +24,9 @@ async function submit() {
     <FormProvider :form="form">
       <PageHeader title="续租申请">
         <template v-if="!isReview" #extra>
+          <ElButton type="danger" @click="flowOption.reject()">
+            拒绝
+          </ElButton>
           <Submit type="primary" @submit="submit">
             提交
           </Submit>

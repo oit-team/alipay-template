@@ -110,7 +110,7 @@ async function supplementaryOrder() {
     return ElMessage.warning('请选择要补单的订单')
 
   await ElMessageBox.confirm('确定要补单吗？', '提示')
-  await axios.post('/leaseOrder/addLeaseOrders', {
+  await axios.post('/order/leaseOrder/addLeaseOrders', {
     orderNo: ids,
   })
 
