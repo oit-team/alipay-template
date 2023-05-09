@@ -41,8 +41,12 @@ const config: ConfigProviderInstance['$props'] = {
 
 <style lang="scss">
 .query-action-column {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+
   .el-button+.el-button {
-    margin-left: 6px;
+    margin-left: 0;
   }
 }
 </style>

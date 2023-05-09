@@ -4,6 +4,7 @@ meta:
   </route>
 
 <script setup lang="ts">
+import { ArrowDown } from '@element-plus/icons-vue'
 import { transformResponsePush } from '@/utils/helper'
 
 const { t } = useI18n()
@@ -243,34 +244,56 @@ const columnsConfig = {
             </div>
           </template>
           <template #actions>
-            <QueryActionColumn v-slot="{ row }" width="420px">
-              <ElButton @click="$router.push(`/process/car-renewal?orderNo=${row.leaseOrderNo}`)">
-                续租
-              </ElButton>
-              <ElButton @click="$router.push(`/lease/order/transfer/${row.leaseOrderNo}`)">
-                换车
-              </ElButton>
+            <QueryActionColumn v-slot="{ row }" width="180px">
               <ElButton size="small" type="success" @click="$router.push(`./order/info/self-support/${row.id}`)">
                 {{ $t('button.info') }}
               </ElButton>
-              <ElButton :disabled=" row.isAssociated === 0 && (row.orderStatue === 2 || row.orderStatue === 3)" size="small" type="warning" @click="onRelevanceOrder(row)">
-                {{ row.isAssociated === 0 ? '关联订单' : '解除订单' }}
-              </ElButton>
-              <ElButton :disabled="row.orderStatue === 2 || row.orderStatue === 3" size="small" type="danger" @click="onCancellation(row)">
-                订单作废
-              </ElButton>
-              <ElButton
-                type="primary"
-                @click="$router.push({
-                  path: '/process/extension-request',
-                  query: {
-                    leaseOrderNo: row.leaseOrderNo,
-                    rentalWorkCode: row.rentalWorkCode,
-                  },
-                })"
-              >
-                延期申请
-              </ElButton>
+              <ElDropdown>
+                <ElButton class="el-dropdown-link" type="primary">
+                  更多
+                  <ElIcon class="el-icon--right">
+                    <ArrowDown />
+                  </ElIcon>
+                </ElButton>
+                <template #dropdown>
+                  <ElDropdownMenu>
+                    <ElDropdownItem>
+                      <div @click="$router.push(`/process/car-renewal?orderNo=${row.leaseOrderNo}`)">
+                        续租
+                      </div>
+                    </ElDropdownItem>
+                    <ElDropdownItem>
+                      <div @click="$router.push(`/lease/order/transfer/${row.leaseOrderNo}`)">
+                        换车
+                      </div>
+                    </ElDropdownItem>
+                    <ElDropdownItem>
+                      <div
+                        type="primary"
+                        @click="$router.push({
+                          path: '/process/extension-request',
+                          query: {
+                            leaseOrderNo: row.leaseOrderNo,
+                            rentalWorkCode: row.rentalWorkCode,
+                          },
+                        })"
+                      >
+                        延期申请
+                      </div>
+                    </ElDropdownItem>
+                    <ElDropdownItem>
+                      <div :disabled=" row.isAssociated === 0 && (row.orderStatue === 2 || row.orderStatue === 3)" size="small" type="warning" @click="onRelevanceOrder(row)">
+                        {{ row.isAssociated === 0 ? '关联订单' : '解除订单' }}
+                      </div>
+                    </ElDropdownItem>
+                    <ElDropdownItem>
+                      <div :disabled="row.orderStatue === 2 || row.orderStatue === 3" size="small" type="danger" @click="onCancellation(row)">
+                        订单作废
+                      </div>
+                    </ElDropdownItem>
+                  </ElDropdownMenu>
+                </template>
+              </ElDropdown>
             </QueryActionColumn>
           </template>
         </QueryTable>
