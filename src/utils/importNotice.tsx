@@ -22,7 +22,7 @@ const NoticeContent = defineComponent({
     watch(error, (err) => {
       err && pause()
     })
-    watch(data, (data) => {
+    watch(data, () => {
       done.value && pause()
     })
 
@@ -32,14 +32,14 @@ const NoticeContent = defineComponent({
           error.value
             ? '导入失败'
             : done.value
-              ? <div class="flex gap-2">
+              ? <div class="flex gap-2 flex-wrap">
                   <ElTag type="info">总数量：{data.value?.totalCount}条</ElTag>
                   <ElTag type="info" effect="plain">已处理：{data.value?.processedTotal}条</ElTag>
                   <ElTag type="success">新增：{data.value?.addCount}条</ElTag>
                   <ElTag>更新：{data.value?.upDateCount}条</ElTag>
                   <ElTag class="cursor-pointer" type="danger" onClick={() => showErrorMsg.value = true}>失败：{data.value?.failureCount}条</ElTag>
                 </div>
-              : <ElProgress percentage={data.value.processedTotal / data.value.totalCount * 100}/>
+              : <ElProgress percentage={Math.floor(data.value.processedTotal / data.value.totalCount * 100)}/>
         }
         <ElDrawer title="错误日志" v-model={showErrorMsg.value}>
           <ul class="flex flex-col gap-2 p-3">
