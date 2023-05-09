@@ -47,7 +47,7 @@ else {
           <ElButton type="danger" @click="flowOption.reject()">
             拒绝
           </ElButton>
-          <Submit type="primary" @submit="flowOption.submit($event, 1)">
+          <Submit type="primary" @submit="flowOption.submit($event)">
             通过
           </Submit>
         </template>
