@@ -14,8 +14,10 @@ const reviewData = inject('workOrderReview') as Ref<any>
 const orderNo = reviewData.value?.leaseOrderBasic?.fatherOrderNo ?? route.query.orderNo
 const isReview = flowOption?.isReview
 const form = createForm({
+  initialValues: reviewData.value?.leaseOrderBasic,
+  readOnly: isReview,
   effects() {
-    onCalcRent()
+    !isReview && onCalcRent()
   },
 })
 
@@ -88,11 +90,11 @@ const {
 
 // 计算欠缴租金
 function onCalcRent() {
-  onFieldReact('unpaidRent', (field) => {
+  onFieldReact('*.unpaidRent', (field) => {
     field = field as FieldType
     field.value = orderInfo.value?.rentInspection?.rentReceivable
-       - field.query('t3Withholding').value()
-        - field.query('offlinePay').value()
+       - field.query('*.t3Withholding').value()
+        - field.query('*.offlinePay').value()
   })
 }
 
@@ -193,11 +195,11 @@ async function submit(formData: any) {
       'driverId',
     ]),
     ...state,
+    ...formData,
     fatherOrderNo: orderNo,
     fatherOrderType: 1,
     leaseOrderType: 2,
     time: orderInfo.value?.leaseOrder?.endTime,
-    appendix: formData,
   }
 
   await flowOption.apply(params)
@@ -238,29 +240,31 @@ async function submit(formData: any) {
             />
           </ElCard>
           <ElCard header="租金查验">
-            <Descriptions
-              border
-              :data="orderInfo?.rentInspection ?? {}"
-              default-text="暂无"
-              label-width="130px"
-              :options="[
-                { label: '总租金', prop: 'totalBillRent' },
-                { label: '应交租金', prop: 'rentReceivable' },
-                { label: 'T3代扣', prop: 't3Withholding' },
-                { label: '线下收取', prop: 'offlinePay' },
-                { label: '欠缴租金', prop: 'unpaidRent' },
-              ]"
-            >
-              <template #t3Withholding>
-                <Field :component="[InputNumber]" :decorator="[FormItem]" name="t3Withholding" required />
-              </template>
-              <template #offlinePay>
-                <Field :component="[InputNumber]" :decorator="[FormItem]" name="offlinePay" required />
-              </template>
-              <template #unpaidRent>
-                <Field :component="[InputNumber]" :decorator="[FormItem]" name="unpaidRent" readonly />
-              </template>
-            </Descriptions>
+            <ObjectField name="appendix">
+              <Descriptions
+                border
+                :data="orderInfo?.rentInspection ?? {}"
+                default-text="暂无"
+                label-width="130px"
+                :options="[
+                  { label: '总租金', prop: 'totalBillRent' },
+                  { label: '应交租金', prop: 'rentReceivable' },
+                  { label: 'T3代扣', prop: 't3Withholding' },
+                  { label: '线下收取', prop: 'offlinePay' },
+                  { label: '欠缴租金', prop: 'unpaidRent' },
+                ]"
+              >
+                <template #t3Withholding>
+                  <Field :component="[InputNumber]" :decorator="[FormItem]" name="t3Withholding" required />
+                </template>
+                <template #offlinePay>
+                  <Field :component="[InputNumber]" :decorator="[FormItem]" name="offlinePay" required />
+                </template>
+                <template #unpaidRent>
+                  <Field :component="[InputNumber]" :decorator="[FormItem]" name="unpaidRent" readonly />
+                </template>
+              </Descriptions>
+            </ObjectField>
           </ElCard>
           <ElCard>
             <template #header>
