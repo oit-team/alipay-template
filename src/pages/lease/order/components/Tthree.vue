@@ -4,13 +4,13 @@ meta:
   </route>
 
 <script setup lang="ts">
+import type { TableInstance } from 'element-plus'
 import { getCityList, useSelectAsyncDataSource } from '@/reactions'
 import { useUserStore } from '@/store/user'
 import { importNotice } from '@/utils/importNotice'
 
-const { t } = useI18n()
-
 const queryRef = ref()
+const tableRef = ref<TableInstance>()
 
 onMounted(() => {
   queryRef.value?.query()
@@ -101,6 +101,21 @@ watch(files, async (value) => {
   }
   reset()
 })
+
+// 补单
+async function supplementaryOrder() {
+  const ids = tableRef.value?.getSelectionRows()?.map((item: any) => item.id)
+
+  if (!ids?.length)
+    return ElMessage.warning('请选择要补单的订单')
+
+  await ElMessageBox.confirm('确定要补单吗？', '提示')
+  await axios.post('/leaseOrder/addLeaseOrders', {
+    orderNo: ids,
+  })
+
+  ElMessage.success('补单成功')
+}
 </script>
 
 <template>
@@ -123,8 +138,17 @@ watch(files, async (value) => {
           <TButton icon="import" @click="open({ multiple: false })">
             {{ $t('button.import') }}T3租赁订单
           </TButton>
+          <TButton @click="supplementaryOrder()">
+            补单
+          </TButton>
         </QueryToolbar>
-        <QueryTable>
+        <QueryTable
+          ref="tableRef"
+          :selection="{
+            type: 'checkbox',
+            selectable: (row) => row.isAssociated !== 1,
+          }"
+        >
           <!-- 点击车牌号跳转到车辆详情 -->
           <template #content:carNumber="{ row, value }">
             <ElLink
