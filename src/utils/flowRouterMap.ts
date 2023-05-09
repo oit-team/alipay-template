@@ -5,6 +5,7 @@ export const flowRouteMap: Record<string, string> = {
   CAR_RENTAL: '/process/car-rental',
   CAR_RETURN: '/process/car-rental-return',
   CAR_EXTENSION: '/process/extension-request',
+  CAR_RENEWAL: '/process/car-renewal',
 }
 
 export function toFlowPage(flowCode: string, query?: LocationQueryRaw) {
