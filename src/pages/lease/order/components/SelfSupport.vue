@@ -263,7 +263,7 @@ const columnsConfig = {
                       </div>
                     </ElDropdownItem>
                     <ElDropdownItem>
-                      <div @click="$router.push(`/lease/order/transfer/${row.id}`)">
+                      <div @click="$router.push(`/lease/order/transfer/${row.leaseOrderNo}`)">
                         换车
                       </div>
                     </ElDropdownItem>
