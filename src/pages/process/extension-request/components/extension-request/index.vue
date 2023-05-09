@@ -14,7 +14,7 @@ const { t } = useI18n()
 const flowOption = useFlowOption()!
 
 const extensionReview = inject('workOrderReviewExtension') as Ref<any>
-const isReview = !!extensionReview.value
+
 const reviewData = computed(() => {
   const data = extensionReview.value?.extension
   return {
@@ -26,9 +26,6 @@ const reviewData = computed(() => {
 const leaseOrderNo = route.query.leaseOrderNo || reviewData.value?.leaseOrderNo
 const workCode = route.query.rentalWorkCode || route.query.workCode
 
-const isDisabled = ref(false)
-
-// 查询第一步上两条描述
 const { data } = useAxios('/order/leaseOrder/selectOrderInfoAndRentInspection', {
   method: 'POST',
   data: {
@@ -37,10 +34,6 @@ const { data } = useAxios('/order/leaseOrder/selectOrderInfoAndRentInspection', 
     selectRentInspectionTag: 1,
   },
 })
-
-const rentInspectionInfo = ref()
-if (isReview)
-  rentInspectionInfo.value = JSON.parse(extensionReview.value?.extension?.rentInspection)
 
 const form = createForm({
   effects() {
@@ -55,15 +48,10 @@ const form = createForm({
     })
 
     onFieldReact('extensionDay', (field: any) => {
-      const futureDay = dayjs(field.query('extensionEndTime').value()).diff(data.value?.leaseOrder?.endTime, 'day')
-      if (futureDay > 0) {
-        field.value = futureDay
-        isDisabled.value = false
-      }
-      else {
-        field.value = 0
-        isDisabled.value = true
-      }
+      const extensionEndTime = field.query('extensionEndTime').value()
+      const endTime = data.value?.leaseOrder?.endTime
+      const futureDay = dayjs(extensionEndTime).diff(endTime, 'day')
+      field.value = futureDay || 0
     })
 
     onFieldReact('extensionRent', (field: any) => {
@@ -72,7 +60,6 @@ const form = createForm({
   },
 })
 
-// 租金信息
 if (flowOption.isReview) {
   form.readOnly = true
   form.setValues(reviewData.value)
@@ -83,7 +70,6 @@ else {
   })
 }
 
-// 监听延期日期做出校验
 watch(() => data.value?.leaseOrder?.endTime, async (time) => {
   form.setFieldState('extensionEndTime', {
     validator: [
@@ -119,7 +105,7 @@ async function submit(formData: any) {
   <div class="flex flex-col">
     <FormProvider :form="form">
       <PageHeader :title="workCode ? `延期申请-${workCode}` : '延期申请'">
-        <template #extra>
+        <template v-if="!flowOption.isReview" #extra>
           <Submit @submit="submit">
             提交
           </Submit>
@@ -151,9 +137,7 @@ async function submit(formData: any) {
                   { label: '月租', prop: 'rent' },
                 ]"
               />
-              <div v-else class="min-h-30 flex justify-center items-center">
-                暂无数据
-              </div>
+              <ElEmpty v-else description="暂无数据" />
             </ElCard>
             <ElCard>
               <template #header>
@@ -219,9 +203,6 @@ async function submit(formData: any) {
                   <Field :component="[Input]" name="remarks" />
                 </template>
               </Descriptions>
-              <!-- <div v-else class="min-h-30 flex justify-center items-center">
-                暂无数据
-              </div> -->
             </ElCard>
           </div>
         </ElTabPane>
