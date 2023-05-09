@@ -32,7 +32,7 @@ const {
   },
 }, { immediate: false })
 
-if (workOrderInfo?.value?.workCode)
+if (flowOption?.isReview)
   getReturnVehicleOrderMap()
 
 provide('workOrderReview', workOrderReview)

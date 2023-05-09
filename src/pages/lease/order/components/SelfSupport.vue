@@ -243,7 +243,7 @@ const columnsConfig = {
             </div>
           </template>
           <template #actions>
-            <QueryActionColumn v-slot="{ row }" width="350px">
+            <QueryActionColumn v-slot="{ row }" width="420px">
               <ElButton @click="$router.push(`/process/car-renewal?orderNo=${row.leaseOrderNo}`)">
                 续租
               </ElButton>
@@ -258,6 +258,18 @@ const columnsConfig = {
               </ElButton>
               <ElButton :disabled="row.orderStatue === 2 || row.orderStatue === 3" size="small" type="danger" @click="onCancellation(row)">
                 订单作废
+              </ElButton>
+              <ElButton
+                type="primary"
+                @click="$router.push({
+                  path: '/process/extension-request',
+                  query: {
+                    leaseOrderNo: row.leaseOrderNo,
+                    rentalWorkCode: row.rentalWorkCode,
+                  },
+                })"
+              >
+                延期申请
               </ElButton>
             </QueryActionColumn>
           </template>

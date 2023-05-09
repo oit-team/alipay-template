@@ -4,7 +4,7 @@
   </route>
 
 <script setup lang="ts">
-const router = useRouter()
+import { toFlowPage } from '@/utils/flowRouterMap'
 
 // 0 进行中 1已完成 -1 已作废
 const statusColorMap: Record<string, string> = {
@@ -13,22 +13,11 @@ const statusColorMap: Record<string, string> = {
   '2': '',
 }
 
-const routeMap: Record<string, string> = {
-  CAR_RENTAL: '/process/car-rental',
-  CAR_RETURN: '/process/car-rental-return',
-}
-
 async function goDetail(row: any) {
-  const path = routeMap[row.flowCode]
-  if (!path)
-    return ElMessage.warning('未找到对应的流程页面')
-  router.push({
-    path,
-    query: {
-      workCode: row.workCode,
-      flowCode: row.flowCode,
-      disabled: 1,
-    },
+  toFlowPage(row.flowCode, {
+    workCode: row.workCode,
+    flowCode: row.flowCode,
+    disabled: 1,
   })
 }
 
