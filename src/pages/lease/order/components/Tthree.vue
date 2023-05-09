@@ -111,7 +111,7 @@ async function supplementaryOrder() {
 
   await ElMessageBox.confirm('确定要补单吗？', '提示')
   await axios.post('/order/leaseOrder/addLeaseOrders', {
-    orderNo: ids,
+    orderNos: ids,
   })
 
   ElMessage.success('补单成功')

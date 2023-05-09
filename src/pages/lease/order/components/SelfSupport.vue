@@ -247,7 +247,7 @@ const columnsConfig = {
               <ElButton @click="$router.push(`/process/car-renewal?orderNo=${row.leaseOrderNo}`)">
                 续租
               </ElButton>
-              <ElButton @click="$router.push(`/lease/order/transfer/${row.id}`)">
+              <ElButton @click="$router.push(`/lease/order/transfer/${row.leaseOrderNo}`)">
                 换车
               </ElButton>
               <ElButton size="small" type="success" @click="$router.push(`./order/info/self-support/${row.id}`)">
