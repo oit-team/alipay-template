@@ -138,7 +138,7 @@ async function supplementaryOrder() {
           <TButton icon="import" @click="open({ multiple: false })">
             {{ $t('button.import') }}T3租赁订单
           </TButton>
-          <TButton @click="supplementaryOrder()">
+          <TButton icon="i-icon-park-outline:transaction-order" @click="supplementaryOrder()">
             补单
           </TButton>
         </QueryToolbar>
