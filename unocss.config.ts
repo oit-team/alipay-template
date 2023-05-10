@@ -61,5 +61,7 @@ export default defineConfig({
     'i-ic:baseline-car-rental',
     'i-mdi:file-document-check-outline',
     'i-mdi:report-bar',
+    'i-icon-park-outline:transaction-order',
+    'i-streamline:money-cash-bag-dollar-bag-payment-cash-money-finance',
   ],
 })
