@@ -1,11 +1,10 @@
 <script setup lang="ts">
 // import DriverInfo from '@/pages/lease/driver/info/[id].vue'
 // import VehicleInfo from '@/pages/lease/car/info/[id].vue'
-import { flowOptionSymbol } from '@/pages/process/types'
+import { useFlowOption } from '@/pages/process/hooks/useFlowOption'
 
 const form = createForm()
-const flowOption = inject(flowOptionSymbol)!
-
+const flowOption = useFlowOption()!
 const route = useRoute()
 
 const workCode = route.query?.workCode || ''
@@ -20,7 +19,7 @@ const { data } = useAxios('/order/leaseOrder/getViolationInfoByOrderNo', {
   <div class="flex flex-col">
     <FormProvider :form="form">
       <PageHeader :title="$route.query?.workCode ? `延期申请-${$route.query?.workCode}` : '延期申请'">
-        <template #extra>
+        <template v-if="!flowOption.isReview" #extra>
           <ElButton type="danger" @click="flowOption.reject()">
             拒绝
           </ElButton>
