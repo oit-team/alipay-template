@@ -89,7 +89,7 @@ async function submit(formData: any) {
   <div class="transfer formily-readonly p-2 flex flex-col gap-2">
     <FormProvider :form="form">
       <PageHeader :title="hideSearches ? '换车详情' : '换车申请'">
-        <template #extra>
+        <template v-if="!hideSearches" #extra>
           <Submit type="primary" @submit="submit">
             提交
           </Submit>
