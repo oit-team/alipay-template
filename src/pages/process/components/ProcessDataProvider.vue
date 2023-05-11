@@ -71,8 +71,8 @@ async function reject(data = {}) {
   })
 }
 
-const currentLogs = computed(() => flowStepsData.value?.workFlowSteps?.[stepActive.value!]?.executeLogs)
 const currentStep = computed(() => flowStepsData.value?.workFlowSteps?.[stepActive.value!])
+const currentLogs = computed(() => currentStep.value?.executeLogs)
 const isReview = computed(() =>
   [OrderStatus.Done, OrderStatus.Abandon].includes(flowStepsData.value?.status)
   || (flowStepsData.value?.taskCode && flowStepsData.value?.taskCode !== stepCodeActive.value)
@@ -93,14 +93,14 @@ const workOrderInfo = computed<WorkOrderInfo>(() => reactive({
 
 function setViewStep(item: WorkOrderInfo['workFlowSteps'][number]) {
   if (item.clickEnable) {
-    stepActive.value = item.step
+    stepActive.value = item.step - 1
     stepCodeActive.value = item.taskCode
   }
 }
 
 watch(() => workOrderInfo.value.step, (step) => {
   stepActive.value = step
-})
+}, { immediate: true })
 
 const flowOption = computed<FlowOption>(() => reactive({
   ...initParams,
