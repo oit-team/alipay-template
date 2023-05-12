@@ -24,7 +24,7 @@ const props = withDefaults(defineProps<UploadProps>(), {
   action: '/system/file/uploadFile',
   chunkSize: 1024 * 5,
   limit: 9,
-  transformRequest: () => transformRequest,
+  transformRequest,
 })
 const emit = defineEmits(['update:fileList'])
 const fileList = useVModel(props, 'fileList', emit)
