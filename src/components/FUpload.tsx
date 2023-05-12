@@ -33,7 +33,7 @@ const UploadWrapper = defineComponent({
     const fieldRef = useField<Field>()
     const fileListRef = ref<UploadFile[]>([])
     // 是否时解构赋值
-    const isDestructor = fieldRef.value?.path.entire.toString().includes('[') ?? false
+    const isDestructor = fieldRef.value?.path.entire.toString().startsWith('[') ?? false
 
     const setFeedBack = (error?: Error) => {
       const message = props.errorAdaptor(error)
