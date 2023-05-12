@@ -152,7 +152,7 @@ watch(() => [state.activityId, state.schemeId], () => {
     data: {
       schemeId: state.schemeId,
       activityId: state.activityId,
-      time: orderInfo.value.endTime,
+      time: orderInfo.value?.leaseOrder?.endTime,
     },
   })
 })
