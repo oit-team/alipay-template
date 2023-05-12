@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { pick } from 'lodash-es'
-import { InputNumber } from '@formily/element-plus'
+import { FormItem, InputNumber } from '@formily/element-plus'
 import { onFieldReact } from '@formily/core'
 import type { Field as FieldType } from '@formily/core'
 import { useFlowOption } from '@/pages/process/hooks/useFlowOption'

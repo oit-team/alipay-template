@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Input } from '@formily/element-plus'
+import { FormItem, Input } from '@formily/element-plus'
 import { ObjectField, VoidField, useFormEffects } from '@formily/vue'
 import { onFieldReact, onFieldValueChange } from '@formily/core'
 import numeral from 'numeral'

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ElInput } from 'element-plus'
 import { set } from 'lodash-es'
+import { FormItem } from '@formily/element-plus'
 import { workOrderInfoSymbol, workOrderSubmitSymbol } from '../../../types'
 import Valuation from '../components/Valuation.vue'
 

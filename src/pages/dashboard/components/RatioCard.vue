@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import DataItem from './DataItem.vue'
-import type { ExtractPropTypes } from 'vue'
 
-interface Props extends ExtractPropTypes<InstanceType<typeof DataItem>['$props']> {
+interface Props {
   header: string
 }
 

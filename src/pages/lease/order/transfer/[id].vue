@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Input } from '@formily/element-plus'
+import { FormItem, Input } from '@formily/element-plus'
 import { transformResponsePush } from '@/utils/helper'
 import Valuation from '@/pages/process/car-rental-return/components/components/Valuation.vue'
 

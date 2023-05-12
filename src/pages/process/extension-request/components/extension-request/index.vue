@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
 import { onFieldReact } from '@formily/core'
-import { DatePicker, Input } from '@formily/element-plus'
+import { DatePicker, FormItem, Input } from '@formily/element-plus'
 import DriverInfo from '@/pages/lease/driver/info/[id].vue'
 import VehicleInfo from '@/pages/lease/car/info/[id].vue'
 import { useFlowOption } from '@/pages/process/hooks/useFlowOption'

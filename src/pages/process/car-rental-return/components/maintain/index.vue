@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { pick } from 'lodash-es'
+import { FormItem } from '@formily/element-plus'
 import { workOrderInfoSymbol, workOrderSubmitSymbol } from '../../../types'
 import table from './schema/table.json'
 import Upload from '@/components/FUpload'
