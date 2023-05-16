@@ -53,7 +53,7 @@ async function getinfo() {
   vehicleItemNow.value = changeInfo.value?.currentVehicleInfo
   form.setValues(changeInfo.value)
   // 允许修改
-  data.code === 1 && form.setFieldState('*.*(floatingFee,depreciationCharge)', {
+  data.code === 1 && form.setFieldState('*.*(floatingFee,depreciationCharge,vehicleViolation)', {
     readOnly: false,
   })
 }

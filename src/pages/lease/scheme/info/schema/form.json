@@ -12,8 +12,7 @@
       },
       "default": "江西浪汛月凌科技发展有限公司",
       "x-decorator-props": {
-        "layout": "horizontal",
-        "colon": false
+        "layout": "horizontal"
       },
       "name": "assetCompany",
       "required": true
@@ -134,7 +133,8 @@
       "title": "活动名称",
       "x-component": "PreviewText.Select",
       "x-component-props": {
-        "multiple": true
+        "multiple": true,
+        "value": "暂无"
       }
     },
     "[agencyDeductionTemplateUrl,agencyDeductionTempName]": {
