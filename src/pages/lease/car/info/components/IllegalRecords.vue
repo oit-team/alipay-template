@@ -5,6 +5,7 @@ meta:
 
 <script setup lang="ts">
 import { vehicleParamsSymbol } from '../types'
+import querySchema from './schema/IllegalRecordsQuery.json'
 
 const columnsConfig = {
   projectName: {
@@ -77,6 +78,7 @@ onMounted(() => {
         ref="queryRef"
         auto-query="active"
       >
+        <QueryForm :schema="querySchema" />
         <QueryTable />
         <QueryPagination />
       </QueryProvide>
