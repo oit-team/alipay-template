@@ -17,6 +17,8 @@ enum statusColorMap {
   'text-green-500', // 履约中
   'text-yellow-500', // 已到期
   'text-red-500', // '已作废'
+  'text-orange-500',
+  'text-blue-500',
 }
 
 // 订单作废
