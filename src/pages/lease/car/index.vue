@@ -16,15 +16,6 @@ const { t } = useI18n()
 const queryRef = ref()
 const tableRef = ref<TableInstance>()
 
-async function onDelete(row: any) {
-  await ElMessageBox.confirm('要删除该车辆吗?', '提示', {
-    type: 'warning',
-  })
-  await axios.post('/vehicle/vehicle/deleteVehicle', { vehicleId: row.vehicleId })
-  await queryRef.value?.query()
-  ElMessage.success(t('handle.success'))
-}
-
 const columnsConfig = {
   orgName: {
     width: 200,
@@ -123,8 +114,8 @@ async function updateTableList() {
   await queryRef.value?.query()
 }
 
-async function deleteItems() {
-  if (!vehicleIds.value?.length) {
+async function deleteItems(ids?: number[]) {
+  if (!vehicleIds.value?.length && !ids?.length) {
     ElMessage.warning(t('check.leastOne'))
     return
   }
@@ -132,7 +123,9 @@ async function deleteItems() {
     type: 'warning',
   })
 
-  await axios.post('/vehicle/vehicle/deleteVehicle', { vehicleIds: vehicleIds.value })
+  await axios.post('/vehicle/vehicle/deleteVehicle', {
+    vehicleIds: ids || vehicleIds.value,
+  })
   await queryRef.value?.query()
   ElMessage.success(t('handle.success'))
 }
@@ -193,7 +186,7 @@ async function deleteItems() {
               <ElButton size="small" type="primary" @click="$router.push(`./car/${row.vehicleId}`)">
                 {{ $t('button.edit') }}
               </ElButton>
-              <ElButton :disabled="row.vehicleStateVal === 1" size="small" type="danger" @click="onDelete(row)">
+              <ElButton :disabled="row.vehicleStateVal === 1" size="small" type="danger" @click="deleteItems([row.vehicleId])">
                 {{ $t('button.delete') }}
               </ElButton>
             </QueryActionColumn>
