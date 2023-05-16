@@ -125,6 +125,19 @@
               "x-designable-id": "28gjcfbt3y9",
               "x-index": 8
             },
+            "startTime": {
+              "type": "string",
+              "title": "起租日期",
+              "x-decorator": "FormItem",
+              "x-component": "DatePicker",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "endTime",
+              "required": true,
+              "x-designable-id": "l19xr1mn4gn",
+              "x-index": 9
+            },
             "endTime": {
               "type": "string",
               "title": "终止日期",
@@ -136,7 +149,7 @@
               "name": "endTime",
               "required": true,
               "x-designable-id": "l19xr1mn4gn",
-              "x-index": 9
+              "x-index": 10
             }
           }
         },
