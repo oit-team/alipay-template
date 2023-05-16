@@ -17,25 +17,6 @@ const dialogFormVisible = ref(false)
 const refuseForm = ref<any>({
   value: '',
 })
-// const refuseSchema = {
-//   'type': 'object',
-//   'properties': {
-//     r69we8vpref: {
-//       'type': 'string',
-//       'title': '备注',
-//       'x-decorator': 'FormItem',
-//       'x-component': 'Input',
-//       'x-validator': [],
-//       'x-component-props': {
-//         type: 'textarea',
-//       },
-//       'x-decorator-props': {},
-//       'x-designable-id': 'r69we8vpref',
-//       'x-index': 0,
-//     },
-//   },
-//   'x-designable-id': '9ad2pqw1srf',
-// }
 
 const getDetailInfo = async () => {
   if (!isNew) {
@@ -45,6 +26,11 @@ const getDetailInfo = async () => {
     form.setInitialValues({
       ...data?.resultMap,
       brandCarModelId: data?.resultMap?.brandCarModelId || undefined,
+    })
+  }
+  else {
+    form.setFieldState('activityNameList', {
+      visible: false,
     })
   }
 }
