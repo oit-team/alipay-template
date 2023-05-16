@@ -5,6 +5,7 @@ meta:
 
 <script setup lang="ts">
 import AssignDrawer from './components/AssignDrawer.vue'
+import type { TableInstance } from 'element-plus'
 import { useUserStore } from '@/store/user'
 import { getCityList, useSelectAsyncDataSource, vehicleServiceList } from '@/reactions'
 import { importNotice } from '@/utils/importNotice'
@@ -13,6 +14,7 @@ const { checkPermission } = usePermission()
 const { t } = useI18n()
 
 const queryRef = ref()
+const tableRef = ref<TableInstance>()
 
 async function onDelete(row: any) {
   await ElMessageBox.confirm('要删除该车辆吗?', '提示', {
@@ -101,27 +103,38 @@ watch(files, async (value) => {
   reset()
 })
 
-const checkedUserArr = ref<any[]>()
-const checkUserIds = ref<any[]>() // 选中的用户ids
+const vehicleIds = ref<number[]>()
 const assignDrawerRef = ref<InstanceType<typeof AssignDrawer>>()
 
-function handleSelectionListChange(val: any) {
-  checkedUserArr.value = val
+function handleSelectionListChange(val: any[]) {
+  vehicleIds.value = val.map(item => item.vehicleId)
 }
 
 async function openAssignMan() {
-  if (checkedUserArr.value && checkedUserArr.value.length > 0) {
+  if (vehicleIds.value && vehicleIds.value.length > 0) {
     await nextTick()
 
-    const ids = checkedUserArr.value.map(item => item.vehicleId)
-    checkUserIds.value = ids
-    assignDrawerRef.value?.open(checkUserIds, 1)
+    assignDrawerRef.value?.open(vehicleIds, 1)
   }
   else { ElMessage.warning('请先选择要批量分配的车辆') }
 }
 
 async function updateTableList() {
   await queryRef.value?.query()
+}
+
+async function deleteItems() {
+  if (!vehicleIds.value?.length) {
+    ElMessage.warning(t('check.leastOne'))
+    return
+  }
+  await ElMessageBox.confirm(t('confirm.delete'), t('tip.warning'), {
+    type: 'warning',
+  })
+
+  await axios.post('/vehicle/vehicle/deleteVehicle', { vehicleIds: vehicleIds.value })
+  await queryRef.value?.query()
+  ElMessage.success(t('handle.success'))
 }
 </script>
 
@@ -145,6 +158,9 @@ async function updateTableList() {
           <TButton icon="add" @click="$router.push(`./car/new`)">
             {{ $t('button.new') }}
           </TButton>
+          <TButton icon="i-delete" @click="deleteItems()">
+            {{ $t('button.delete') }}
+          </TButton>
           <TButton icon="import" @click="importCar">
             车辆{{ $t('button.import') }}
           </TButton>
@@ -155,7 +171,7 @@ async function updateTableList() {
             {{ $t('button.assign') }}负责人
           </TButton>
         </QueryToolbar>
-        <QueryTable :selection="{ type: 'checkbox' }" @selection-change="handleSelectionListChange">
+        <QueryTable ref="tableRef" :selection="{ type: 'checkbox' }" @selection-change="handleSelectionListChange">
           <!-- 0 待租 1 已租 -->
           <template #content:vehicleState="{ row }">
             <div :class="row.vehicleStateVal === 1 ? 'text-green' : ''">

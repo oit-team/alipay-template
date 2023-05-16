@@ -42,6 +42,7 @@ export default defineConfig({
     'i-import': 'i-raphael:import',
     'i-export': 'i-raphael:export',
     'i-apply': 'i-ic:baseline-add-task',
+    'i-delete': 'i-ph:trash-bold',
   },
   rules: [
     ['text-primary', { color: 'var(--el-color-primary)' }],
