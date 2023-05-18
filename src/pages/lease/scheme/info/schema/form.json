@@ -127,14 +127,22 @@
       "name": "expirationDate",
       "required": true
     },
-    "activityNameList": {
-      "type": "Array<string>",
-      "x-decorator": "FormItem",
-      "title": "活动名称",
-      "x-component": "PreviewText.Select",
-      "x-component-props": {
-        "multiple": true,
+    "void": {
+      "type": "void",
+      "x-decorator": "PreviewText.Placeholder",
+      "x-decorator-props": {
         "value": "暂无"
+      },
+      "properties": {
+        "activityNameList": {
+          "type": "Array<string>",
+          "x-decorator": "FormItem",
+          "title": "活动名称",
+          "x-component": "PreviewText.Select",
+          "x-component-props": {
+            "multiple": true
+          }
+        }
       }
     },
     "[agencyDeductionTemplateUrl,agencyDeductionTempName]": {
