@@ -82,7 +82,7 @@ const accessoriesSchema = {
           column2: {
             'type': 'void',
             'x-component': 'ArrayTable.Column',
-            'x-component-props': { width: 200, title: '是否存在' },
+            'x-component-props': { width: 200, title: '是否丢失' },
             'properties': {
               missing: {
                 'type': 'boolean',
