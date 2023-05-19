@@ -5,6 +5,7 @@
 
 <script setup lang="ts">
 import querySchema from './schema/query.json'
+import { importNotice } from '@/utils/importNotice'
 
 const columns = [
   { prop: 'driverName', label: '姓名' },
@@ -18,6 +19,34 @@ const columns = [
 ]
 
 const queryData = ref()
+
+const { open, reset, onChange } = useFileDialog()
+
+onChange(async (files) => {
+  if (!files?.length)
+    return
+
+  try {
+    const { profile } = useUserStore()
+    const { data } = await axios.post('/order/leaseOrder/importWithholdingRecords', {
+      file: files[0],
+      userId: profile?.userId,
+    }, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+
+    importNotice(data.importIndex)
+  }
+  catch (error) {
+    ElMessageBox.alert((error as any).message, '警告', {
+      type: 'warning',
+    })
+  }
+
+  reset()
+})
 </script>
 
 <template>
@@ -36,6 +65,11 @@ const queryData = ref()
         auto-query="active"
       >
         <QueryForm />
+        <QueryToolbar>
+          <TButton icon="i-import" @click="open()">
+            导入T3代扣信息
+          </TButton>
+        </QueryToolbar>
         <QueryTable>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" fixed="right" label="操作" width="120px">
