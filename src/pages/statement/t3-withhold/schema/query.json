@@ -1,0 +1,106 @@
+{
+  "type": "object",
+  "properties": {
+    "g8ji202ljfq": {
+      "type": "void",
+      "x-component": "FormGrid",
+      "x-validator": [],
+      "x-component-props": {
+        "maxColumns": 4
+      },
+      "x-designable-id": "g8ji202ljfq",
+      "properties": {
+        "smmaejjzwdr": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "smmaejjzwdr",
+          "properties": {
+            "statementNumber": {
+              "type": "string",
+              "title": "账单编号",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "statementNumber",
+              "x-designable-id": "z2hc131w22k",
+              "x-index": 0
+            }
+          },
+          "x-index": 0
+        },
+        "associatedOrder": {
+          "type": "string",
+          "title": "关联订单",
+          "x-decorator": "FormItem",
+          "x-component": "Input",
+          "x-validator": [],
+          "x-component-props": {},
+          "x-decorator-props": {},
+          "name": "associatedOrder",
+          "x-designable-id": "fuu3jtfg2g5",
+          "x-index": 1
+        },
+        "driverName": {
+          "type": "string",
+          "title": "姓名",
+          "x-decorator": "FormItem",
+          "x-component": "Input",
+          "x-validator": [],
+          "x-component-props": {},
+          "x-decorator-props": {},
+          "name": "driverName",
+          "x-designable-id": "j8cgc743ztp",
+          "x-index": 2
+        },
+        "nwvg509x6a8": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "nwvg509x6a8",
+          "properties": {
+            "licensePlate": {
+              "type": "string",
+              "title": "车牌号",
+              "x-decorator": "FormItem",
+              "x-component": "Input",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "licensePlate",
+              "x-designable-id": "axmuum1eob2",
+              "x-index": 0
+            }
+          },
+          "x-index": 3
+        },
+        "t5hmetl0arj": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-validator": [],
+          "x-component-props": {},
+          "x-designable-id": "t5hmetl0arj",
+          "properties": {
+            "[startcreateTime,endcreateTime]": {
+              "type": "string[]",
+              "title": "创建时间",
+              "x-decorator": "FormItem",
+              "x-component": "DatePicker",
+              "x-validator": [],
+              "x-component-props": {
+                "type": "daterange"
+              },
+              "x-decorator-props": {},
+              "name": "[startcreateTime,endcreateTime]",
+              "x-designable-id": "opuz957ln46",
+              "x-index": 0
+            }
+          },
+          "x-index": 4
+        }
+      },
+      "x-index": 0
+    }
+  },
+  "x-designable-id": "zfz177at714"
+}
