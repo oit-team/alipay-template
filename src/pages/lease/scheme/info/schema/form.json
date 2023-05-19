@@ -6,19 +6,15 @@
       "title": "资产公司",
       "x-decorator": "FormItem",
       "x-component": "Input",
-      "x-validator": [],
       "x-pattern": "disabled",
       "x-component-props": {
         "maxLength": 50
       },
       "default": "江西浪汛月凌科技发展有限公司",
       "x-decorator-props": {
-        "layout": "horizontal",
-        "colon": false
+        "layout": "horizontal"
       },
       "name": "assetCompany",
-      "x-designable-id": "e3pkf0etyol",
-      "x-index": 0,
       "required": true
     },
     "caseName": {
@@ -26,30 +22,20 @@
       "title": "方案名称",
       "x-decorator": "FormItem",
       "x-component": "Input",
-      "x-validator": [],
       "x-component-props": {
         "maxLength": 50
       },
       "x-pattern": "disabled",
-      "x-decorator-props": {
-        "colon": false
-      },
       "name": "caseName",
-      "x-designable-id": "6i6pagv7bfc",
-      "x-index": 1,
       "required": true
     },
     "caseType": {
       "title": "方案类型",
       "x-decorator": "FormItem",
       "x-component": "Select",
-      "x-validator": [],
       "x-pattern": "disabled",
       "x-component-props": {
         "placeholder": "请选择方案类型"
-      },
-      "x-decorator-props": {
-        "colon": false
       },
       "enum": [
         {
@@ -61,8 +47,6 @@
           "value": "1"
         }
       ],
-      "x-designable-id": "l4xbtsr2vu2",
-      "x-index": 2,
       "required": true,
       "name": "caseType",
       "default": ""
@@ -72,7 +56,6 @@
       "title": "品牌车系车型",
       "x-decorator": "FormItem",
       "x-component": "Select",
-      "x-validator": [],
       "x-pattern": "disabled",
       "x-component-props": {
         "placeholder": "请输入品牌车系车型",
@@ -83,12 +66,7 @@
         "remote-show-suffix": true
       },
       "x-reactions": "{{useSelectAsyncDataSource(getVehicleBrandSeriesModel, {init: true})}}",
-      "x-decorator-props": {
-        "colon": false
-      },
       "name": "brandCarModel",
-      "x-designable-id": "gb3xjkddzli",
-      "x-index": 3,
       "required": true
     },
     "leasingCity": {
@@ -96,21 +74,15 @@
       "title": "租赁城市",
       "x-decorator": "FormItem",
       "x-component": "Select",
-      "x-validator": [],
       "x-component-props": {
         "filterable": true,
         "remote": true,
         "reserve-keyword": true,
         "remote-show-suffix": true
       },
-      "x-decorator-props": {
-        "colon": false
-      },
       "x-pattern": "disabled",
       "name": "leasingCity",
-      "x-designable-id": "2nlwc2j6a8t",
       "x-reactions": "{{useSelectAsyncDataSource(loadData, {init: true})}}",
-      "x-index": 4,
       "required": true
     },
     "rent": {
@@ -119,14 +91,8 @@
       "x-decorator": "FormItem",
       "x-component": "Input",
       "x-validator": "number",
-      "x-component-props": {},
-      "x-decorator-props": {
-        "colon": false
-      },
       "x-pattern": "disabled",
       "name": "rent",
-      "x-designable-id": "1bhthaijp8z",
-      "x-index": 5,
       "required": true
     },
     "cashPledge": {
@@ -135,31 +101,18 @@
       "x-decorator": "FormItem",
       "x-component": "Input",
       "x-validator": "integer",
-      "x-component-props": {},
-      "x-decorator-props": {
-        "colon": false
-      },
       "x-pattern": "disabled",
       "required": true,
-      "name": "cashPledge",
-      "x-designable-id": "sqbqreqe5s3",
-      "x-index": 6
+      "name": "cashPledge"
     },
     "leaseTerm": {
       "type": "string",
       "title": "租期（月）",
       "x-decorator": "FormItem",
       "x-component": "Input",
-      "x-validator": [],
-      "x-component-props": {},
       "x-pattern": "disabled",
-      "x-decorator-props": {
-        "colon": false
-      },
       "name": "leaseTerm",
-      "required": true,
-      "x-designable-id": "wheij0ufoc7",
-      "x-index": 7
+      "required": true
     },
     "expirationDate": {
       "type": "string",
@@ -171,13 +124,26 @@
       "x-component-props": {
         "placeholder": "选择方案截止时间"
       },
-      "x-decorator-props": {
-        "colon": false
-      },
       "name": "expirationDate",
-      "x-designable-id": "obn3q704om6",
-      "x-index": 10,
       "required": true
+    },
+    "void": {
+      "type": "void",
+      "x-decorator": "PreviewText.Placeholder",
+      "x-decorator-props": {
+        "value": "暂无"
+      },
+      "properties": {
+        "activityNameList": {
+          "type": "Array<string>",
+          "x-decorator": "FormItem",
+          "title": "活动名称",
+          "x-component": "PreviewText.Select",
+          "x-component-props": {
+            "multiple": true
+          }
+        }
+      }
     },
     "[agencyDeductionTemplateUrl,agencyDeductionTempName]": {
       "type": "Array<object>",
@@ -189,13 +155,7 @@
         "textContent": "Upload",
         "limit": 1
       },
-      "x-validator": [],
-      "x-decorator-props": {
-        "colon": false
-      },
-      "name": "agencyDeductionTemplateUrl",
-      "x-designable-id": "b0o5zb9n8ny",
-      "x-index": 11
+      "name": "agencyDeductionTemplateUrl"
     },
     "[contractTemplateUrl,contractTemplateName]": {
       "type": "Array<object>",
@@ -206,16 +166,8 @@
       "x-component-props": {
         "textContent": "Upload",
         "limit": 1
-
       },
-      "x-validator": [],
-      "x-decorator-props": {
-        "colon": false
-      },
-      "name": "contractTemplateUrl",
-      "x-designable-id": "toyuh0vvtfw",
-      "x-index": 12
+      "name": "contractTemplateUrl"
     }
-  },
-  "x-designable-id": "609ucp7429v"
+  }
 }

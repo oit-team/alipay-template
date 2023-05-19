@@ -1,0 +1,44 @@
+{
+  "type": "object",
+  "properties": {
+    "vvk9lufqt5y": {
+      "type": "void",
+      "x-component": "FormGrid",
+      "x-validator": [],
+      "x-component-props": {
+        "minColumns": 4,
+        "maxColumns": 4
+      },
+      "x-designable-id": "vvk9lufqt5y",
+      "x-index": 0,
+      "properties": {
+        "z83ys3zjm18": {
+          "type": "void",
+          "x-component": "FormGrid.GridColumn",
+          "x-designable-id": "z83ys3zjm18",
+          "x-index": 0,
+          "x-validator": [],
+          "x-component-props": {},
+          "properties": {
+            "disposeState": {
+              "title": "处理状态",
+              "x-decorator": "FormItem",
+              "x-component": "Select",
+              "x-validator": [],
+              "x-component-props": {},
+              "x-decorator-props": {},
+              "name": "disposeState",
+              "x-designable-id": "xie13dh3bfc",
+              "x-index": 0,
+              "enum": [
+                "未完结",
+                "已完结"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "x-designable-id": "4wz2zuebe4o"
+}

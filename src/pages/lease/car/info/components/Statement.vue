@@ -139,7 +139,7 @@ onMounted(() => {
       }"
       :key-map="{ data: 'resultList', total: 'totalCount' }"
       :schema="schema"
-      url="/vehicle/vehicle/getT3OperationalDataList"
+      url="/vehicle/vehicle/getT3OperationalDatas"
     >
       <QueryProvide v-bind="attrs" ref="queryRef" auto-query="active">
         <QueryTable>

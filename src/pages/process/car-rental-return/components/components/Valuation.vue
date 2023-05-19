@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Input } from '@formily/element-plus'
+import { FormItem, Input } from '@formily/element-plus'
 import { ObjectField, VoidField, useFormEffects } from '@formily/vue'
 import { onFieldReact, onFieldValueChange } from '@formily/core'
 import numeral from 'numeral'
@@ -82,7 +82,7 @@ const accessoriesSchema = {
           column2: {
             'type': 'void',
             'x-component': 'ArrayTable.Column',
-            'x-component-props': { width: 200, title: '是否存在' },
+            'x-component-props': { width: 200, title: '是否丢失' },
             'properties': {
               missing: {
                 'type': 'boolean',
@@ -146,8 +146,8 @@ const accessoriesSchema = {
             <div class="grid grid-cols-[200px_200px_200px_1fr_200px] flex-1 gap-2">
               <Field
                 v-for="field of [
-                  { name: '应收金额', key: 'receivable', validator: 'number' },
-                  { name: '已收金额', key: 'netReceipts', validator: 'number' },
+                  { name: '应收金额', key: 'receivable', validator: 'number', default: 0 },
+                  { name: '已收金额', key: 'netReceipts', validator: 'number', default: 0 },
                   { name: '金额小计', key: 'subtotal', validator: 'number' },
                   { name: '备注', key: 'remarks', required: false },
                   { name: '负责人', key: 'confirmedBy', hide: !showConfirmedBy },
@@ -155,6 +155,7 @@ const accessoriesSchema = {
                 :key="field.name"
                 :component="[Input]"
                 :decorator="[FormItem]"
+                :initial-value="field.default"
                 :name="field.key"
                 :required="field.required ?? true"
                 :validator="field.validator"

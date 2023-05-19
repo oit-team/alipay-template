@@ -28,6 +28,9 @@
     "submit": "确定要提交吗？",
     "notSaved": "有未保存的修改，确定要关闭吗？"
   },
+  "check": {
+    "leastOne": "请至少选择一项"
+  },
   "button": {
     "save": "保存",
     "info": "详情",

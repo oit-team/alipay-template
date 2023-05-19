@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { FormItem } from '@formily/element-plus'
 import DriverInfo from '@/pages/lease/driver/info/[id].vue'
 import VehicleInfo from '@/pages/lease/car/info/[id].vue'
 import { workOrderInfoSymbol, workOrderSubmitSymbol } from '@/pages/process/types'

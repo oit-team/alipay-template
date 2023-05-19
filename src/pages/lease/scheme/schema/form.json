@@ -160,7 +160,8 @@
       "x-component": "DatePicker",
       "required": true,
       "x-component-props": {
-        "type": "daterange"
+        "type": "daterange",
+        "disabled-date": "{{(date) => new Date() > new Date(date)}}"
       },
       "x-index": 8
     },
@@ -189,7 +190,6 @@
       "x-component-props": {
         "textContent": "Upload",
         "limit": 1
-
       },
       "x-validator": [],
       "x-decorator-props": {

@@ -8,7 +8,7 @@ const workOrderReview = inject('workOrderReview') as Ref<any>
 
 async function handlePass() {
   await workOrderSubmit?.({
-    statue: 1,
+    statue: 5,
   }, {
     approvalStatus: 1,
   })

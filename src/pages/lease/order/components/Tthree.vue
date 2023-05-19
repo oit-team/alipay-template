@@ -104,14 +104,14 @@ watch(files, async (value) => {
 
 // 补单
 async function supplementaryOrder() {
-  const ids = tableRef.value?.getSelectionRows()?.map((item: any) => item.id)
+  const orderNos = tableRef.value?.getSelectionRows()?.map((item: any) => item.orderNo)
 
-  if (!ids?.length)
+  if (!orderNos?.length)
     return ElMessage.warning('请选择要补单的订单')
 
   await ElMessageBox.confirm('确定要补单吗？', '提示')
   await axios.post('/order/leaseOrder/addLeaseOrders', {
-    orderNos: ids,
+    orderNos,
   })
 
   ElMessage.success('补单成功')
@@ -138,7 +138,7 @@ async function supplementaryOrder() {
           <TButton icon="import" @click="open({ multiple: false })">
             {{ $t('button.import') }}T3租赁订单
           </TButton>
-          <TButton @click="supplementaryOrder()">
+          <TButton icon="i-icon-park-outline:transaction-order" @click="supplementaryOrder()">
             补单
           </TButton>
         </QueryToolbar>

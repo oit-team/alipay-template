@@ -42,6 +42,7 @@ export default defineConfig({
     'i-import': 'i-raphael:import',
     'i-export': 'i-raphael:export',
     'i-apply': 'i-ic:baseline-add-task',
+    'i-delete': 'i-ph:trash-bold',
   },
   rules: [
     ['text-primary', { color: 'var(--el-color-primary)' }],
@@ -61,5 +62,7 @@ export default defineConfig({
     'i-ic:baseline-car-rental',
     'i-mdi:file-document-check-outline',
     'i-mdi:report-bar',
+    'i-icon-park-outline:transaction-order',
+    'i-streamline:money-cash-bag-dollar-bag-payment-cash-money-finance',
   ],
 })

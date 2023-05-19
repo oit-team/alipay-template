@@ -5,6 +5,7 @@ meta:
   </route>
 
 <script setup lang="ts">
+import Logs from '../components/Logs.vue'
 import Steps from '../components/Steps.vue'
 import { useFlowOption } from '../hooks/useFlowOption'
 import ExtensionRequest from './components/extension-request/index.vue'
@@ -38,5 +39,6 @@ provide('workOrderReviewExtension', workOrderReviewExtension)
   <div u-flex="~ col" u-h-full>
     <Steps />
     <Component :is="view" v-if="!workOrderReviewLoading" class="flex-1" />
+    <Logs />
   </div>
 </template>

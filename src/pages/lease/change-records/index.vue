@@ -25,7 +25,7 @@ const queryRef = ref()
         <QueryTable>
           <template #actions>
             <QueryActionColumn v-slot="{ row }" label="操作" width="100px">
-              <ElButton size="small" type="info" @click="$router.push(`./order/transfer/${row.recordsId}?hide=1`)">
+              <ElButton size="small" type="info" @click="$router.push(`./order/transfer?recordsId=${row.recordsId}`)">
                 详情
               </ElButton>
             </QueryActionColumn>

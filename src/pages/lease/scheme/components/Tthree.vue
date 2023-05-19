@@ -9,8 +9,6 @@ import { useUserStore } from '@/store/user'
 import { getCityList, useSelectAsyncDataSource } from '@/reactions'
 import { importNotice } from '@/utils/importNotice'
 
-const { t } = useI18n()
-
 enum statusColorMap {
   '', // 审批中
   'text-green-500', // 履约中

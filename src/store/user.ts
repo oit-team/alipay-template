@@ -2,16 +2,22 @@ import axios from 'axios'
 import { defineStore } from 'pinia'
 import { setToken } from '@/utils/auth'
 
+interface UserProfile {
+  userId: number
+  userName: string
+  orgId: number
+  nickName: string
+  userRole: number
+  phoneNum: number
+  sex: string
+}
+
 export const useUserStore = defineStore('user', () => {
-  const profile = ref<{
-    userId: number
-    userName: string
-    orgId: number
-    nickName: string
-    userRole: number
-    phoneNum: number
-    sex: string
-  }>()
+  const profile = ref<UserProfile>()
+
+  const setUserProfile = (data: UserProfile) => {
+    profile.value = data
+  }
 
   // 更新用户信息
   const updateUserProfile = async () => {
@@ -33,6 +39,7 @@ export const useUserStore = defineStore('user', () => {
 
   return {
     profile: readonly(profile),
+    setUserProfile,
     updateUserProfile,
     getUserProfile,
     clearUserProfile,

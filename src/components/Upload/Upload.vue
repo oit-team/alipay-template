@@ -10,10 +10,6 @@ import type { AxiosRequestTransformer, AxiosResponseTransformer } from 'axios'
 import type { UploadProps as ElUploadProps, UploadFile, UploadFiles, UploadInstance, UploadRawFile, UploadRequestOptions } from 'element-plus'
 
 interface UploadProps extends Partial<ElUploadProps> {
-  fileList?: ElUploadProps['fileList']
-  action?: ElUploadProps['action']
-  listType?: ElUploadProps['listType']
-  limit?: ElUploadProps['limit']
   chunkSize?: number
   transformRequest?: AxiosRequestTransformer
   transformResponse?: AxiosResponseTransformer
@@ -24,7 +20,9 @@ const props = withDefaults(defineProps<UploadProps>(), {
   action: '/system/file/uploadFile',
   chunkSize: 1024 * 5,
   limit: 9,
-  transformRequest: () => transformRequest,
+  showFileList: true,
+  autoUpload: true,
+  transformRequest,
 })
 const emit = defineEmits(['update:fileList'])
 const fileList = useVModel(props, 'fileList', emit)
@@ -124,7 +122,7 @@ defineExpose({
 
 <template>
   <ElUpload
-    v-bind="$attrs"
+    v-bind="props"
     ref="uploadRef"
     v-model:file-list="fileList"
     :action="action"

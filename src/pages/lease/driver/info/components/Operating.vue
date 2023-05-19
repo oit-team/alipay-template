@@ -125,8 +125,7 @@ onMounted(() => {
       :data="{
         driverId,
       }"
-      :key-map="{ data: 'resultList', total: 'totalCount' }"
-      url="/vehicle/vehicle/getT3OperationalDataList"
+      url="/vehicle/vehicle/getT3OperationalDatas"
     >
       <QueryProvide v-bind="attrs" ref="queryRef" auto-query="active" :columns="columns" :schema="schema">
         <QueryTable>

@@ -16,7 +16,7 @@ const NoticeContent = defineComponent({
       transformResponse: transformResponsePush(data => data?.result),
     })
 
-    const done = computed(() => data.value.totalCount <= data.value.processedTotal)
+    const done = computed(() => data.value?.totalCount <= data.value?.processedTotal)
 
     const { pause } = useIntervalFn(execute, 3000)
     watch(error, (err) => {
@@ -39,7 +39,7 @@ const NoticeContent = defineComponent({
                   <ElTag>更新：{data.value?.upDateCount}条</ElTag>
                   <ElTag class="cursor-pointer" type="danger" onClick={() => showErrorMsg.value = true}>失败：{data.value?.failureCount}条</ElTag>
                 </div>
-              : <ElProgress percentage={Math.floor(data.value.processedTotal / data.value.totalCount * 100)}/>
+              : <ElProgress percentage={Math.floor(data.value?.processedTotal / data.value?.totalCount * 100)}/>
         }
         <ElDrawer title="错误日志" v-model={showErrorMsg.value}>
           <ul class="flex flex-col gap-2 p-3">

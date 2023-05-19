@@ -178,7 +178,7 @@ async function updateTableList() {
 
 <template>
   <div class="h-full flex p-2">
-    <div v-loading="treeLoading" class="flex flex-col h-full overflow-hidden w-250px">
+    <div v-loading="treeLoading" class="flex flex-col h-full overflow-hidden min-w-250px">
       <div class="flex gap-2">
         <ElInput v-model.trim="filterText" clearable placeholder="关键字过滤" />
         <ElButton :icon="Refresh" :loading="treeLoading" @click="getDeptList()" />

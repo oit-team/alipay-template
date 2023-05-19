@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onFieldReact } from '@formily/core'
+import { FormItem } from '@formily/element-plus'
 import type { Field as FieldType } from '@formily/core'
 import { flowOptionSymbol } from '@/pages/process/types'
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Input } from '@formily/element-plus'
+import { FormItem, Input } from '@formily/element-plus'
 import { transformResponsePush } from '@/utils/helper'
 import Valuation from '@/pages/process/car-rental-return/components/components/Valuation.vue'
 
@@ -9,17 +9,19 @@ const router = useRouter()
 const form = createForm()
 const vehicleId = ref()
 const changeInfo = ref()
-const hideSearches = route.query?.hide === '1'
+const orderNo = route.query?.orderNo
+const recordsId = route.query?.recordsId
+const isNew = !!orderNo
 
 const vehicleItemNow = ref()
 
-if (hideSearches) {
+if (!isNew) {
   form.readOnly = true
   getinfo()
 }
 
 // 隐藏项
-form.setFieldState('*.*(floatingFee,depreciationCharge,trailerFee,liquidatedDamages)', {
+form.setFieldState('*.*(trailerFee,liquidatedDamages)', {
   visible: false,
 })
 
@@ -44,12 +46,16 @@ form.setValuesIn(
 
 // 获取换车记录详情
 async function getinfo() {
-  const res = await axios.post('/order/leaseOrder/getVehicleChangeInfo', {
-    recordsId: route.params?.id,
+  const { data } = await axios.post('/order/leaseOrder/getVehicleChangeInfo', {
+    recordsId,
   })
-  changeInfo.value = res.data
+  changeInfo.value = data
   vehicleItemNow.value = changeInfo.value?.currentVehicleInfo
   form.setValues(changeInfo.value)
+  // 允许修改
+  data.code === 1 && form.setFieldState('*.*(floatingFee,depreciationCharge,vehicleViolation)', {
+    readOnly: false,
+  })
 }
 
 function executeQuery(fn: any, data: any) {
@@ -76,9 +82,19 @@ const vehicleItem = computed(() => vehicleList.value?.find((item: any) => item.v
 async function submit(formData: any) {
   await ElMessageBox.confirm(t('confirm.submit'), t('tip.info'))
   await axios.post('/order/leaseOrder/addVehicleChangeRecords', {
-    leaseOrderNo: route.params.id,
+    leaseOrderNo: orderNo,
     currentVehicleId: vehicleId.value,
     ...formData,
+  })
+  ElMessage.success('提交成功')
+  router.back()
+}
+
+async function submitEdit(formData: any) {
+  await ElMessageBox.confirm(t('confirm.submit'), t('tip.info'))
+  await axios.post('/order/leaseOrder/updateVehicleChangeRecords', {
+    recordsId,
+    vehicleInspection: formData.vehicleInspection,
   })
   ElMessage.success('提交成功')
   router.back()
@@ -88,15 +104,35 @@ async function submit(formData: any) {
 <template>
   <div class="transfer formily-readonly p-2 flex flex-col gap-2">
     <FormProvider :form="form">
-      <PageHeader title="换车申请">
+      <PageHeader :title="!isNew ? '换车详情' : '换车申请'">
         <template #extra>
-          <Submit type="primary" @submit="submit">
+          <Submit v-if="isNew" type="primary" @submit="submit">
+            提交
+          </Submit>
+          <Submit v-if="!isNew && changeInfo?.code === 1" type="primary" @submit="submitEdit">
             提交
           </Submit>
         </template>
       </PageHeader>
-      <ElCard>
-        <template v-if="!hideSearches" #header>
+      <ElCard v-if="!isNew" header="原车信息">
+        <Descriptions
+          border
+          :data="changeInfo?.originalVehicleInfo"
+          default-text="暂无"
+          label-width="130px"
+          :options="[
+            { label: '车牌号', prop: 'licensePlateNumber' },
+            { label: '车架号', prop: 'vehicleFrameNumber' },
+            { label: '城市', prop: 'city' },
+            { label: '品牌车系车型', prop: 'vehicleModel' },
+            { label: '车身颜色', prop: 'bodyColor' },
+            { label: '行驶里程', prop: 'mileage' },
+            { label: '终止时间', prop: 'endTime' },
+          ]"
+        />
+      </ElCard>
+      <ElCard :header="!isNew ? '换车信息' : ''">
+        <template v-if="isNew" #header>
           <div>
             <span>车牌号：</span>
             <ElSelect
@@ -121,7 +157,7 @@ async function submit(formData: any) {
         </template>
         <Descriptions
           border
-          :data="hideSearches ? vehicleItemNow : vehicleItem"
+          :data="!isNew ? vehicleItemNow : vehicleItem"
           default-text="暂无"
           label-width="130px"
           :options="[
