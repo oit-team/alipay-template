@@ -85,6 +85,8 @@ watch(() => data.value?.leaseOrder?.endTime, async (time) => {
 
 async function submit(formData: any) {
   const params = {
+    driverId: data.value?.leaseOrder?.driverId,
+    vehicleId: data.value?.leaseOrder?.vehicleId,
     leaseOrderNo,
     workCode,
     ...formData,
