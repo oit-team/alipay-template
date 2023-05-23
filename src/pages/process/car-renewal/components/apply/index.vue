@@ -245,7 +245,7 @@ async function submit(formData: any) {
                 { label: '订单编号', prop: 'leaseOrderNo' },
                 { label: '车牌号', prop: 'licensePlateNumber' },
                 { label: '司机姓名', prop: 'driverName' },
-                { label: '订单类型', prop: 'address' },
+                { label: '订单类型', prop: 'leaseOrderType' },
                 { label: '起租日期', prop: 'startTime' },
                 { label: '截至日期', prop: 'endTime' },
                 { label: '租期', prop: 'leaseTerm' },
