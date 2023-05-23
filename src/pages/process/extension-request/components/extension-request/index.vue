@@ -150,7 +150,7 @@ async function submit(formData: any) {
               <ObjectField name="rentInspection">
                 <ElDescriptions
                   border
-                  :column="5"
+                  :column="3"
                   style="--el-descriptions-label-width: 130px"
                 >
                   <ElDescriptionsItem label="总租金">
@@ -218,3 +218,11 @@ async function submit(formData: any) {
     </FormProvider>
   </div>
 </template>
+
+<style lang="scss" scoped>
+::v-deep{
+  .formily-element-plus-form-item{
+    margin-bottom: 0;
+  }
+}
+</style>
