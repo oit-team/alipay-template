@@ -85,7 +85,7 @@ async function reject() {
           <ElButton type="danger" @click="reject()">
             拒绝
           </ElButton>
-          <Submit :disabled="workOrderReview?.returnVehicleOrderMap?.isDisplay" type="primary" @submit="submit($event, 1)">
+          <Submit type="primary" @submit="submit($event, 1)">
             通过
           </Submit>
         </template>
