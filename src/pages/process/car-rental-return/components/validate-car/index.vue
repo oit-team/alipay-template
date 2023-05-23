@@ -42,6 +42,7 @@ if (!workOrderInfo?.value.isReview) {
     workCode: workOrderInfo?.value.workCode,
   }).then(({ data }) => {
     form.setValuesIn('vehicleInspectionDetailed.liquidatedDamages.subtotal', data.liquidatedDamages)
+    form.setValuesIn('vehicleInspectionDetailed.liquidatedDamages.actualApplicationTime', data.terminationDate)
   })
 }
 

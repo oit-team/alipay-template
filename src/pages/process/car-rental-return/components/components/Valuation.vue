@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { FormItem, Input } from '@formily/element-plus'
+import { DatePicker, FormItem, Input } from '@formily/element-plus'
 import { ObjectField, VoidField, useFormEffects } from '@formily/vue'
 import { onFieldReact, onFieldValueChange } from '@formily/core'
 import numeral from 'numeral'
@@ -180,8 +180,13 @@ const accessoriesSchema = {
             </div>
             <div class="grid grid-cols-[410px_200px_1fr_200px] flex-1 gap-2">
               <Field
+                :component="[DatePicker]"
+                :decorator="[FormItem, { colon: false, labelWidth: 'auto' }]"
+                name="actualApplicationTime"
+                title="实际退车日期"
+              />
+              <Field
                 v-for="field of [
-                  { name: '信息', key: 'receivable' },
                   { name: '金额小计', key: 'subtotal', validator: 'number', readonly: true },
                   { name: '备注', key: 'remarks', required: false },
                   { name: '负责人', key: 'confirmedBy', hide: !showConfirmedBy },
