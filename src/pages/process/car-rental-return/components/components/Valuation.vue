@@ -168,13 +168,13 @@ const accessoriesSchema = {
             <div class="mt-1 w-5em">
               {{ item.groupName }}：
             </div>
-            <div class="grid grid-cols-[200px_200px_200px_1fr_200px] flex-1 gap-2">
+            <div class="grid grid-cols-[200px_200px_1fr_200px_200px] flex-1 gap-2">
               <Field
                 v-for="field of [
                   { name: '应收金额', key: 'receivable', validator: 'number', default: 0 },
                   { name: '已收金额', key: 'netReceipts', validator: 'number', default: 0 },
-                  { name: '金额小计', key: 'subtotal', validator: 'number' },
                   { name: '备注', key: 'remarks', required: false },
+                  { name: '金额小计', key: 'subtotal', validator: 'number' },
                   { name: '负责人', key: 'confirmedBy', hide: !showConfirmedBy },
                 ].filter((item) => !item.hide)"
                 :key="field.name"
@@ -203,7 +203,7 @@ const accessoriesSchema = {
             <div class="mt-1 w-5em">
               {{ item.groupName }}：
             </div>
-            <div class="grid grid-cols-[410px_200px_1fr_200px] flex-1 gap-2">
+            <div class="grid grid-cols-[410px_1fr_200px_200px] flex-1 gap-2">
               <Field
                 :component="[DatePicker, { clearable: false }]"
                 :decorator="[FormItem, { colon: false, labelWidth: 'auto' }]"
@@ -212,8 +212,8 @@ const accessoriesSchema = {
               />
               <Field
                 v-for="field of [
-                  { name: '金额小计', key: 'subtotal', validator: 'number', readonly: true },
                   { name: '备注', key: 'remarks', required: false },
+                  { name: '金额小计', key: 'subtotal', validator: 'number', readonly: true },
                   { name: '负责人', key: 'confirmedBy', hide: !showConfirmedBy },
                 ].filter((item) => !item.hide)"
                 :key="field.name"
@@ -241,14 +241,14 @@ const accessoriesSchema = {
             <div class="mt-1 w-5em">
               {{ item.groupName }}：
             </div>
-            <div class="grid grid-cols-[200px_200px_200px_200px_1fr_200px] flex-1 gap-2">
+            <div class="grid grid-cols-[200px_200px_200px_1fr_200px_200px] flex-1 gap-2">
               <Field
                 v-for="field of [
                   { name: '维修时长', key: 'workingHours' },
                   { name: '定损金额', key: 'receivable' },
                   { name: '已收金额', key: 'netReceipts' },
-                  { name: '金额小计', key: 'subtotal', validator: 'number', readonly: true },
                   { name: '备注', key: 'remarks', required: false },
+                  { name: '金额小计', key: 'subtotal', validator: 'number', readonly: true },
                   { name: '负责人', key: 'confirmedBy', hide: !showConfirmedBy },
                 ].filter((item) => !item.hide)"
                 :key="field.name"
@@ -271,12 +271,12 @@ const accessoriesSchema = {
     <VoidField name="vehicleCertificate">
       <ElCard header="车辆配件">
         <UseSchemaField :schema="accessoriesSchema" />
-        <div class="grid grid-cols-[200px_1fr_200px] flex-1 gap-2">
+        <div class="grid grid-cols-[1fr_200px_200px] flex-1 gap-2">
           <ObjectField name="vehicleCertificate">
             <Field
               v-for="field of [
-                { name: '金额总计', key: 'subtotal', validator: 'number', readonly: true, required: false },
                 { name: '备注', key: 'remarks', required: false },
+                { name: '金额总计', key: 'subtotal', validator: 'number', readonly: true, required: false },
                 { name: '负责人', key: 'confirmedBy', hide: !showConfirmedBy },
               ].filter((item) => !item.hide)"
               :key="field.key"
