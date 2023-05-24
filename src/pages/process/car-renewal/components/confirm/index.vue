@@ -36,7 +36,6 @@ async function submit() {
       <div class="flex flex-col gap-2">
         <Descriptions
           border
-          column="4"
           :data="data"
           default-text="暂无"
           label-width="130px"

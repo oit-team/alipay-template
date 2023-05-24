@@ -257,7 +257,7 @@ async function submit(formData: any) {
             <ObjectField name="appendix">
               <ElDescriptions
                 border
-                :column="5"
+                :column="3"
                 style="--el-descriptions-label-width: 130px"
               >
                 <ElDescriptionsItem label="总租金">
