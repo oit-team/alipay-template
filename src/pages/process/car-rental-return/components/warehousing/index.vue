@@ -2,9 +2,11 @@
 import DriverInfo from '@/pages/lease/driver/info/[id].vue'
 import VehicleInfo from '@/pages/lease/car/info/[id].vue'
 import { workOrderInfoSymbol, workOrderSubmitSymbol } from '@/pages/process/types'
+import { useFlowOption } from '@/pages/process/hooks/useFlowOption'
 
 const workOrderSubmit = inject(workOrderSubmitSymbol)
 const workOrderInfo = inject(workOrderInfoSymbol)
+const flowOption = useFlowOption()
 
 async function submit() {
   await workOrderSubmit?.({}, {
@@ -16,7 +18,10 @@ async function submit() {
 <template>
   <div class="h-full flex flex-col">
     <PageHeader title="申请退租">
-      <template v-if="!workOrderInfo?.isReview" #extra>
+      <template v-if="!flowOption?.isReview" #extra>
+        <ElButton type="danger" @click="flowOption?.reject()">
+          拒绝
+        </ElButton>
         <ElButton type="primary" @click="submit">
           提交
         </ElButton>
