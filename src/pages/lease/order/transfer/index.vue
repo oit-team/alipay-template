@@ -9,7 +9,9 @@ const router = useRouter()
 const form = createForm()
 const vehicleId = ref()
 const changeInfo = ref()
+const originVehicleinfo = ref()
 const orderNo = route.query?.orderNo
+const selfVehicleId = route.query?.vehicleId
 const recordsId = route.query?.recordsId
 const isNew = !!orderNo
 
@@ -19,30 +21,22 @@ if (!isNew) {
   form.readOnly = true
   getinfo()
 }
+else {
+  getOriginVehicleinfo()
+}
 
 // 隐藏项
 form.setFieldState('*.*(trailerFee,liquidatedDamages)', {
   visible: false,
 })
 
-// 设置维修项初始值
-form.setValuesIn(
-  'vehicleInspection.vehicleAccessories',
-  [
-    '车钥匙',
-    '行驶证',
-    '运输证',
-    '灭火器',
-    '脚垫',
-    '紧急警示牌',
-    '拖车钩',
-    '其它',
-  ].map(item => ({
-    receivable: item,
-    missing: false,
-    subtotal: 0,
-  })),
-)
+// 获取原车记录详情
+async function getOriginVehicleinfo() {
+  const { data } = await axios.post('/vehicle/vehicle/getVehicleDetailed', {
+    vehicleId: selfVehicleId,
+  })
+  originVehicleinfo.value = data.vehicleDetailed
+}
 
 // 获取换车记录详情
 async function getinfo() {
@@ -114,6 +108,23 @@ async function submitEdit(formData: any) {
           </Submit>
         </template>
       </PageHeader>
+      <ElCard v-if="isNew" header="原车信息">
+        <Descriptions
+          border
+          :data="originVehicleinfo"
+          default-text="暂无"
+          label-width="130px"
+          :options="[
+            { label: '车牌号', prop: 'licensePlateNumber' },
+            { label: '车架号', prop: 'vehicleFrameNumber' },
+            { label: '城市', prop: 'city' },
+            { label: '品牌车系车型', prop: 'vehicleModel' },
+            { label: '车身颜色', prop: 'bodyColor' },
+            { label: '行驶里程', prop: 'mileage' },
+            { label: '终止时间', prop: 'endTime' },
+          ]"
+        />
+      </ElCard>
       <ElCard v-if="!isNew" header="原车信息">
         <Descriptions
           border
@@ -131,7 +142,7 @@ async function submitEdit(formData: any) {
           ]"
         />
       </ElCard>
-      <ElCard :header="!isNew ? '换车信息' : ''">
+      <ElCard header="换车信息">
         <template v-if="isNew" #header>
           <div>
             <span>车牌号：</span>
@@ -173,7 +184,7 @@ async function submitEdit(formData: any) {
       </ElCard>
 
       <template v-if="vehicleItem || vehicleItemNow">
-        <Valuation effects field-name="vehicleInspection" />
+        <Valuation effects field-name="vehicleInspection" :form="form" />
 
         <ElCard header="换车原因">
           <div>
