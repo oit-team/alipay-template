@@ -120,13 +120,13 @@ function handleRowT3OrderNo(row: any) {
 
 // 点击操作列工单编号
 function handleRowRentalWorkCode(row: any) {
-  const flowCode = 'CAR_RENTAL'
+  const flowCode = row.flowCode
   router.push(`/process/car-rental?workCode=${row.rentalWorkCode}&flowCode=${flowCode}&disabled=1`)
 }
 
 // 点击退租订单编号跳转详情
 function handleRowReturnWorkCode(row: any) {
-  const flowCode = 'CAR_RETURN'
+  const flowCode = row.flowCode
   router.push(`/process/car-rental-return?workCode=${row.returnWorkCode}&flowCode=${flowCode}&disabled=1`)
 }
 
