@@ -205,7 +205,7 @@ const accessoriesSchema = {
             </div>
             <div class="grid grid-cols-[410px_200px_1fr_200px] flex-1 gap-2">
               <Field
-                :component="[DatePicker]"
+                :component="[DatePicker, { clearable: false }]"
                 :decorator="[FormItem, { colon: false, labelWidth: 'auto' }]"
                 name="actualApplicationTime"
                 title="实际退车日期"
