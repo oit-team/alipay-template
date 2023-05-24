@@ -7,7 +7,10 @@ import type { Field as FieldType } from '@formily/core'
 import { flowOptionSymbol } from '@/pages/process/types'
 
 const props = defineProps({
-  fieldName: String,
+  fieldName: {
+    type: String,
+    required: true,
+  },
   // 启用计算
   effects: Boolean,
 })
@@ -15,7 +18,29 @@ const props = defineProps({
 const flowOption = inject(flowOptionSymbol)
 const showConfirmedBy = computed(() => flowOption?.value.stepCodeActive === 'CAR_RETURN_FINANCIAL_APPROVALS')
 
-useFormEffects(() => {
+useFormEffects((form) => {
+  // 设置维修项初始值
+  form.setValuesIn(
+    `${props.fieldName}.vehicleAccessories`,
+    [
+      '车钥匙',
+      '行驶证',
+      '运输证',
+      '灭火器',
+      '脚垫',
+      '紧急警示牌',
+      '拖车钩',
+      '反光背心',
+      '千斤顶',
+      '备胎/充气泵',
+      '其它',
+    ].map(item => ({
+      receivable: item,
+      missing: false,
+      subtotal: 0,
+    })),
+  )
+
   if (props.effects) {
     const calcKey = ['vehicleViolation', 'floatingFee', 'depreciationCharge', 'trailerFee', 'vehicleLossAssessment']
     calcKey.forEach((key) => {

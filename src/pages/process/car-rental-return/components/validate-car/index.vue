@@ -12,25 +12,6 @@ const workOrderReview = inject('workOrderReview') as Ref<any>
 
 const form = createForm()
 
-// 设置维修项初始值
-form.setValuesIn(
-  'vehicleInspectionDetailed.vehicleAccessories',
-  [
-    '车钥匙',
-    '行驶证',
-    '运输证',
-    '灭火器',
-    '脚垫',
-    '紧急警示牌',
-    '拖车钩',
-    '其它',
-  ].map(item => ({
-    receivable: item,
-    missing: false,
-    subtotal: 0,
-  })),
-)
-
 // 隐藏项
 form.setFieldState('vehicleInspectionDetailed.*(vehicleViolation,floatingFee,depreciationCharge)', {
   visible: false,
