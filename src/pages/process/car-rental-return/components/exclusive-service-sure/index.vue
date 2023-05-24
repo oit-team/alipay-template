@@ -36,7 +36,7 @@ if (flowOption.value.isReview) {
   })
 }
 else {
-  rentReceivable(workOrderReview.value.returnVehicleOrderMap.returnTheCarTime)
+  rentReceivable(workOrderReview.value.vehicleInspectionMap.vehicleInspectionDetailed.liquidatedDamages.actualApplicationTime)
 }
 </script>
 
