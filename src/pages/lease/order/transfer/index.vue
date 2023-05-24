@@ -108,27 +108,10 @@ async function submitEdit(formData: any) {
           </Submit>
         </template>
       </PageHeader>
-      <ElCard v-if="isNew" header="原车信息">
+      <ElCard header="原车信息">
         <Descriptions
           border
-          :data="originVehicleinfo"
-          default-text="暂无"
-          label-width="130px"
-          :options="[
-            { label: '车牌号', prop: 'licensePlateNumber' },
-            { label: '车架号', prop: 'vehicleFrameNumber' },
-            { label: '城市', prop: 'city' },
-            { label: '品牌车系车型', prop: 'vehicleModel' },
-            { label: '车身颜色', prop: 'bodyColor' },
-            { label: '行驶里程', prop: 'mileage' },
-            { label: '终止时间', prop: 'endTime' },
-          ]"
-        />
-      </ElCard>
-      <ElCard v-if="!isNew" header="原车信息">
-        <Descriptions
-          border
-          :data="changeInfo?.originalVehicleInfo"
+          :data="isNew ? originVehicleinfo : changeInfo?.originalVehicleInfo"
           default-text="暂无"
           label-width="130px"
           :options="[

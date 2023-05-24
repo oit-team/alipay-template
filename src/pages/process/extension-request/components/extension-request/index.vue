@@ -220,9 +220,7 @@ async function submit(formData: any) {
 </template>
 
 <style lang="scss" scoped>
-::v-deep{
-  .formily-element-plus-form-item{
-    margin-bottom: 0;
-  }
+.formily-element-plus-form-item-feedback-layout-loose:not(.formily-element-plus-form-item-inset) {
+  margin-bottom: 0;
 }
 </style>
