@@ -4,41 +4,10 @@ meta:
 </route>
 
 <script setup lang="ts">
+import dayjs from 'dayjs'
+import { ElDatePicker } from 'element-plus'
 import { useUserStore } from '@/store/user'
 import { importNotice } from '@/utils/importNotice'
-
-const { files, open } = useFileDialog()
-
-const queryRef = ref()
-
-onMounted(() => {
-  queryRef.value?.query()
-})
-
-watch(files, async (value) => {
-  if (!value || !value.length)
-    return
-
-  const { profile } = useUserStore()
-
-  try {
-    const { data } = await axios.post('/vehicle/vehicle/addT3OperationalData', {
-      file: value[0],
-      userId: profile?.userId,
-    }, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
-
-    importNotice(data.importIndex)
-  }
-  catch (error) {
-    ElMessageBox.alert((error as any).message, '警告', {
-      type: 'warning',
-    })
-  }
-})
 
 const columnsConfig = {
   statisticalDate: {
@@ -75,6 +44,58 @@ const columnsConfig = {
     minWidth: 120,
   },
 }
+
+const { t } = useI18n()
+const queryRef = ref()
+
+onMounted(() => {
+  queryRef.value?.query()
+})
+
+const { files, open } = useFileDialog()
+watch(files, async (value) => {
+  if (!value || !value.length)
+    return
+
+  const { profile } = useUserStore()
+
+  try {
+    const { data } = await axios.post('/vehicle/vehicle/addT3OperationalData', {
+      file: value[0],
+      userId: profile?.userId,
+    }, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+
+    importNotice(data.importIndex)
+  }
+  catch (error) {
+    ElMessageBox.alert((error as any).message, '警告', {
+      type: 'warning',
+    })
+  }
+})
+
+async function addDataBulletinBoard() {
+  const targetDate = ref()
+  await ElMessageBox({
+    title: '选择日期',
+    message: () => h(ElDatePicker, {
+      'style': { width: '100%' },
+      'modelValue': targetDate.value,
+      'onUpdate:modelValue': (value: any) => {
+        targetDate.value = value
+      },
+    }),
+  })
+
+  await axios.post('/vehicle/reportForm/addDataBulletinBoard', {
+    time: dayjs(targetDate.value).format('YYYY-MM-DD'),
+  })
+  ElMessage.success(t('handle.success'))
+}
 </script>
 
 <template>
@@ -95,6 +116,9 @@ const columnsConfig = {
         <QueryToolbar>
           <TButton icon="import" @click="open({ multiple: false })">
             {{ $t('button.import') }}运营流水
+          </TButton>
+          <TButton @click="addDataBulletinBoard()">
+            流水计算
           </TButton>
         </QueryToolbar>
         <QueryTable>
