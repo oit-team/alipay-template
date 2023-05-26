@@ -46,6 +46,7 @@ const columnsConfig = {
 }
 
 const { t } = useI18n()
+const { checkPermission } = usePermission()
 const queryRef = ref()
 
 onMounted(() => {
@@ -84,6 +85,9 @@ async function addDataBulletinBoard() {
     title: '选择日期',
     message: () => h(ElDatePicker, {
       'style': { width: '100%' },
+      'placeholder': '请选择日期',
+      // 往前一个月
+      'disabled-date': (time: any) => !dayjs(time).isBetween(dayjs().subtract(1, 'month'), dayjs(), 'day', '[]'),
       'modelValue': targetDate.value,
       'onUpdate:modelValue': (value: any) => {
         targetDate.value = value
@@ -117,7 +121,7 @@ async function addDataBulletinBoard() {
           <TButton icon="import" @click="open({ multiple: false })">
             {{ $t('button.import') }}运营流水
           </TButton>
-          <TButton @click="addDataBulletinBoard()">
+          <TButton :disabled="checkPermission('dataOperation')" @click="addDataBulletinBoard()">
             流水计算
           </TButton>
         </QueryToolbar>

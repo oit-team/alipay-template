@@ -1,5 +1,7 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import dayjs from 'dayjs'
+import isBetween from 'dayjs/plugin/isBetween'
 import App from './App.vue'
 import { i18n } from '@/plugins/i18n'
 import router from '@/router'
@@ -13,6 +15,8 @@ import '@unocss/reset/tailwind.css'
 import './styles/index.scss'
 import 'uno.css'
 import 'animate.css'
+
+dayjs.extend(isBetween)
 
 const app = createApp(App)
 const pinia = createPinia()
