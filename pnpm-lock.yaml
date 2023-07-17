@@ -4,7 +4,7 @@ specifiers:
   '@babel/core': ^7.12.16
   '@babel/eslint-parser': ^7.12.16
   '@oit/eslint-config': ^1.1.0
-  '@oit/vue-components': ^0.0.1
+  '@oit/vue-components': 0.0.11
   '@vue/cli-plugin-babel': ~5.0.0
   '@vue/cli-plugin-eslint': ~5.0.0
   '@vue/cli-plugin-router': ~5.0.0
@@ -30,7 +30,7 @@ specifiers:
   yorkie: ^2.0.0
 
 dependencies:
-  '@oit/vue-components': 0.0.1_vue-router@3.5.4
+  '@oit/vue-components': 0.0.11_vue-router@3.5.4
   core-js: 3.23.3
   vant: 2.12.48_vue@2.7.3
   vue: 2.7.3
@@ -1406,8 +1406,8 @@ packages:
     resolution: {integrity: sha512-cphbFP97JKkl9HifX6cScxKbihkNpo9KRlUbH2PCD/fJbD3RQQlisaqViwM5vpED+RmylO5RwsfK2fD3iVlIeQ==}
     dev: true
 
-  /@oit/vue-components/0.0.1_vue-router@3.5.4:
-    resolution: {integrity: sha512-dixix+4VxQ8NxAyE7IP8w3/jD5lIARrdbYPSUSPH/NCfcYF/nxtgNlys2/udKygf8dOrY3OYRKyJ5G6lwcTGxQ==}
+  /@oit/vue-components/0.0.11_vue-router@3.5.4:
+    resolution: {integrity: sha512-yHlhN2GPUivhmsXsHSMvPuRytBXTVxCDJXpFxbeViiG1BLhlWQdRtpNPP4HL10BktRw3UIpxkFEHxwbmvJL8+A==}
     peerDependencies:
       vue-router: ^3.5.1
     dependencies:

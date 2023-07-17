@@ -8,7 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@oit/vue-components": "^0.0.1",
+    "@oit/vue-components": "^0.0.11",
     "core-js": "^3.8.3",
     "vant": "^2.12.48",
     "vue": "^2.6.14",
